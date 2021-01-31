@@ -22,7 +22,7 @@ import {
 } from '../../store/helpers/ticket'
 import { setDocuments } from '../../store/actions/documents'
 import queries from '../../graphql/queries'
-import { categories } from '__mock__'
+import { categories } from '../../__mock__'
 
 const TITLE = 'Обращения'
 

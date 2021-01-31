@@ -73,20 +73,6 @@ export const Loader = styled.div`
   height: 100%;
 `
 
-export const HTMLContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  grid-gap: var(--default-gap);
-
-  img {
-    border-radius: var(--surface-border-radius);
-  }
-`
-
-export const HTMLView = ({ content }) => (
-  <HTMLContent dangerouslySetInnerHTML={{ __html: content }} />
-)
-
 export const View = ({
   article,
   appearance,
