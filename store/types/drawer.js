@@ -1,0 +1,4 @@
+export default {
+  SET_DRAWER: 'SET_DRAWER',
+  SET_BACK_DRAWER: 'SET_BACK_DRAWER'
+}

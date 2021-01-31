@@ -1,0 +1,3 @@
+[submodule "atomic-ui"]
+	path = atomic-ui
+	url = https://github.com/MalcoreHardcore698/atomic-ui.git

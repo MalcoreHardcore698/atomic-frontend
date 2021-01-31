@@ -1,0 +1,5 @@
+export default {
+  SET_ITEM: 'SET_ITEM',
+  REMOVE_ITEM: 'REMOVE_ITEM',
+  CLEAR_ITEMS: 'CLEAR_ITEMS'
+}
