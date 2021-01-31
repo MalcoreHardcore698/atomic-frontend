@@ -10,6 +10,7 @@ import Divider from '../../atomic-ui/components/Divider'
 import Alert from '../../atomic-ui/components/Alert'
 import Spinner from '../../atomic-ui/components/Spinner'
 
+import HTMLView from '../HTMLView'
 import Comments from '../Comments'
 import queries from '../../graphql/queries'
 

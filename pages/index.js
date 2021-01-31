@@ -66,7 +66,7 @@ const Home = ({ store }) => {
       title={TITLE}
       scaffold={{
         title: 'Создавай школу будущего с нами',
-        background: '/images/background.png',
+        background: '/images/main-background.png',
         primary: projects.length > 0 && projects[0],
         residue: projects.length > 4 && projects.slice(1, 3),
         onLink: (project, owned) =>

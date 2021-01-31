@@ -18,6 +18,7 @@ import Spinner from '../../atomic-ui/components/Spinner'
 import Difinition from '../../atomic-ui/components/Difinition'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 
+import HTMLView from '../HTMLView'
 import { getFileSize, getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
@@ -219,20 +220,6 @@ export const Loader = styled.div`
 export const Files = styled(Grid)``
 
 export const Members = styled(Grid)``
-
-export const HTMLContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  grid-gap: var(--default-gap);
-
-  img {
-    border-radius: var(--surface-border-radius);
-  }
-`
-
-export const HTMLView = ({ content }) => (
-  <HTMLContent dangerouslySetInnerHTML={{ __html: content }} />
-)
 
 export const View = ({
   project,

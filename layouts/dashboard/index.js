@@ -18,7 +18,7 @@ import Tooltip from '../../atomic-ui/components/Tooltip'
 import { useHelper } from '../../hooks/useHelper'
 import MainLayout from '../main'
 import BaseSideBar from '../../components/SideBar'
-import Search from '../../components/SearchBar'
+import SearchBar from '../../components/SearchBar'
 import { onMenu } from '../../store/helpers'
 import { setUser } from '../../store/actions/user'
 import getLinks from './links'
@@ -73,7 +73,6 @@ const MenuButton = styled(Button)`
 
 const LogoZone = styled(Row)`
   justify-content: space-between;
-  width: 280px;
 
   @media only screen and (max-width: 996px) {
     width: auto;
@@ -198,7 +197,7 @@ export const DashboardLayout = ({ children, title = 'Панель админис
             </Link>
           </Logotype>
         </LogoZone>
-        <Search appearance={'ghost'} />
+        <SearchBar appearance={'ghost'} />
       </Header>
 
       <Main>
