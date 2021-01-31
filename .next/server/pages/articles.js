@@ -5567,7 +5567,7 @@ const Card = ({
     style: style,
     appearance: appearance
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Avatar, {
-    src: ((_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png',
+    src: (user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png',
     layout: 'fill',
     alt: user.name
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
@@ -5927,13 +5927,13 @@ const Card = ({
   onEdit,
   onDelete
 }) => {
-  var _article$category;
+  var _article$preview, _article$category;
 
   return /*#__PURE__*/external_react_default.a.createElement(ArticleCard_Wrap, {
     appearance: appearance,
     layout: layout
   }, article.preview && /*#__PURE__*/external_react_default.a.createElement(Poster, {
-    src: article.preview.path,
+    src: (_article$preview = article.preview) === null || _article$preview === void 0 ? void 0 : _article$preview.path,
     layout: layout
   }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
     style: {
@@ -5942,8 +5942,8 @@ const Card = ({
       gridColumn: !article.preview && '1 / 3'
     }
   }, /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
-    date: article.createdAt,
-    category: (_article$category = article.category) === null || _article$category === void 0 ? void 0 : _article$category.name,
+    date: article === null || article === void 0 ? void 0 : article.createdAt,
+    category: article === null || article === void 0 ? void 0 : (_article$category = article.category) === null || _article$category === void 0 ? void 0 : _article$category.name,
     short: true
   }), (onChecked || onEdit || onDelete) && /*#__PURE__*/external_react_default.a.createElement(Actions, null, onDelete && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
     text: 'Удалить статью'
@@ -15403,7 +15403,7 @@ const Difinitions = external_styled_components_default()(Row["b" /* default */])
 const About = external_styled_components_default.a.div.withConfig({
   displayName: "UserView__About",
   componentId: "ph8qrp-4"
-})(["flex-grow:100;"]);
+})(["flex-grow:100;p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;}"]);
 const Projects = external_styled_components_default.a.div.withConfig({
   displayName: "UserView__Projects",
   componentId: "ph8qrp-5"

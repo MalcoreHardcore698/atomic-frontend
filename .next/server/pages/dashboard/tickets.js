@@ -5840,7 +5840,7 @@ const Card = ({
     style: style,
     appearance: appearance
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Avatar, {
-    src: ((_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png',
+    src: (user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png',
     layout: 'fill',
     alt: user.name
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
@@ -6049,213 +6049,6 @@ Menu.defaultProps = {
 /***/ (function(module, exports) {
 
 module.exports = require("next/dist/next-server/lib/router/utils/get-asset-path-from-route.js");
-
-/***/ }),
-
-/***/ "UwjQ":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-// UNUSED EXPORTS: Wrap, Poster, Header, Actions, Name, HTMLView, ShortText, Card
-
-// EXTERNAL MODULE: external "react"
-var external_react_ = __webpack_require__("cDcd");
-var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
-
-// EXTERNAL MODULE: external "styled-components"
-var external_styled_components_ = __webpack_require__("Dtiu");
-var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
-
-// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
-var Row = __webpack_require__("nShV");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
-var Column = __webpack_require__("8CDE");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
-var Title = __webpack_require__("7sPp");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
-var Image = __webpack_require__("V0nP");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
-var Meta = __webpack_require__("aBfq");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
-var Text = __webpack_require__("QUga");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
-var Button = __webpack_require__("ZeZO");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
-var Icon = __webpack_require__("feIE");
-
-// CONCATENATED MODULE: ./atomic-ui/components/More/index.js
-var __jsx = external_react_default.a.createElement;
-
-
-
-
-
-
-const Wrap = external_styled_components_default()(Row["b" /* default */])`
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-`;
-const More = ({
-  text,
-  withText,
-  withButton,
-  onClick
-}) => __jsx(Wrap, {
-  onClick: onClick
-}, withText && __jsx(Text["b" /* default */], {
-  style: {
-    color: 'var(--default-color-accent)'
-  }
-}, text), withButton && __jsx(Button["a" /* default */], {
-  kind: 'icon'
-}, __jsx(Icon["a" /* default */], {
-  icon: 'arrowRight',
-  stroke: 'white'
-})));
-More.defaultProps = {
-  text: 'Подробнее',
-  withText: true
-};
-/* harmony default export */ var components_More = (More);
-// EXTERNAL MODULE: ./atomic-ui/components/Checkbox/index.js
-var Checkbox = __webpack_require__("79b8");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
-var Tooltip = __webpack_require__("VWQm");
-
-// CONCATENATED MODULE: ./components/ArticleCard/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-const ArticleCard_Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
-  displayName: "ArticleCard__Wrap",
-  componentId: "sc-17tznl7-0"
-})(["display:grid;grid-template-columns:1fr 2fr;padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);", " ", " ", " ", " @media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"], ({
-  layout
-}) => layout === 'column' && Object(external_styled_components_["css"])(["display:flex;flex-wrap:wrap;grid-gap:var(--default-gap);"]), ({
-  appearance
-}) => appearance === 'default' && Object(external_styled_components_["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
-  appearance
-}) => appearance === 'ghost' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
-  appearance
-}) => appearance === 'clear' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
-const Poster = external_styled_components_default()(Image["a" /* default */]).withConfig({
-  displayName: "ArticleCard__Poster",
-  componentId: "sc-17tznl7-1"
-})(["object-fit:cover;width:100%;height:100%;border-radius:var(--surface-border-radius);", ""], ({
-  layout
-}) => layout === 'column' && Object(external_styled_components_["css"])(["height:128px;"]));
-const Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
-  displayName: "ArticleCard__Header",
-  componentId: "sc-17tznl7-2"
-})(["justify-content:space-between;align-items:center;"]);
-const Actions = external_styled_components_default()(Row["b" /* default */]).withConfig({
-  displayName: "ArticleCard__Actions",
-  componentId: "sc-17tznl7-3"
-})(["grid-gap:5px;"]);
-const Name = external_styled_components_default()(Title["a" /* default */]).withConfig({
-  displayName: "ArticleCard__Name",
-  componentId: "sc-17tznl7-4"
-})(["transition:opacity 150ms ease;", ""], ({
-  onClick
-}) => onClick && Object(external_styled_components_["css"])(["cursor:pointer;&:hover{opacity:0.45;}"]));
-const HTMLView = ({
-  content,
-  className
-}) => /*#__PURE__*/external_react_default.a.createElement("div", {
-  className: className,
-  dangerouslySetInnerHTML: {
-    __html: content
-  }
-});
-const ShortText = external_styled_components_default()(HTMLView).withConfig({
-  displayName: "ArticleCard__ShortText",
-  componentId: "sc-17tznl7-5"
-})(["display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;"]);
-const Card = ({
-  layout,
-  article,
-  preview,
-  appearance,
-  onLink,
-  onChecked,
-  onEdit,
-  onDelete
-}) => {
-  var _article$category;
-
-  return /*#__PURE__*/external_react_default.a.createElement(ArticleCard_Wrap, {
-    appearance: appearance,
-    layout: layout
-  }, article.preview && /*#__PURE__*/external_react_default.a.createElement(Poster, {
-    src: article.preview.path,
-    layout: layout
-  }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
-    style: {
-      gridGap: 5,
-      width: '100%',
-      gridColumn: !article.preview && '1 / 3'
-    }
-  }, /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
-    date: article.createdAt,
-    category: (_article$category = article.category) === null || _article$category === void 0 ? void 0 : _article$category.name,
-    short: true
-  }), (onChecked || onEdit || onDelete) && /*#__PURE__*/external_react_default.a.createElement(Actions, null, onDelete && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
-    text: 'Удалить статью'
-  }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-    kind: 'icon',
-    size: 'xs',
-    appearance: 'red',
-    onClick: onDelete
-  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
-    icon: 'delete',
-    size: 'xs',
-    stroke: 'white'
-  }))), onEdit && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
-    text: 'Редактировать статью'
-  }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-    kind: 'icon',
-    size: 'xs',
-    onClick: onEdit
-  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
-    icon: 'edit',
-    size: 'xs',
-    stroke: 'white'
-  }))), onChecked && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
-    text: 'Отметить статью',
-    self: true
-  }, /*#__PURE__*/external_react_default.a.createElement(Checkbox["a" /* default */], null)))), /*#__PURE__*/external_react_default.a.createElement(Name, {
-    tag: 'h4',
-    onClick: onLink
-  }, article.title), article.body && /*#__PURE__*/external_react_default.a.createElement(ShortText, {
-    content: article.body
-  }), !preview && /*#__PURE__*/external_react_default.a.createElement(components_More, {
-    onClick: onLink,
-    withButton: true
-  })));
-};
-Card.defaultProps = {
-  appearance: 'default'
-};
-/* harmony default export */ var ArticleCard = __webpack_exports__["a"] = (Card);
 
 /***/ }),
 
@@ -7522,9 +7315,6 @@ var HandleBar = __webpack_require__("coMr");
 // EXTERNAL MODULE: ./components/FilterBar/index.js
 var FilterBar = __webpack_require__("RoTl");
 
-// EXTERNAL MODULE: ./components/ArticleCard/index.js + 1 modules
-var ArticleCard = __webpack_require__("UwjQ");
-
 // EXTERNAL MODULE: external "styled-components"
 var external_styled_components_ = __webpack_require__("Dtiu");
 var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
@@ -7535,116 +7325,26 @@ var Row = __webpack_require__("nShV");
 // EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
 var Column = __webpack_require__("8CDE");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Message/index.js
-var Message = __webpack_require__("7ni8");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
-var Input = __webpack_require__("Gliw");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
-var Button = __webpack_require__("ZeZO");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
-var Icon = __webpack_require__("feIE");
+// EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
+var Title = __webpack_require__("7sPp");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
 var Text = __webpack_require__("QUga");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
-var Difinition = __webpack_require__("DTT8");
-
-// CONCATENATED MODULE: ./components/FormTicket/index.js
-
-
-
-
-
-
-
-
-
-
-const Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
-  displayName: "FormTicket__Wrap",
-  componentId: "n5aw2g-0"
-})(["width:100%;"]);
-const Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
-  displayName: "FormTicket__Header",
-  componentId: "n5aw2g-1"
-})(["justify-content:space-between;width:100%;"]);
-const Messages = external_styled_components_default()(Column["a" /* default */]).withConfig({
-  displayName: "FormTicket__Messages",
-  componentId: "n5aw2g-2"
-})(["position:relative;background:#fbfbfb;border-radius:var(--surface-border-radius);padding:var(--default-gap);padding-top:55px;flex-grow:1;"]);
-const Meta = external_styled_components_default()(Row["b" /* default */]).withConfig({
-  displayName: "FormTicket__Meta",
-  componentId: "n5aw2g-3"
-})(["position:absolute;top:0;left:0;width:100%;justify-content:space-between;padding:8px var(--default-gap);border-radius:var(--surface-border-radius) var(--surface-border-radius) 0 0;background:var(--ghost-color-background);"]);
-const Empty = external_styled_components_default()(Text["b" /* default */]).withConfig({
-  displayName: "FormTicket__Empty",
-  componentId: "n5aw2g-4"
-})(["display:flex;justify-content:center;align-items:center;width:100%;height:100%;"]);
-const Ticket = ({
-  ticket,
-  appearance,
-  onFinish,
-  onReport,
-  onLink,
-  onAttach,
-  onSubmit,
-  ...props
-}) => {
-  return /*#__PURE__*/external_react_default.a.createElement(Wrap, props, ticket && /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
-    label: 'Номер обращения',
-    text: (ticket === null || ticket === void 0 ? void 0 : ticket.token) || '-'
-  }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-    onClick: onFinish,
-    disabled: !ticket
-  }, "\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-    onClick: onReport,
-    kind: 'icon',
-    appearance: 'red',
-    disabled: !ticket
-  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
-    icon: 'flag',
-    stroke: 'white'
-  })))), /*#__PURE__*/external_react_default.a.createElement(Messages, null, ticket && /*#__PURE__*/external_react_default.a.createElement(Meta, null, /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u0422\u0435\u043C\u0430: ", ticket.title), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, ticket.createdAt)), ticket && ticket.messages && ticket.messages.length > 0 ? ticket.messages.map(message => /*#__PURE__*/external_react_default.a.createElement(Message["a" /* default */], {
-    key: message.id,
-    avatar: message.avatar,
-    side: message.side,
-    name: message.name,
-    text: message.text,
-    time: message.time,
-    onLink: onLink
-  })) : /*#__PURE__*/external_react_default.a.createElement(Empty, null, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435")), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-    kind: 'icon',
-    onSubmit: onAttach
-  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
-    icon: 'attach',
-    stroke: 'white'
-  })), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
-    placeholder: 'Отправьте сообщенение...',
-    appearance: appearance
-  }), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-    kind: 'icon',
-    onSubmit: onSubmit
-  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
-    icon: 'send',
-    stroke: 'white'
-  }))));
-};
-/* harmony default export */ var FormTicket = (Ticket);
-// EXTERNAL MODULE: ./components/FormDelete/index.js
-var FormDelete = __webpack_require__("xAqQ");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
-var Title = __webpack_require__("7sPp");
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
-var components_Meta = __webpack_require__("aBfq");
+var Meta = __webpack_require__("aBfq");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
 var Divider = __webpack_require__("RKiZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
+var Button = __webpack_require__("ZeZO");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
+var Difinition = __webpack_require__("DTT8");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Checkbox/index.js
 var Checkbox = __webpack_require__("79b8");
@@ -7666,7 +7366,7 @@ var Tooltip = __webpack_require__("VWQm");
 
 
 
-const TicketCard_Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
+const Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "TicketCard__Wrap",
   componentId: "sc-3sqqk7-0"
 })(["grid-gap:var(--default-gap);height:max-content;", " ", " ", ""], ({
@@ -7676,7 +7376,7 @@ const TicketCard_Wrap = external_styled_components_default()(Column["a" /* defau
 }) => appearance === 'ghost' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
   appearance
 }) => appearance === 'clear' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
-const TicketCard_Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
+const Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "TicketCard__Header",
   componentId: "sc-3sqqk7-1"
 })(["justify-content:space-between;align-items:center;"]);
@@ -7711,7 +7411,7 @@ const Card = ({
 }) => {
   var _ticket$author, _ticket$author2, _ticket$messages;
 
-  return /*#__PURE__*/external_react_default.a.createElement(TicketCard_Wrap, {
+  return /*#__PURE__*/external_react_default.a.createElement(Wrap, {
     className: className,
     style: style,
     appearance: appearance
@@ -7719,7 +7419,7 @@ const Card = ({
     style: {
       gridGap: 0
     }
-  }, /*#__PURE__*/external_react_default.a.createElement(TicketCard_Header, null, /*#__PURE__*/external_react_default.a.createElement(components_Meta["a" /* default */], {
+  }, /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
     date: ticket.createdAt,
     category: ticket.category
   }), onChecked && onEdit && onDelete && /*#__PURE__*/external_react_default.a.createElement(Actions, null, /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
@@ -7770,6 +7470,96 @@ Card.defaultProps = {
   appearance: 'default'
 };
 /* harmony default export */ var TicketCard = (Card);
+// EXTERNAL MODULE: ./atomic-ui/components/Message/index.js
+var Message = __webpack_require__("7ni8");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
+var Input = __webpack_require__("Gliw");
+
+// CONCATENATED MODULE: ./components/FormTicket/index.js
+
+
+
+
+
+
+
+
+
+
+const FormTicket_Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "FormTicket__Wrap",
+  componentId: "n5aw2g-0"
+})(["width:100%;"]);
+const FormTicket_Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "FormTicket__Header",
+  componentId: "n5aw2g-1"
+})(["justify-content:space-between;width:100%;"]);
+const Messages = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "FormTicket__Messages",
+  componentId: "n5aw2g-2"
+})(["position:relative;background:#fbfbfb;border-radius:var(--surface-border-radius);padding:var(--default-gap);padding-top:55px;flex-grow:1;"]);
+const FormTicket_Meta = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "FormTicket__Meta",
+  componentId: "n5aw2g-3"
+})(["position:absolute;top:0;left:0;width:100%;justify-content:space-between;padding:8px var(--default-gap);border-radius:var(--surface-border-radius) var(--surface-border-radius) 0 0;background:var(--ghost-color-background);"]);
+const Empty = external_styled_components_default()(Text["b" /* default */]).withConfig({
+  displayName: "FormTicket__Empty",
+  componentId: "n5aw2g-4"
+})(["display:flex;justify-content:center;align-items:center;width:100%;height:100%;"]);
+const Ticket = ({
+  ticket,
+  appearance,
+  onFinish,
+  onReport,
+  onLink,
+  onAttach,
+  onSubmit,
+  ...props
+}) => {
+  return /*#__PURE__*/external_react_default.a.createElement(FormTicket_Wrap, props, ticket && /*#__PURE__*/external_react_default.a.createElement(FormTicket_Header, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
+    label: 'Номер обращения',
+    text: (ticket === null || ticket === void 0 ? void 0 : ticket.token) || '-'
+  }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    onClick: onFinish,
+    disabled: !ticket
+  }, "\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    onClick: onReport,
+    kind: 'icon',
+    appearance: 'red',
+    disabled: !ticket
+  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+    icon: 'flag',
+    stroke: 'white'
+  })))), /*#__PURE__*/external_react_default.a.createElement(Messages, null, ticket && /*#__PURE__*/external_react_default.a.createElement(FormTicket_Meta, null, /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u0422\u0435\u043C\u0430: ", ticket.title), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, ticket.createdAt)), ticket && ticket.messages && ticket.messages.length > 0 ? ticket.messages.map(message => /*#__PURE__*/external_react_default.a.createElement(Message["a" /* default */], {
+    key: message.id,
+    avatar: message.avatar,
+    side: message.side,
+    name: message.name,
+    text: message.text,
+    time: message.time,
+    onLink: onLink
+  })) : /*#__PURE__*/external_react_default.a.createElement(Empty, null, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435")), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    kind: 'icon',
+    onSubmit: onAttach
+  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+    icon: 'attach',
+    stroke: 'white'
+  })), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    placeholder: 'Отправьте сообщенение...',
+    appearance: appearance
+  }), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    kind: 'icon',
+    onSubmit: onSubmit
+  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+    icon: 'send',
+    stroke: 'white'
+  }))));
+};
+/* harmony default export */ var FormTicket = (Ticket);
+// EXTERNAL MODULE: ./components/FormDelete/index.js
+var FormDelete = __webpack_require__("xAqQ");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Member/index.js
 var Member = __webpack_require__("otXJ");
 
@@ -8106,7 +7896,7 @@ const tickets_Tickets = ({
       overflowX: 'auto',
       width: 'calc(100vw - 290px)'
     }
-  }), displayMethod === 'grid' && /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], null, tickets.map(ticket => /*#__PURE__*/external_react_default.a.createElement(ArticleCard["a" /* default */], {
+  }), displayMethod === 'grid' && /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], null, tickets.map(ticket => /*#__PURE__*/external_react_default.a.createElement(TicketCard, {
     key: ticket.id,
     ticket: ticket,
     onChecked: () => {},
@@ -15946,7 +15736,7 @@ const Difinitions = external_styled_components_default()(Row["b" /* default */])
 const About = external_styled_components_default.a.div.withConfig({
   displayName: "UserView__About",
   componentId: "ph8qrp-4"
-})(["flex-grow:100;"]);
+})(["flex-grow:100;p{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;}"]);
 const Projects = external_styled_components_default.a.div.withConfig({
   displayName: "UserView__Projects",
   componentId: "ph8qrp-5"

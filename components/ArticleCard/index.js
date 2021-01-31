@@ -123,52 +123,54 @@ export const Card = ({
   onChecked,
   onEdit,
   onDelete
-}) => (
-  <Wrap appearance={appearance} layout={layout}>
-    {article.preview && <Poster src={article.preview.path} layout={layout} />}
-    <Column
-      style={{
-        gridGap: 5,
-        width: '100%',
-        gridColumn: !article.preview && '1 / 3'
-      }}>
-      <Header>
-        <Meta date={article.createdAt} category={article.category?.name} short />
+}) => {
+  return (
+    <Wrap appearance={appearance} layout={layout}>
+      {article.preview && <Poster src={article.preview?.path} layout={layout} />}
+      <Column
+        style={{
+          gridGap: 5,
+          width: '100%',
+          gridColumn: !article.preview && '1 / 3'
+        }}>
+        <Header>
+          <Meta date={article?.createdAt} category={article?.category?.name} short />
 
-        {(onChecked || onEdit || onDelete) && (
-          <Actions>
-            {onDelete && (
-              <Tooltip text={'Удалить статью'}>
-                <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
-                  <Icon icon={'delete'} size={'xs'} stroke={'white'} />
-                </Button>
-              </Tooltip>
-            )}
-            {onEdit && (
-              <Tooltip text={'Редактировать статью'}>
-                <Button kind={'icon'} size={'xs'} onClick={onEdit}>
-                  <Icon icon={'edit'} size={'xs'} stroke={'white'} />
-                </Button>
-              </Tooltip>
-            )}
-            {onChecked && (
-              <Tooltip text={'Отметить статью'} self>
-                <Checkbox />
-              </Tooltip>
-            )}
-          </Actions>
-        )}
-      </Header>
+          {(onChecked || onEdit || onDelete) && (
+            <Actions>
+              {onDelete && (
+                <Tooltip text={'Удалить статью'}>
+                  <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
+                    <Icon icon={'delete'} size={'xs'} stroke={'white'} />
+                  </Button>
+                </Tooltip>
+              )}
+              {onEdit && (
+                <Tooltip text={'Редактировать статью'}>
+                  <Button kind={'icon'} size={'xs'} onClick={onEdit}>
+                    <Icon icon={'edit'} size={'xs'} stroke={'white'} />
+                  </Button>
+                </Tooltip>
+              )}
+              {onChecked && (
+                <Tooltip text={'Отметить статью'} self>
+                  <Checkbox />
+                </Tooltip>
+              )}
+            </Actions>
+          )}
+        </Header>
 
-      <Name tag={'h4'} onClick={onLink}>
-        {article.title}
-      </Name>
+        <Name tag={'h4'} onClick={onLink}>
+          {article.title}
+        </Name>
 
-      {article.body && <ShortText content={article.body} />}
-      {!preview && <More onClick={onLink} withButton />}
-    </Column>
-  </Wrap>
-)
+        {article.body && <ShortText content={article.body} />}
+        {!preview && <More onClick={onLink} withButton />}
+      </Column>
+    </Wrap>
+  )
+}
 
 Card.defaultProps = {
   appearance: 'default'

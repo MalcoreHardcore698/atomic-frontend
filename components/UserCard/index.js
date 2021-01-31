@@ -168,7 +168,7 @@ export const Card = ({
     <Wrap className={className} style={style} appearance={appearance}>
       <Content>
         <Avatar
-          src={user.avatar?.path || '/images/avatar-default.png'}
+          src={user?.avatar?.path || '/images/avatar-default.png'}
           layout={'fill'}
           alt={user.name}
         />

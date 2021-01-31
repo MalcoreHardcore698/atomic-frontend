@@ -82,6 +82,14 @@ export const Difinitions = styled(Row)`
 
 export const About = styled.div`
   flex-grow: 100;
+
+  p {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `
 
 export const Projects = styled.div`

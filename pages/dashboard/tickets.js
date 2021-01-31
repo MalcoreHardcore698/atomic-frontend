@@ -13,7 +13,7 @@ import { useHelper } from '../../hooks/useHelper'
 import DashboardLayout from '../../layouts/dashboard'
 import HandleBar from '../../components/HandleBar'
 import FilterBar from '../../components/FilterBar'
-import TicketCard from '../../components/ArticleCard'
+import TicketCard from '../../components/TicketCard'
 import {
   onTicketCreate,
   onTicketEdit,
