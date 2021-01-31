@@ -38,9 +38,7 @@ export const Comments = ({ comments, appearance, onLink, onReply, onLike, onSubm
         />
       ))
     ) : (
-      <CentralAlert>
-        Вы можете оставить комментарий первым
-      </CentralAlert>
+      <CentralAlert>Вы можете оставить комментарий первым</CentralAlert>
     )}
 
     <Row>

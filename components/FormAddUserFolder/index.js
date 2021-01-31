@@ -9,7 +9,14 @@ import Button from '../../atomic-ui/components/Button'
 
 import Form from '../Form'
 
-export const AddUserFolder = ({ title = true, mutation, appearance, className, onCancel, onSubmit }) => {
+export const AddUserFolder = ({
+  title = true,
+  mutation,
+  appearance,
+  className,
+  onCancel,
+  onSubmit
+}) => {
   return (
     <Form className={className} appearance={appearance} mutation={mutation} onSubmit={onSubmit}>
       {({ register, loading }) => (
@@ -36,14 +43,13 @@ export const AddUserFolder = ({ title = true, mutation, appearance, className, o
           </Column>
 
           <Row>
-            {(onCancel) && (
+            {onCancel && (
               <Button
                 style={{ flexGrow: 1 }}
                 type={'button'}
                 appearance={'ghost'}
                 loading={loading.toString()}
-                onClick={onCancel}
-              >
+                onClick={onCancel}>
                 Отмена
               </Button>
             )}

@@ -8,7 +8,7 @@ export const user = {
   projects: 7,
   company: {
     name: 'ПАО «Газпром»',
-    avatar: '/images/avatar-company.png',
+    avatar: '/images/avatar-company.png'
   }
 }
 

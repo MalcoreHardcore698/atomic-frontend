@@ -60,13 +60,15 @@ export const Actions = styled(Row)`
 export const Name = styled(Title)`
   transition: opacity 150ms ease;
 
-  ${({ onClick }) => (onClick) && css`
-    cursor: pointer;
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      cursor: pointer;
 
-    &:hover {
-      opacity: .45;
-    }
-  `}
+      &:hover {
+        opacity: 0.45;
+      }
+    `}
 `
 
 export const Status = styled(Text)`
@@ -95,7 +97,7 @@ export const Card = ({
       <Header>
         <Meta date={ticket.createdAt} category={ticket.category} />
 
-        {(onChecked && onEdit && onDelete) && (
+        {onChecked && onEdit && onDelete && (
           <Actions>
             <Tooltip text={'Удалить обращение'}>
               <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
@@ -134,11 +136,7 @@ export const Card = ({
         onLink={onAuthorLink}
       />
 
-      <Difinition
-        icon={'chat'}
-        label={'Сообщений'}
-        text={ticket.messages?.length}
-      />
+      <Difinition icon={'chat'} label={'Сообщений'} text={ticket.messages?.length} />
     </Footer>
   </Wrap>
 )

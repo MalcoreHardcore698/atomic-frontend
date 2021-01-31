@@ -33,9 +33,9 @@ export const Form = ({ children, onSubmit, mutation, ...props }) => {
   if (mutation) {
     const [action, { data, loading, error }] = useMutation(mutation)
     const methods = useForm()
-    
+
     const Children = children
-  
+
     return (
       <Wrap {...props} onSubmit={methods.handleSubmit((form) => onSubmit(form, action))}>
         <Children {...methods} data={data} loading={loading} error={error} />

@@ -38,14 +38,13 @@ export const ForgotPassword = ({ title = true, appearance, className, onBack, on
           </Column>
 
           <Row>
-            {(onBack) && (
+            {onBack && (
               <Button
                 style={{ flexGrow: 1 }}
                 type={'button'}
                 appearance={'ghost'}
                 loading={loading.toString()}
-                onClick={onBack}
-              >
+                onClick={onBack}>
                 Назад
               </Button>
             )}

@@ -6,12 +6,10 @@ import ticket from './ticket'
 import category from './category'
 
 export function generator(number, essence) {
-  return new Array(number)
-    .fill(essence)
-    .map((item, index) => ({
-      ...item,
-      id: index
-    }))
+  return new Array(number).fill(essence).map((item, index) => ({
+    ...item,
+    id: index
+  }))
 }
 
 export function generateProjects(number) {

@@ -112,6 +112,19 @@ export const ShortText = styled(HTMLView)`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  p {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-regular);
+    color: var(--default-color-text);
+
+    strong,
+    b,
+    i {
+      font-style: normal;
+      font-weight: inherit;
+    }
+  }
 `
 
 export const Card = ({

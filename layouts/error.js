@@ -27,9 +27,7 @@ export const ErrorLayout = ({ children, title = 'Error' }) => {
         <title>{title}</title>
       </Head>
 
-      <Main>
-        {children}
-      </Main>
+      <Main>{children}</Main>
     </React.Fragment>
   )
 }

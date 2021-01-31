@@ -22,12 +22,10 @@ export const drawerReducer = (state = initialState, action) => {
         half: (action.payload && action.payload.half) ?? false,
         side: (action.payload && action.payload.side) ?? 'right',
         content: (action.payload && action.payload.content) ?? '',
-        history: (action.payload && (state.history.length < HISTORY_LIMIT)) ? [
-          ...state.history,
-          action.payload
-        ] : [
-          action.payload
-        ],
+        history:
+          action.payload && state.history.length < HISTORY_LIMIT
+            ? [...state.history, action.payload]
+            : [action.payload],
         open: !!(action.payload && action.payload.content)
       }
     case C.SET_BACK_DRAWER:

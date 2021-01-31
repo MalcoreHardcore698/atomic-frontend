@@ -501,7 +501,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/modal.js
 var modal = __webpack_require__("qOKH");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/index.js
@@ -1598,7 +1598,7 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
   }
 
   @media only screen and (max-width: 480px) {
-    grid-template-columns: repeat(auto-fill,minmax(285px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
   }
 `;
 const Grid = (_ref) => {
@@ -3878,7 +3878,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
@@ -6165,44 +6165,212 @@ Tooltip.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("4Q3z");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("h74D");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("mU8t");
-/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("nShV");
-/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("OXt0");
-/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("ZwIX");
-/* harmony import */ var _atomic_ui_components_DatePicker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("wZgm");
-/* harmony import */ var _atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("QclZ");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("auMy");
-/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("VWQm");
-/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("QUga");
-/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("feIE");
-/* harmony import */ var _atomic_ui_components_Table_templates__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("e3uv");
-/* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("pyQH");
-/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("ApjV");
-/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("lphG");
-/* harmony import */ var _layouts_default__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("X+Rt");
-/* harmony import */ var _components_UserBar__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__("b5Wu");
-/* harmony import */ var _components_FilterBar__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__("RoTl");
-/* harmony import */ var _components_SearchBar__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__("EYtC");
-/* harmony import */ var _components_ProjectCard__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__("1zqG");
-/* harmony import */ var _store_actions_root__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__("Sza6");
-/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__("8ihE");
-/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__("IxyI");
-/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__("rP4V");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__("u2Cb");
-/* harmony import */ var _mock___WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__("wha1");
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return /* binding */ getServerSideProps; });
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__("4Q3z");
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
+var Row = __webpack_require__("nShV");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
+var Column = __webpack_require__("8CDE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Switch/index.js
+var Switch = __webpack_require__("OXt0");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
+var Alert = __webpack_require__("ZwIX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/DatePicker/index.js + 5 modules
+var DatePicker = __webpack_require__("wZgm");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Select/index.js
+var Select = __webpack_require__("QclZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
+var Button = __webpack_require__("ZeZO");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
+var Tooltip = __webpack_require__("VWQm");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
+var Text = __webpack_require__("QUga");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+var Icon = __webpack_require__("feIE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Table/templates/index.js + 6 modules
+var templates = __webpack_require__("e3uv");
+
+// EXTERNAL MODULE: ./apollo/index.js + 1 modules
+var apollo = __webpack_require__("pyQH");
+
+// EXTERNAL MODULE: ./hooks/useHelper.js
+var useHelper = __webpack_require__("ApjV");
+
+// EXTERNAL MODULE: ./hooks/useMutate.js
+var useMutate = __webpack_require__("lphG");
+
+// EXTERNAL MODULE: ./layouts/default.js + 3 modules
+var layouts_default = __webpack_require__("X+Rt");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+var Meta = __webpack_require__("aBfq");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
+var Divider = __webpack_require__("RKiZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
+var Title = __webpack_require__("7sPp");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
+var Image = __webpack_require__("V0nP");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
+var Difinition = __webpack_require__("DTT8");
+
+// EXTERNAL MODULE: ./utils/functions.js
+var functions = __webpack_require__("ObTy");
+
+// CONCATENATED MODULE: ./components/UserBar/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "UserBar__Wrap",
+  componentId: "sc-17kd9nb-0"
+})(["width:100%;@media only screen and (max-width:568px){flex-direction:column;grid-gap:var(--default-gap);}"]);
+const Content = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "UserBar__Content",
+  componentId: "sc-17kd9nb-1"
+})(["justify-content:space-between;grid-gap:0;width:100%;"]);
+const RoundedAvatar = external_styled_components_default()(Image["a" /* default */]).withConfig({
+  displayName: "UserBar__RoundedAvatar",
+  componentId: "sc-17kd9nb-2"
+})(["width:256px;height:256px;border-radius:var(--surface-border-radius);object-fit:cover;@media only screen and (max-width:768px){width:169px;}@media only screen and (max-width:568px){width:100%;}"]);
+const About = external_styled_components_default.a.div.withConfig({
+  displayName: "UserBar__About",
+  componentId: "sc-17kd9nb-3"
+})(["display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;flex-grow:100;@media only screen and (max-width:568px){margin-bottom:15px;}"]);
+const More = external_styled_components_default.a.p.withConfig({
+  displayName: "UserBar__More",
+  componentId: "sc-17kd9nb-4"
+})(["color:var(--default-color-accent);cursor:pointer;"]);
+const Difinitions = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "UserBar__Difinitions",
+  componentId: "sc-17kd9nb-5"
+})(["flex-wrap:wrap;justify-content:space-between;grid-gap:var(--default-gap);@media only screen and (max-width:568px){flex-direction:column;grid-gap:var(--default-gap);}"]);
+const EditButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
+  displayName: "UserBar__EditButton",
+  componentId: "sc-17kd9nb-6"
+})(["font-size:var(--font-size-s);color:var(--ghost-color-text);transition:color 150ms ease;&:hover{color:black;}"]);
+const User = ({
+  user,
+  onEdit,
+  onAboutMore
+}) => {
+  var _user$avatar, _user$projects;
+
+  return /*#__PURE__*/external_react_default.a.createElement(Wrap, null, /*#__PURE__*/external_react_default.a.createElement(RoundedAvatar, {
+    src: (user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png'
+  }), /*#__PURE__*/external_react_default.a.createElement(Content, null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
+    category: Object(functions["e" /* getLabelRole */])(user.account)
+  }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], {
+    style: {
+      gridGap: '0 10px'
+    }
+  }, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    tag: 'h3'
+  }, user.name), /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
+    place: 'top',
+    text: 'Редактировать'
+  }, /*#__PURE__*/external_react_default.a.createElement(EditButton, {
+    type: 'button',
+    kind: 'icon',
+    size: 'xs',
+    appearance: 'clear',
+    onClick: onEdit
+  }, "\u0420\u0435\u0434."))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    style: {
+      margin: '5px 0'
+    }
+  }), /*#__PURE__*/external_react_default.a.createElement(About, null, /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, (user === null || user === void 0 ? void 0 : user.about) || 'Информация отсутствует'), (user === null || user === void 0 ? void 0 : user.about) && (user === null || user === void 0 ? void 0 : user.about.length) > 135 && /*#__PURE__*/external_react_default.a.createElement(More, {
+    onClick: onAboutMore
+  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
+    icon: 'chart',
+    label: 'Компания',
+    text: (user === null || user === void 0 ? void 0 : user.company) || 0
+  }), /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
+    icon: 'work',
+    label: 'Проекты',
+    text: (user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.length) || 0
+  }), /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
+    icon: 'user2',
+    label: 'Подписчики',
+    text: (user === null || user === void 0 ? void 0 : user.followers) || 0
+  }))));
+};
+/* harmony default export */ var UserBar = (User);
+// EXTERNAL MODULE: ./components/FilterBar/index.js
+var FilterBar = __webpack_require__("RoTl");
+
+// EXTERNAL MODULE: ./components/SearchBar/index.js + 1 modules
+var SearchBar = __webpack_require__("EYtC");
+
+// EXTERNAL MODULE: ./components/ProjectCard/index.js
+var ProjectCard = __webpack_require__("1zqG");
+
+// EXTERNAL MODULE: ./store/actions/root.js
+var root = __webpack_require__("Sza6");
+
+// EXTERNAL MODULE: ./store/actions/user.js
+var actions_user = __webpack_require__("8ihE");
+
+// EXTERNAL MODULE: ./store/helpers/project.js + 6 modules
+var helpers_project = __webpack_require__("IxyI");
+
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+var helpers_user = __webpack_require__("rP4V");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 14 modules
+var queries = __webpack_require__("u2Cb");
+
+// EXTERNAL MODULE: ./__mock__/index.js
+var _mock_ = __webpack_require__("wha1");
+
+// CONCATENATED MODULE: ./pages/profile.js
 
 
 
@@ -6235,37 +6403,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const TITLE = 'Профиль';
-const Container = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.aside.withConfig({
+const Container = external_styled_components_default.a.aside.withConfig({
   displayName: "profile__Container",
   componentId: "sc-84d5hd-0"
 })(["display:grid;grid-template-columns:repeat(auto-fill,minmax(442px,1fr));grid-gap:var(--default-gap);@media only screen and (max-width:768px){grid-template-columns:repeat(auto-fill,minmax(285px,1fr));}"]);
-const ContainerInProgress = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_5__[/* default */ "b"]).withConfig({
+const ContainerInProgress = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "profile__ContainerInProgress",
   componentId: "sc-84d5hd-1"
 })(["grid-gap:var(--default-gap);@media only screen and (max-width:768px){flex-direction:column;}"]);
-const CreateButton = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"]).withConfig({
+const CreateButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
   displayName: "profile__CreateButton",
   componentId: "sc-84d5hd-2"
 })(["display:flex;justify-content:center;align-items:center;grid-gap:10px;span{white-space:nowrap;}"]);
-const Orginizer = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]).withConfig({
+const Orginizer = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "profile__Orginizer",
   componentId: "sc-84d5hd-3"
 })(["width:265px;"]);
-const RemoveTooltip = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_13__[/* default */ "b"]).withConfig({
+const RemoveTooltip = external_styled_components_default()(Tooltip["b" /* default */]).withConfig({
   displayName: "profile__RemoveTooltip",
   componentId: "sc-84d5hd-4"
 })(["position:absolute;right:5px;display:none;"]);
-const ListItem = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
+const ListItem = external_styled_components_default.a.div.withConfig({
   displayName: "profile__ListItem",
   componentId: "sc-84d5hd-5"
-})(["position:relative;display:flex;justify-content:space-between;align-items:center;height:var(--input-height-s);cursor:pointer;transition:all 150ms ease;", "{display:flex;align-items:center;border-radius:var(--surface-border-radius);background:var(--ghost-color-background);width:100%;height:var(--input-height-s);padding:0 10px;transition:all 150ms ease;}&:hover{", "{display:flex;}", "{color:black;}}", ""], _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_14__[/* Wrap */ "a"], RemoveTooltip, _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_14__[/* Wrap */ "a"], ({
+})(["position:relative;display:flex;justify-content:space-between;align-items:center;height:var(--input-height-s);cursor:pointer;transition:all 150ms ease;", "{display:flex;align-items:center;border-radius:var(--surface-border-radius);background:var(--ghost-color-background);width:100%;height:var(--input-height-s);padding:0 10px;transition:all 150ms ease;}&:hover{", "{display:flex;}", "{color:black;}}", ""], Text["a" /* Wrap */], RemoveTooltip, Text["a" /* Wrap */], ({
   active
-}) => active && Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["css"])(["", "{color:var(--default-color-accent);background:var(--default-color-accent-dim);}&:hover{", "{color:var(--default-color-accent);}}"], _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_14__[/* Wrap */ "a"], _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_14__[/* Wrap */ "a"]));
-const AlertEmpty = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"]).withConfig({
+}) => active && Object(external_styled_components_["css"])(["", "{color:var(--default-color-accent);background:var(--default-color-accent-dim);}&:hover{", "{color:var(--default-color-accent);}}"], Text["a" /* Wrap */], Text["a" /* Wrap */]));
+const AlertEmpty = external_styled_components_default()(Alert["a" /* default */]).withConfig({
   displayName: "profile__AlertEmpty",
   componentId: "sc-84d5hd-6"
 })(["display:flex;justify-content:center;align-items:center;width:100%;"]);
-const Loader = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
+const Loader = external_styled_components_default.a.div.withConfig({
   displayName: "profile__Loader",
   componentId: "sc-84d5hd-7"
 })(["display:flex;justify-content:center;width:100%;height:80px;"]);
@@ -6273,13 +6441,13 @@ const Loader = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.with
 const Projects = ({
   projects
 }) => {
-  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_18__[/* useHelper */ "a"])();
-  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_19__[/* useMutate */ "a"])();
-  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(state => state.user);
-  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
+  const recall = Object(useHelper["a" /* useHelper */])();
+  const mutate = Object(useMutate["a" /* useMutate */])();
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const dispatch = Object(external_react_redux_["useDispatch"])();
 
   if (projects && projects.length === 0) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+    return /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
       style: {
         width: '100%',
         textAlign: 'center'
@@ -6287,32 +6455,32 @@ const Projects = ({
     }, "\u041F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043D\u0435\u0442");
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, projects && projects.length > 0 && projects.map(project => {
+  return /*#__PURE__*/external_react_default.a.createElement(Container, null, projects && projects.length > 0 && projects.map(project => {
     var _project$company;
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectCard__WEBPACK_IMPORTED_MODULE_24__[/* default */ "b"], {
+    return /*#__PURE__*/external_react_default.a.createElement(ProjectCard["b" /* default */], {
       owned: true,
       key: project.id,
       project: project,
       liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-      onLike: mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_29__[/* default */ "a"].LIKE_PROJECT, {
+      onLike: mutate(queries["a" /* default */].LIKE_PROJECT, {
         id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_26__[/* updateUser */ "e"])(response.data.likeProject))),
-      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_27__[/* onProjectLink */ "e"], {
+      }, response => dispatch(Object(actions_user["e" /* updateUser */])(response.data.likeProject))),
+      onLink: recall(helpers_project["e" /* onProjectLink */], {
         id: project.id,
         auth: user === null || user === void 0 ? void 0 : user.email,
         project,
         owned: true
       }),
-      onAdd: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_27__[/* onProjectAdd */ "a"], {
+      onAdd: recall(helpers_project["a" /* onProjectAdd */], {
         id: project.id,
         project
       }),
-      onCompanyLink: project.company && recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_28__[/* onUserLink */ "i"], {
+      onCompanyLink: project.company && recall(helpers_user["i" /* onUserLink */], {
         id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
         auth: user === null || user === void 0 ? void 0 : user.email
       }),
-      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_27__[/* onProjectScreenshot */ "f"], {
+      onScreenshotClick: (_, key) => recall(helpers_project["f" /* onProjectScreenshot */], {
         screenshots: [project.preview, ...project.screenshots],
         key
       })()
@@ -6321,29 +6489,29 @@ const Projects = ({
 };
 
 const InProgress = () => {
-  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_18__[/* useHelper */ "a"])();
+  const recall = Object(useHelper["a" /* useHelper */])();
   const {
     user,
     folder
-  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(state => ({
+  } = Object(external_react_redux_["useSelector"])(state => ({
     user: state.user,
     folder: state.root.folder
   }));
-  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
+  const dispatch = Object(external_react_redux_["useDispatch"])();
   const [getProjects, {
     data,
     loading,
     refetch
-  }] = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__["useLazyQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_29__[/* default */ "a"].GET_PROJECTS_BY_IDS);
+  }] = Object(react_hooks_["useLazyQuery"])(queries["a" /* default */].GET_PROJECTS_BY_IDS);
 
   const onFolderClick = async item => {
     if (refetch) await refetch({
       projects: item.projects.map(project => project.id)
     });
-    dispatch(Object(_store_actions_root__WEBPACK_IMPORTED_MODULE_25__[/* setFolder */ "k"])(item));
+    dispatch(Object(root["k" /* setFolder */])(item));
   };
 
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+  Object(external_react_["useEffect"])(() => {
     if (!folder && user !== null && user !== void 0 && user.folders && user.folders.length > 0) {
       const defaultFolder = user.folders[0];
 
@@ -6355,138 +6523,138 @@ const InProgress = () => {
         });
       }
 
-      dispatch(Object(_store_actions_root__WEBPACK_IMPORTED_MODULE_25__[/* setFolder */ "k"])(defaultFolder));
+      dispatch(Object(root["k" /* setFolder */])(defaultFolder));
     }
   }, [folder, user, dispatch, getProjects]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ContainerInProgress, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Orginizer, null, user.folders && user.folders.length > 0 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], null, user.folders.map(item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ListItem, {
+  return /*#__PURE__*/external_react_default.a.createElement(ContainerInProgress, null, /*#__PURE__*/external_react_default.a.createElement(Orginizer, null, user.folders && user.folders.length > 0 ? /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, user.folders.map(item => /*#__PURE__*/external_react_default.a.createElement(ListItem, {
     key: item.id,
     active: folder && item.id === folder.id,
     onClick: () => onFolderClick(item)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_14__[/* default */ "b"], null, item.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RemoveTooltip, {
+  }, /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, item.name), /*#__PURE__*/external_react_default.a.createElement(RemoveTooltip, {
     place: 'left',
     text: 'Удалить'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+  }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     type: 'button',
     kind: 'icon',
     size: 'xs',
     disabled: loading,
-    onClick: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_28__[/* onUserFolderDelete */ "h"], {
+    onClick: recall(helpers_user["h" /* onUserFolderDelete */], {
       id: item.id,
-      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_29__[/* default */ "a"].DELETE_USER_FOLDER
+      mutation: queries["a" /* default */].DELETE_USER_FOLDER
     })
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], {
+  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     size: 'xs',
     icon: 'delete',
     stroke: 'white'
-  })))))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  })))))) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u041F\u0430\u043F\u043E\u043A \u043D\u0435\u0442"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CreateButton, {
-    onClick: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_28__[/* onUserFolderAdd */ "g"], {
-      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_29__[/* default */ "a"].ADD_USER_FOLDER
+  }, "\u041F\u0430\u043F\u043E\u043A \u043D\u0435\u0442"), /*#__PURE__*/external_react_default.a.createElement(CreateButton, {
+    onClick: recall(helpers_user["g" /* onUserFolderAdd */], {
+      mutation: queries["a" /* default */].ADD_USER_FOLDER
     })
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], {
+  }, /*#__PURE__*/external_react_default.a.createElement("span", null, "\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430"), /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'add',
     stroke: 'white'
-  }))), loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null), data && data.getProjectsByIds.length > 0 && data.getProjectsByIds.map(project => {
+  }))), loading && /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null), data && data.getProjectsByIds.length > 0 && data.getProjectsByIds.map(project => {
     var _project$company2;
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectCard__WEBPACK_IMPORTED_MODULE_24__[/* default */ "b"], {
+    return /*#__PURE__*/external_react_default.a.createElement(ProjectCard["b" /* default */], {
       owned: true,
       key: project.id,
       project: project,
-      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_27__[/* onProjectLink */ "e"], {
+      onLink: recall(helpers_project["e" /* onProjectLink */], {
         id: project.id,
         project,
         auth: user === null || user === void 0 ? void 0 : user.email,
         owned: true
       }),
-      onAdd: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_27__[/* onProjectAdd */ "a"], {
+      onAdd: recall(helpers_project["a" /* onProjectAdd */], {
         project
       }),
-      onCompanyLink: project.company && recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_28__[/* onUserLink */ "i"], {
+      onCompanyLink: project.company && recall(helpers_user["i" /* onUserLink */], {
         id: (_project$company2 = project.company) === null || _project$company2 === void 0 ? void 0 : _project$company2.email,
         auth: user === null || user === void 0 ? void 0 : user.email
       }),
-      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_27__[/* onProjectScreenshot */ "f"], {
+      onScreenshotClick: (_, key) => recall(helpers_project["f" /* onProjectScreenshot */], {
         screenshots: [project.preview, ...project.screenshots],
         key
       })()
     });
-  }), (data && data.getProjectsByIds.length === 0 || !data) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AlertEmpty, null, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0430\u043F\u043A\u0443 \u0441 \u043F\u0440\u043E\u0435\u043A\u0442\u0430\u043C\u0438"));
+  }), (data && data.getProjectsByIds.length === 0 || !data) && /*#__PURE__*/external_react_default.a.createElement(AlertEmpty, null, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0430\u043F\u043A\u0443 \u0441 \u043F\u0440\u043E\u0435\u043A\u0442\u0430\u043C\u0438"));
 };
 
 const Profile = ({
   categories
 }) => {
-  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_18__[/* useHelper */ "a"])();
-  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_1__["useRouter"])();
-  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(state => state.user);
-  const [date, onChangeDate] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])();
-  const [select, onChangeSelect] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])();
-  const [currentPage, setCurrentPage] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(_mock___WEBPACK_IMPORTED_MODULE_30__[/* profilePages */ "d"][0]);
-  const [visibleFilter, setVisibleFilter] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  const isAdmin = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => (user === null || user === void 0 ? void 0 : user.account) === 'ADMIN', [user]);
-  const renderContentPage = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(() => {
+  const recall = Object(useHelper["a" /* useHelper */])();
+  const router = Object(router_["useRouter"])();
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const [date, onChangeDate] = Object(external_react_["useState"])();
+  const [select, onChangeSelect] = Object(external_react_["useState"])();
+  const [currentPage, setCurrentPage] = Object(external_react_["useState"])(_mock_["d" /* profilePages */][0]);
+  const [visibleFilter, setVisibleFilter] = Object(external_react_["useState"])(false);
+  const isAdmin = Object(external_react_["useMemo"])(() => (user === null || user === void 0 ? void 0 : user.account) === 'ADMIN', [user]);
+  const renderContentPage = Object(external_react_["useCallback"])(() => {
     switch (currentPage.value) {
       case '/projects':
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Projects, {
+        return /*#__PURE__*/external_react_default.a.createElement(Projects, {
           projects: user.projects
         });
 
       case '/liked':
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Projects, {
+        return /*#__PURE__*/external_react_default.a.createElement(Projects, {
           projects: user.likedProjects
         });
 
       default:
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InProgress, null);
+        return /*#__PURE__*/external_react_default.a.createElement(InProgress, null);
     }
   }, [currentPage]);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+  Object(external_react_["useEffect"])(() => {
     if (!user.authenticated) {
       router.push('/auth');
     }
   }, [user]);
 
   if (!user.authenticated) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Loader, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null));
+    return /*#__PURE__*/external_react_default.a.createElement(Loader, null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
   }
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_default__WEBPACK_IMPORTED_MODULE_20__[/* default */ "a"], {
+  return /*#__PURE__*/external_react_default.a.createElement(layouts_default["a" /* default */], {
     title: user.authenticated ? user.name || TITLE : 'Авторизация'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserBar__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"], {
+  }, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(UserBar, {
     user: user,
-    onEdit: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_28__[/* onUserClientEdit */ "c"], {
+    onEdit: recall(helpers_user["c" /* onUserClientEdit */], {
       user,
       canEditAccount: !isAdmin,
       mutations: {
-        update: _graphql_queries__WEBPACK_IMPORTED_MODULE_29__[/* default */ "a"].UPDATE_CLIENT_USER,
-        del: _graphql_queries__WEBPACK_IMPORTED_MODULE_29__[/* default */ "a"].DELETE_USER,
-        changePassword: _graphql_queries__WEBPACK_IMPORTED_MODULE_29__[/* default */ "a"].UPDATE_CLIENT_USER
+        update: queries["a" /* default */].UPDATE_CLIENT_USER,
+        del: queries["a" /* default */].DELETE_USER,
+        changePassword: queries["a" /* default */].UPDATE_CLIENT_USER
       }
     }),
-    onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_28__[/* onUserAboutMore */ "a"], {
+    onAboutMore: recall(helpers_user["a" /* onUserAboutMore */], {
       user
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], {
+  }), /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
     defaultValue: currentPage,
-    options: _mock___WEBPACK_IMPORTED_MODULE_30__[/* profilePages */ "d"],
+    options: _mock_["d" /* profilePages */],
     onChange: item => setCurrentPage(item),
     stretch: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_SearchBar__WEBPACK_IMPORTED_MODULE_23__[/* default */ "a"], {
+  }), /*#__PURE__*/external_react_default.a.createElement(SearchBar["a" /* default */], {
     onChangeFilter: () => setVisibleFilter(!visibleFilter)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FilterBar__WEBPACK_IMPORTED_MODULE_22__[/* default */ "a"], {
+  }), /*#__PURE__*/external_react_default.a.createElement(FilterBar["a" /* default */], {
     isOpen: visibleFilter,
-    filters: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_DatePicker__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    filters: [/*#__PURE__*/external_react_default.a.createElement(DatePicker["a" /* default */], {
       key: 'publishedAt',
       value: date,
       placeholder: 'Дата публикации',
       onChange: onChangeDate,
       withNavigate: true
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+    }), /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
       key: 'categories',
       options: categories.map(category => ({
         value: category.id,
@@ -6496,7 +6664,7 @@ const Profile = ({
       selected: select,
       onChange: item => onChangeSelect(item)
     })],
-    options: _atomic_ui_components_Table_templates__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"].project.map((item, index) => ({
+    options: templates["a" /* default */].project.map((item, index) => ({
       label: item.header,
       value: index
     }))
@@ -6504,12 +6672,12 @@ const Profile = ({
 };
 
 async function getServerSideProps() {
-  const client = Object(_apollo__WEBPACK_IMPORTED_MODULE_17__[/* initializeApollo */ "a"])();
+  const client = Object(apollo["a" /* initializeApollo */])();
   let categories = [];
 
   try {
     const response = await client.query({
-      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_29__[/* default */ "a"].GET_META_PROFILE
+      query: queries["a" /* default */].GET_META_PROFILE
     });
 
     if (response && response.data) {
@@ -6525,7 +6693,7 @@ async function getServerSideProps() {
     }
   };
 }
-/* harmony default export */ __webpack_exports__["default"] = (Profile);
+/* harmony default export */ var profile = __webpack_exports__["default"] = (Profile);
 
 /***/ }),
 
@@ -6957,7 +7125,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
 var helpers = __webpack_require__("+EEm");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./__mock__/index.js
@@ -7774,124 +7942,6 @@ const Spinner = styled_components__WEBPACK_IMPORTED_MODULE_0___default.a.div`
   }
 `;
 /* harmony default export */ __webpack_exports__["a"] = (Spinner);
-
-/***/ }),
-
-/***/ "b5Wu":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Wrap */
-/* unused harmony export Content */
-/* unused harmony export RoundedAvatar */
-/* unused harmony export About */
-/* unused harmony export More */
-/* unused harmony export Difinitions */
-/* unused harmony export EditButton */
-/* unused harmony export User */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
-/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("aBfq");
-/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("RKiZ");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("7sPp");
-/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("QUga");
-/* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("V0nP");
-/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("VWQm");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("DTT8");
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("ObTy");
-
-
-
-
-
-
-
-
-
-
-
-
-
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
-  displayName: "UserBar__Wrap",
-  componentId: "sc-17kd9nb-0"
-})(["width:100%;@media only screen and (max-width:568px){flex-direction:column;grid-gap:var(--default-gap);}"]);
-const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]).withConfig({
-  displayName: "UserBar__Content",
-  componentId: "sc-17kd9nb-1"
-})(["justify-content:space-between;grid-gap:0;width:100%;"]);
-const RoundedAvatar = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"]).withConfig({
-  displayName: "UserBar__RoundedAvatar",
-  componentId: "sc-17kd9nb-2"
-})(["width:256px;height:256px;border-radius:var(--surface-border-radius);object-fit:cover;@media only screen and (max-width:768px){width:169px;}@media only screen and (max-width:568px){width:100%;}"]);
-const About = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
-  displayName: "UserBar__About",
-  componentId: "sc-17kd9nb-3"
-})(["display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;flex-grow:100;@media only screen and (max-width:568px){margin-bottom:15px;}"]);
-const More = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.p.withConfig({
-  displayName: "UserBar__More",
-  componentId: "sc-17kd9nb-4"
-})(["color:var(--default-color-accent);cursor:pointer;"]);
-const Difinitions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
-  displayName: "UserBar__Difinitions",
-  componentId: "sc-17kd9nb-5"
-})(["flex-wrap:wrap;justify-content:space-between;grid-gap:var(--default-gap);@media only screen and (max-width:568px){flex-direction:column;grid-gap:var(--default-gap);}"]);
-const EditButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"]).withConfig({
-  displayName: "UserBar__EditButton",
-  componentId: "sc-17kd9nb-6"
-})(["font-size:var(--font-size-s);color:var(--ghost-color-text);transition:color 150ms ease;&:hover{color:black;}"]);
-const User = ({
-  user,
-  onEdit,
-  onAboutMore
-}) => {
-  var _user$avatar, _user$projects;
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RoundedAvatar, {
-    src: (user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png'
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
-    category: Object(_utils_functions__WEBPACK_IMPORTED_MODULE_12__[/* getLabelRole */ "e"])(user.account)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], {
-    style: {
-      gridGap: '0 10px'
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
-    tag: 'h3'
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    place: 'top',
-    text: 'Редактировать'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EditButton, {
-    type: 'button',
-    kind: 'icon',
-    size: 'xs',
-    appearance: 'clear',
-    onClick: onEdit
-  }, "\u0420\u0435\u0434."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
-    style: {
-      margin: '5px 0'
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, (user === null || user === void 0 ? void 0 : user.about) || 'Информация отсутствует'), (user === null || user === void 0 ? void 0 : user.about) && (user === null || user === void 0 ? void 0 : user.about.length) > 135 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(More, {
-    onClick: onAboutMore
-  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Difinitions, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"], {
-    icon: 'chart',
-    label: 'Компания',
-    text: (user === null || user === void 0 ? void 0 : user.company) || 0
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"], {
-    icon: 'work',
-    label: 'Проекты',
-    text: (user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.length) || 0
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"], {
-    icon: 'user2',
-    label: 'Подписчики',
-    text: (user === null || user === void 0 ? void 0 : user.followers) || 0
-  }))));
-};
-/* harmony default export */ __webpack_exports__["a"] = (User);
 
 /***/ }),
 
@@ -14194,12 +14244,12 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBP
   ${({
   onClick
 }) => onClick && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-    cursor: pointer;
+      cursor: pointer;
 
-    &:hover {
-      opacity: .65;
-    }
-  `}
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `;
 const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])`
   position: relative;
@@ -14213,12 +14263,12 @@ const NameRow = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__W
   ${({
   onClick
 }) => onClick && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-    cursor: pointer;
+      cursor: pointer;
 
-    &:hover {
-      opacity: .65;
-    }
-  `}
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `;
 const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])`
   line-height: 1;
@@ -14539,8 +14589,8 @@ __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding *
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
-// EXTERNAL MODULE: ./components/UserBar/index.js
-var UserBar = __webpack_require__("b5Wu");
+// EXTERNAL MODULE: external "react-hook-form"
+var external_react_hook_form_ = __webpack_require__("BTiB");
 
 // EXTERNAL MODULE: external "styled-components"
 var external_styled_components_ = __webpack_require__("Dtiu");
@@ -14549,15 +14599,12 @@ var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(exte
 // EXTERNAL MODULE: external "@apollo/react-hooks"
 var react_hooks_ = __webpack_require__("mU8t");
 
-// EXTERNAL MODULE: external "react-google-login"
-var external_react_google_login_ = __webpack_require__("rCsO");
+// EXTERNAL MODULE: external "generate-password"
+var external_generate_password_ = __webpack_require__("mqli");
+var external_generate_password_default = /*#__PURE__*/__webpack_require__.n(external_generate_password_);
 
-// EXTERNAL MODULE: external "react-facebook-login/dist/facebook-login-render-props"
-var facebook_login_render_props_ = __webpack_require__("G4lZ");
-var facebook_login_render_props_default = /*#__PURE__*/__webpack_require__.n(facebook_login_render_props_);
-
-// EXTERNAL MODULE: ./atomic-ui/components/Container/index.js
-var Container = __webpack_require__("N0uN");
+// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
+var Tooltip = __webpack_require__("VWQm");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
 var Row = __webpack_require__("nShV");
@@ -14568,14 +14615,29 @@ var Column = __webpack_require__("8CDE");
 // EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
 var Title = __webpack_require__("7sPp");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
+var Text = __webpack_require__("QUga");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
 var Input = __webpack_require__("Gliw");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
-var Divider = __webpack_require__("RKiZ");
+// EXTERNAL MODULE: ./atomic-ui/components/TextArea/index.js
+var TextArea = __webpack_require__("3jgA");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Dropzone/index.js
+var Dropzone = __webpack_require__("kJLk");
+
+// EXTERNAL MODULE: ./atomic-ui/components/DatePicker/index.js + 5 modules
+var DatePicker = __webpack_require__("wZgm");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Switch/index.js
+var Switch = __webpack_require__("OXt0");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
 var Icon = __webpack_require__("feIE");
@@ -14583,8 +14645,453 @@ var Icon = __webpack_require__("feIE");
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Select/index.js
+var Select = __webpack_require__("QclZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
+var Divider = __webpack_require__("RKiZ");
+
 // EXTERNAL MODULE: ./components/Form/index.js
 var Form = __webpack_require__("qoM+");
+
+// EXTERNAL MODULE: ./utils/functions.js
+var functions = __webpack_require__("ObTy");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 14 modules
+var queries = __webpack_require__("u2Cb");
+
+// CONCATENATED MODULE: ./components/FormUser/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const TAB_TYPES = [{
+  label: 'Основное',
+  value: 'GENERAL'
+}, {
+  label: 'Безопасность',
+  value: 'SECURITY'
+}];
+const ACCOUNT_TYPES = [{
+  label: 'Физ. лицо',
+  value: 'INDIVIDUAL',
+  tooltip: 'Любое лицо'
+}, {
+  label: 'Оф. лицо',
+  value: 'OFICIAL',
+  tooltip: 'Государственный деятель'
+}, {
+  label: 'Юр. лицо',
+  value: 'ENTITY',
+  tooltip: 'Организация'
+}];
+const GENDER_TYPES = [{
+  label: 'Мужской',
+  value: 'MALE'
+}, {
+  label: 'Женский',
+  value: 'FEMALE'
+}];
+const AdaptiveDropzone = external_styled_components_default()(Dropzone["b" /* default */]).withConfig({
+  displayName: "FormUser__AdaptiveDropzone",
+  componentId: "c1ieix-0"
+})(["width:196px;height:276px;@media only screen and (max-width:575px){width:100% !important;height:256px;}"]);
+const AdaptiveRow = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "FormUser__AdaptiveRow",
+  componentId: "c1ieix-1"
+})(["@media only screen and (max-width:575px){flex-direction:column;grid-gap:var(--default-gap);", "{flex-grow:1;button{width:100%;}}}"], Tooltip["a" /* Wrap */]);
+const Tab = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "FormUser__Tab",
+  componentId: "c1ieix-2"
+})(["display:none;", ""], ({
+  active
+}) => active && Object(external_styled_components_["css"])(["display:flex;"]));
+const Loader = external_styled_components_default.a.div.withConfig({
+  displayName: "FormUser__Loader",
+  componentId: "c1ieix-3"
+})(["position:absolute;display:flex;justify-content:center;align-items:center;flex-grow:1;width:100%;height:100%;"]);
+const detect = (list, value) => {
+  return list.find(item => item.value === value);
+};
+const detectAccountType = (types, user) => detect(types, user === null || user === void 0 ? void 0 : user.account);
+const detectGender = (types, user) => detect(types, user === null || user === void 0 ? void 0 : user.gender);
+const getAccountType = role => {
+  if (role) {
+    return ACCOUNT_TYPES.find(type => type.value === role);
+  }
+
+  return ACCOUNT_TYPES[0];
+};
+const getLabelGender = gender => {
+  if (gender) {
+    return GENDER_TYPES.find(type => type.value === gender);
+  }
+
+  return GENDER_TYPES[0];
+};
+const User = ({
+  user,
+  roles,
+  mutation,
+  appearance,
+  className,
+  accountTypes,
+  genderTypes,
+  canEditRole,
+  onSubmit,
+  onChangePassword
+}) => {
+  const {
+    data,
+    loading: loadingData,
+    error
+  } = user ? Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_USER, {
+    variables: {
+      email: user
+    }
+  }) : {
+    data: {
+      getUser: {}
+    },
+    loading: false,
+    error: false
+  };
+  const {
+    data: dataCompanies,
+    loading: loadingCompanies
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_USERS, {
+    variables: {
+      account: ['ENTITY']
+    }
+  });
+  const [tab, setTab] = Object(external_react_["useState"])(TAB_TYPES[0]);
+  const [account, setAccount] = Object(external_react_["useState"])(null);
+  const [isShowPassword, setShowPassword] = Object(external_react_["useState"])(false);
+
+  const onTogglePassword = () => setShowPassword(!isShowPassword);
+
+  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+    className: className,
+    appearance: appearance,
+    mutation: mutation,
+    onSubmit: (form, action) => {
+      var _data$getUser;
+
+      return onSubmit({ ...form,
+        account: account || getAccountType(data === null || data === void 0 ? void 0 : (_data$getUser = data.getUser) === null || _data$getUser === void 0 ? void 0 : _data$getUser.account)
+      }, action);
+    }
+  }, ({
+    register,
+    control,
+    loading,
+    errors,
+    setValue,
+    getValues
+  }) => {
+    var _data$getUser2, _data$getUser3, _data$getUser3$role, _data$getUser4, _data$getUser5, _data$getUser6, _data$getUser7, _data$getUser8, _data$getUser8$role, _data$getUser9, _data$getUser9$role, _data$getUser10, _data$getUser11, _data$getUser12, _data$getUser14, _data$getUser15, _data$getUser15$role, _data$getUser16, _data$getUser17, _data$getUser18, _data$getUser18$role, _data$getUser19, _data$getUser20, _data$getUser20$role, _data$getUser21, _data$getUser22, _data$getUser23, _data$getUser24, _data$getUser25, _data$getUser26, _data$getUser27, _data$getUser28, _data$getUser28$role;
+
+    return !loading && !loadingData && data && data.getUser ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
+      defaultValue: tab,
+      options: TAB_TYPES,
+      onChange: setTab,
+      stretch: true
+    }), /*#__PURE__*/external_react_default.a.createElement(Tab, {
+      active: tab.value === 'GENERAL'
+    }, /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'avatar',
+      control: control,
+      defaultValue: getValues('avatar') || user && (((_data$getUser2 = data.getUser) === null || _data$getUser2 === void 0 ? void 0 : _data$getUser2.avatar) || {
+        path: '/images/avatar-default.png'
+      }) || null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(AdaptiveDropzone, {
+        accept: 'image/*',
+        defaultValue: value,
+        onChange: onChange,
+        placeholder: 'Перетащите сюда изображение для превью',
+        tooltip: 'Разрешение: 675x590px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
+      })
+    }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        flexGrow: 1
+      }
+    }, ((_data$getUser3 = data.getUser) === null || _data$getUser3 === void 0 ? void 0 : (_data$getUser3$role = _data$getUser3.role) === null || _data$getUser3$role === void 0 ? void 0 : _data$getUser3$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u0410\u043A\u043A\u0430\u0443\u043D\u0442"), /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
+      defaultValue: account !== null && account !== void 0 && account.value ? account : getAccountType((_data$getUser4 = data.getUser) === null || _data$getUser4 === void 0 ? void 0 : _data$getUser4.account),
+      options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || ACCOUNT_TYPES,
+      onChange: value => setAccount(value),
+      disabled: loading,
+      stretch: true
+    })), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser5 = data.getUser) === null || _data$getUser5 === void 0 ? void 0 : _data$getUser5.account) === 'ENTITY' ? 'Название компании' : 'ФИО'), canEditRole && errors && errors.name && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0424\u0418\u041E"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      type: 'text',
+      name: 'name',
+      ref: register({
+        required: !user
+      }),
+      defaultValue: getValues('name') || ((_data$getUser6 = data.getUser) === null || _data$getUser6 === void 0 ? void 0 : _data$getUser6.name),
+      placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser7 = data.getUser) === null || _data$getUser7 === void 0 ? void 0 : _data$getUser7.account) === 'ENTITY' ? 'Название компании' : 'ФИО',
+      appearance: 'ghost',
+      disabled: loading
+    }), ((_data$getUser8 = data.getUser) === null || _data$getUser8 === void 0 ? void 0 : (_data$getUser8$role = _data$getUser8.role) === null || _data$getUser8$role === void 0 ? void 0 : _data$getUser8$role.name) === 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%',
+        textAlign: 'center'
+      }
+    }, "\u0423 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440\u0430 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u043D\u044B\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0433\u043E \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430"), ((_data$getUser9 = data.getUser) === null || _data$getUser9 === void 0 ? void 0 : (_data$getUser9$role = _data$getUser9.role) === null || _data$getUser9$role === void 0 ? void 0 : _data$getUser9$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser10 = data.getUser) === null || _data$getUser10 === void 0 ? void 0 : _data$getUser10.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения'), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'dateOfBirth',
+      control: control,
+      defaultValue: getValues('dateOfBirth') || ((_data$getUser11 = data.getUser) === null || _data$getUser11 === void 0 ? void 0 : _data$getUser11.dateOfBirth) && new Date((_data$getUser12 = data.getUser) === null || _data$getUser12 === void 0 ? void 0 : _data$getUser12.dateOfBirth) || null,
+      render: ({
+        value,
+        onChange
+      }) => {
+        var _data$getUser13;
+
+        return /*#__PURE__*/external_react_default.a.createElement(DatePicker["a" /* default */], {
+          value: value,
+          onChange: onChange,
+          placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser13 = data.getUser) === null || _data$getUser13 === void 0 ? void 0 : _data$getUser13.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения',
+          appearance: 'ghost',
+          withYearDisplay: false,
+          withNavigate: true,
+          canEditYear: true
+        });
+      }
+    })))), ((account === null || account === void 0 ? void 0 : account.value) && (account === null || account === void 0 ? void 0 : account.value) !== 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser14 = data.getUser) === null || _data$getUser14 === void 0 ? void 0 : _data$getUser14.account) !== 'ENTITY') && ((_data$getUser15 = data.getUser) === null || _data$getUser15 === void 0 ? void 0 : (_data$getUser15$role = _data$getUser15.role) === null || _data$getUser15$role === void 0 ? void 0 : _data$getUser15$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        flexGrow: 1
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041F\u043E\u043B"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'gender',
+      control: control,
+      defaultValue: getValues('gender') || getLabelGender((_data$getUser16 = data.getUser) === null || _data$getUser16 === void 0 ? void 0 : _data$getUser16.gender),
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
+        defaultValue: value,
+        onChange: onChange,
+        options: (genderTypes === null || genderTypes === void 0 ? void 0 : genderTypes.length) > 1 && genderTypes || GENDER_TYPES,
+        disabled: loading,
+        stretch: true
+      })
+    })), ((account === null || account === void 0 ? void 0 : account.value) && (account === null || account === void 0 ? void 0 : account.value) !== 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser17 = data.getUser) === null || _data$getUser17 === void 0 ? void 0 : _data$getUser17.account) !== 'ENTITY') && ((_data$getUser18 = data.getUser) === null || _data$getUser18 === void 0 ? void 0 : (_data$getUser18$role = _data$getUser18.role) === null || _data$getUser18$role === void 0 ? void 0 : _data$getUser18$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044F"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'company',
+      control: control,
+      defaultValue: getValues('company') || ((_data$getUser19 = data.getUser) !== null && _data$getUser19 !== void 0 && _data$getUser19.company ? {
+        value: data.getUser.company.id,
+        label: data.getUser.company.name
+      } : null),
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+        appearance: 'ghost',
+        defaultValue: value,
+        placeholder: 'Выберите компанию',
+        options: ((dataCompanies === null || dataCompanies === void 0 ? void 0 : dataCompanies.getUsers) || []).map(company => ({
+          value: company.email,
+          label: company.name
+        })),
+        onChange: onChange,
+        isLoading: loadingCompanies || loading,
+        isSearchable: true,
+        cacheOptions: true
+      })
+    })), ((_data$getUser20 = data.getUser) === null || _data$getUser20 === void 0 ? void 0 : (_data$getUser20$role = _data$getUser20.role) === null || _data$getUser20$role === void 0 ? void 0 : _data$getUser20$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser21 = data.getUser) === null || _data$getUser21 === void 0 ? void 0 : _data$getUser21.account) === 'ENTITY' ? 'О компании' : 'О себе'), /*#__PURE__*/external_react_default.a.createElement(TextArea["a" /* default */], {
+      type: 'text',
+      name: 'about',
+      ref: register(),
+      defaultValue: getValues('about') || ((_data$getUser22 = data.getUser) === null || _data$getUser22 === void 0 ? void 0 : _data$getUser22.about) || '',
+      placeholder: 'Расскажите о себе пару слов',
+      disabled: loading,
+      appearance: 'ghost'
+    }))), /*#__PURE__*/external_react_default.a.createElement(Tab, {
+      active: tab.value === 'SECURITY'
+    }, canEditRole && errors && (errors.email || errors.phone) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, errors.email && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u044D\u043B. \u043F\u043E\u0447\u0442\u0430"), errors.phone && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0442\u0435\u043B\u0435\u0444\u043E\u043D")), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        flexGrow: 1
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u042D\u043B. \u043F\u043E\u0447\u0442\u0430"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      type: 'email',
+      name: 'email',
+      ref: register({
+        required: !user
+      }),
+      defaultValue: getValues('email') || ((_data$getUser23 = data.getUser) === null || _data$getUser23 === void 0 ? void 0 : _data$getUser23.email),
+      placeholder: 'Эл. почта',
+      appearance: 'ghost',
+      disabled: loading
+    })), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        flexGrow: 1
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u0422\u0435\u043B\u0435\u0444\u043E\u043D"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      type: 'tel',
+      name: 'phone',
+      ref: register({
+        required: !user
+      }),
+      defaultValue: getValues('phone') || ((_data$getUser24 = data.getUser) === null || _data$getUser24 === void 0 ? void 0 : _data$getUser24.phone),
+      placeholder: 'Телефон',
+      appearance: 'ghost',
+      disabled: loading
+    }))), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041F\u0430\u0440\u043E\u043B\u044C"), canEditRole && errors && errors.password && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u043F\u0430\u0440\u043E\u043B\u044C"), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      name: 'password',
+      ref: register({
+        required: !user
+      }),
+      type: isShowPassword ? 'text' : 'password',
+      defaultValue: getValues('password') || ((_data$getUser25 = data.getUser) === null || _data$getUser25 === void 0 ? void 0 : _data$getUser25.password),
+      appearance: 'ghost',
+      placeholder: 'Пароль',
+      readOnly: !canEditRole
+    }), canEditRole && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
+      text: 'Генерация пароля'
+    }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      type: 'button',
+      kind: 'icon',
+      disabled: loading,
+      onClick: () => setValue('password', external_generate_password_default.a.generate())
+    }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      icon: 'password',
+      stroke: 'white'
+    }))), canEditRole && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
+      text: 'Отображение пароля'
+    }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      type: 'button',
+      kind: 'icon',
+      disabled: loading,
+      onClick: onTogglePassword,
+      revert: !isShowPassword
+    }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      icon: isShowPassword ? 'hide' : 'show',
+      stroke: isShowPassword ? 'white' : 'var(--default-color-accent)'
+    }))), !canEditRole && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
+      text: 'Смена пароля'
+    }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      type: 'button',
+      kind: 'icon',
+      disabled: loading,
+      onClick: onChangePassword
+    }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      icon: 'edit',
+      stroke: 'white'
+    })))), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 \u0432\u043E\u0441\u044C\u043C\u0438 \u0437\u043D\u0430\u043A\u043E\u0432, \u0432\u043A\u043B\u044E\u0447\u0430\u0442\u044C \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\u0444\u0440\u044B \u0438 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0435 \u0441\u0438\u043C\u0432\u043E\u043B\u044B")), canEditRole && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), canEditRole && errors && errors.role && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0440\u043E\u043B\u044C"), canEditRole && /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'role',
+      control: control,
+      defaultValue: getValues('role') || ((_data$getUser26 = data.getUser) === null || _data$getUser26 === void 0 ? void 0 : _data$getUser26.role) && {
+        value: (_data$getUser27 = data.getUser) === null || _data$getUser27 === void 0 ? void 0 : _data$getUser27.role.id,
+        label: Object(functions["e" /* getLabelRole */])((_data$getUser28 = data.getUser) === null || _data$getUser28 === void 0 ? void 0 : (_data$getUser28$role = _data$getUser28.role) === null || _data$getUser28$role === void 0 ? void 0 : _data$getUser28$role.name)
+      } || null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+        appearance: 'ghost',
+        defaultValue: value,
+        onChange: onChange,
+        placeholder: 'Выберите роль',
+        options: (roles || []).map(item => ({
+          value: item.id,
+          label: Object(functions["e" /* getLabelRole */])(item.name)
+        })),
+        menuPlacement: 'top',
+        isLoading: loading,
+        isClearable: true
+      })
+    }), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      type: 'submit',
+      style: {
+        flexGrow: 1
+      },
+      disabled: loading
+    }, !user && 'Создать', user && 'Сохранить'))) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      appearance: 'error',
+      style: {
+        width: '100%',
+        textAlign: 'center'
+      }
+    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u043F\u0440\u043E\u0435\u043A\u0442\u0435") : /*#__PURE__*/external_react_default.a.createElement(Loader, null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
+  });
+};
+User.defaultProps = {
+  canEditAccount: true
+};
+/* harmony default export */ var FormUser = (User);
+// EXTERNAL MODULE: external "react-google-login"
+var external_react_google_login_ = __webpack_require__("rCsO");
+
+// EXTERNAL MODULE: external "react-facebook-login/dist/facebook-login-render-props"
+var facebook_login_render_props_ = __webpack_require__("G4lZ");
+var facebook_login_render_props_default = /*#__PURE__*/__webpack_require__.n(facebook_login_render_props_);
+
+// EXTERNAL MODULE: ./atomic-ui/components/Container/index.js
+var Container = __webpack_require__("N0uN");
 
 // CONCATENATED MODULE: ./components/FormCheckin/index.js
 
@@ -14780,9 +15287,6 @@ const Checkin = ({
   onSubmit: onFacebookSubmit
 }))));
 /* harmony default export */ var FormCheckin = (Checkin);
-// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
-var Text = __webpack_require__("QUga");
-
 // CONCATENATED MODULE: ./components/FormLogin/index.js
 
 
@@ -14859,16 +15363,6 @@ Login.defaultProps = {
   email: 'admin@example.com'
 };
 /* harmony default export */ var FormLogin = (Login);
-// EXTERNAL MODULE: external "generate-password"
-var external_generate_password_ = __webpack_require__("mqli");
-var external_generate_password_default = /*#__PURE__*/__webpack_require__.n(external_generate_password_);
-
-// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
-var Tooltip = __webpack_require__("VWQm");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Switch/index.js
-var Switch = __webpack_require__("OXt0");
-
 // CONCATENATED MODULE: ./components/FormRegister/index.js
 
 
@@ -14885,7 +15379,7 @@ var Switch = __webpack_require__("OXt0");
 
 
 
-const ACCOUNT_TYPES = [{
+const FormRegister_ACCOUNT_TYPES = [{
   label: 'Физ. лицо',
   value: 'INDIVIDUAL',
   tooltip: 'Любое лицо'
@@ -14898,7 +15392,7 @@ const ACCOUNT_TYPES = [{
   value: 'ENTITY',
   tooltip: 'Организация'
 }];
-const AdaptiveRow = external_styled_components_default()(Row["b" /* default */]).withConfig({
+const FormRegister_AdaptiveRow = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "FormRegister__AdaptiveRow",
   componentId: "sc-56g8v2-0"
 })(["@media only screen and (max-width:575px){flex-direction:column;grid-gap:var(--default-gap);", "{flex-grow:1;button{width:100%;}}}"], Tooltip["a" /* Wrap */]);
@@ -14911,7 +15405,7 @@ const Register = ({
   onLogin,
   onSubmit
 }) => {
-  const [typeAccount, setTypeAccount] = Object(external_react_["useState"])(ACCOUNT_TYPES[0]);
+  const [typeAccount, setTypeAccount] = Object(external_react_["useState"])(FormRegister_ACCOUNT_TYPES[0]);
   const [isShowPassword, setShowPassword] = Object(external_react_["useState"])(false);
   const [generatedPassword, setGeneratedPassword] = Object(external_react_["useState"])('');
   const [disabled, setDisabled] = Object(external_react_["useState"])(true);
@@ -14948,7 +15442,7 @@ const Register = ({
   }, errors.name && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0424\u0418\u041E"), errors.tin && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u0418\u041D\u041D"), errors.email && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u044D\u043B. \u043F\u043E\u0447\u0442\u0430"), errors.phone && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0442\u0435\u043B\u0435\u0444\u043E\u043D"), errors.password && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u043F\u0430\u0440\u043E\u043B\u044C"), !errors.confirmPassword && errors.confirmPassword && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442")), /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
     onChange: item => setTypeAccount(item),
     defaultValue: getValues('account') || typeAccount,
-    options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || ACCOUNT_TYPES,
+    options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || FormRegister_ACCOUNT_TYPES,
     disabled: loading,
     stretch: true
   }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
@@ -14998,7 +15492,7 @@ const Register = ({
     appearance: 'ghost',
     placeholder: 'Телефон',
     disabled: loading
-  })), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+  })), /*#__PURE__*/external_react_default.a.createElement(FormRegister_AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
     style: {
       flexGrow: 1
     }
@@ -15308,17 +15802,8 @@ var Meta = __webpack_require__("aBfq");
 // EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
 var Difinition = __webpack_require__("DTT8");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
-var Spinner = __webpack_require__("auMy");
-
 // EXTERNAL MODULE: ./components/ProjectCard/index.js
 var ProjectCard = __webpack_require__("1zqG");
-
-// EXTERNAL MODULE: ./utils/functions.js
-var functions = __webpack_require__("ObTy");
-
-// EXTERNAL MODULE: ./graphql/queries/index.js + 14 modules
-var queries = __webpack_require__("u2Cb");
 
 // CONCATENATED MODULE: ./components/UserView/index.js
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -15376,7 +15861,7 @@ const Actions = external_styled_components_default()(Row["b" /* default */]).wit
   displayName: "UserView__Actions",
   componentId: "ph8qrp-6"
 })(["@media only screen and (max-width:480px){", "{flex-grow:1;button{flex-grow:1;}}}"], Tooltip["a" /* Wrap */]);
-const Loader = external_styled_components_default.a.div.withConfig({
+const UserView_Loader = external_styled_components_default.a.div.withConfig({
   displayName: "UserView__Loader",
   componentId: "ph8qrp-7"
 })(["position:absolute;display:flex;justify-content:center;align-items:center;flex-grow:1;width:100%;height:100%;"]);
@@ -15498,7 +15983,7 @@ const View = ({
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435") : /*#__PURE__*/external_react_default.a.createElement(Loader, null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)));
+  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435") : /*#__PURE__*/external_react_default.a.createElement(UserView_Loader, null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)));
 };
 View.defaultProps = {
   appearance: 'default'
@@ -15916,7 +16401,7 @@ function onUserCreate(dispatch, props) {
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
     title: 'Создание пользователя',
-    content: /*#__PURE__*/external_react_default.a.createElement(UserBar["a" /* default */], {
+    content: /*#__PURE__*/external_react_default.a.createElement(FormUser, {
       roles: roles,
       mutation: mutation,
       appearance: 'clear',
@@ -15968,7 +16453,7 @@ function onUserClientEdit(dispatch, props) {
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
     title: 'Редактирование пользователя',
-    content: /*#__PURE__*/external_react_default.a.createElement(UserBar["a" /* default */], {
+    content: /*#__PURE__*/external_react_default.a.createElement(FormUser, {
       user: user,
       mutation: mutations.update,
       appearance: 'clear',
@@ -16028,7 +16513,7 @@ function onUserEdit(dispatch, props) {
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
     title: 'Редактирование пользователя',
-    content: /*#__PURE__*/external_react_default.a.createElement(UserBar["a" /* default */], {
+    content: /*#__PURE__*/external_react_default.a.createElement(FormUser, {
       user: user,
       roles: roles,
       mutation: mutations.update,
@@ -17397,10 +17882,10 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(react_t
   ${({
   appearance
 }) => appearance === 'clear' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-    padding: 0 !important;
-    border: none !important;
-    box-shadow: var(--default-shadow) !important;
-  `}
+      padding: 0 !important;
+      border: none !important;
+      box-shadow: var(--default-shadow) !important;
+    `}
 
   &.show {
     opacity: 1 !important;
@@ -17413,8 +17898,8 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(react_t
   ${({
   width
 }) => width && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-    width: ${width || 'auto'} !important;
-  `}
+      width: ${width || 'auto'} !important;
+    `}
 `;
 const Popper = (_ref) => {
   let {

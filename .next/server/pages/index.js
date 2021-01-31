@@ -501,7 +501,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/modal.js
 var modal = __webpack_require__("qOKH");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/index.js
@@ -1598,7 +1598,7 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
   }
 
   @media only screen and (max-width: 480px) {
-    grid-template-columns: repeat(auto-fill,minmax(285px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
   }
 `;
 const Grid = (_ref) => {
@@ -1885,6 +1885,104 @@ const Column = (_ref) => {
   return __jsx(Wrap, props, children);
 };
 /* harmony default export */ __webpack_exports__["a"] = (Column);
+
+/***/ }),
+
+/***/ "8Esz":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export Label */
+/* unused harmony export ArrowButton */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("feIE");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ZeZO");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+const Label = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 5px;
+  flex-grow: 1;
+  height: var(--input-height-s);
+  background: var(--surface-background);
+  border: var(--surface-border);
+  border-radius: var(--surface-border-radius);
+
+  ${({
+  appearance
+}) => appearance === 'clear' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      background: none;
+      border: none;
+    `}
+
+  span {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+`;
+const ArrowButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Button__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])``;
+
+const Arrower = ({
+  label,
+  appearance,
+  arrowLeft,
+  arrowRight,
+  onChange
+}) => {
+  const onChangeMonth = sign => {
+    if (onChange) onChange(sign);
+  };
+
+  const onPrevMonth = () => onChangeMonth(-1);
+
+  const onNextMonth = () => onChangeMonth(1);
+
+  return __jsx(Wrap, null, __jsx(ArrowButton, {
+    type: 'button',
+    size: 's',
+    kind: 'icon',
+    appearance: appearance,
+    "aria-label": 'Назад',
+    onMouseDown: onPrevMonth
+  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    icon: arrowLeft || 'arrowLeft',
+    stroke: appearance !== 'clear' && 'white'
+  })), __jsx(Label, {
+    appearance: appearance
+  }, label), __jsx(ArrowButton, {
+    type: 'button',
+    size: 's',
+    kind: 'icon',
+    appearance: appearance,
+    "aria-label": 'Далее',
+    onMouseDown: onNextMonth
+  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    icon: arrowRight || 'arrowRight',
+    stroke: appearance !== 'clear' && 'white'
+  })));
+};
+
+Arrower.defaultProps = {
+  appearance: 'clear'
+};
+/* harmony default export */ __webpack_exports__["a"] = (Arrower);
 
 /***/ }),
 
@@ -3507,7 +3605,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
@@ -6052,7 +6150,7 @@ const HTMLView = ({
 const ShortText = external_styled_components_default()(HTMLView).withConfig({
   displayName: "ArticleCard__ShortText",
   componentId: "sc-17tznl7-5"
-})(["display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;"]);
+})(["display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;p{font-size:var(--font-size-m);font-weight:var(--font-weight-regular);color:var(--default-color-text);strong,b,i{font-style:normal;font-weight:inherit;}}"]);
 const Card = ({
   layout,
   article,
@@ -6659,7 +6757,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
 var helpers = __webpack_require__("+EEm");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./__mock__/index.js
@@ -7476,124 +7574,6 @@ const Spinner = styled_components__WEBPACK_IMPORTED_MODULE_0___default.a.div`
   }
 `;
 /* harmony default export */ __webpack_exports__["a"] = (Spinner);
-
-/***/ }),
-
-/***/ "b5Wu":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Wrap */
-/* unused harmony export Content */
-/* unused harmony export RoundedAvatar */
-/* unused harmony export About */
-/* unused harmony export More */
-/* unused harmony export Difinitions */
-/* unused harmony export EditButton */
-/* unused harmony export User */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
-/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("aBfq");
-/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("RKiZ");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("7sPp");
-/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("QUga");
-/* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("V0nP");
-/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("VWQm");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("DTT8");
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("ObTy");
-
-
-
-
-
-
-
-
-
-
-
-
-
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
-  displayName: "UserBar__Wrap",
-  componentId: "sc-17kd9nb-0"
-})(["width:100%;@media only screen and (max-width:568px){flex-direction:column;grid-gap:var(--default-gap);}"]);
-const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]).withConfig({
-  displayName: "UserBar__Content",
-  componentId: "sc-17kd9nb-1"
-})(["justify-content:space-between;grid-gap:0;width:100%;"]);
-const RoundedAvatar = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"]).withConfig({
-  displayName: "UserBar__RoundedAvatar",
-  componentId: "sc-17kd9nb-2"
-})(["width:256px;height:256px;border-radius:var(--surface-border-radius);object-fit:cover;@media only screen and (max-width:768px){width:169px;}@media only screen and (max-width:568px){width:100%;}"]);
-const About = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
-  displayName: "UserBar__About",
-  componentId: "sc-17kd9nb-3"
-})(["display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;flex-grow:100;@media only screen and (max-width:568px){margin-bottom:15px;}"]);
-const More = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.p.withConfig({
-  displayName: "UserBar__More",
-  componentId: "sc-17kd9nb-4"
-})(["color:var(--default-color-accent);cursor:pointer;"]);
-const Difinitions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
-  displayName: "UserBar__Difinitions",
-  componentId: "sc-17kd9nb-5"
-})(["flex-wrap:wrap;justify-content:space-between;grid-gap:var(--default-gap);@media only screen and (max-width:568px){flex-direction:column;grid-gap:var(--default-gap);}"]);
-const EditButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"]).withConfig({
-  displayName: "UserBar__EditButton",
-  componentId: "sc-17kd9nb-6"
-})(["font-size:var(--font-size-s);color:var(--ghost-color-text);transition:color 150ms ease;&:hover{color:black;}"]);
-const User = ({
-  user,
-  onEdit,
-  onAboutMore
-}) => {
-  var _user$avatar, _user$projects;
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RoundedAvatar, {
-    src: (user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png'
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
-    category: Object(_utils_functions__WEBPACK_IMPORTED_MODULE_12__[/* getLabelRole */ "e"])(user.account)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], {
-    style: {
-      gridGap: '0 10px'
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
-    tag: 'h3'
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    place: 'top',
-    text: 'Редактировать'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(EditButton, {
-    type: 'button',
-    kind: 'icon',
-    size: 'xs',
-    appearance: 'clear',
-    onClick: onEdit
-  }, "\u0420\u0435\u0434."))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
-    style: {
-      margin: '5px 0'
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, (user === null || user === void 0 ? void 0 : user.about) || 'Информация отсутствует'), (user === null || user === void 0 ? void 0 : user.about) && (user === null || user === void 0 ? void 0 : user.about.length) > 135 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(More, {
-    onClick: onAboutMore
-  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Difinitions, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"], {
-    icon: 'chart',
-    label: 'Компания',
-    text: (user === null || user === void 0 ? void 0 : user.company) || 0
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"], {
-    icon: 'work',
-    label: 'Проекты',
-    text: (user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.length) || 0
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"], {
-    icon: 'user2',
-    label: 'Подписчики',
-    text: (user === null || user === void 0 ? void 0 : user.followers) || 0
-  }))));
-};
-/* harmony default export */ __webpack_exports__["a"] = (User);
 
 /***/ }),
 
@@ -13588,12 +13568,12 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBP
   ${({
   onClick
 }) => onClick && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-    cursor: pointer;
+      cursor: pointer;
 
-    &:hover {
-      opacity: .65;
-    }
-  `}
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `;
 const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])`
   position: relative;
@@ -13607,12 +13587,12 @@ const NameRow = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__W
   ${({
   onClick
 }) => onClick && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-    cursor: pointer;
+      cursor: pointer;
 
-    &:hover {
-      opacity: .65;
-    }
-  `}
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `;
 const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])`
   line-height: 1;
@@ -13978,12 +13958,12 @@ const Name = external_styled_components_default()(Text["b" /* default */])`
   ${({
   onClick
 }) => onClick && external_styled_components_["css"]`
-    cursor: pointer;
+      cursor: pointer;
 
-    &:hover {
-      opacity: .65;
-    }
-  `}
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
 `;
 const Message = external_styled_components_default()(Text["b" /* default */])`
   color: black;
@@ -14255,7 +14235,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/article.js
@@ -14711,8 +14691,8 @@ __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding *
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
-// EXTERNAL MODULE: ./components/UserBar/index.js
-var UserBar = __webpack_require__("b5Wu");
+// EXTERNAL MODULE: external "react-hook-form"
+var external_react_hook_form_ = __webpack_require__("BTiB");
 
 // EXTERNAL MODULE: external "styled-components"
 var external_styled_components_ = __webpack_require__("Dtiu");
@@ -14721,15 +14701,12 @@ var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(exte
 // EXTERNAL MODULE: external "@apollo/react-hooks"
 var react_hooks_ = __webpack_require__("mU8t");
 
-// EXTERNAL MODULE: external "react-google-login"
-var external_react_google_login_ = __webpack_require__("rCsO");
+// EXTERNAL MODULE: external "generate-password"
+var external_generate_password_ = __webpack_require__("mqli");
+var external_generate_password_default = /*#__PURE__*/__webpack_require__.n(external_generate_password_);
 
-// EXTERNAL MODULE: external "react-facebook-login/dist/facebook-login-render-props"
-var facebook_login_render_props_ = __webpack_require__("G4lZ");
-var facebook_login_render_props_default = /*#__PURE__*/__webpack_require__.n(facebook_login_render_props_);
-
-// EXTERNAL MODULE: ./atomic-ui/components/Container/index.js
-var Container = __webpack_require__("N0uN");
+// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
+var Tooltip = __webpack_require__("VWQm");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
 var Row = __webpack_require__("nShV");
@@ -14740,14 +14717,29 @@ var Column = __webpack_require__("8CDE");
 // EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
 var Title = __webpack_require__("7sPp");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
+var Text = __webpack_require__("QUga");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
 var Input = __webpack_require__("Gliw");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
-var Divider = __webpack_require__("RKiZ");
+// EXTERNAL MODULE: ./atomic-ui/components/TextArea/index.js
+var TextArea = __webpack_require__("3jgA");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Dropzone/index.js
+var Dropzone = __webpack_require__("kJLk");
+
+// EXTERNAL MODULE: ./atomic-ui/components/DatePicker/index.js + 5 modules
+var DatePicker = __webpack_require__("wZgm");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Switch/index.js
+var Switch = __webpack_require__("OXt0");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
 var Icon = __webpack_require__("feIE");
@@ -14755,8 +14747,453 @@ var Icon = __webpack_require__("feIE");
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Select/index.js
+var Select = __webpack_require__("QclZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
+var Divider = __webpack_require__("RKiZ");
+
 // EXTERNAL MODULE: ./components/Form/index.js
 var Form = __webpack_require__("qoM+");
+
+// EXTERNAL MODULE: ./utils/functions.js
+var functions = __webpack_require__("ObTy");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 14 modules
+var queries = __webpack_require__("u2Cb");
+
+// CONCATENATED MODULE: ./components/FormUser/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const TAB_TYPES = [{
+  label: 'Основное',
+  value: 'GENERAL'
+}, {
+  label: 'Безопасность',
+  value: 'SECURITY'
+}];
+const ACCOUNT_TYPES = [{
+  label: 'Физ. лицо',
+  value: 'INDIVIDUAL',
+  tooltip: 'Любое лицо'
+}, {
+  label: 'Оф. лицо',
+  value: 'OFICIAL',
+  tooltip: 'Государственный деятель'
+}, {
+  label: 'Юр. лицо',
+  value: 'ENTITY',
+  tooltip: 'Организация'
+}];
+const GENDER_TYPES = [{
+  label: 'Мужской',
+  value: 'MALE'
+}, {
+  label: 'Женский',
+  value: 'FEMALE'
+}];
+const AdaptiveDropzone = external_styled_components_default()(Dropzone["b" /* default */]).withConfig({
+  displayName: "FormUser__AdaptiveDropzone",
+  componentId: "c1ieix-0"
+})(["width:196px;height:276px;@media only screen and (max-width:575px){width:100% !important;height:256px;}"]);
+const AdaptiveRow = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "FormUser__AdaptiveRow",
+  componentId: "c1ieix-1"
+})(["@media only screen and (max-width:575px){flex-direction:column;grid-gap:var(--default-gap);", "{flex-grow:1;button{width:100%;}}}"], Tooltip["a" /* Wrap */]);
+const Tab = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "FormUser__Tab",
+  componentId: "c1ieix-2"
+})(["display:none;", ""], ({
+  active
+}) => active && Object(external_styled_components_["css"])(["display:flex;"]));
+const Loader = external_styled_components_default.a.div.withConfig({
+  displayName: "FormUser__Loader",
+  componentId: "c1ieix-3"
+})(["position:absolute;display:flex;justify-content:center;align-items:center;flex-grow:1;width:100%;height:100%;"]);
+const detect = (list, value) => {
+  return list.find(item => item.value === value);
+};
+const detectAccountType = (types, user) => detect(types, user === null || user === void 0 ? void 0 : user.account);
+const detectGender = (types, user) => detect(types, user === null || user === void 0 ? void 0 : user.gender);
+const getAccountType = role => {
+  if (role) {
+    return ACCOUNT_TYPES.find(type => type.value === role);
+  }
+
+  return ACCOUNT_TYPES[0];
+};
+const getLabelGender = gender => {
+  if (gender) {
+    return GENDER_TYPES.find(type => type.value === gender);
+  }
+
+  return GENDER_TYPES[0];
+};
+const User = ({
+  user,
+  roles,
+  mutation,
+  appearance,
+  className,
+  accountTypes,
+  genderTypes,
+  canEditRole,
+  onSubmit,
+  onChangePassword
+}) => {
+  const {
+    data,
+    loading: loadingData,
+    error
+  } = user ? Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_USER, {
+    variables: {
+      email: user
+    }
+  }) : {
+    data: {
+      getUser: {}
+    },
+    loading: false,
+    error: false
+  };
+  const {
+    data: dataCompanies,
+    loading: loadingCompanies
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_USERS, {
+    variables: {
+      account: ['ENTITY']
+    }
+  });
+  const [tab, setTab] = Object(external_react_["useState"])(TAB_TYPES[0]);
+  const [account, setAccount] = Object(external_react_["useState"])(null);
+  const [isShowPassword, setShowPassword] = Object(external_react_["useState"])(false);
+
+  const onTogglePassword = () => setShowPassword(!isShowPassword);
+
+  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+    className: className,
+    appearance: appearance,
+    mutation: mutation,
+    onSubmit: (form, action) => {
+      var _data$getUser;
+
+      return onSubmit({ ...form,
+        account: account || getAccountType(data === null || data === void 0 ? void 0 : (_data$getUser = data.getUser) === null || _data$getUser === void 0 ? void 0 : _data$getUser.account)
+      }, action);
+    }
+  }, ({
+    register,
+    control,
+    loading,
+    errors,
+    setValue,
+    getValues
+  }) => {
+    var _data$getUser2, _data$getUser3, _data$getUser3$role, _data$getUser4, _data$getUser5, _data$getUser6, _data$getUser7, _data$getUser8, _data$getUser8$role, _data$getUser9, _data$getUser9$role, _data$getUser10, _data$getUser11, _data$getUser12, _data$getUser14, _data$getUser15, _data$getUser15$role, _data$getUser16, _data$getUser17, _data$getUser18, _data$getUser18$role, _data$getUser19, _data$getUser20, _data$getUser20$role, _data$getUser21, _data$getUser22, _data$getUser23, _data$getUser24, _data$getUser25, _data$getUser26, _data$getUser27, _data$getUser28, _data$getUser28$role;
+
+    return !loading && !loadingData && data && data.getUser ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
+      defaultValue: tab,
+      options: TAB_TYPES,
+      onChange: setTab,
+      stretch: true
+    }), /*#__PURE__*/external_react_default.a.createElement(Tab, {
+      active: tab.value === 'GENERAL'
+    }, /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'avatar',
+      control: control,
+      defaultValue: getValues('avatar') || user && (((_data$getUser2 = data.getUser) === null || _data$getUser2 === void 0 ? void 0 : _data$getUser2.avatar) || {
+        path: '/images/avatar-default.png'
+      }) || null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(AdaptiveDropzone, {
+        accept: 'image/*',
+        defaultValue: value,
+        onChange: onChange,
+        placeholder: 'Перетащите сюда изображение для превью',
+        tooltip: 'Разрешение: 675x590px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
+      })
+    }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        flexGrow: 1
+      }
+    }, ((_data$getUser3 = data.getUser) === null || _data$getUser3 === void 0 ? void 0 : (_data$getUser3$role = _data$getUser3.role) === null || _data$getUser3$role === void 0 ? void 0 : _data$getUser3$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u0410\u043A\u043A\u0430\u0443\u043D\u0442"), /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
+      defaultValue: account !== null && account !== void 0 && account.value ? account : getAccountType((_data$getUser4 = data.getUser) === null || _data$getUser4 === void 0 ? void 0 : _data$getUser4.account),
+      options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || ACCOUNT_TYPES,
+      onChange: value => setAccount(value),
+      disabled: loading,
+      stretch: true
+    })), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser5 = data.getUser) === null || _data$getUser5 === void 0 ? void 0 : _data$getUser5.account) === 'ENTITY' ? 'Название компании' : 'ФИО'), canEditRole && errors && errors.name && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0424\u0418\u041E"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      type: 'text',
+      name: 'name',
+      ref: register({
+        required: !user
+      }),
+      defaultValue: getValues('name') || ((_data$getUser6 = data.getUser) === null || _data$getUser6 === void 0 ? void 0 : _data$getUser6.name),
+      placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser7 = data.getUser) === null || _data$getUser7 === void 0 ? void 0 : _data$getUser7.account) === 'ENTITY' ? 'Название компании' : 'ФИО',
+      appearance: 'ghost',
+      disabled: loading
+    }), ((_data$getUser8 = data.getUser) === null || _data$getUser8 === void 0 ? void 0 : (_data$getUser8$role = _data$getUser8.role) === null || _data$getUser8$role === void 0 ? void 0 : _data$getUser8$role.name) === 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%',
+        textAlign: 'center'
+      }
+    }, "\u0423 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440\u0430 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u043D\u044B\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0433\u043E \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430"), ((_data$getUser9 = data.getUser) === null || _data$getUser9 === void 0 ? void 0 : (_data$getUser9$role = _data$getUser9.role) === null || _data$getUser9$role === void 0 ? void 0 : _data$getUser9$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser10 = data.getUser) === null || _data$getUser10 === void 0 ? void 0 : _data$getUser10.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения'), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'dateOfBirth',
+      control: control,
+      defaultValue: getValues('dateOfBirth') || ((_data$getUser11 = data.getUser) === null || _data$getUser11 === void 0 ? void 0 : _data$getUser11.dateOfBirth) && new Date((_data$getUser12 = data.getUser) === null || _data$getUser12 === void 0 ? void 0 : _data$getUser12.dateOfBirth) || null,
+      render: ({
+        value,
+        onChange
+      }) => {
+        var _data$getUser13;
+
+        return /*#__PURE__*/external_react_default.a.createElement(DatePicker["a" /* default */], {
+          value: value,
+          onChange: onChange,
+          placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser13 = data.getUser) === null || _data$getUser13 === void 0 ? void 0 : _data$getUser13.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения',
+          appearance: 'ghost',
+          withYearDisplay: false,
+          withNavigate: true,
+          canEditYear: true
+        });
+      }
+    })))), ((account === null || account === void 0 ? void 0 : account.value) && (account === null || account === void 0 ? void 0 : account.value) !== 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser14 = data.getUser) === null || _data$getUser14 === void 0 ? void 0 : _data$getUser14.account) !== 'ENTITY') && ((_data$getUser15 = data.getUser) === null || _data$getUser15 === void 0 ? void 0 : (_data$getUser15$role = _data$getUser15.role) === null || _data$getUser15$role === void 0 ? void 0 : _data$getUser15$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        flexGrow: 1
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041F\u043E\u043B"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'gender',
+      control: control,
+      defaultValue: getValues('gender') || getLabelGender((_data$getUser16 = data.getUser) === null || _data$getUser16 === void 0 ? void 0 : _data$getUser16.gender),
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
+        defaultValue: value,
+        onChange: onChange,
+        options: (genderTypes === null || genderTypes === void 0 ? void 0 : genderTypes.length) > 1 && genderTypes || GENDER_TYPES,
+        disabled: loading,
+        stretch: true
+      })
+    })), ((account === null || account === void 0 ? void 0 : account.value) && (account === null || account === void 0 ? void 0 : account.value) !== 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser17 = data.getUser) === null || _data$getUser17 === void 0 ? void 0 : _data$getUser17.account) !== 'ENTITY') && ((_data$getUser18 = data.getUser) === null || _data$getUser18 === void 0 ? void 0 : (_data$getUser18$role = _data$getUser18.role) === null || _data$getUser18$role === void 0 ? void 0 : _data$getUser18$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044F"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'company',
+      control: control,
+      defaultValue: getValues('company') || ((_data$getUser19 = data.getUser) !== null && _data$getUser19 !== void 0 && _data$getUser19.company ? {
+        value: data.getUser.company.id,
+        label: data.getUser.company.name
+      } : null),
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+        appearance: 'ghost',
+        defaultValue: value,
+        placeholder: 'Выберите компанию',
+        options: ((dataCompanies === null || dataCompanies === void 0 ? void 0 : dataCompanies.getUsers) || []).map(company => ({
+          value: company.email,
+          label: company.name
+        })),
+        onChange: onChange,
+        isLoading: loadingCompanies || loading,
+        isSearchable: true,
+        cacheOptions: true
+      })
+    })), ((_data$getUser20 = data.getUser) === null || _data$getUser20 === void 0 ? void 0 : (_data$getUser20$role = _data$getUser20.role) === null || _data$getUser20$role === void 0 ? void 0 : _data$getUser20$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser21 = data.getUser) === null || _data$getUser21 === void 0 ? void 0 : _data$getUser21.account) === 'ENTITY' ? 'О компании' : 'О себе'), /*#__PURE__*/external_react_default.a.createElement(TextArea["a" /* default */], {
+      type: 'text',
+      name: 'about',
+      ref: register(),
+      defaultValue: getValues('about') || ((_data$getUser22 = data.getUser) === null || _data$getUser22 === void 0 ? void 0 : _data$getUser22.about) || '',
+      placeholder: 'Расскажите о себе пару слов',
+      disabled: loading,
+      appearance: 'ghost'
+    }))), /*#__PURE__*/external_react_default.a.createElement(Tab, {
+      active: tab.value === 'SECURITY'
+    }, canEditRole && errors && (errors.email || errors.phone) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, errors.email && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u044D\u043B. \u043F\u043E\u0447\u0442\u0430"), errors.phone && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0442\u0435\u043B\u0435\u0444\u043E\u043D")), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        flexGrow: 1
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u042D\u043B. \u043F\u043E\u0447\u0442\u0430"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      type: 'email',
+      name: 'email',
+      ref: register({
+        required: !user
+      }),
+      defaultValue: getValues('email') || ((_data$getUser23 = data.getUser) === null || _data$getUser23 === void 0 ? void 0 : _data$getUser23.email),
+      placeholder: 'Эл. почта',
+      appearance: 'ghost',
+      disabled: loading
+    })), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        flexGrow: 1
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u0422\u0435\u043B\u0435\u0444\u043E\u043D"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      type: 'tel',
+      name: 'phone',
+      ref: register({
+        required: !user
+      }),
+      defaultValue: getValues('phone') || ((_data$getUser24 = data.getUser) === null || _data$getUser24 === void 0 ? void 0 : _data$getUser24.phone),
+      placeholder: 'Телефон',
+      appearance: 'ghost',
+      disabled: loading
+    }))), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041F\u0430\u0440\u043E\u043B\u044C"), canEditRole && errors && errors.password && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u043F\u0430\u0440\u043E\u043B\u044C"), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      name: 'password',
+      ref: register({
+        required: !user
+      }),
+      type: isShowPassword ? 'text' : 'password',
+      defaultValue: getValues('password') || ((_data$getUser25 = data.getUser) === null || _data$getUser25 === void 0 ? void 0 : _data$getUser25.password),
+      appearance: 'ghost',
+      placeholder: 'Пароль',
+      readOnly: !canEditRole
+    }), canEditRole && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
+      text: 'Генерация пароля'
+    }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      type: 'button',
+      kind: 'icon',
+      disabled: loading,
+      onClick: () => setValue('password', external_generate_password_default.a.generate())
+    }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      icon: 'password',
+      stroke: 'white'
+    }))), canEditRole && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
+      text: 'Отображение пароля'
+    }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      type: 'button',
+      kind: 'icon',
+      disabled: loading,
+      onClick: onTogglePassword,
+      revert: !isShowPassword
+    }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      icon: isShowPassword ? 'hide' : 'show',
+      stroke: isShowPassword ? 'white' : 'var(--default-color-accent)'
+    }))), !canEditRole && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
+      text: 'Смена пароля'
+    }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      type: 'button',
+      kind: 'icon',
+      disabled: loading,
+      onClick: onChangePassword
+    }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      icon: 'edit',
+      stroke: 'white'
+    })))), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 \u0432\u043E\u0441\u044C\u043C\u0438 \u0437\u043D\u0430\u043A\u043E\u0432, \u0432\u043A\u043B\u044E\u0447\u0430\u0442\u044C \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\u0444\u0440\u044B \u0438 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0435 \u0441\u0438\u043C\u0432\u043E\u043B\u044B")), canEditRole && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), canEditRole && errors && errors.role && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0440\u043E\u043B\u044C"), canEditRole && /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'role',
+      control: control,
+      defaultValue: getValues('role') || ((_data$getUser26 = data.getUser) === null || _data$getUser26 === void 0 ? void 0 : _data$getUser26.role) && {
+        value: (_data$getUser27 = data.getUser) === null || _data$getUser27 === void 0 ? void 0 : _data$getUser27.role.id,
+        label: Object(functions["e" /* getLabelRole */])((_data$getUser28 = data.getUser) === null || _data$getUser28 === void 0 ? void 0 : (_data$getUser28$role = _data$getUser28.role) === null || _data$getUser28$role === void 0 ? void 0 : _data$getUser28$role.name)
+      } || null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+        appearance: 'ghost',
+        defaultValue: value,
+        onChange: onChange,
+        placeholder: 'Выберите роль',
+        options: (roles || []).map(item => ({
+          value: item.id,
+          label: Object(functions["e" /* getLabelRole */])(item.name)
+        })),
+        menuPlacement: 'top',
+        isLoading: loading,
+        isClearable: true
+      })
+    }), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      type: 'submit',
+      style: {
+        flexGrow: 1
+      },
+      disabled: loading
+    }, !user && 'Создать', user && 'Сохранить'))) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      appearance: 'error',
+      style: {
+        width: '100%',
+        textAlign: 'center'
+      }
+    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u043F\u0440\u043E\u0435\u043A\u0442\u0435") : /*#__PURE__*/external_react_default.a.createElement(Loader, null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
+  });
+};
+User.defaultProps = {
+  canEditAccount: true
+};
+/* harmony default export */ var FormUser = (User);
+// EXTERNAL MODULE: external "react-google-login"
+var external_react_google_login_ = __webpack_require__("rCsO");
+
+// EXTERNAL MODULE: external "react-facebook-login/dist/facebook-login-render-props"
+var facebook_login_render_props_ = __webpack_require__("G4lZ");
+var facebook_login_render_props_default = /*#__PURE__*/__webpack_require__.n(facebook_login_render_props_);
+
+// EXTERNAL MODULE: ./atomic-ui/components/Container/index.js
+var Container = __webpack_require__("N0uN");
 
 // CONCATENATED MODULE: ./components/FormCheckin/index.js
 
@@ -14952,9 +15389,6 @@ const Checkin = ({
   onSubmit: onFacebookSubmit
 }))));
 /* harmony default export */ var FormCheckin = (Checkin);
-// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
-var Text = __webpack_require__("QUga");
-
 // CONCATENATED MODULE: ./components/FormLogin/index.js
 
 
@@ -15031,16 +15465,6 @@ Login.defaultProps = {
   email: 'admin@example.com'
 };
 /* harmony default export */ var FormLogin = (Login);
-// EXTERNAL MODULE: external "generate-password"
-var external_generate_password_ = __webpack_require__("mqli");
-var external_generate_password_default = /*#__PURE__*/__webpack_require__.n(external_generate_password_);
-
-// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
-var Tooltip = __webpack_require__("VWQm");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Switch/index.js
-var Switch = __webpack_require__("OXt0");
-
 // CONCATENATED MODULE: ./components/FormRegister/index.js
 
 
@@ -15057,7 +15481,7 @@ var Switch = __webpack_require__("OXt0");
 
 
 
-const ACCOUNT_TYPES = [{
+const FormRegister_ACCOUNT_TYPES = [{
   label: 'Физ. лицо',
   value: 'INDIVIDUAL',
   tooltip: 'Любое лицо'
@@ -15070,7 +15494,7 @@ const ACCOUNT_TYPES = [{
   value: 'ENTITY',
   tooltip: 'Организация'
 }];
-const AdaptiveRow = external_styled_components_default()(Row["b" /* default */]).withConfig({
+const FormRegister_AdaptiveRow = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "FormRegister__AdaptiveRow",
   componentId: "sc-56g8v2-0"
 })(["@media only screen and (max-width:575px){flex-direction:column;grid-gap:var(--default-gap);", "{flex-grow:1;button{width:100%;}}}"], Tooltip["a" /* Wrap */]);
@@ -15083,7 +15507,7 @@ const Register = ({
   onLogin,
   onSubmit
 }) => {
-  const [typeAccount, setTypeAccount] = Object(external_react_["useState"])(ACCOUNT_TYPES[0]);
+  const [typeAccount, setTypeAccount] = Object(external_react_["useState"])(FormRegister_ACCOUNT_TYPES[0]);
   const [isShowPassword, setShowPassword] = Object(external_react_["useState"])(false);
   const [generatedPassword, setGeneratedPassword] = Object(external_react_["useState"])('');
   const [disabled, setDisabled] = Object(external_react_["useState"])(true);
@@ -15120,7 +15544,7 @@ const Register = ({
   }, errors.name && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0424\u0418\u041E"), errors.tin && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u0418\u041D\u041D"), errors.email && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u044D\u043B. \u043F\u043E\u0447\u0442\u0430"), errors.phone && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0442\u0435\u043B\u0435\u0444\u043E\u043D"), errors.password && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u043F\u0430\u0440\u043E\u043B\u044C"), !errors.confirmPassword && errors.confirmPassword && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442")), /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
     onChange: item => setTypeAccount(item),
     defaultValue: getValues('account') || typeAccount,
-    options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || ACCOUNT_TYPES,
+    options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || FormRegister_ACCOUNT_TYPES,
     disabled: loading,
     stretch: true
   }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
@@ -15170,7 +15594,7 @@ const Register = ({
     appearance: 'ghost',
     placeholder: 'Телефон',
     disabled: loading
-  })), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+  })), /*#__PURE__*/external_react_default.a.createElement(FormRegister_AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
     style: {
       flexGrow: 1
     }
@@ -15480,17 +15904,8 @@ var Meta = __webpack_require__("aBfq");
 // EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
 var Difinition = __webpack_require__("DTT8");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
-var Spinner = __webpack_require__("auMy");
-
 // EXTERNAL MODULE: ./components/ProjectCard/index.js
 var ProjectCard = __webpack_require__("1zqG");
-
-// EXTERNAL MODULE: ./utils/functions.js
-var functions = __webpack_require__("ObTy");
-
-// EXTERNAL MODULE: ./graphql/queries/index.js + 14 modules
-var queries = __webpack_require__("u2Cb");
 
 // CONCATENATED MODULE: ./components/UserView/index.js
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -15548,7 +15963,7 @@ const Actions = external_styled_components_default()(Row["b" /* default */]).wit
   displayName: "UserView__Actions",
   componentId: "ph8qrp-6"
 })(["@media only screen and (max-width:480px){", "{flex-grow:1;button{flex-grow:1;}}}"], Tooltip["a" /* Wrap */]);
-const Loader = external_styled_components_default.a.div.withConfig({
+const UserView_Loader = external_styled_components_default.a.div.withConfig({
   displayName: "UserView__Loader",
   componentId: "ph8qrp-7"
 })(["position:absolute;display:flex;justify-content:center;align-items:center;flex-grow:1;width:100%;height:100%;"]);
@@ -15670,7 +16085,7 @@ const View = ({
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435") : /*#__PURE__*/external_react_default.a.createElement(Loader, null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)));
+  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435") : /*#__PURE__*/external_react_default.a.createElement(UserView_Loader, null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)));
 };
 View.defaultProps = {
   appearance: 'default'
@@ -16088,7 +16503,7 @@ function onUserCreate(dispatch, props) {
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
     title: 'Создание пользователя',
-    content: /*#__PURE__*/external_react_default.a.createElement(UserBar["a" /* default */], {
+    content: /*#__PURE__*/external_react_default.a.createElement(FormUser, {
       roles: roles,
       mutation: mutation,
       appearance: 'clear',
@@ -16140,7 +16555,7 @@ function onUserClientEdit(dispatch, props) {
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
     title: 'Редактирование пользователя',
-    content: /*#__PURE__*/external_react_default.a.createElement(UserBar["a" /* default */], {
+    content: /*#__PURE__*/external_react_default.a.createElement(FormUser, {
       user: user,
       mutation: mutations.update,
       appearance: 'clear',
@@ -16200,7 +16615,7 @@ function onUserEdit(dispatch, props) {
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
     title: 'Редактирование пользователя',
-    content: /*#__PURE__*/external_react_default.a.createElement(UserBar["a" /* default */], {
+    content: /*#__PURE__*/external_react_default.a.createElement(FormUser, {
       user: user,
       roles: roles,
       mutation: mutations.update,
@@ -17569,10 +17984,10 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(react_t
   ${({
   appearance
 }) => appearance === 'clear' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-    padding: 0 !important;
-    border: none !important;
-    box-shadow: var(--default-shadow) !important;
-  `}
+      padding: 0 !important;
+      border: none !important;
+      box-shadow: var(--default-shadow) !important;
+    `}
 
   &.show {
     opacity: 1 !important;
@@ -17585,8 +18000,8 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(react_t
   ${({
   width
 }) => width && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-    width: ${width || 'auto'} !important;
-  `}
+      width: ${width || 'auto'} !important;
+    `}
 `;
 const Popper = (_ref) => {
   let {
@@ -18668,6 +19083,536 @@ const MainLayout = ({
   }));
 };
 /* harmony default export */ var main = __webpack_exports__["a"] = (MainLayout);
+
+/***/ }),
+
+/***/ "wZgm":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// UNUSED EXPORTS: Wrap, TextField, Popout, DateIcon, DatePicker
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// CONCATENATED MODULE: ./atomic-ui/assets/scripts/date.js
+/**
+ * @return {Date[]} List with date objects for each day of the month
+ */
+const getDaysInMonth = (year, month) => {
+  const date = new Date(year, month, 1);
+  const days = [];
+  const day = date.getDay();
+  let spaces = 0;
+  if (day === 0) spaces = 6;else spaces = day - 1;
+
+  while (spaces > 0) {
+    days.push(null);
+    spaces -= 1;
+  }
+
+  while (date.getMonth() === month) {
+    days.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+
+  return days;
+};
+const getDaysInMonthUTC = (year, month) => {
+  const date = new Date(Date.UTC(year, month, 1));
+  const days = [];
+
+  while (date.getUTCMonth() === month) {
+    days.push(new Date(date));
+    date.setUTCDate(date.getUTCDate() + 1);
+  }
+
+  return days;
+};
+/**
+ * @return {Date[]} List with date objects for each day of the week
+ */
+
+const getDaysInWeek = date => {
+  const week = [];
+  const day = date.getDay();
+  const mondayCorrection = day === 0 ? -6 : 1;
+  date.setDate(date.getDate() - day + mondayCorrection);
+
+  for (let i = 0; i < 7; i += 1) {
+    week.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+
+  return week;
+};
+/**
+ * @return {string[]} List with internalization months
+ */
+
+const getIntlMonths = lang => {
+  return new Array(12).fill(null).map((_, index) => new Date(new Date().getFullYear(), index)).map(month => month.toLocaleDateString(lang, {
+    month: 'short'
+  }));
+};
+/**
+ * @return {string[]} List with internalization weekdays
+ */
+
+const getIntlWeekdays = (lang, repr) => {
+  return new Array(7).fill(null).map((_, index) => new Date(new Date().getFullYear(), 0, index - 1)).map(weekDay => weekDay.toLocaleDateString(lang, {
+    weekday: repr
+  }));
+};
+const isWeekDay = date => date.getDay() !== 0 && date.getDay() !== 6;
+const isSame = (_date1, _date2) => {
+  const date1 = new Date(_date1);
+  date1.setHours(0, 0, 0, 0);
+  const date2 = new Date(_date2);
+  date2.setHours(0, 0, 0, 0);
+  return new Date(date1).getTime() === new Date(date2).getTime();
+};
+const parseDate = date => {
+  if (!date) return null;
+  return new Date(date) || null;
+};
+const getDateLabel = date => {
+  var _Date;
+
+  if (!date) return null;
+  return ((_Date = new Date(date)) === null || _Date === void 0 ? void 0 : _Date.toLocaleDateString()) || null;
+};
+// CONCATENATED MODULE: ./atomic-ui/hooks/useClickOutside.js
+
+const useClickOutside = callBack => {
+  const rootRef = Object(external_react_["useRef"])(null);
+  const onClickOutside = Object(external_react_["useCallback"])(e => {
+    if (rootRef.current && !rootRef.current.contains(e.target)) {
+      callBack();
+    }
+  }, [rootRef, callBack]);
+  Object(external_react_["useEffect"])(() => {
+    window.addEventListener('click', onClickOutside);
+    return () => {
+      window.removeEventListener('click', onClickOutside);
+    };
+  }, [onClickOutside]);
+  return [rootRef];
+};
+/* harmony default export */ var hooks_useClickOutside = (useClickOutside);
+// EXTERNAL MODULE: ./atomic-ui/components/Transition/index.js
+var Transition = __webpack_require__("hYBG");
+
+// EXTERNAL MODULE: external "uuid"
+var external_uuid_ = __webpack_require__("kNaX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Arrower/index.js
+var Arrower = __webpack_require__("8Esz");
+
+// CONCATENATED MODULE: ./atomic-ui/components/DateDay/index.js
+var __jsx = external_react_default.a.createElement;
+
+
+
+const Wrap = external_styled_components_default.a.div`
+  --cell-size: 35px;
+  --cell-offset: 2.5px;
+  --cell-color: #fff;
+  --badge-size: 5px;
+  --badge-bottom-offset: 2px;
+  --side-left-radius: 10rem 0 0 10rem;
+  --side-right-radius: 0 10rem 10rem 0;
+  --transition: all 150ms ease;
+
+  display: flex;
+  align-items: center;
+
+  align-self: center;
+  justify-content: center;
+
+  width: var(--cell-size);
+  height: var(--cell-size);
+
+  margin: var(--cell-offset) 0;
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  outline: none;
+  transition: var(--transition);
+  justify-self: center;
+
+  span {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: var(--cell-size);
+    height: var(--cell-size);
+
+    font-size: var(--font-size-s);
+    font-weight: 400;
+    color: var(--default-color-text);
+    border-radius: 50%;
+    transition: var(--transition);
+
+    i {
+      position: absolute;
+      bottom: var(--badge-bottom-offset);
+      width: var(--badge-size);
+      height: var(--badge-size);
+      background: var(--default-color-text);
+      border-radius: 50%;
+    }
+
+    ${({
+  current
+}) => current && external_styled_components_["css"]`
+        color: var(--default-color-accent);
+        background: transparent;
+        border: 1px solid var(--default-color-accent);
+
+        i {
+          display: none;
+        }
+      `}
+
+    ${({
+  selected
+}) => selected && external_styled_components_["css"]`
+        color: var(--cell-color);
+        background: var(--default-color-accent);
+
+        i {
+          background: var(--cell-color);
+        }
+      `}
+  }
+`;
+
+const DateDay = ({
+  value,
+  selectedDate,
+  withMarkers,
+  onCompare,
+  onChange
+}) => {
+  const [date, month, year] = [value.getDate(), value.getMonth(), value.getFullYear()];
+  const [cDate, cMonth, cYear] = [new Date().getDate(), new Date().getMonth(), new Date().getFullYear()];
+  const isSelectedDate = selectedDate && selectedDate && isSame(value, selectedDate);
+  const isCurrent = cDate === date && cMonth === month && cYear === year;
+  return __jsx(Wrap, {
+    role: 'button',
+    tabIndex: 0,
+    onMouseDown: onChange,
+    selected: isSelectedDate,
+    current: isCurrent
+  }, __jsx("span", null, value.getDate(), withMarkers && onCompare(value) && __jsx("i", null)));
+};
+
+/* harmony default export */ var components_DateDay = (DateDay);
+// CONCATENATED MODULE: ./atomic-ui/components/DateMonth/index.js
+var DateMonth_jsx = external_react_default.a.createElement;
+
+
+
+
+
+
+const DateMonth_Wrap = external_styled_components_default.a.div`
+  display: flex;
+  flex-direction: column;
+  width: 252px;
+`;
+const MonthLabel = external_styled_components_default.a.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  user-select: none;
+`;
+const Headers = external_styled_components_default.a.div`
+  display: grid;
+  align-content: center;
+  justify-content: center;
+
+  margin-bottom: 10px;
+  user-select: none;
+  grid-template-columns: repeat(auto-fit, minmax(35px, 35px));
+`;
+const Header = external_styled_components_default.a.div`
+  align-self: center;
+  font-size: var(--size-text-xs);
+  font-weight: 500;
+  color: var(--ghost-color-text);
+  text-transform: uppercase;
+  justify-self: center;
+`;
+const Days = external_styled_components_default.a.div`
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(35px, 35px));
+`;
+const Day = external_styled_components_default.a.div``;
+const DateMonth = /*#__PURE__*/Object(external_react_["memo"])(({
+  lang,
+  month,
+  value,
+  filterDate,
+  setFilterDate,
+  withNavigate,
+  withMarkers,
+  withYearDisplay,
+  onCompare,
+  onChange
+}) => {
+  const weekDays = Object(external_react_["useMemo"])(() => getIntlWeekdays(lang, 'short'), [lang]);
+  return DateMonth_jsx(DateMonth_Wrap, null, withNavigate ? DateMonth_jsx(Arrower["a" /* default */], {
+    label: DateMonth_jsx(external_react_default.a.Fragment, null, DateMonth_jsx("span", null, month.label), withYearDisplay && DateMonth_jsx("span", null, filterDate.getFullYear())),
+    defaultValue: filterDate,
+    onChange: sign => setFilterDate(new Date(filterDate.getFullYear(), filterDate.getMonth() + sign))
+  }) : DateMonth_jsx(MonthLabel, null, month.label, withYearDisplay && value && DateMonth_jsx("span", null, new Date(value).getFullYear())), DateMonth_jsx(Headers, null, weekDays.map(weekDay => DateMonth_jsx(Header, {
+    key: Object(external_uuid_["v4"])()
+  }, weekDay))), DateMonth_jsx(Days, null, month.days.map(dateDay => dateDay ? DateMonth_jsx(components_DateDay, {
+    key: Object(external_uuid_["v4"])(),
+    value: dateDay,
+    selectedDate: value,
+    withMarkers: withMarkers,
+    onCompare: onCompare,
+    onChange: () => onChange(dateDay)
+  }) : DateMonth_jsx(Day, {
+    key: Object(external_uuid_["v4"])()
+  }))));
+});
+/* harmony default export */ var components_DateMonth = (DateMonth);
+// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
+var Divider = __webpack_require__("RKiZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
+var Input = __webpack_require__("Gliw");
+
+// CONCATENATED MODULE: ./atomic-ui/components/DateSheet/index.js
+var DateSheet_jsx = external_react_default.a.createElement;
+
+
+
+
+
+
+
+const DateSheet_Wrap = external_styled_components_default.a.div`
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 20px;
+`;
+const defaultYear = new Date().getFullYear();
+const DateSheet = ({
+  lang,
+  value,
+  style,
+  sheets,
+  className,
+  canEditYear,
+  withMarkers,
+  withNavigate,
+  withYearDisplay,
+  onCompare,
+  onChange
+}) => {
+  const date = parseDate(value);
+  const {
+    0: months,
+    1: setMonths
+  } = Object(external_react_["useState"])([]);
+  const {
+    0: filterDate,
+    1: setFilterDate
+  } = Object(external_react_["useState"])(new Date());
+  Object(external_react_["useEffect"])(() => {
+    setMonths(new Array(sheets || 1).fill(null).map((_, index) => {
+      const startDate = new Date(filterDate);
+      const current = new Date(startDate.getFullYear(), startDate.getMonth() + index);
+      const month = current.getMonth();
+      const label = current.toLocaleString(lang, {
+        month: 'long'
+      });
+      return {
+        label,
+        days: getDaysInMonth(current.getFullYear(), month)
+      };
+    }));
+  }, [filterDate, sheets, lang]);
+  return DateSheet_jsx(DateSheet_Wrap, {
+    className: className,
+    style: style
+  }, canEditYear && DateSheet_jsx(Input["a" /* default */], {
+    type: 'number',
+    name: 'year',
+    defaultValue: date && date.getFullYear() || defaultYear,
+    onChange: e => setFilterDate(new Date(e.target.value, filterDate.getMonth(), filterDate.getDate())),
+    horizontalAlignment: 'center',
+    placeholder: defaultYear,
+    appearance: 'ghost',
+    min: 1920,
+    max: 2100,
+    required: true
+  }), canEditYear && DateSheet_jsx(Divider["a" /* default */], {
+    clear: true
+  }), months.map(month => DateSheet_jsx(components_DateMonth, {
+    key: Object(external_uuid_["v4"])(),
+    value: date,
+    lang: lang,
+    month: month,
+    filterDate: filterDate,
+    setFilterDate: setFilterDate,
+    withNavigate: !!withNavigate,
+    withMarkers: withMarkers !== null && withMarkers !== void 0 ? withMarkers : true,
+    withYearDisplay: withYearDisplay !== null && withYearDisplay !== void 0 ? withYearDisplay : months.length === 1,
+    onCompare: onCompare || isWeekDay,
+    onChange: onChange
+  })));
+};
+/* harmony default export */ var components_DateSheet = (DateSheet);
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+var Icon = __webpack_require__("feIE");
+
+// CONCATENATED MODULE: ./atomic-ui/components/DatePicker/index.js
+var DatePicker_jsx = external_react_default.a.createElement;
+
+
+
+
+
+
+
+
+const DURATION = 100;
+const DatePicker_Wrap = external_styled_components_default.a.div`
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+`;
+const TextField = external_styled_components_default.a.div`
+  position: relative;
+  flex-grow: 1;
+`;
+const Popout = external_styled_components_default()(Transition["a" /* default */])`
+  position: absolute;
+  top: calc(var(--input-height-m) + 10px);
+  left: 0;
+  z-index: 15;
+  padding: var(--default-gap);
+  background: var(--surface-background);
+  border: var(--surface-border);
+  border-radius: var(--surface-border-radius);
+  box-shadow: var(--default-shadow);
+
+  &.fade-enter {
+    opacity: 0;
+  }
+
+  &.fade-enter-active {
+    opacity: 1;
+    transition: opacity 100ms, blur 100ms;
+  }
+
+  &.fade-exit {
+    opacity: 1;
+  }
+
+  &.fade-exit-active {
+    opacity: 0;
+    transition: opacity 100ms, blur 100ms;
+  }
+`;
+const DateIcon = external_styled_components_default()(Icon["a" /* default */])`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+const DatePicker = ({
+  id,
+  name,
+  style,
+  sheets,
+  inputRef,
+  placeholder,
+  value = null,
+  className,
+  appearance,
+  canEditYear,
+  withNavigate,
+  withMarkers,
+  withYearDisplay,
+  onChange,
+  onCompare
+}) => {
+  const {
+    0: isOpen,
+    1: setIsOpen
+  } = Object(external_react_["useState"])(false);
+  const {
+    0: selected,
+    1: setSelected
+  } = Object(external_react_["useState"])(parseDate(value));
+  const [label] = hooks_useClickOutside(() => setIsOpen(false));
+
+  const handleChange = newVal => {
+    setSelected(newVal);
+    if (onChange) onChange(newVal);
+  };
+
+  const handleInputClick = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return DatePicker_jsx(DatePicker_Wrap, {
+    ref: label,
+    className: className,
+    style: style
+  }, DatePicker_jsx(TextField, {
+    onClick: handleInputClick,
+    className: className,
+    style: style
+  }, DatePicker_jsx(Input["a" /* default */], {
+    id: id,
+    name: name,
+    type: 'text',
+    inputRef: inputRef !== null && inputRef !== void 0 ? inputRef : null,
+    defaultValue: getDateLabel(selected),
+    placeholder: placeholder || 'Выберите дату',
+    appearance: appearance,
+    readOnly: true
+  }), DatePicker_jsx(DateIcon, {
+    icon: 'calendar',
+    stroke: 'var(--ghost-color-text)'
+  })), DatePicker_jsx(Popout, {
+    in: isOpen,
+    animation: 'fade',
+    timeout: DURATION
+  }, DatePicker_jsx(components_DateSheet, {
+    value: selected,
+    sheets: sheets,
+    style: {
+      width: 282
+    },
+    canEditYear: canEditYear,
+    withNavigate: withNavigate,
+    withMarkers: withMarkers,
+    withYearDisplay: withYearDisplay,
+    onChange: handleChange,
+    onCompare: onCompare
+  })));
+};
+/* harmony default export */ var components_DatePicker = __webpack_exports__["a"] = (DatePicker);
 
 /***/ }),
 

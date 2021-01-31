@@ -1,6 +1,6 @@
 import React from 'react'
 
-import UserForm from '../../components/UserBar'
+import UserForm from '../../components/FormUser'
 import CheckinForm from '../../components/FormCheckin'
 import LoginForm from '../../components/FormLogin'
 import RegisterForm from '../../components/FormRegister'

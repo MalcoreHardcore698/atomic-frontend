@@ -16,9 +16,7 @@ export const snackReducer = (state = initialState, action) => {
         }
       ].slice(0, LIMIT)
     case C.REMOVE_ITEM:
-      return [
-        ...state.filter((item) => item.id !== action.payload.id)
-      ]
+      return [...state.filter((item) => item.id !== action.payload.id)]
     case C.CLEAR_ITEMS:
       return []
     default:
