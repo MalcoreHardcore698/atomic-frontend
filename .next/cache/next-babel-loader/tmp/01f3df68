@@ -1,0 +1,1 @@
+{"ast":null,"code":"import C from '../types/documents';\nexport function setDocuments(documents) {\n  return {\n    type: C.SET_DOCUMENTS,\n    payload: {\n      documents\n    }\n  };\n}","map":null,"metadata":{},"sourceType":"module"}

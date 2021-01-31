@@ -1,0 +1,1 @@
+{"ast":null,"code":"import C from '../types/stepper';\nexport function setStepper(stepper) {\n  return {\n    type: C.SET_STEPPER,\n    payload: stepper\n  };\n}","map":null,"metadata":{},"sourceType":"module"}

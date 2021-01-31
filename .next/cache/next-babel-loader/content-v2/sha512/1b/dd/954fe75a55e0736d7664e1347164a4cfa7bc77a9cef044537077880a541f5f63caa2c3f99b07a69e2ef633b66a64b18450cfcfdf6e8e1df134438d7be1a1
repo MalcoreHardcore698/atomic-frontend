@@ -1,0 +1,1 @@
+{"ast":null,"code":"import C from '../types/drawer';\nexport function setDrawer(drawer) {\n  return {\n    type: C.SET_DRAWER,\n    payload: drawer\n  };\n}\nexport function setBackDrawer() {\n  return {\n    type: C.SET_BACK_DRAWER\n  };\n}","map":null,"metadata":{},"sourceType":"module"}

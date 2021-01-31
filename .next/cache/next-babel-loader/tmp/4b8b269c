@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { useDispatch } from 'react-redux';\nimport { setMutate } from '../store/actions/root';\nexport const useMutate = () => {\n  const dispatch = useDispatch();\n  return (mutation, variables, callback) => () => dispatch(setMutate(mutation, variables, callback));\n};\nexport default useMutate;","map":null,"metadata":{},"sourceType":"module"}

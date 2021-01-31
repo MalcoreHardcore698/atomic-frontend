@@ -1,0 +1,1 @@
+{"ast":null,"code":"export default {\n  SET_USER: 'SET_USER',\n  SET_LOGOUT: 'SET_LOGOUT',\n  SET_AUTH_USER: 'SET_AUTH_USER',\n  UPDATE_USER: 'UPDATE_USER',\n  ADD_USER_FOLDER: 'ADD_USER_FOLDER',\n  REMOVE_USER_FOLDER: 'REMOVE_USER_FOLDER'\n};","map":null,"metadata":{},"sourceType":"module"}

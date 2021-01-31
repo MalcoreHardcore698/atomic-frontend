@@ -10,11 +10,11 @@
 /coverage
 
 # build
-/dist
-/build
+# /dist
+# /build
 
 # next.js build output
-.next
+# .next
 
 # debug
 npm-debug.log*

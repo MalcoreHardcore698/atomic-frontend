@@ -1,0 +1,1 @@
+{"ast":null,"code":"import gql from 'graphql-tag';\nimport { ChatFields, MessageFields } from '../../fragments';\nexport const GET_CHAT = gql`\n  query getChat($id: ID!) {\n    getChat(id: $id) {\n      ...ChatFields\n      messages {\n        ...MessageFields\n      }\n    }\n  }\n  ${ChatFields}\n  ${MessageFields}\n`;","map":null,"metadata":{},"sourceType":"module"}

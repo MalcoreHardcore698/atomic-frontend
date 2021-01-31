@@ -1,0 +1,1 @@
+{"ast":null,"code":"import C from '../types/modal';\nexport function setModal(routes, size = 's') {\n  return {\n    type: C.SET_MODAL,\n    payload: {\n      routes,\n      size\n    }\n  };\n}","map":null,"metadata":{},"sourceType":"module"}

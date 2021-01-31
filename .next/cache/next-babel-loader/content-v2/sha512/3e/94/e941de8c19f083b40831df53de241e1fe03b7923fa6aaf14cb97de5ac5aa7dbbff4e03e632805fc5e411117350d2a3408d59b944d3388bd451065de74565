@@ -1,0 +1,1 @@
+{"ast":null,"code":"import C from '../types/documents';\nconst initialState = null;\nexport const documentReducer = (state = initialState, action) => {\n  switch (action.type) {\n    case C.SET_DOCUMENTS:\n      return action.payload.documents;\n\n    default:\n      return state;\n  }\n};\nexport default documentReducer;","map":null,"metadata":{},"sourceType":"module"}
