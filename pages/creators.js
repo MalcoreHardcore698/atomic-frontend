@@ -16,7 +16,7 @@ import DefaultLayout from '../layouts/default'
 import UserCard from '../components/UserCard'
 import FilterBar from '../components/FilterBar'
 import SearchBar from '../components/SearchBar'
-import { onUserLink } from '../store/helpers/user'
+import { onUserLink, onUserMembers } from '../store/helpers/user'
 import { onChat } from '../store/helpers'
 import queries from '../graphql/queries'
 import { categories, filters } from '../__mock__'
@@ -129,6 +129,7 @@ const Creators = ({ store }) => {
                       mutations: chatMutations
                     })
                   }
+                  onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
                   onLink={recall(onUserLink, {
                     id: author.email,
                     auth: user?.email,

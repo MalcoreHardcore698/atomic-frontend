@@ -169,8 +169,8 @@ export const Scaffold = ({
     layout,
     slicedFactor: 5,
     owned: detectOwnedProject(user?.projects, project),
-    added: !!user?.folders.find(
-      (folder) => !!folder.projects.find((item) => item.id === project.id)
+    added: !!user?.folders?.find(
+      (folder) => !!folder?.projects?.find((item) => item.id === project.id)
     ),
     liked: !!(user?.likedProjects || []).find((item) => item.id === project.id),
     onLike: onLike && (() => onLike(project)),

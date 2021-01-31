@@ -2490,6 +2490,8 @@ const Table = ({
   onEdit
 }) => {
   const defaultWidth = `${Math.floor(100 / template.length)}%`;
+  /* eslint-disable-next-line */
+
   const {
     0: headers,
     1: setHeaders
@@ -2500,6 +2502,8 @@ const Table = ({
     tooltip: item.tooltip || `Сортировка по «${item.header}‎»`,
     visible: !item.hidden
   })));
+  /* eslint-disable-next-line */
+
   const {
     0: header,
     1: setHeader
@@ -5886,7 +5890,7 @@ const Card = ({
     icon: 'user2',
     label: 'Участники',
     text: user.members,
-    onLink: onMembers
+    onLink: user.members && onMembers
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__[/* default */ "b"], _extends({}, user.company ? {
     img: (_user$company = user.company) === null || _user$company === void 0 ? void 0 : (_user$company$avatar = _user$company.avatar) === null || _user$company$avatar === void 0 ? void 0 : _user$company$avatar.path
   } : {
@@ -13037,11 +13041,11 @@ function getFile(file) {
     blob: ((_file$type = file.type) === null || _file$type === void 0 ? void 0 : _file$type.includes('image')) && URL.createObjectURL(file)
   };
 }
-async function compressedUpload(file) {
+async function compressedUpload(file, maxWidthOrHeight = 1366) {
   try {
     return await browser_image_compression__WEBPACK_IMPORTED_MODULE_2___default()(file, {
       maxSizeMB: 1,
-      maxWidthOrHeight: 1920,
+      maxWidthOrHeight,
       useWebWorker: true
     });
   } catch (error) {
@@ -13079,10 +13083,26 @@ const Dropzone = ({
 
     if (multiple) {
       for (let file of droppedFiles) {
-        const compressedFile = file.type === 'application/image' ? await compressedUpload(file) : file;
-        if (compressedFile) candidate.push(_objectSpread(_objectSpread({}, getFile(compressedFile)), {}, {
-          size: file.size
-        }));
+        var _file$type2;
+
+        let compressedFile;
+        let miniature;
+
+        if ((_file$type2 = file.type) !== null && _file$type2 !== void 0 && _file$type2.includes('image')) {
+          compressedFile = await compressedUpload(file);
+          miniature = await compressedUpload(file, 185);
+        } else {
+          compressedFile = file;
+        }
+
+        if (compressedFile) {
+          candidate.push(_objectSpread(_objectSpread({}, getFile(compressedFile)), {}, {
+            size: compressedFile.size,
+            miniature: _objectSpread(_objectSpread({}, getFile(miniature)), {}, {
+              size: miniature.size
+            })
+          }));
+        }
       }
     }
 
@@ -14331,12 +14351,13 @@ __webpack_require__.d(__webpack_exports__, "i", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ onUserCreate; });
 __webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ onUserClientEdit; });
 __webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ onUserEdit; });
+__webpack_require__.d(__webpack_exports__, "j", function() { return /* binding */ onUserMembers; });
 __webpack_require__.d(__webpack_exports__, "e", function() { return /* binding */ onUserDelete; });
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ onUserAboutMore; });
 __webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ onUserFolderAdd; });
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ onUserFolderDelete; });
 
-// UNUSED EXPORTS: onUserLogin, onUserRegister, onUserForgotEmail, onUserForgotPassword, onUserChangePassword, onUserMembers
+// UNUSED EXPORTS: onUserLogin, onUserRegister, onUserForgotEmail, onUserForgotPassword, onUserChangePassword
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");

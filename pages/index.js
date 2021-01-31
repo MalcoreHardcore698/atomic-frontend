@@ -14,8 +14,8 @@ import ArticleCard from '../components/ArticleCard'
 import UserCard from '../components/UserCard'
 import { updateUser } from '../store/actions/user'
 import { onProjectLink, onProjectAdd, onProjectScreenshot } from '../store/helpers/project'
+import { onUserLink, onUserMembers } from '../store/helpers/user'
 import { onArticleLink } from '../store/helpers/article'
-import { onUserLink } from '../store/helpers/user'
 import { onChat } from '../store/helpers'
 import queries from '../graphql/queries'
 
@@ -236,6 +236,7 @@ const Home = ({ store }) => {
                       sendMessage: queries.SEND_MESSAGE
                     }
                   })}
+                  onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
                   onCompanyLink={recall(onUserLink, {
                     id: author.company?.email,
                     auth: user?.email,

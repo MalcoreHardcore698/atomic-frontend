@@ -222,7 +222,7 @@ export const Card = ({
                 icon={'user2'}
                 label={'Участники'}
                 text={user.members}
-                onLink={onMembers}
+                onLink={user.members && onMembers}
               />
             ) : (
               <Difinition

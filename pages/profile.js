@@ -328,7 +328,7 @@ const Profile = ({ categories }) => {
         <UserBar
           user={user}
           onEdit={recall(onUserClientEdit, {
-            user,
+            user: user?.email,
             canEditAccount: !isAdmin,
             mutations: {
               update: queries.UPDATE_CLIENT_USER,
