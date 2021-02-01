@@ -2,6 +2,7 @@ const config = {
   salt: 10,
   secret: 'Bearer',
   port: 3000,
+  'video-id': 'lV6dOFeHwqY',
   'upload-dir': 'uploads',
   'host-url': 'http://atomic.ru.com',
   'local-url': 'http://localhost:3000',

@@ -1,4 +1,6 @@
 import React from 'react'
+import styled from 'styled-components'
+import YouTube from 'react-youtube'
 
 import Column from '../../atomic-ui/components/Column'
 import Button from '../../atomic-ui/components/Button'
@@ -10,6 +12,20 @@ import Messenger from '../../components/Messenger'
 import { setDrawer } from '../actions/drawer'
 import { setModal } from '../actions/modal'
 import { onUserLink } from './user'
+
+export const Presentation = styled(YouTube)`
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+  height: 80vh;
+  border-radius: var(--surface-border-radius);
+  overflow: hidden;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+`
 
 export function onMenu(dispatch, props) {
   const { links } = props
@@ -88,5 +104,22 @@ export function onFileLink(dispatch) {
         )
       }
     ])
+  )
+}
+
+export function onIndexVideoLink(dispatch, props) {
+  const { video } = props
+
+  dispatch(
+    setModal(
+      [
+        {
+          path: '/',
+          title: '',
+          component: () => <Presentation videoId={video} />
+        }
+      ],
+      'l'
+    )
   )
 }

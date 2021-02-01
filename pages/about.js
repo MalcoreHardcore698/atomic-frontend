@@ -4,15 +4,15 @@ import styled from 'styled-components'
 import { v4 } from 'uuid'
 
 import Grid from '../atomic-ui/components/Grid'
+import Row from '../atomic-ui/components/Row'
 import Column from '../atomic-ui/components/Column'
 import Title from '../atomic-ui/components/Title'
 import Text from '../atomic-ui/components/Text'
-import Card from '../atomic-ui/components/Card'
+import Card, { Wrap as WrapCard } from '../atomic-ui/components/Card'
 import Tape from '../atomic-ui/components/Tape'
 import Arrower from '../atomic-ui/components/Arrower'
 import Breadcrumbs from '../atomic-ui/components/Breadcrumbs'
 import IconIdea from '../atomic-ui/assets/images/heads/idea.svg'
-import IconRainbow from '../atomic-ui/assets/images/heads/rainbow.svg'
 import IconAnalys from '../atomic-ui/assets/images/heads/analys.svg'
 import IconInsight from '../atomic-ui/assets/images/heads/insight.svg'
 import IconScience from '../atomic-ui/assets/images/heads/science.svg'
@@ -20,7 +20,10 @@ import IconReborn from '../atomic-ui/assets/images/heads/reborn.svg'
 import IconEducation from '../atomic-ui/assets/images/heads/education.svg'
 import IconArrow from '../atomic-ui/assets/images/icons/arrow_right_circle.svg'
 
+import useHelper from '../hooks/useHelper'
 import DefaultLayout from '../layouts/default'
+import { onIndexVideoLink } from '../store/helpers'
+import config from '../config'
 
 const TITLE = 'О портале'
 
@@ -44,23 +47,17 @@ const SOLID_CARDS = [
 
 const DEFAULT_CARDS = [
   {
-    text:
-      'Уникальные архитектурные решения (капитального ремонта, реконструкции, нового строительства, «приспособления»)',
+    text: 'В Вашем проекте будут уникальные архитектурные решения, например, "Эктон"',
     extras: <IconIdea />,
     color: 'pink'
   },
   {
-    text: 'Дизайнерские решения (фото объекта и описание)',
-    extras: <IconRainbow />,
-    color: 'green'
-  },
-  {
     text: (
       <Column style={{ gridGap: 5 }}>
-        <p>Технико-экономические показатели</p>
-        <p>- финансовые (стоимость объекта)</p>
-        <p>- количество детей до/после</p>
-        <p>- земля, количество классов и т.д.</p>
+        <p>Вы расскажите об основных показателях своего проекта:</p>
+        <p>- финансовые (насколько это возможно)</p>
+        <p>- количество прибавишихся учеников (даже если это прогноз)</p>
+        <p>- качественное использование школьных территорий и т.д.</p>
       </Column>
     ),
     extras: <IconAnalys />,
@@ -72,12 +69,15 @@ const DEFAULT_CARDS = [
     color: 'blue'
   },
   {
-    text: 'Какие инновации при строительстве вы использовали',
+    text:
+      'Какие инновационные решения Вы применили в своем проекте: например, концепция "Smart-класс" /' +
+      'включает себя создание пространства для творческой индивидуальности и совместных интерактивных /' +
+      'активностей преподователя и школьников',
     extras: <IconScience />,
     color: 'orange'
   },
   {
-    text: 'Ваши уникальные подходы в повышении эффективности использования пространств',
+    text: 'Какие уникальные методы использования школьных пространств Вы нашли',
     extras: <IconReborn />,
     color: 'red'
   },
@@ -89,17 +89,46 @@ const DEFAULT_CARDS = [
   }
 ]
 
-const Container = styled(Column)`
-  grid-gap: 75px;
+const MainTitle = styled(Title)`
+  @media only screen and (max-width: 480px) {
+    font-size: 24px;
+  }
 `
 
-const SolidCardSection = () => (
-  <Grid>
+const Container = styled(Column)`
+  grid-gap: 25px;
+`
+
+const Content = styled(Column)`
+  grid-gap: 75px;
+  margin: 65px 0;
+`
+
+const SolidCards = styled(Row)`
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: var(--default-gap);
+
+  ${WrapCard} {
+    p {
+      max-width: 300px;
+    }
+  }
+`
+
+const SolidCardSection = ({ onOpenVideo }) => (
+  <SolidCards>
     {SOLID_CARDS.map((card) => (
       <Card key={v4()} {...card} type={'solid'} />
     ))}
-    <Card text={'Узнать больше'} color={'purple'} extras={<IconArrow />} type={'solid'} />
-  </Grid>
+    <Card
+      text={'Что такое Атомик по мнению создателей'}
+      color={'purple'}
+      extras={<IconArrow />}
+      type={'solid'}
+      onClick={onOpenVideo}
+    />
+  </SolidCards>
 )
 
 const ArrowerSection = () => {
@@ -110,58 +139,26 @@ const ArrowerSection = () => {
     'Коммьюнити специалистов в сфере образования – только на Атомике можно увидеть уникальные решения',
     'Быть причастным к изменениям в образовательной среде'
   ]
-  const [advantageFirst, setAdvantageFirst] = useState(0)
-  const [advantageSecond, setAdvantageSecond] = useState(1)
-  const [advantageThird, setAdvantageThird] = useState(2)
+  const [advantage, setAdvantage] = useState(0)
 
   return (
     <Column>
-      <Title tag={'h2'}>Чем полезен Вам портал Атомик?</Title>
-
       <Arrower
+        key={v4()}
         appearance={'default'}
         arrowLeft={'arrowLeft2'}
         arrowRight={'arrowRight2'}
-        label={advantages[advantageFirst]}
+        label={advantages[advantage]}
         onChange={(sign) =>
-          setAdvantageFirst(
-            advantageFirst + sign < 0
+          setAdvantage(
+            advantage + sign < 0
               ? advantages.length - 1
-              : advantageFirst + sign > advantages.length - 1
+              : advantage + sign > advantages.length - 1
               ? 0
-              : advantageFirst + sign
+              : advantage + sign
           )
         }
-      />
-      <Arrower
-        appearance={'default'}
-        arrowLeft={'arrowLeft2'}
-        arrowRight={'arrowRight2'}
-        label={advantages[advantageSecond]}
-        onChange={(sign) =>
-          setAdvantageSecond(
-            advantageSecond + sign < 0
-              ? advantages.length - 1
-              : advantageSecond + sign > advantages.length - 1
-              ? 0
-              : advantageSecond + sign
-          )
-        }
-      />
-      <Arrower
-        appearance={'default'}
-        arrowLeft={'arrowLeft2'}
-        arrowRight={'arrowRight2'}
-        label={advantages[advantageThird]}
-        onChange={(sign) =>
-          setAdvantageThird(
-            advantageThird + sign < 0
-              ? advantages.length - 1
-              : advantageThird + sign > advantages.length - 1
-              ? 0
-              : advantageThird + sign
-          )
-        }
+        noMargin
       />
     </Column>
   )
@@ -169,8 +166,8 @@ const ArrowerSection = () => {
 
 const DefaultCardSection = () => (
   <Column>
-    <Title tag={'h3'}>Как опубликовать свой проект на портале Атомике?</Title>
-    <Text>В Ваших материалах должны быть:</Text>
+    <Title tag={'h3'}>Как опубликовать свой проект на портале Атомик?</Title>
+    <Text>Мы предполагаем, что...</Text>
 
     <Grid percentage={'minmax(325px, 1fr)'}>
       {DEFAULT_CARDS.map((card) => (
@@ -181,6 +178,7 @@ const DefaultCardSection = () => (
 )
 
 const About = () => {
+  const recall = useHelper()
   const router = useRouter()
 
   return (
@@ -192,27 +190,31 @@ const About = () => {
         />
 
         <Container>
-          <Title>Атомик – портал для формирования новой сферы образования</Title>
+          <MainTitle>Атомик – портал для формирования новой сферы образования</MainTitle>
 
-          <SolidCardSection />
+          <Content>
+            <SolidCardSection
+              onOpenVideo={recall(onIndexVideoLink, { video: config.get('video-id') })}
+            />
 
-          <Tape
-            text={
-              'Для независимых авторов проектов в сфере образования, содержащих уникальные архитектурные или дизайнерские решения'
-            }
-          />
+            <Tape
+              text={
+                'Для авторов проектов в сфере образования, содержащих уникальные архитектурные или дизайнерские решения'
+              }
+            />
 
-          <ArrowerSection />
+            <ArrowerSection />
 
-          <Tape
-            text={
-              'Для проектных институтов или бюро, имеющих практику нового строительства, реконструкции или капитального ремонта общеобразовательной организации'
-            }
-          />
+            <Tape
+              text={
+                'Для проектных институтов или бюро, имеющих практику нового строительства, реконструкции или капитального ремонта общеобразовательной организации'
+              }
+            />
 
-          <DefaultCardSection />
+            <DefaultCardSection />
 
-          <Tape text={'Для представителей государственного кластера всей страны'} />
+            <Tape text={'Для представителей государственного кластера всей страны'} />
+          </Content>
         </Container>
       </Column>
     </DefaultLayout>

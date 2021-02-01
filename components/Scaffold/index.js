@@ -2,16 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Column from '../../atomic-ui/components/Column'
+import Search from '../../atomic-ui/components/Search'
 import Title from '../../atomic-ui/components/Title'
 
-import ProjectCard, { Media } from '../../components/ProjectCard'
-import Search from '../../components/SearchBar'
+import ProjectCard, { Poster, Media } from '../../components/ProjectCard'
 
 export const Wrap = styled(Column)`
   position: relative;
   align-items: center;
   width: 100%;
-  padding: 95px var(--main-offset-l);
+  padding: 45px var(--main-offset-l);
 
   &::before {
     content: '';
@@ -107,8 +107,8 @@ export const PrimaryProject = styled(ProjectCard)`
   height: 100%;
   flex-basis: 50%;
 
-  img {
-    height: 100%;
+  ${Poster} {
+    height: 256px;
   }
 
   @media only screen and (max-width: 768px) {

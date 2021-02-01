@@ -234,7 +234,11 @@ const rootReducer = (state = root_initialState, action) => {
 
     case root["a" /* default */].REMOVE_MEMBER:
       return { ...state,
-        members: state.members.filter(member => member.value.email !== action.payload.email)
+        members: state.members.filter(member => {
+          var _member$value;
+
+          return (member.email || ((_member$value = member.value) === null || _member$value === void 0 ? void 0 : _member$value.email)) !== action.payload.email;
+        })
       };
 
     case root["a" /* default */].REMOVE_SCREENSHOT:
@@ -856,6 +860,7 @@ const config = {
   salt: 10,
   secret: 'Bearer',
   port: 3000,
+  'video-id': 'lV6dOFeHwqY',
   'upload-dir': 'uploads',
   'host-url': 'http://atomic.ru.com',
   'local-url': 'http://localhost:3000',

@@ -36,10 +36,7 @@ export const rootReducer = (state = initialState, action) => {
     case C.ADD_MEMBER:
       return {
         ...state,
-        members: [
-          ...state.members,
-          action.payload.member
-        ]
+        members: [...state.members, action.payload.member]
       }
     case C.SET_FOLDER:
       return {
@@ -49,10 +46,7 @@ export const rootReducer = (state = initialState, action) => {
     case C.ADD_SCREENSHOT:
       return {
         ...state,
-        screenshots: [
-          ...state.screenshots,
-          action.payload.screenshot
-        ]
+        screenshots: [...state.screenshots, action.payload.screenshot]
       }
     case C.SET_CHAT:
       return {
@@ -67,15 +61,14 @@ export const rootReducer = (state = initialState, action) => {
     case C.ADD_FILE:
       return {
         ...state,
-        files: [
-          ...state.files,
-          action.payload.file
-        ]
+        files: [...state.files, action.payload.file]
       }
     case C.REMOVE_MEMBER:
       return {
         ...state,
-        members: state.members.filter((member) => member.value.email !== action.payload.email)
+        members: state.members.filter(
+          (member) => (member.email || member.value?.email) !== action.payload.email
+        )
       }
     case C.REMOVE_SCREENSHOT:
       return {

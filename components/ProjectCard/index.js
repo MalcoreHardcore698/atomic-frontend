@@ -121,19 +121,8 @@ export const Screenshot = styled.div`
   min-width: var(--input-height-s);
   min-height: var(--input-height-s);
   border-radius: var(--surface-border-radius);
-  overflow: hidden;
   flex-grow: 1;
   transition: opacity 150ms ease;
-
-  ${({ onClick }) =>
-    onClick &&
-    css`
-      cursor: pointer;
-
-      &:hover {
-        opacity: 0.65;
-      }
-    `}
 
   img {
     width: 100%;
@@ -179,7 +168,6 @@ export const ScreenshotsCounter = styled(Text)`
 
 export const Media = styled(Column)`
   grid-gap: 5px;
-  flex-grow: 100;
 `
 
 export const CentralAlert = styled(Alert)`
@@ -220,7 +208,6 @@ export const ShortText = styled(Text)`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex-grow: 1;
 `
 
 export const Company = styled(Difinition)`
@@ -303,6 +290,7 @@ export const Card = ({
               onClick={() =>
                 onScreenshotClick && onScreenshotClick(project.preview, project.preview.id)
               }
+              magnify
             />
           ) : (
             <CentralAlert>Превью нет</CentralAlert>
@@ -313,7 +301,15 @@ export const Card = ({
                 <Screenshot
                   key={screenshot.id}
                   onClick={() => onScreenshotClick && onScreenshotClick(screenshot, screenshot.id)}>
-                  <Image src={screenshot.path} layout={'fill'} alt={screenshot.name} />
+                  <Image
+                    src={screenshot.path}
+                    alt={screenshot.name}
+                    bottomOffset={300}
+                    layout={'fill'}
+                    scale={5}
+                    magnify
+                    portal
+                  />
                   {index === screenshots?.length - 1 && residue > 0 && (
                     <ScreenshotsCounter>
                       <span>+{residue}</span>

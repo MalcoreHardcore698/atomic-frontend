@@ -325,7 +325,7 @@ export const Project = ({
             <ActionRow
               title={'Изображения'}
               info={'Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'}
-              onAdd={onScreenshotAdd}
+              onAdd={!project && onScreenshotAdd}
               action
             />
 
@@ -348,15 +348,17 @@ export const Project = ({
                       }
                       text={getFileSize(screenshot.size || screenshot.file?.size)}
                     />
-                    <RemoveTooltip place={'left'} text={'Удалить'}>
-                      <Button
-                        type={'button'}
-                        kind={'icon'}
-                        size={'xs'}
-                        onClick={() => onScreenshotRemove(screenshot.id)}>
-                        <Icon size={'xs'} icon={'delete'} stroke={'white'} />
-                      </Button>
-                    </RemoveTooltip>
+                    {!project && (
+                      <RemoveTooltip place={'left'} text={'Удалить'}>
+                        <Button
+                          type={'button'}
+                          kind={'icon'}
+                          size={'xs'}
+                          onClick={() => onScreenshotRemove(screenshot.id)}>
+                          <Icon size={'xs'} icon={'delete'} stroke={'white'} />
+                        </Button>
+                      </RemoveTooltip>
+                    )}
                   </AlignmentRow>
                 ))}
               </Grid>
@@ -389,15 +391,17 @@ export const Project = ({
                       }
                       text={getFileSize(file.size || file.file?.size)}
                     />
-                    <RemoveTooltip place={'left'} text={'Удалить'}>
-                      <Button
-                        type={'button'}
-                        kind={'icon'}
-                        size={'xs'}
-                        onClick={() => onFileRemove(file.id)}>
-                        <Icon size={'xs'} icon={'delete'} stroke={'white'} />
-                      </Button>
-                    </RemoveTooltip>
+                    {!project && (
+                      <RemoveTooltip place={'left'} text={'Удалить'}>
+                        <Button
+                          type={'button'}
+                          kind={'icon'}
+                          size={'xs'}
+                          onClick={() => onFileRemove(file.id)}>
+                          <Icon size={'xs'} icon={'delete'} stroke={'white'} />
+                        </Button>
+                      </RemoveTooltip>
+                    )}
                   </AlignmentRow>
                 ))}
               </Grid>
