@@ -5171,29 +5171,106 @@ Divider.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("ZwIX");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("7sPp");
-/* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("pyQH");
-/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("ApjV");
-/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("lphG");
-/* harmony import */ var _layouts_default__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("X+Rt");
-/* harmony import */ var _components_ProjectCard__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("1zqG");
-/* harmony import */ var _components_ArticleCard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("UwjQ");
-/* harmony import */ var _components_UserCard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("TsNn");
-/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("8ihE");
-/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("IxyI");
-/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("rP4V");
-/* harmony import */ var _store_helpers_article__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("owvJ");
-/* harmony import */ var _store_helpers__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("+EEm");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("u2Cb");
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return /* binding */ getServerSideProps; });
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: external "uuid"
+var external_uuid_ = __webpack_require__("kNaX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
+var Alert = __webpack_require__("ZwIX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
+var Title = __webpack_require__("7sPp");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./apollo/index.js + 1 modules
+var apollo = __webpack_require__("pyQH");
+
+// EXTERNAL MODULE: ./hooks/useHelper.js
+var useHelper = __webpack_require__("ApjV");
+
+// EXTERNAL MODULE: ./hooks/useMutate.js
+var useMutate = __webpack_require__("lphG");
+
+// CONCATENATED MODULE: ./hooks/useInfiniteScroll.js
+
+const useInfiniteScroll = fetchCallback => {
+  const [isFetching, setIsFetching] = Object(external_react_["useState"])(false);
+
+  const onScroll = () => {
+    const offsetHeight = document.documentElement.scrollHeight;
+    const innerHeight = window.innerHeight;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    if (isFetching || innerHeight + scrollTop !== offsetHeight) return;
+    setIsFetching(true);
+  };
+
+  Object(external_react_["useEffect"])(() => {
+    if (!isFetching) return;
+    fetchCallback();
+  }, [isFetching]);
+  Object(external_react_["useEffect"])(() => {
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return [isFetching, setIsFetching];
+};
+/* harmony default export */ var hooks_useInfiniteScroll = (useInfiniteScroll);
+// EXTERNAL MODULE: ./layouts/default.js + 3 modules
+var layouts_default = __webpack_require__("X+Rt");
+
+// EXTERNAL MODULE: ./components/ProjectCard/index.js
+var ProjectCard = __webpack_require__("1zqG");
+
+// EXTERNAL MODULE: ./components/ArticleCard/index.js + 1 modules
+var ArticleCard = __webpack_require__("UwjQ");
+
+// EXTERNAL MODULE: ./components/UserCard/index.js
+var UserCard = __webpack_require__("TsNn");
+
+// EXTERNAL MODULE: ./store/actions/user.js
+var actions_user = __webpack_require__("8ihE");
+
+// EXTERNAL MODULE: ./store/helpers/project.js + 6 modules
+var helpers_project = __webpack_require__("IxyI");
+
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+var helpers_user = __webpack_require__("rP4V");
+
+// EXTERNAL MODULE: ./store/helpers/article.js + 4 modules
+var helpers_article = __webpack_require__("owvJ");
+
+// EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
+var helpers = __webpack_require__("+EEm");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 14 modules
+var queries = __webpack_require__("u2Cb");
+
+// CONCATENATED MODULE: ./pages/index.js
+
+
+
+
 
 
 
@@ -5213,212 +5290,241 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const TITLE = 'Атомик';
-const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+const START_OFFSET = 13;
+const LIMIT = 5;
+const Container = external_styled_components_default.a.div.withConfig({
   displayName: "pages__Container",
   componentId: "sc-1kp8388-0"
 })(["display:grid;grid-template-columns:1fr min-content;grid-gap:var(--default-gap);margin-bottom:80px;@media only screen and (max-width:1196px){grid-template-columns:1fr;}"]);
-const Projects = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.aside.withConfig({
+const Projects = external_styled_components_default.a.aside.withConfig({
   displayName: "pages__Projects",
   componentId: "sc-1kp8388-1"
 })(["display:grid;grid-template-columns:repeat(auto-fit,minmax(442px,1fr));grid-gap:var(--default-gap);grid-auto-rows:max-content;@media only screen and (max-width:768px){grid-template-columns:repeat(auto-fit,minmax(285px,1fr));}"]);
-const Aside = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.aside.withConfig({
+const Aside = external_styled_components_default.a.aside.withConfig({
   displayName: "pages__Aside",
   componentId: "sc-1kp8388-2"
 })(["display:flex;flex-direction:column;grid-gap:var(--default-gap);width:394px;@media only screen and (max-width:1196px){width:auto;}"]);
+const Loader = external_styled_components_default.a.div.withConfig({
+  displayName: "pages__Loader",
+  componentId: "sc-1kp8388-3"
+})(["display:flex;justify-content:center;width:100%;height:80px;"]);
 
 const Home = ({
   store
 }) => {
-  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_6__[/* useHelper */ "b"])();
-  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_7__[/* useMutate */ "a"])();
-  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
-  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  const recall = Object(useHelper["b" /* useHelper */])();
+  const mutate = Object(useMutate["a" /* useMutate */])();
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const dispatch = Object(external_react_redux_["useDispatch"])();
   const {
-    projects,
+    loading,
+    refetch
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_PROJECTS, {
+    variables: {
+      offset: 0,
+      limit: LIMIT
+    }
+  });
+  const {
     articles,
     users
   } = store;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_default__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  const [projects, setProjects] = Object(external_react_["useState"])(store.projects || []);
+  const [offset, setOffset] = Object(external_react_["useState"])(START_OFFSET);
+  const [isFetching, setIsFetching] = useInfiniteScroll(async () => {
+    const response = await refetch({
+      offset,
+      limit: LIMIT
+    });
+
+    if (!response.errors) {
+      setProjects(prev => [...prev, ...response.data.getProjects]);
+    }
+
+    setOffset(prev => prev + LIMIT);
+    setIsFetching(false);
+  });
+  return /*#__PURE__*/external_react_default.a.createElement(layouts_default["a" /* default */], {
     title: TITLE,
     scaffold: {
       title: 'Создавай школу будущего с нами',
       background: '/images/main-background.png',
       primary: projects.length > 0 && projects[0],
       residue: projects.length > 4 && projects.slice(1, 3),
-      onLink: (project, owned) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectLink */ "e"], {
+      onLink: (project, owned) => recall(helpers_project["e" /* onProjectLink */], {
         id: project.id,
         auth: user === null || user === void 0 ? void 0 : user.email,
         project,
         liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-        onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].LIKE_PROJECT, {
+        onLike: user.email && mutate(queries["a" /* default */].LIKE_PROJECT, {
           id: project.id
-        }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_12__[/* updateUser */ "e"])(response.data.likeProject))),
-        onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+        }, response => dispatch(Object(actions_user["e" /* updateUser */])(response.data.likeProject))),
+        onAdd: user.email && recall(helpers_project["a" /* onProjectAdd */], {
           id: project.id,
           project,
           folders: user === null || user === void 0 ? void 0 : user.folders,
           mutations: {
-            addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_PROJECT,
-            createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_FOLDER
+            addProject: queries["a" /* default */].ADD_USER_PROJECT,
+            createFolder: queries["a" /* default */].ADD_USER_FOLDER
           }
         }),
         owned
       })(),
-      onLike: user.email && (project => mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].LIKE_PROJECT, {
+      onLike: user.email && (project => mutate(queries["a" /* default */].LIKE_PROJECT, {
         id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_12__[/* updateUser */ "e"])(response.data.likeProject)))()),
-      onAdd: user.email && (project => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+      }, response => dispatch(Object(actions_user["e" /* updateUser */])(response.data.likeProject)))()),
+      onAdd: user.email && (project => recall(helpers_project["a" /* onProjectAdd */], {
         id: project.id,
         project,
         folders: user === null || user === void 0 ? void 0 : user.folders,
         mutations: {
-          addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_PROJECT,
-          createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_FOLDER
+          addProject: queries["a" /* default */].ADD_USER_PROJECT,
+          createFolder: queries["a" /* default */].ADD_USER_FOLDER
         }
       })()),
       onCompanyLink: project => {
         var _project$company;
 
-        return recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_14__[/* onUserLink */ "i"], {
+        return recall(helpers_user["i" /* onUserLink */], {
           id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
           auth: user
         })();
       },
-      onScreenshotClick: (project, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectScreenshot */ "f"], {
+      onScreenshotClick: (project, key) => recall(helpers_project["f" /* onProjectScreenshot */], {
         screenshots: [project.preview, ...project.screenshots],
         key
       })()
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Projects, null, projects.length > 0 ? projects.map(project => {
+  }, /*#__PURE__*/external_react_default.a.createElement(Container, null, /*#__PURE__*/external_react_default.a.createElement(Projects, null, projects.length > 3 ? projects.slice(3).map(project => {
     var _user$projects, _user$folders, _project$company2;
 
     const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === project.id);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectCard__WEBPACK_IMPORTED_MODULE_9__[/* default */ "c"], {
-      key: project.id,
+    return /*#__PURE__*/external_react_default.a.createElement(ProjectCard["c" /* default */], {
+      key: Object(external_uuid_["v4"])(),
       project: project,
       owned: owned,
       added: !!(user !== null && user !== void 0 && (_user$folders = user.folders) !== null && _user$folders !== void 0 && _user$folders.find(folder => !!(folder !== null && folder !== void 0 && folder.projects.find(item => item.id === project.id)))),
       liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectLink */ "e"], {
+      onLink: recall(helpers_project["e" /* onProjectLink */], {
         id: project.id,
         auth: user === null || user === void 0 ? void 0 : user.email,
         liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-        onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].LIKE_PROJECT, {
+        onLike: user.email && mutate(queries["a" /* default */].LIKE_PROJECT, {
           id: project.id
-        }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_12__[/* updateUser */ "e"])(response.data.likeProject))),
-        onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+        }, response => dispatch(Object(actions_user["e" /* updateUser */])(response.data.likeProject))),
+        onAdd: user.email && recall(helpers_project["a" /* onProjectAdd */], {
           id: project.id,
           project,
           folders: user === null || user === void 0 ? void 0 : user.folders,
           mutations: {
-            addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_PROJECT,
-            createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_FOLDER
+            addProject: queries["a" /* default */].ADD_USER_PROJECT,
+            createFolder: queries["a" /* default */].ADD_USER_FOLDER
           }
         }),
         owned
       }),
-      onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].LIKE_PROJECT, {
+      onLike: user.email && mutate(queries["a" /* default */].LIKE_PROJECT, {
         id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_12__[/* updateUser */ "e"])(response.data.likeProject))),
-      onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+      }, response => dispatch(Object(actions_user["e" /* updateUser */])(response.data.likeProject))),
+      onAdd: user.email && recall(helpers_project["a" /* onProjectAdd */], {
         id: project.id,
         project,
         folders: user === null || user === void 0 ? void 0 : user.folders,
         mutations: {
-          addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_PROJECT,
-          createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_FOLDER
+          addProject: queries["a" /* default */].ADD_USER_PROJECT,
+          createFolder: queries["a" /* default */].ADD_USER_FOLDER
         }
       }),
-      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_14__[/* onUserLink */ "i"], {
+      onCompanyLink: recall(helpers_user["i" /* onUserLink */], {
         id: (_project$company2 = project.company) === null || _project$company2 === void 0 ? void 0 : _project$company2.email,
         auth: user === null || user === void 0 ? void 0 : user.email,
         recipient: project.author,
-        query: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_USER_CHATS,
-        mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].SEND_MESSAGE
+        query: queries["a" /* default */].GET_USER_CHATS,
+        mutation: queries["a" /* default */].SEND_MESSAGE
       }),
-      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectScreenshot */ "f"], {
+      onScreenshotClick: (_, key) => recall(helpers_project["f" /* onProjectScreenshot */], {
         screenshots: [project.preview, ...project.screenshots],
         key
       })()
     });
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+  }) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u041F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043D\u0435\u0442")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Aside, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }, "\u041F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043D\u0435\u0442"), (loading || isFetching) && /*#__PURE__*/external_react_default.a.createElement(Loader, null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null))), /*#__PURE__*/external_react_default.a.createElement(Aside, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
   }, "\u0410\u0432\u0442\u043E\u0440\u044B"), users.length > 0 ? users.slice(0, 3).map(author => {
     var _author$company;
 
     const owned = author.name === (user === null || user === void 0 ? void 0 : user.name);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserCard__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
-      key: author.email,
+    return /*#__PURE__*/external_react_default.a.createElement(UserCard["a" /* default */], {
+      key: Object(external_uuid_["v4"])(),
       user: author,
       owned: owned,
-      onChat: user.email && recall(_store_helpers__WEBPACK_IMPORTED_MODULE_16__[/* onChat */ "a"], {
+      onChat: user.email && recall(helpers["a" /* onChat */], {
         email: author.email,
         auth: user === null || user === void 0 ? void 0 : user.email,
         queries: {
-          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_USER_CHATS,
-          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_CHAT
+          userChats: queries["a" /* default */].GET_USER_CHATS,
+          chat: queries["a" /* default */].GET_CHAT
         },
         mutations: {
-          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_CHAT,
-          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].SEND_MESSAGE
+          addUserChat: queries["a" /* default */].ADD_USER_CHAT,
+          sendMessage: queries["a" /* default */].SEND_MESSAGE
         }
       }),
-      onLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_14__[/* onUserLink */ "i"], {
+      onLink: recall(helpers_user["i" /* onUserLink */], {
         id: author.email,
         auth: user === null || user === void 0 ? void 0 : user.email,
         owned,
         queries: {
-          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_USER_CHATS,
-          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_CHAT
+          userChats: queries["a" /* default */].GET_USER_CHATS,
+          chat: queries["a" /* default */].GET_CHAT
         },
         mutations: {
-          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_CHAT,
-          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].SEND_MESSAGE
+          addUserChat: queries["a" /* default */].ADD_USER_CHAT,
+          sendMessage: queries["a" /* default */].SEND_MESSAGE
         }
       }),
-      onMembers: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_14__[/* onUserMembers */ "j"], {
+      onMembers: recall(helpers_user["j" /* onUserMembers */], {
         id: author === null || author === void 0 ? void 0 : author.email,
         auth: user === null || user === void 0 ? void 0 : user.email
       }),
-      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_14__[/* onUserLink */ "i"], {
+      onCompanyLink: recall(helpers_user["i" /* onUserLink */], {
         id: (_author$company = author.company) === null || _author$company === void 0 ? void 0 : _author$company.email,
         auth: user === null || user === void 0 ? void 0 : user.email,
         queries: {
-          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_USER_CHATS,
-          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_CHAT
+          userChats: queries["a" /* default */].GET_USER_CHATS,
+          chat: queries["a" /* default */].GET_CHAT
         },
         mutations: {
-          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].ADD_USER_CHAT,
-          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].SEND_MESSAGE
+          addUserChat: queries["a" /* default */].ADD_USER_CHAT,
+          sendMessage: queries["a" /* default */].SEND_MESSAGE
         }
       })
     });
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+  }) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u0410\u0432\u0442\u043E\u0440\u043E\u0432 \u043D\u0435\u0442"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }, "\u0410\u0432\u0442\u043E\u0440\u043E\u0432 \u043D\u0435\u0442"), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
   }, "\u041D\u043E\u0432\u043E\u0441\u0442\u0438"), articles.length > 0 ? articles.slice(0, 2).map(article => {
     var _user$articles;
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ArticleCard__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
-      key: article.id,
+    return /*#__PURE__*/external_react_default.a.createElement(ArticleCard["a" /* default */], {
+      key: Object(external_uuid_["v4"])(),
       layout: 'column',
       article: article,
       owned: user === null || user === void 0 ? void 0 : (_user$articles = user.articles) === null || _user$articles === void 0 ? void 0 : _user$articles.find(candidate => candidate.id === article.id),
-      onLink: recall(_store_helpers_article__WEBPACK_IMPORTED_MODULE_15__[/* onArticleLink */ "d"], {
+      onLink: recall(helpers_article["d" /* onArticleLink */], {
         id: article.id,
         auth: user === null || user === void 0 ? void 0 : user.email
       })
     });
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+  }) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -5427,22 +5533,24 @@ const Home = ({
 };
 
 const getServerSideProps = async () => {
-  const client = Object(_apollo__WEBPACK_IMPORTED_MODULE_5__[/* initializeApollo */ "a"])();
-  let projects = [];
+  const client = Object(apollo["a" /* initializeApollo */])();
   let articles = [];
+  let projects = [];
   let users = [];
 
   try {
     const response = await client.query({
-      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_META_INDEX,
+      query: queries["a" /* default */].GET_META_INDEX,
       variables: {
+        offset: 0,
+        limit: START_OFFSET,
         status: 'PUBLISHED'
       }
     });
 
     if (response && response.data) {
-      projects = response.data.getProjects;
       articles = response.data.getArticles;
+      projects = response.data.getProjects;
       users = response.data.getUsers;
     }
   } catch (err) {
@@ -5452,14 +5560,14 @@ const getServerSideProps = async () => {
   return {
     props: {
       store: {
-        projects,
         articles,
+        projects,
         users
       }
     }
   };
 };
-/* harmony default export */ __webpack_exports__["default"] = (Home);
+/* harmony default export */ var pages = __webpack_exports__["default"] = (Home);
 
 /***/ }),
 
@@ -6262,15 +6370,20 @@ const Magnify = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
       top: calc(-${bottomOffset || 100}% - 15px);
       border: var(--surface-border);
       box-shadow: var(--default-shadow);
-      border-radius: ${8 / scale};
+      border-radius: 2px;
       transform: scale(${scale});
     `}
 `;
 const Source = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.img`
   overflow: hidden;
   border-radius: var(--surface-border-radius);
-  opacity: 1 !important;
-  cursor: crosshair !important;
+
+  ${({
+  magnify
+}) => magnify && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      opacity: 1 !important;
+      cursor: crosshair !important;
+    `}
 `;
 const Image = (_ref) => {
   let {
@@ -6347,7 +6460,8 @@ const Image = (_ref) => {
       width,
       height,
       opacity
-    }
+    },
+    magnify: magnify
   }))) : __jsx(Source, _extends({}, props, {
     src: src,
     style: {
@@ -17541,14 +17655,14 @@ const GET_USER_CHATS = external_graphql_tag_default.a`
 
 
 const GET_META_INDEX = external_graphql_tag_default.a`
-  query getMetaIndex($status: PostStatus) {
+  query getMetaIndex($offset: Int, $limit: Int, $status: PostStatus) {
     getUsers {
       ...UserFields
     }
     getArticles(status: $status) {
       ...ArticleFields
     }
-    getProjects(status: $status) {
+    getProjects(offset: $offset, limit: $limit, status: $status) {
       ...ProjectFields
     }
   }
@@ -17945,8 +18059,8 @@ const GET_PROJECT = external_graphql_tag_default.a`
   ${ProjectFields}
 `;
 const GET_PROJECTS = external_graphql_tag_default.a`
-  query getProjects($status: PostStatus) {
-    getProjects(status: $status) {
+  query getProjects($offset: Int, $limit: Int, $status: PostStatus) {
+    getProjects(offset: $offset, limit: $limit, status: $status) {
       id
       title
       description

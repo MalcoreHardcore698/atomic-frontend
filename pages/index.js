@@ -1,13 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
+import { useQuery } from '@apollo/react-hooks'
+import { v4 } from 'uuid'
 
 import Alert from '../atomic-ui/components/Alert'
 import Title from '../atomic-ui/components/Title'
+import Spinner from '../atomic-ui/components/Spinner'
 
 import { initializeApollo } from '../apollo'
 import { useHelper } from '../hooks/useHelper'
 import { useMutate } from '../hooks/useMutate'
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll'
 import DefaultLayout from '../layouts/default'
 import ProjectCard from '../components/ProjectCard'
 import ArticleCard from '../components/ArticleCard'
@@ -20,6 +24,8 @@ import { onChat } from '../store/helpers'
 import queries from '../graphql/queries'
 
 const TITLE = 'Атомик'
+const START_OFFSET = 13
+const LIMIT = 5
 
 const Container = styled.div`
   display: grid;
@@ -54,12 +60,35 @@ const Aside = styled.aside`
   }
 `
 
+const Loader = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+`
+
 const Home = ({ store }) => {
   const recall = useHelper()
   const mutate = useMutate()
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
-  const { projects, articles, users } = store
+  const { loading, refetch } = useQuery(queries.GET_PROJECTS, {
+    variables: {
+      offset: 0,
+      limit: LIMIT
+    }
+  })
+  const { articles, users } = store
+  const [projects, setProjects] = useState(store.projects || [])
+  const [offset, setOffset] = useState(START_OFFSET)
+  const [isFetching, setIsFetching] = useInfiniteScroll(async () => {
+    const response = await refetch({ offset, limit: LIMIT })
+    if (!response.errors) {
+      setProjects((prev) => [...prev, ...response.data.getProjects])
+    }
+    setOffset((prev) => prev + LIMIT)
+    setIsFetching(false)
+  })
 
   return (
     <DefaultLayout
@@ -121,13 +150,13 @@ const Home = ({ store }) => {
       }}>
       <Container>
         <Projects>
-          {projects.length > 0 ? (
-            projects.map((project) => {
+          {projects.length > 3 ? (
+            projects.slice(3).map((project) => {
               const owned = user?.projects?.find((candidate) => candidate.id === project.id)
 
               return (
                 <ProjectCard
-                  key={project.id}
+                  key={v4()}
                   project={project}
                   owned={owned}
                   added={
@@ -195,6 +224,12 @@ const Home = ({ store }) => {
           ) : (
             <Alert style={{ width: '100%', textAlign: 'center' }}>Проектов нет</Alert>
           )}
+
+          {(loading || isFetching) && (
+            <Loader>
+              <Spinner />
+            </Loader>
+          )}
         </Projects>
 
         <Aside>
@@ -205,7 +240,7 @@ const Home = ({ store }) => {
 
               return (
                 <UserCard
-                  key={author.email}
+                  key={v4()}
                   user={author}
                   owned={owned}
                   onChat={
@@ -262,7 +297,7 @@ const Home = ({ store }) => {
               .slice(0, 2)
               .map((article) => (
                 <ArticleCard
-                  key={article.id}
+                  key={v4()}
                   layout={'column'}
                   article={article}
                   owned={user?.articles?.find((candidate) => candidate.id === article.id)}
@@ -281,21 +316,23 @@ const Home = ({ store }) => {
 export const getServerSideProps = async () => {
   const client = initializeApollo()
 
-  let projects = []
   let articles = []
+  let projects = []
   let users = []
 
   try {
     const response = await client.query({
       query: queries.GET_META_INDEX,
       variables: {
+        offset: 0,
+        limit: START_OFFSET,
         status: 'PUBLISHED'
       }
     })
 
     if (response && response.data) {
-      projects = response.data.getProjects
       articles = response.data.getArticles
+      projects = response.data.getProjects
       users = response.data.getUsers
     }
   } catch (err) {
@@ -305,8 +342,8 @@ export const getServerSideProps = async () => {
   return {
     props: {
       store: {
-        projects,
         articles,
+        projects,
         users
       }
     }

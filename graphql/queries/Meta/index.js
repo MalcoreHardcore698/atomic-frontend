@@ -9,14 +9,14 @@ import {
 } from '../../fragments'
 
 export const GET_META_INDEX = gql`
-  query getMetaIndex($status: PostStatus) {
+  query getMetaIndex($offset: Int, $limit: Int, $status: PostStatus) {
     getUsers {
       ...UserFields
     }
     getArticles(status: $status) {
       ...ArticleFields
     }
-    getProjects(status: $status) {
+    getProjects(offset: $offset, limit: $limit, status: $status) {
       ...ProjectFields
     }
   }

@@ -6763,15 +6763,20 @@ const Magnify = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
       top: calc(-${bottomOffset || 100}% - 15px);
       border: var(--surface-border);
       box-shadow: var(--default-shadow);
-      border-radius: ${8 / scale};
+      border-radius: 2px;
       transform: scale(${scale});
     `}
 `;
 const Source = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.img`
   overflow: hidden;
   border-radius: var(--surface-border-radius);
-  opacity: 1 !important;
-  cursor: crosshair !important;
+
+  ${({
+  magnify
+}) => magnify && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      opacity: 1 !important;
+      cursor: crosshair !important;
+    `}
 `;
 const Image = (_ref) => {
   let {
@@ -6848,7 +6853,8 @@ const Image = (_ref) => {
       width,
       height,
       opacity
-    }
+    },
+    magnify: magnify
   }))) : __jsx(Source, _extends({}, props, {
     src: src,
     style: {
@@ -17621,14 +17627,14 @@ const GET_USER_CHATS = external_graphql_tag_default.a`
 
 
 const GET_META_INDEX = external_graphql_tag_default.a`
-  query getMetaIndex($status: PostStatus) {
+  query getMetaIndex($offset: Int, $limit: Int, $status: PostStatus) {
     getUsers {
       ...UserFields
     }
     getArticles(status: $status) {
       ...ArticleFields
     }
-    getProjects(status: $status) {
+    getProjects(offset: $offset, limit: $limit, status: $status) {
       ...ProjectFields
     }
   }
@@ -18025,8 +18031,8 @@ const GET_PROJECT = external_graphql_tag_default.a`
   ${ProjectFields}
 `;
 const GET_PROJECTS = external_graphql_tag_default.a`
-  query getProjects($status: PostStatus) {
-    getProjects(status: $status) {
+  query getProjects($offset: Int, $limit: Int, $status: PostStatus) {
+    getProjects(offset: $offset, limit: $limit, status: $status) {
       id
       title
       description
