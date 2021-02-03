@@ -3335,7 +3335,7 @@ const Project = ({
       }
     }, /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
       title: 'Участники проeкта',
-      onAdd: onMemberAdd,
+      onAdd: onMemberAdd || (() => {}),
       action: true
     }), (members === null || members === void 0 ? void 0 : members.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(320px, 1fr)'
@@ -3376,7 +3376,7 @@ const Project = ({
     }), /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
       title: 'Изображения',
       info: 'Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB',
-      onAdd: !project && onScreenshotAdd,
+      onAdd: !project && onScreenshotAdd || (() => {}),
       action: true
     }), (screenshots === null || screenshots === void 0 ? void 0 : screenshots.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(196px, 1fr)'
@@ -3413,7 +3413,7 @@ const Project = ({
     }), /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
       title: 'Файлы',
       info: 'Допустимые форматы: pdf, docx, .doc. Макс. размер: 15 MB',
-      onAdd: onFileAdd,
+      onAdd: onFileAdd || (() => {}),
       action: true
     }), (files === null || files === void 0 ? void 0 : files.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(196px, 1fr)'
@@ -6008,6 +6008,7 @@ const Magnify = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
   height: 100%;
   z-index: var(--z-12);
   border-radius: var(--surface-border-radius);
+  background-repeat: no-repeat;
   opacity: 1 !important;
   cursor: crosshair !important;
 
@@ -6086,8 +6087,8 @@ const Image = (_ref) => {
       width,
       height
     },
-    onMouseMove: !portal && handleMouseMove,
-    onMouseLeave: !portal && handleMouseLeave
+    onMouseMove: !portal ? handleMouseMove : () => {},
+    onMouseLeave: !portal ? handleMouseLeave : () => {}
   }, __jsx(Magnify, _extends({}, props, {
     style: _objectSpread(_objectSpread({}, state), {}, {
       width,

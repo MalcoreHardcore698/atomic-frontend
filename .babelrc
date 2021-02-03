@@ -9,6 +9,8 @@
       }
     ]
   ],
-  "plugins": ["@babel/plugin-transform-react-jsx", ["styled-components", { "ssr": true }]],
-  "compact": false
+  "plugins": [
+    "@babel/plugin-transform-react-jsx",
+    ["styled-components", { "ssr": true }]
+  ]
 }

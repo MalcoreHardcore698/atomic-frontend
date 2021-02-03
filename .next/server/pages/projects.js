@@ -3132,7 +3132,7 @@ const Project = ({
       }
     }, /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
       title: 'Участники проeкта',
-      onAdd: onMemberAdd,
+      onAdd: onMemberAdd || (() => {}),
       action: true
     }), (members === null || members === void 0 ? void 0 : members.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(320px, 1fr)'
@@ -3173,7 +3173,7 @@ const Project = ({
     }), /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
       title: 'Изображения',
       info: 'Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB',
-      onAdd: !project && onScreenshotAdd,
+      onAdd: !project && onScreenshotAdd || (() => {}),
       action: true
     }), (screenshots === null || screenshots === void 0 ? void 0 : screenshots.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(196px, 1fr)'
@@ -3210,7 +3210,7 @@ const Project = ({
     }), /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
       title: 'Файлы',
       info: 'Допустимые форматы: pdf, docx, .doc. Макс. размер: 15 MB',
-      onAdd: onFileAdd,
+      onAdd: onFileAdd || (() => {}),
       action: true
     }), (files === null || files === void 0 ? void 0 : files.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(196px, 1fr)'
@@ -5110,26 +5110,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ZwIX");
-/* harmony import */ var _atomic_ui_components_DatePicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("wZgm");
-/* harmony import */ var _atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("QclZ");
-/* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("pyQH");
-/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("ApjV");
-/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("lphG");
-/* harmony import */ var _layouts_default__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("X+Rt");
-/* harmony import */ var _components_ProjectCard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("1zqG");
-/* harmony import */ var _components_FilterBar__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("RoTl");
-/* harmony import */ var _components_SearchBar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("EYtC");
-/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("8ihE");
-/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("IxyI");
-/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("rP4V");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("u2Cb");
-/* harmony import */ var _mock___WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("wha1");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("4Q3z");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("8CDE");
+/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("ZwIX");
+/* harmony import */ var _atomic_ui_components_DatePicker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("wZgm");
+/* harmony import */ var _atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("QclZ");
+/* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("pyQH");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("ApjV");
+/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("lphG");
+/* harmony import */ var _layouts_default__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("X+Rt");
+/* harmony import */ var _components_ProjectCard__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("1zqG");
+/* harmony import */ var _components_FilterBar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("RoTl");
+/* harmony import */ var _components_SearchBar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("EYtC");
+/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("8ihE");
+/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("IxyI");
+/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("rP4V");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("u2Cb");
+/* harmony import */ var _mock___WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("wha1");
+
 
 
 
@@ -5150,11 +5153,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const TITLE = 'Проекты';
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]).withConfig({
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).withConfig({
   displayName: "projects__Wrap",
   componentId: "sc-3yxn9c-0"
 })(["margin-top:120px;margin-bottom:80px;@media only screen and (max-width:480px){margin-top:0;}"]);
-const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.aside.withConfig({
+const Container = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.aside.withConfig({
   displayName: "projects__Container",
   componentId: "sc-3yxn9c-1"
 })(["display:grid;grid-template-columns:repeat(auto-fit,minmax(442px,1fr));grid-gap:var(--default-gap);@media only screen and (max-width:768px){grid-template-columns:repeat(auto-fit,minmax(285px,1fr));}"]);
@@ -5163,73 +5166,75 @@ const Projects = ({
   store,
   categories
 }) => {
-  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_8__[/* useHelper */ "b"])();
-  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_9__[/* useMutate */ "a"])();
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_9__[/* useHelper */ "b"])();
+  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_10__[/* useMutate */ "a"])();
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_1__["useRouter"])();
   const {
     user,
     documents
-  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => ({
+  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(state => ({
     user: state.user,
     documents: state.documents
   }));
-  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
   const [date, onChangeDate] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])();
   const [select, onChangeSelect] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])();
   const [visibleFilter, setVisibleFilter] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  const projects = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => documents || store.projects, [documents, store]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_default__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+  const projects = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => (documents || store.projects).filter(project => project.category.id === router.query.category), [documents, store]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_default__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
     title: TITLE
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_SearchBar__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_SearchBar__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
     onChangeFilter: () => setVisibleFilter(!visibleFilter)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FilterBar__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FilterBar__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
     isOpen: visibleFilter,
-    filters: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_DatePicker__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    filters: [/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_DatePicker__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
       key: 0,
       value: date,
       placeholder: 'Дата публикации',
       onChange: onChangeDate,
       withNavigate: true
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
       key: 1,
       options: categories,
       placeholder: 'Раздел',
       selected: select,
       onChange: item => onChangeSelect(item)
     })],
-    options: _mock___WEBPACK_IMPORTED_MODULE_18__[/* filters */ "c"]
+    options: _mock___WEBPACK_IMPORTED_MODULE_19__[/* filters */ "c"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, projects.length > 0 ? projects.map(project => {
     var _user$projects, _project$company;
 
     const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === project.id);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectCard__WEBPACK_IMPORTED_MODULE_11__[/* default */ "c"], {
+    if (project.category.id !== router.query.category) return null;
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectCard__WEBPACK_IMPORTED_MODULE_12__[/* default */ "c"], {
       key: project.id,
       project: project,
       owned: owned,
       liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectLink */ "e"], {
+      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_16__[/* onProjectLink */ "e"], {
         id: project.id,
         auth: user,
         owned
       }),
-      onLike: (user === null || user === void 0 ? void 0 : user.email) && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].LIKE_PROJECT, {
+      onLike: (user === null || user === void 0 ? void 0 : user.email) && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_18__[/* default */ "a"].LIKE_PROJECT, {
         id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_14__[/* updateUser */ "e"])(response.data.likeProject))),
-      onAdd: (user === null || user === void 0 ? void 0 : user.email) && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectAdd */ "a"], {
+      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_15__[/* updateUser */ "e"])(response.data.likeProject))),
+      onAdd: (user === null || user === void 0 ? void 0 : user.email) && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_16__[/* onProjectAdd */ "a"], {
         id: project.id
       }),
-      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserLink */ "i"], {
+      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_17__[/* onUserLink */ "i"], {
         id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
         auth: user === null || user === void 0 ? void 0 : user.email,
         recipient: project.author,
-        query: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_USER_CHATS,
-        mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].SEND_MESSAGE
+        query: _graphql_queries__WEBPACK_IMPORTED_MODULE_18__[/* default */ "a"].GET_USER_CHATS,
+        mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_18__[/* default */ "a"].SEND_MESSAGE
       }),
-      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectScreenshot */ "f"], {
+      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_16__[/* onProjectScreenshot */ "f"], {
         screenshots: [project.preview, ...project.screenshots],
         key
       })()
     });
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -5238,13 +5243,13 @@ const Projects = ({
 };
 
 async function getServerSideProps() {
-  const client = Object(_apollo__WEBPACK_IMPORTED_MODULE_7__[/* initializeApollo */ "a"])();
+  const client = Object(_apollo__WEBPACK_IMPORTED_MODULE_8__[/* initializeApollo */ "a"])();
   let projects = [];
   let categories = [];
 
   try {
     const response = await client.query({
-      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].GET_META_PROJECTS,
+      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_18__[/* default */ "a"].GET_META_PROJECTS,
       variables: {
         status: 'PUBLISHED'
       }
@@ -5974,6 +5979,7 @@ const Magnify = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
   height: 100%;
   z-index: var(--z-12);
   border-radius: var(--surface-border-radius);
+  background-repeat: no-repeat;
   opacity: 1 !important;
   cursor: crosshair !important;
 
@@ -6052,8 +6058,8 @@ const Image = (_ref) => {
       width,
       height
     },
-    onMouseMove: !portal && handleMouseMove,
-    onMouseLeave: !portal && handleMouseLeave
+    onMouseMove: !portal ? handleMouseMove : () => {},
+    onMouseLeave: !portal ? handleMouseLeave : () => {}
   }, __jsx(Magnify, _extends({}, props, {
     style: _objectSpread(_objectSpread({}, state), {}, {
       width,

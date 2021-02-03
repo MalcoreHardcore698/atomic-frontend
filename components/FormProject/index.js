@@ -285,7 +285,7 @@ export const Project = ({
             <Divider clear />
 
             <Column style={{ flexGrow: 1 }}>
-              <ActionRow title={'Участники проeкта'} onAdd={onMemberAdd} action />
+              <ActionRow title={'Участники проeкта'} onAdd={onMemberAdd || (() => {})} action />
 
               {members?.length > 0 ? (
                 <Grid percentage={'minmax(320px, 1fr)'}>
@@ -325,7 +325,7 @@ export const Project = ({
             <ActionRow
               title={'Изображения'}
               info={'Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'}
-              onAdd={!project && onScreenshotAdd}
+              onAdd={(!project && onScreenshotAdd) || (() => {})}
               action
             />
 
@@ -373,7 +373,7 @@ export const Project = ({
             <ActionRow
               title={'Файлы'}
               info={'Допустимые форматы: pdf, docx, .doc. Макс. размер: 15 MB'}
-              onAdd={onFileAdd}
+              onAdd={onFileAdd || (() => {})}
               action
             />
 

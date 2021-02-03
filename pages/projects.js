@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -44,6 +45,7 @@ const Container = styled.aside`
 const Projects = ({ store, categories }) => {
   const recall = useHelper()
   const mutate = useMutate()
+  const router = useRouter()
   const { user, documents } = useSelector((state) => ({
     user: state.user,
     documents: state.documents
@@ -53,7 +55,13 @@ const Projects = ({ store, categories }) => {
   const [select, onChangeSelect] = useState()
   const [visibleFilter, setVisibleFilter] = useState(false)
 
-  const projects = useMemo(() => documents || store.projects, [documents, store])
+  const projects = useMemo(
+    () =>
+      (documents || store.projects).filter(
+        (project) => project.category.id === router.query.category
+      ),
+    [documents, store]
+  )
 
   return (
     <DefaultLayout title={TITLE}>
@@ -85,6 +93,8 @@ const Projects = ({ store, categories }) => {
           {projects.length > 0 ? (
             projects.map((project) => {
               const owned = user?.projects?.find((candidate) => candidate.id === project.id)
+
+              if (project.category.id !== router.query.category) return null
 
               return (
                 <ProjectCard
