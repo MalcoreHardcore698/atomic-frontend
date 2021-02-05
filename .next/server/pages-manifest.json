@@ -1,24 +1,6 @@
 {
-  "/404": "pages/404.html",
-  "/500": "pages/500.html",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/about": "pages/about.html",
-  "/articles": "pages/articles.js",
-  "/auth": "pages/auth.html",
-  "/contact": "pages/contact.html",
-  "/creators": "pages/creators.js",
-  "/dashboard/articles": "pages/dashboard/articles.js",
-  "/dashboard/categories": "pages/dashboard/categories.js",
-  "/dashboard": "pages/dashboard.html",
-  "/dashboard/projects": "pages/dashboard/projects.js",
-  "/dashboard/roles": "pages/dashboard/roles.js",
-  "/dashboard/settings": "pages/dashboard/settings.html",
-  "/dashboard/tickets": "pages/dashboard/tickets.js",
-  "/dashboard/users": "pages/dashboard/users.js",
-  "/guide": "pages/guide.html",
-  "/": "pages/index.js",
-  "/profile": "pages/profile.js",
-  "/projects": "pages/projects.js",
-  "/_error": "pages/_error.js"
+  "/_error": "pages/_error.js",
+  "/dashboard/users": "pages/dashboard/users.js"
 }

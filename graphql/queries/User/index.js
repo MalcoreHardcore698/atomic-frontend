@@ -68,8 +68,22 @@ export const GET_USER = gql`
 `
 
 export const GET_USERS = gql`
-  query getUsers($search: String, $email: [String], $account: [AccountType], $company: String) {
-    getUsers(search: $search, email: $email, account: $account, company: $company) {
+  query getUsers(
+    $offset: Int
+    $limit: Int
+    $search: String
+    $email: [String]
+    $account: [AccountType]
+    $company: String
+  ) {
+    getUsers(
+      offset: $offset
+      limit: $limit
+      search: $search
+      email: $email
+      account: $account
+      company: $company
+    ) {
       ...UserFields
     }
   }

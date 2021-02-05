@@ -287,6 +287,7 @@ export function onUserLink(dispatch, props) {
           appearance={'clear'}
           onChat={id !== auth && (() => onChat(dispatch, props))}
           onMembers={() => onUserMembers(dispatch, { id, auth })}
+          onAboutMore={(user) => onUserAboutMore(dispatch, { user })}
           onCompanyLink={(company) => onUserLink(dispatch, { id: company.email, auth })}
           onProjectLink={(project) =>
             onProjectLink(dispatch, { id: project.id, project, auth, owned })
@@ -569,10 +570,10 @@ export function onUserAboutMore(dispatch, props) {
     setModal([
       {
         path: '/',
-        title: 'О себе',
+        title: user.about ? 'О себе' : 'Описание',
         component: () => (
           <Column style={{ padding: '15px' }}>
-            <Text>{user.about}</Text>
+            <Text>{user.about || user.description}</Text>
           </Column>
         )
       }

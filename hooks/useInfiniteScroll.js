@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 
-export const useInfiniteScroll = (fetchCallback) => {
+export const useInfiniteScroll = (fetchCallback, offsetBottom = 0) => {
   const [isFetching, setIsFetching] = useState(false)
 
   const onScroll = () => {
-    const offsetHeight = document.documentElement.scrollHeight
+    const offsetHeight = document.documentElement.scrollHeight - offsetBottom
     const innerHeight = window.innerHeight
     const scrollTop =
       window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
 
-    if (isFetching || innerHeight + scrollTop !== offsetHeight) return
+    if (isFetching || innerHeight + scrollTop >= offsetHeight) return
 
     setIsFetching(true)
   }

@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Controller } from 'react-hook-form'
 import { useQuery } from '@apollo/react-hooks'
 
@@ -16,19 +15,10 @@ import Divider from '../../atomic-ui/components/Divider'
 import Spinner from '../../atomic-ui/components/Spinner'
 
 import Form from '../Form'
+import { Loader } from '../Styled'
 import { getLabelStatus, getLabelCategory } from '../../utils/functions'
 import queries from '../../graphql/queries'
 import config from '../../config'
-
-export const Loader = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
-`
 
 export const Article = ({
   article,

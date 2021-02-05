@@ -19,6 +19,7 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 
 import HTMLView from '../HTMLView'
+import { Loader } from '../Styled'
 import { getFileSize, getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
@@ -205,16 +206,6 @@ export const Actions = styled(Row)`
       }
     }
   }
-`
-
-export const Loader = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
 `
 
 export const Files = styled(Grid)``

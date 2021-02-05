@@ -13,6 +13,7 @@ import Button from '../../atomic-ui/components/Button'
 import Difinition from '../../atomic-ui/components/Difinition'
 
 import { getLabelRole } from '../../utils/functions'
+import { More } from '../Styled'
 
 export const Wrap = styled(Row)`
   width: 100%;
@@ -55,11 +56,6 @@ export const About = styled.div`
   @media only screen and (max-width: 568px) {
     margin-bottom: 15px;
   }
-`
-
-export const More = styled.p`
-  color: var(--default-color-accent);
-  cursor: pointer;
 `
 
 export const Difinitions = styled(Row)`
@@ -107,8 +103,14 @@ export const User = ({ user, onEdit, onAboutMore }) => (
       <Divider style={{ margin: '5px 0' }} />
 
       <About>
-        <Text>{user?.about || 'Информация отсутствует'}</Text>
-        {user?.about && user?.about.length > 135 && <More onClick={onAboutMore}>Подробнее</More>}
+        {user?.about.length > 135 ? (
+          <React.Fragment>
+            <Text>{user.about.slice(0, 135)}...</Text>
+            <More onClick={onAboutMore}>Подробнее</More>
+          </React.Fragment>
+        ) : (
+          <Text>{user.about || 'Информация о себе не заполнена'}</Text>
+        )}
       </About>
 
       <Difinitions>

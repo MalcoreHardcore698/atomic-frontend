@@ -169,6 +169,7 @@ const Projects = ({ projects }) => {
               owned: true
             })}
             onAdd={recall(onProjectAdd, { id: project.id, project })}
+            onAboutMore={recall(onUserAboutMore, { user: project })}
             onCompanyLink={
               project.company &&
               recall(onUserLink, { id: project.company?.email, auth: user?.email })
@@ -267,6 +268,7 @@ const InProgress = () => {
               owned: true
             })}
             onAdd={recall(onProjectAdd, { project })}
+            onAboutMore={recall(onUserAboutMore, { user: project })}
             onCompanyLink={
               project.company &&
               recall(onUserLink, { id: project.company?.email, auth: user?.email })

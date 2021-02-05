@@ -24,6 +24,7 @@ import Alert from '../../atomic-ui/components/Alert'
 import Icon from '../../atomic-ui/components/Icon'
 
 import Form from '../Form'
+import { Loader } from '../Styled'
 import { getLabelStatus, getLabelCategory, getLabelRole, getFileSize } from '../../utils/functions'
 import { setProjectMembers, setProjectScreenshots, setProjectFiles } from '../../store/actions/root'
 import queries from '../../graphql/queries'
@@ -73,16 +74,6 @@ export const AlignmentRow = styled(Row)`
       display: flex;
     }
   }
-`
-
-export const Loader = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
 `
 
 export const Project = ({

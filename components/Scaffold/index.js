@@ -160,6 +160,8 @@ export const Scaffold = ({
   onLike,
   onLink,
   onAdd,
+  onSearch,
+  onAboutMore,
   onCompanyLink,
   onScreenshotClick
 }) => {
@@ -176,6 +178,7 @@ export const Scaffold = ({
     onLike: onLike && (() => onLike(project)),
     onAdd: onAdd && (() => onAdd(project)),
     onLink: () => onLink(project, detectOwnedProject(user?.projects, project)),
+    onAboutMore: () => onAboutMore(project),
     onCompanyLink: () => onCompanyLink(project),
     onScreenshotClick: (_, key) => onScreenshotClick(project, key)
   })
@@ -187,7 +190,7 @@ export const Scaffold = ({
       <Container>
         <Header>
           {title && <MainTitle>{title}</MainTitle>}
-          <Search />
+          <Search onSubmit={onSearch} />
         </Header>
 
         {(primary || (residue && residue.length > 0)) && (

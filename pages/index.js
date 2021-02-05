@@ -1,24 +1,21 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { useQuery } from '@apollo/react-hooks'
 import { v4 } from 'uuid'
 
 import Alert from '../atomic-ui/components/Alert'
 import Title from '../atomic-ui/components/Title'
-import Spinner from '../atomic-ui/components/Spinner'
 
 import { initializeApollo } from '../apollo'
 import { useHelper } from '../hooks/useHelper'
 import { useMutate } from '../hooks/useMutate'
-import { useInfiniteScroll } from '../hooks/useInfiniteScroll'
-import DefaultLayout from '../layouts/default'
+import ContentLayout from '../layouts/content'
 import ProjectCard from '../components/ProjectCard'
 import ArticleCard from '../components/ArticleCard'
 import UserCard from '../components/UserCard'
 import { updateUser } from '../store/actions/user'
 import { onProjectLink, onProjectAdd, onProjectScreenshot } from '../store/helpers/project'
-import { onUserLink, onUserMembers } from '../store/helpers/user'
+import { onUserAboutMore, onUserLink, onUserMembers } from '../store/helpers/user'
 import { onArticleLink } from '../store/helpers/article'
 import { onChat } from '../store/helpers'
 import queries from '../graphql/queries'
@@ -60,77 +57,33 @@ const Aside = styled.aside`
   }
 `
 
-const Loader = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 80px;
-`
-
 const Home = ({ store }) => {
   const recall = useHelper()
   const mutate = useMutate()
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
-  const { loading, refetch } = useQuery(queries.GET_PROJECTS, {
-    variables: {
-      offset: 0,
-      limit: LIMIT
-    }
-  })
+  const [search, setSearch] = useState(null)
   const { articles, users } = store
-  const [projects, setProjects] = useState(store.projects || [])
-  const [offset, setOffset] = useState(START_OFFSET)
-  const [isFetching, setIsFetching] = useInfiniteScroll(async () => {
-    const response = await refetch({ offset, limit: LIMIT })
-    if (!response.errors) {
-      setProjects((prev) => [...prev, ...response.data.getProjects])
-    }
-    setOffset((prev) => prev + LIMIT)
-    setIsFetching(false)
-  })
 
-  return (
-    <DefaultLayout
-      title={TITLE}
-      scaffold={{
-        title: 'Создавай школу будущего с нами',
-        background: '/images/main-background.png',
-        primary: projects.length > 0 && projects[0],
-        residue: projects.length > 4 && projects.slice(1, 3),
-        onLink: (project, owned) =>
-          recall(onProjectLink, {
-            id: project.id,
-            auth: user?.email,
-            project,
-            liked: !!(user?.likedProjects || []).find((item) => item.id === project.id),
-            onLike:
-              user.email &&
-              mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-                dispatch(updateUser(response.data.likeProject))
-              ),
-            onAdd:
-              user.email &&
-              recall(onProjectAdd, {
-                id: project.id,
-                project,
-                folders: user?.folders,
-                mutations: {
-                  addProject: queries.ADD_USER_PROJECT,
-                  createFolder: queries.ADD_USER_FOLDER
-                }
-              }),
-            owned
-          })(),
-        onLike:
-          user.email &&
-          ((project) =>
+  const scaffold = useMemo(
+    () => ({
+      title: 'Создавай школу будущего с нами',
+      background: '/images/main-background.png',
+      primary: store.projects.length > 0 && store.projects[0],
+      residue: store.projects.length > 4 && store.projects.slice(1, 3),
+      onLink: (project, owned) =>
+        recall(onProjectLink, {
+          id: project.id,
+          auth: user?.email,
+          project,
+          liked: !!(user?.likedProjects || []).find((item) => item.id === project.id),
+          onLike:
+            user.email &&
             mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
               dispatch(updateUser(response.data.likeProject))
-            )()),
-        onAdd:
-          user.email &&
-          ((project) =>
+            ),
+          onAdd:
+            user.email &&
             recall(onProjectAdd, {
               id: project.id,
               project,
@@ -139,19 +92,53 @@ const Home = ({ store }) => {
                 addProject: queries.ADD_USER_PROJECT,
                 createFolder: queries.ADD_USER_FOLDER
               }
-            })()),
-        onCompanyLink: (project) =>
-          recall(onUserLink, { id: project.company?.email, auth: user })(),
-        onScreenshotClick: (project, key) =>
-          recall(onProjectScreenshot, {
-            screenshots: [project.preview, ...project.screenshots],
-            key
-          })()
-      }}>
-      <Container>
-        <Projects>
-          {projects.length > 3 ? (
-            projects.slice(3).map((project) => {
+            }),
+          owned
+        })(),
+      onLike:
+        user.email &&
+        ((project) =>
+          mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
+            dispatch(updateUser(response.data.likeProject))
+          )()),
+      onAdd:
+        user.email &&
+        ((project) =>
+          recall(onProjectAdd, {
+            id: project.id,
+            project,
+            folders: user?.folders,
+            mutations: {
+              addProject: queries.ADD_USER_PROJECT,
+              createFolder: queries.ADD_USER_FOLDER
+            }
+          })()),
+      onSearch: (value) => setSearch(value),
+      onAboutMore: (project) => recall(onUserAboutMore, { user: project }),
+      onCompanyLink: (project) => recall(onUserLink, { id: project.company?.email, auth: user })(),
+      onScreenshotClick: (project, key) =>
+        recall(onProjectScreenshot, {
+          screenshots: [project.preview, ...project.screenshots],
+          key
+        })()
+    }),
+    [store]
+  )
+
+  return (
+    <ContentLayout
+      title={TITLE}
+      limit={LIMIT}
+      research={search}
+      scaffold={scaffold}
+      startOffset={START_OFFSET}
+      query={queries.GET_PROJECTS}
+      variables={{ status: 'PUBLISHED' }}
+      store={{ documents: store?.projects }}>
+      {({ documents }) => (
+        <Container>
+          <Projects>
+            {documents.map((project) => {
               const owned = user?.projects?.find((candidate) => candidate.id === project.id)
 
               return (
@@ -205,6 +192,7 @@ const Home = ({ store }) => {
                       }
                     })
                   }
+                  onAboutMore={recall(onUserAboutMore, { user: project })}
                   onCompanyLink={recall(onUserLink, {
                     id: project.company?.email,
                     auth: user?.email,
@@ -220,33 +208,52 @@ const Home = ({ store }) => {
                   }
                 />
               )
-            })
-          ) : (
-            <Alert style={{ width: '100%', textAlign: 'center' }}>Проектов нет</Alert>
-          )}
+            })}
+          </Projects>
 
-          {(loading || isFetching) && (
-            <Loader>
-              <Spinner />
-            </Loader>
-          )}
-        </Projects>
+          <Aside>
+            <Title tag={'h4'}>Авторы</Title>
+            {users.length > 0 ? (
+              users.slice(0, 3).map((author) => {
+                const owned = author.name === user?.name
 
-        <Aside>
-          <Title tag={'h4'}>Авторы</Title>
-          {users.length > 0 ? (
-            users.slice(0, 3).map((author) => {
-              const owned = author.name === user?.name
-
-              return (
-                <UserCard
-                  key={v4()}
-                  user={author}
-                  owned={owned}
-                  onChat={
-                    user.email &&
-                    recall(onChat, {
-                      email: author.email,
+                return (
+                  <UserCard
+                    key={v4()}
+                    user={author}
+                    owned={owned}
+                    onChat={
+                      user.email &&
+                      recall(onChat, {
+                        email: author.email,
+                        auth: user?.email,
+                        queries: {
+                          userChats: queries.GET_USER_CHATS,
+                          chat: queries.GET_CHAT
+                        },
+                        mutations: {
+                          addUserChat: queries.ADD_USER_CHAT,
+                          sendMessage: queries.SEND_MESSAGE
+                        }
+                      })
+                    }
+                    onLink={recall(onUserLink, {
+                      id: author.email,
+                      auth: user?.email,
+                      owned,
+                      queries: {
+                        userChats: queries.GET_USER_CHATS,
+                        chat: queries.GET_CHAT
+                      },
+                      mutations: {
+                        addUserChat: queries.ADD_USER_CHAT,
+                        sendMessage: queries.SEND_MESSAGE
+                      }
+                    })}
+                    onAboutMore={recall(onUserAboutMore, { user: author })}
+                    onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
+                    onCompanyLink={recall(onUserLink, {
+                      id: author.company?.email,
                       auth: user?.email,
                       queries: {
                         userChats: queries.GET_USER_CHATS,
@@ -256,60 +263,34 @@ const Home = ({ store }) => {
                         addUserChat: queries.ADD_USER_CHAT,
                         sendMessage: queries.SEND_MESSAGE
                       }
-                    })
-                  }
-                  onLink={recall(onUserLink, {
-                    id: author.email,
-                    auth: user?.email,
-                    owned,
-                    queries: {
-                      userChats: queries.GET_USER_CHATS,
-                      chat: queries.GET_CHAT
-                    },
-                    mutations: {
-                      addUserChat: queries.ADD_USER_CHAT,
-                      sendMessage: queries.SEND_MESSAGE
-                    }
-                  })}
-                  onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
-                  onCompanyLink={recall(onUserLink, {
-                    id: author.company?.email,
-                    auth: user?.email,
-                    queries: {
-                      userChats: queries.GET_USER_CHATS,
-                      chat: queries.GET_CHAT
-                    },
-                    mutations: {
-                      addUserChat: queries.ADD_USER_CHAT,
-                      sendMessage: queries.SEND_MESSAGE
-                    }
-                  })}
-                />
-              )
-            })
-          ) : (
-            <Alert style={{ width: '100%', textAlign: 'center' }}>Авторов нет</Alert>
-          )}
+                    })}
+                  />
+                )
+              })
+            ) : (
+              <Alert style={{ width: '100%', textAlign: 'center' }}>Авторов нет</Alert>
+            )}
 
-          <Title tag={'h4'}>Новости</Title>
-          {articles.length > 0 ? (
-            articles
-              .slice(0, 2)
-              .map((article) => (
-                <ArticleCard
-                  key={v4()}
-                  layout={'column'}
-                  article={article}
-                  owned={user?.articles?.find((candidate) => candidate.id === article.id)}
-                  onLink={recall(onArticleLink, { id: article.id, auth: user?.email })}
-                />
-              ))
-          ) : (
-            <Alert style={{ width: '100%', textAlign: 'center' }}>Новостей нет</Alert>
-          )}
-        </Aside>
-      </Container>
-    </DefaultLayout>
+            <Title tag={'h4'}>Новости</Title>
+            {articles.length > 0 ? (
+              articles
+                .slice(0, 2)
+                .map((article) => (
+                  <ArticleCard
+                    key={v4()}
+                    layout={'column'}
+                    article={article}
+                    owned={user?.articles?.find((candidate) => candidate.id === article.id)}
+                    onLink={recall(onArticleLink, { id: article.id, auth: user?.email })}
+                  />
+                ))
+            ) : (
+              <Alert style={{ width: '100%', textAlign: 'center' }}>Новостей нет</Alert>
+            )}
+          </Aside>
+        </Container>
+      )}
+    </ContentLayout>
   )
 }
 

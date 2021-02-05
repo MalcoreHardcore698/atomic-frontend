@@ -28,7 +28,7 @@ import {
 import { setModal } from '../actions/modal'
 import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
-import { onUserLink, onUserFolderAdd } from './user'
+import { onUserLink, onUserFolderAdd, onUserAboutMore } from './user'
 import { onFileLink } from '.'
 
 export function onProjectLink(dispatch, props) {
@@ -47,6 +47,7 @@ export function onProjectLink(dispatch, props) {
           onLike={onLike}
           onAdd={onAdd}
           onFileLink={() => onFileLink(dispatch, { id })}
+          onAboutMore={(project) => onUserAboutMore(dispatch, { project })}
           onMemberLink={(member) => onUserLink(dispatch, { id: member, auth, owned })}
           onCompanyLink={(company) => onUserLink(dispatch, { id: company, auth, owned })}
           onScreenshotClick={(_, key, screenshots) =>

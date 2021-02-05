@@ -12,6 +12,7 @@ import Spinner from '../../atomic-ui/components/Spinner'
 
 import HTMLView from '../HTMLView'
 import Comments from '../Comments'
+import { Loader } from '../Styled'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
@@ -61,16 +62,6 @@ export const Poster = styled(Image)`
 
 export const Content = styled(Column)`
   grid-gap: 0;
-`
-
-export const Loader = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
 `
 
 export const View = ({

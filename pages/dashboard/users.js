@@ -2,25 +2,27 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import Grid from '../../atomic-ui/components/Grid'
-import Alert from '../../atomic-ui/components/Alert'
-import DatePicker from '../../atomic-ui/components/DatePicker'
-import Select from '../../atomic-ui/components/Select'
 import Table from '../../atomic-ui/components/Table'
 import templates from '../../atomic-ui/components/Table/templates'
 
 import { initializeApollo } from '../../apollo'
 import { useHelper } from '../../hooks/useHelper'
-import DashboardLayout from '../../layouts/dashboard'
-import HandleBar from '../../components/HandleBar'
-import FilterBar from '../../components/FilterBar'
+import ContentLayout from '../../layouts/content'
 import UserCard from '../../components/UserCard'
-import { onUserCreate, onUserEdit, onUserDelete, onUserLink } from '../../store/helpers/user'
+import {
+  onUserCreate,
+  onUserEdit,
+  onUserDelete,
+  onUserLink,
+  onUserAboutMore
+} from '../../store/helpers/user'
 import { setDocuments } from '../../store/actions/documents'
 import { onChat } from '../../store/helpers'
 import queries from '../../graphql/queries'
-import { categories } from '../../__mock__'
 
 const TITLE = 'Пользователи'
+const START_OFFSET = 12
+const LIMIT = 12
 
 const Users = ({ store }) => {
   const recall = useHelper()
@@ -29,13 +31,8 @@ const Users = ({ store }) => {
     documents: state.documents
   }))
   const dispatch = useDispatch()
-  const [date, onChangeDate] = useState()
-  const [select, onChangeSelect] = useState()
-  const [visibleFilter, setVisibleFilter] = useState(false)
   const [displayMethod, onChangeDisplayMethod] = useState('grid')
   const canEditRole = useMemo(() => user && user.role.name === 'ADMIN', [user])
-
-  const users = useMemo(() => documents || store.users, [documents, store])
   const roles = useMemo(() => store.roles, [store])
 
   useEffect(() => {
@@ -43,114 +40,111 @@ const Users = ({ store }) => {
   }, [])
 
   return (
-    <DashboardLayout title={TITLE}>
-      <HandleBar
-        icon={'user2'}
-        title={TITLE}
-        buttonCreateText={'Создать пользователя'}
-        onCreate={recall(onUserCreate, {
+    <ContentLayout
+      title={TITLE}
+      filters={[
+        { type: 'DATEPICKER', placeholder: 'Дата регистарции' },
+        {
+          type: 'SELECT',
+          placeholder: 'Компания',
+          options: []
+        }
+      ]}
+      options={[
+        { label: 'Компания', value: 'company' },
+        { label: 'Участники', value: 'members' },
+        { label: 'Дата регистарции', value: 'createdAt' }
+      ]}
+      handle={{
+        icon: 'user2',
+        buttonCreateText: 'Создать пользователя',
+        onCreate: recall(onUserCreate, {
           roles,
           canEditRole,
           mutation: queries.CREATE_USER
-        })}
-        onChangeVisibleFilter={() => setVisibleFilter(!visibleFilter)}
-        onChangeDisplayMethod={(item) => onChangeDisplayMethod(item.value)}
-      />
+        }),
+        onChangeDisplayMethod: (item) => onChangeDisplayMethod(item.value)
+      }}
+      limit={LIMIT}
+      startOffset={START_OFFSET}
+      bottomScrollOffset={0}
+      query={queries.GET_USERS}
+      store={{ documents: documents || store.users }}
+      dashboard>
+      {({ documents }) =>
+        displayMethod === 'list' ? (
+          <Table
+            data={documents}
+            template={templates.user}
+            onChecked={() => {}}
+            onClick={(author) => {
+              const owned = author.name === user.name
 
-      <FilterBar
-        isOpen={visibleFilter}
-        filters={[
-          <DatePicker
-            key={0}
-            value={date}
-            placeholder={'Дата публикации'}
-            onChange={onChangeDate}
-            withNavigate
-          />,
-          <Select
-            key={1}
-            options={categories}
-            placeholder={'Раздел'}
-            selected={select}
-            onChange={(item) => onChangeSelect(item)}
+              return recall(onUserLink, {
+                id: author.email,
+                auth: user?.email,
+                owned,
+                queries: {
+                  userChats: queries.GET_USER_CHATS,
+                  chat: queries.GET_CHAT
+                },
+                mutations: {
+                  addUserChat: queries.ADD_USER_CHAT,
+                  sendMessage: queries.SEND_MESSAGE
+                }
+              })()
+            }}
+            onDelete={(author) =>
+              recall(onUserDelete, {
+                id: author.email,
+                user: author,
+                auth: user?.email,
+                mutation: queries.DELETE_USER
+              })()
+            }
+            onEdit={(author) =>
+              recall(onUserEdit, {
+                user: author.email,
+                auth: user?.email,
+                roles,
+                canEditRole,
+                mutations: {
+                  update: queries.UPDATE_USER,
+                  del: queries.DELETE_USER,
+                  changePassword: queries.UPDATE_USER
+                }
+              })()
+            }
+            style={{ overflowX: 'auto', width: 'calc(100vw - 290px)' }}
           />
-        ]}
-        options={
-          displayMethod === 'list'
-            ? []
-            : templates.user.map((item, index) => ({
-                label: item.header,
-                value: index
-              }))
-        }
-      />
-
-      {users.length === 0 && (
-        <Alert style={{ width: '100%', textAlign: 'center' }}>Пользователей нет</Alert>
-      )}
-
-      {displayMethod === 'list' && (
-        <Table
-          data={users}
-          template={templates.user}
-          onChecked={() => {}}
-          onClick={(author) => {
-            const owned = author.name === user.name
-
-            return recall(onUserLink, {
-              id: author.email,
-              auth: user?.email,
-              owned,
-              queries: {
-                userChats: queries.GET_USER_CHATS,
-                chat: queries.GET_CHAT
-              },
-              mutations: {
-                addUserChat: queries.ADD_USER_CHAT,
-                sendMessage: queries.SEND_MESSAGE
-              }
-            })()
-          }}
-          onDelete={(author) =>
-            recall(onUserDelete, {
-              id: author.email,
-              user: author,
-              auth: user?.email,
-              mutation: queries.DELETE_USER
-            })()
-          }
-          onEdit={(author) =>
-            recall(onUserEdit, {
-              user: author.email,
-              auth: user?.email,
-              roles,
-              canEditRole,
-              mutations: {
-                update: queries.UPDATE_USER,
-                del: queries.DELETE_USER,
-                changePassword: queries.UPDATE_USER
-              }
-            })()
-          }
-          style={{ overflowX: 'auto', width: 'calc(100vw - 290px)' }}
-        />
-      )}
-
-      {displayMethod === 'grid' && (
-        <Grid>
-          {(users || []).map((author) => {
-            const owned = author.name === user.name
-
-            return (
-              <UserCard
-                key={author.email}
-                user={author}
-                onChecked={() => {}}
-                onChat={
-                  user.email &&
-                  recall(onChat, {
+        ) : (
+          <Grid>
+            {documents.map((author) => {
+              const owned = author.name === user.name
+              return (
+                <UserCard
+                  key={author.email}
+                  user={author}
+                  onChecked={() => {}}
+                  onChat={
+                    user.email &&
+                    recall(onChat, {
+                      id: author.email,
+                      auth: user?.email,
+                      queries: {
+                        userChats: queries.GET_USER_CHATS,
+                        chat: queries.GET_CHAT
+                      },
+                      mutations: {
+                        addUserChat: queries.ADD_USER_CHAT,
+                        sendMessage: queries.SEND_MESSAGE
+                      }
+                    })
+                  }
+                  onLink={recall(onUserLink, {
                     id: author.email,
                     auth: user?.email,
+                    owned,
                     queries: {
                       userChats: queries.GET_USER_CHATS,
                       chat: queries.GET_CHAT
@@ -159,45 +153,33 @@ const Users = ({ store }) => {
                       addUserChat: queries.ADD_USER_CHAT,
                       sendMessage: queries.SEND_MESSAGE
                     }
-                  })
-                }
-                onLink={recall(onUserLink, {
-                  id: author.email,
-                  auth: user?.email,
-                  owned,
-                  queries: {
-                    userChats: queries.GET_USER_CHATS,
-                    chat: queries.GET_CHAT
-                  },
-                  mutations: {
-                    addUserChat: queries.ADD_USER_CHAT,
-                    sendMessage: queries.SEND_MESSAGE
-                  }
-                })}
-                onDelete={recall(onUserDelete, {
-                  id: author.email,
-                  user: author,
-                  auth: user?.email,
-                  mutation: queries.DELETE_USER
-                })}
-                onEdit={recall(onUserEdit, {
-                  user: author.email,
-                  auth: user?.email,
-                  roles,
-                  canEditRole,
-                  mutations: {
-                    update: queries.UPDATE_USER,
-                    del: queries.DELETE_USER,
-                    changePassword: queries.UPDATE_USER
-                  }
-                })}
-                preview
-              />
-            )
-          })}
-        </Grid>
-      )}
-    </DashboardLayout>
+                  })}
+                  onAboutMore={recall(onUserAboutMore, { user: author })}
+                  onDelete={recall(onUserDelete, {
+                    id: author.email,
+                    user: author,
+                    auth: user?.email,
+                    mutation: queries.DELETE_USER
+                  })}
+                  onEdit={recall(onUserEdit, {
+                    user: author.email,
+                    auth: user?.email,
+                    roles,
+                    canEditRole,
+                    mutations: {
+                      update: queries.UPDATE_USER,
+                      del: queries.DELETE_USER,
+                      changePassword: queries.UPDATE_USER
+                    }
+                  })}
+                  preview
+                />
+              )
+            })}
+          </Grid>
+        )
+      }
+    </ContentLayout>
   )
 }
 
@@ -209,7 +191,11 @@ export async function getServerSideProps() {
 
   try {
     const response = await client.query({
-      query: queries.GET_META_DASHBOARD_USERS
+      query: queries.GET_META_DASHBOARD_USERS,
+      variables: {
+        offset: 0,
+        limit: LIMIT
+      }
     })
 
     if (response && response.data) {
@@ -222,7 +208,10 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      store: { users, roles }
+      store: {
+        users,
+        roles
+      }
     }
   }
 }

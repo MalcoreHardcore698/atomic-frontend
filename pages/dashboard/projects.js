@@ -2,18 +2,13 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Grid from '../../atomic-ui/components/Grid'
-import Alert from '../../atomic-ui/components/Alert'
-import DatePicker from '../../atomic-ui/components/DatePicker'
-import Select from '../../atomic-ui/components/Select'
 import Table from '../../atomic-ui/components/Table'
 import templates from '../../atomic-ui/components/Table/templates'
 
 import { initializeApollo } from '../../apollo'
 import { useHelper } from '../../hooks/useHelper'
 import { useMutate } from '../../hooks/useMutate'
-import DashboardLayout from '../../layouts/dashboard'
-import HandleBar from '../../components/HandleBar'
-import FilterBar from '../../components/FilterBar'
+import ContentLayout from '../../layouts/content'
 import ProjectCard from '../../components/ProjectCard'
 import {
   onProjectCreate,
@@ -23,149 +18,134 @@ import {
   onProjectScreenshot
 } from '../../store/helpers/project'
 import { setDocuments } from '../../store/actions/documents'
+import { getLabelCategory } from '../../atomic-ui/utils/functions'
+import { onUserAboutMore } from '../../store/helpers/user'
 import queries from '../../graphql/queries'
 
 const TITLE = 'Проекты'
+const START_OFFSET = 12
+const LIMIT = 12
 
-const Projects = ({ store, companies, categories, statuses }) => {
+const Projects = ({ store }) => {
   const recall = useHelper()
   const mutate = useMutate()
   const { user, documents } = useSelector((state) => ({
     user: state.user,
-    members: state.root.members,
-    files: state.root.files,
-    screenshots: state.root.screenshots,
     documents: state.documents
   }))
   const dispatch = useDispatch()
-  const [date, onChangeDate] = useState()
-  const [select, onChangeSelect] = useState()
-  const [visibleFilter, setVisibleFilter] = useState(false)
   const [displayMethod, onChangeDisplayMethod] = useState('grid')
   const canEditStatus = useMemo(() => user && user.role.name === 'ADMIN', [user])
-
-  const projects = useMemo(() => documents || store.projects, [documents, store])
 
   useEffect(() => {
     dispatch(setDocuments(null))
   }, [])
 
   return (
-    <DashboardLayout title={TITLE}>
-      <HandleBar
-        icon={'work'}
-        title={TITLE}
-        buttonCreateText={'Создать проект'}
-        onCreate={recall(onProjectCreate, {
-          companies,
-          categories,
-          statuses,
+    <ContentLayout
+      title={TITLE}
+      filters={[
+        { type: 'DATEPICKER' },
+        {
+          type: 'SELECT',
+          options: store?.categories.map((category) => ({
+            value: category.id,
+            label: getLabelCategory(category.name)
+          }))
+        }
+      ]}
+      options={[
+        { label: 'Компания', value: 'company' },
+        { label: 'Участники', value: 'members' },
+        { label: 'Дата публикации', value: 'createdAt' }
+      ]}
+      handle={{
+        icon: 'work',
+        buttonCreateText: 'Создать проект',
+        onCreate: recall(onProjectCreate, {
+          companies: store.companies,
+          categories: store.categories,
+          statuses: store.statuses,
           canEditStatus,
           mutation: queries.CREATE_PROJECT,
           query: queries.GET_USERS
-        })}
-        onChangeVisibleFilter={() => setVisibleFilter(!visibleFilter)}
-        onChangeDisplayMethod={(item) => onChangeDisplayMethod(item.value)}
-      />
-
-      <FilterBar
-        isOpen={visibleFilter}
-        filters={[
-          <DatePicker
-            key={0}
-            value={date}
-            placeholder={'Дата публикации'}
-            onChange={onChangeDate}
-            withNavigate
-          />,
-          <Select
-            key={1}
-            options={categories}
-            placeholder={'Раздел'}
-            selected={select}
-            onChange={(item) => onChangeSelect(item)}
-          />
-        ]}
-        options={
-          displayMethod === 'list'
-            ? []
-            : templates.project.map((item, index) => ({
-                label: item.header,
-                value: index
-              }))
-        }
-      />
-
-      {projects.length === 0 && (
-        <Alert style={{ width: '100%', textAlign: 'center' }}>Проектов нет</Alert>
-      )}
-
-      {displayMethod === 'list' && (
-        <Table
-          data={projects}
-          template={templates.project}
-          onChecked={() => {}}
-          onClick={(project) => recall(onProjectLink, { id: project.id, auth: user })()}
-          onDelete={(project) =>
-            recall(onProjectDelete, {
-              id: project.id,
-              project,
-              auth: user,
-              mutation: queries.DELETE_PROJECT
-            })()
-          }
-          onEdit={(project) =>
-            recall(onProjectEdit, {
-              id: project.id,
-              companies,
-              categories,
-              statuses,
-              canEditStatus,
-              mutation: queries.UPDATE_PROJECT,
-              query: queries.GET_USERS,
-              onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' })
-            })()
-          }
-          style={{ overflowX: 'auto', width: 'calc(100vw - 290px)' }}
-        />
-      )}
-
-      {displayMethod === 'grid' && (
-        <Grid>
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onChecked={() => {}}
-              onScreenshotClick={(_, key) =>
-                recall(onProjectScreenshot, {
-                  screenshots: [project.preview, ...project.screenshots],
-                  key
-                })()
-              }
-              onLink={recall(onProjectLink, { id: project.id, user })}
-              onDelete={recall(onProjectDelete, {
+        }),
+        onChangeDisplayMethod: (item) => onChangeDisplayMethod(item.value)
+      }}
+      limit={LIMIT}
+      startOffset={START_OFFSET}
+      bottomScrollOffset={0}
+      query={queries.GET_PROJECTS}
+      variables={{ status: 'PUBLISHED' }}
+      store={{ documents: documents || store.projects }}
+      dashboard>
+      {({ documents }) =>
+        displayMethod === 'list' ? (
+          <Table
+            data={documents}
+            template={templates.project}
+            onChecked={() => {}}
+            onClick={(project) => recall(onProjectLink, { id: project.id, auth: user })()}
+            onDelete={(project) =>
+              recall(onProjectDelete, {
                 id: project.id,
                 project,
                 auth: user,
                 mutation: queries.DELETE_PROJECT
-              })}
-              onEdit={recall(onProjectEdit, {
+              })()
+            }
+            onEdit={(project) =>
+              recall(onProjectEdit, {
                 id: project.id,
-                companies,
-                categories,
-                statuses,
+                companies: store.companies,
+                categories: store.categories,
+                statuses: store.statuses,
                 canEditStatus,
                 mutation: queries.UPDATE_PROJECT,
                 query: queries.GET_USERS,
                 onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' })
-              })}
-              preview
-            />
-          ))}
-        </Grid>
-      )}
-    </DashboardLayout>
+              })()
+            }
+            style={{ overflowX: 'auto', width: 'calc(100vw - 290px)' }}
+          />
+        ) : (
+          <Grid>
+            {documents.map((project) => (
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onChecked={() => {}}
+                onScreenshotClick={(_, key) =>
+                  recall(onProjectScreenshot, {
+                    screenshots: [project.preview, ...project.screenshots],
+                    key
+                  })()
+                }
+                onLink={recall(onProjectLink, { id: project.id, user })}
+                onAboutMore={recall(onUserAboutMore, { user: project })}
+                onDelete={recall(onProjectDelete, {
+                  id: project.id,
+                  project,
+                  auth: user,
+                  mutation: queries.DELETE_PROJECT
+                })}
+                onEdit={recall(onProjectEdit, {
+                  id: project.id,
+                  companies: store.companies,
+                  categories: store.categories,
+                  statuses: store.statuses,
+                  canEditStatus,
+                  mutation: queries.UPDATE_PROJECT,
+                  query: queries.GET_USERS,
+                  onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' })
+                })}
+                preview
+              />
+            ))}
+          </Grid>
+        )
+      }
+    </ContentLayout>
   )
 }
 
@@ -181,6 +161,8 @@ export async function getServerSideProps() {
     const response = await client.query({
       query: queries.GET_META_DASHBOARD_PROJECTS,
       variables: {
+        offset: 0,
+        limit: LIMIT,
         account: ['ENTITY']
       }
     })
@@ -197,10 +179,12 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      store: { projects },
-      companies,
-      categories,
-      statuses
+      store: {
+        projects,
+        companies,
+        categories,
+        statuses
+      }
     }
   }
 }

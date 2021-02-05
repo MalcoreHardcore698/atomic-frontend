@@ -11,24 +11,9 @@ export const GET_ARTICLE = gql`
 `
 
 export const GET_ARTICLES = gql`
-  query getArticles($search: String, $status: PostStatus) {
-    getArticles(search: $search, status: $status) {
-      id
-      title
-      description
-      preview {
-        id
-        filename
-        path
-        size
-      }
-      category {
-        id
-        name
-      }
-      status
-      updatedAt
-      createdAt
+  query getArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
+    getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {
+      ...ArticleFields
     }
   }
   ${ArticleFields}

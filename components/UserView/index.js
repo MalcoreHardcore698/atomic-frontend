@@ -16,7 +16,9 @@ import Spinner from '../../atomic-ui/components/Spinner'
 import Button from '../../atomic-ui/components/Button'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 
+import { More } from '../Styled'
 import ProjectCard from '../ProjectCard'
+import { Loader } from '../Styled'
 import { getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
@@ -115,16 +117,6 @@ export const Actions = styled(Row)`
   }
 `
 
-export const Loader = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
-`
-
 export const View = ({
   user,
   owned,
@@ -134,6 +126,7 @@ export const View = ({
   onChat,
   onAdd,
   onMembers,
+  onAboutMore,
   onProjectAdd,
   onProjectLink,
   onCompanyLink,
@@ -175,7 +168,14 @@ export const View = ({
               <Divider />
 
               <About>
-                <Text>{data.getUser.about || 'Информация о себе не заполнена'}</Text>
+                {data.getUser?.about.length > 255 ? (
+                  <React.Fragment>
+                    <Text>{data.getUser.about.slice(0, 255)}...</Text>
+                    <More onClick={() => onAboutMore(data.getUser)}>Подробнее</More>
+                  </React.Fragment>
+                ) : (
+                  <Text>{data.getUser.about || 'Информация о себе не заполнена'}</Text>
+                )}
               </About>
             </Content>
           </Row>
@@ -253,6 +253,7 @@ export const View = ({
                     appearance={'clear'}
                     onAdd={() => onProjectAdd(project)}
                     onLink={() => onProjectLink(project)}
+                    onAboutMore={() => onAboutMore(project)}
                     onCompanyLink={project.company && (() => onProjectCompanyLink(project.company))}
                     onScreenshotClick={(_, key) =>
                       onProjectScreenshotClick &&

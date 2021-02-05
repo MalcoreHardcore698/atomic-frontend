@@ -55,6 +55,7 @@
     "passport-facebook-token": "^4.0.0",
     "passport-google-token": "^0.1.2",
     "react": "^16.14.0",
+    "react-animate-on-scroll": "^2.1.5",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.14.0",
     "react-dropzone": "^11.3.0",

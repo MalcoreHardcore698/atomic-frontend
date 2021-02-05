@@ -11,8 +11,8 @@ export const GET_PROJECT = gql`
 `
 
 export const GET_PROJECTS = gql`
-  query getProjects($offset: Int, $limit: Int, $status: PostStatus) {
-    getProjects(offset: $offset, limit: $limit, status: $status) {
+  query getProjects($offset: Int, $limit: Int, $category: ID, $status: PostStatus) {
+    getProjects(offset: $offset, limit: $limit, category: $category, status: $status) {
       id
       title
       description

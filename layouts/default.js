@@ -16,12 +16,13 @@ import MainLayout from './main'
 import Scaffold from '../components/Scaffold'
 import AppBar from '../components/AppBar'
 import Footer from '../components/Footer'
+import { Loader } from '../components/Styled'
 import { setLogout } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
 import { onMenu, onNotification } from '../store/helpers'
 import { onUserClientEdit } from '../store/helpers/user'
-import { supportLinks, socials, contacts } from '../__mock__'
 import queries from '../graphql/queries'
+import { supportLinks, socials, contacts } from '../__mock__'
 
 const Wrap = styled.div`
   position: relative;
@@ -85,19 +86,6 @@ const Anchor = styled.a`
         opacity: 1;
       }
     `}
-`
-
-const Loader = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
 `
 
 export const DefaultLayout = ({ children, title = 'Атомик', scaffold, background }) => {
@@ -209,22 +197,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
           onLogout={mutate(queries.LOGOUT, {}, () => dispatch(setLogout()))}
         />
 
-        {scaffold && (
-          <Scaffold
-            user={user}
-            image={scaffold.image}
-            title={scaffold.title}
-            background={scaffold.background}
-            primary={scaffold.primary}
-            secondary={scaffold.secondary}
-            residue={scaffold.residue}
-            onLike={scaffold.onLike}
-            onAdd={scaffold.onAdd}
-            onLink={scaffold.onLink}
-            onCompanyLink={scaffold.onCompanyLink}
-            onScreenshotClick={scaffold.onScreenshotClick}
-          />
-        )}
+        {scaffold && <Scaffold user={user} {...scaffold} />}
 
         <Main>{children}</Main>
 

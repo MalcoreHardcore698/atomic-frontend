@@ -15,6 +15,7 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 
 import { getLabelRole } from '../../utils/functions'
+import { More } from '../Styled'
 
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);
@@ -101,14 +102,8 @@ export const Name = styled(Title)`
     `}
 `
 
-export const About = styled(Text)`
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+export const About = styled.div`
   font-size: var(--font-size-m);
-  height: 215px;
 `
 
 export const Indicator = styled(Difinition)`
@@ -152,6 +147,7 @@ export const Card = ({
   onLink,
   onChat,
   onMembers,
+  onAboutMore,
   onCompanyLink,
   onChecked,
   onEdit,
@@ -205,7 +201,16 @@ export const Card = ({
             {user.name}
           </Name>
 
-          <About>{user.about || 'Информация о себе не заполнена'}</About>
+          <About>
+            {user?.about?.length > 135 ? (
+              <React.Fragment>
+                <Text>{user.about.slice(0, 135)}...</Text>
+                <More onClick={onAboutMore}>Подробнее</More>
+              </React.Fragment>
+            ) : (
+              <Text>{user.about || 'Информация о себе не заполнена'}</Text>
+            )}
+          </About>
           {user.projects && (
             <Indicator icon={'work'} label={'Проекты'} text={user.projects?.length} />
           )}

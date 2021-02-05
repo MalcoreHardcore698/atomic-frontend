@@ -15,6 +15,8 @@ import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 
+import { More } from '../Styled'
+
 export const Poster = styled(Image)`
   position: relative;
   width: 100%;
@@ -202,12 +204,8 @@ export const Name = styled(Title)`
     `}
 `
 
-export const ShortText = styled(Text)`
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+export const About = styled.div`
+  font-size: var(--font-size-m);
 `
 
 export const Company = styled(Difinition)`
@@ -264,6 +262,7 @@ export const Card = ({
   onAdd,
   onLink,
   onLike,
+  onAboutMore,
   onScreenshotClick,
   onCompanyLink,
   onChecked,
@@ -356,7 +355,16 @@ export const Card = ({
             {project.title}
           </Name>
 
-          <ShortText>{project.description}</ShortText>
+          <About>
+            {project.description.length > 135 ? (
+              <React.Fragment>
+                <Text>{project.description.slice(0, 135)}...</Text>
+                <More onClick={onAboutMore}>Подробнее</More>
+              </React.Fragment>
+            ) : (
+              <Text>{project.description || 'Описание не заполнено'}</Text>
+            )}
+          </About>
         </Column>
       </Content>
 

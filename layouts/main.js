@@ -17,6 +17,7 @@ import Divider from '../atomic-ui/components/Divider'
 import Modal from '../atomic-ui/components/Modal'
 import Text from '../atomic-ui/components/Text'
 
+import { Loader } from '../components/Styled'
 import { setUser } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
 import { removeItem, clearItems } from '../store/actions/snacks'
@@ -76,19 +77,6 @@ const BackButton = styled(Button)`
     justify-content: center;
     align-items: center;
   }
-`
-
-const Loader = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
 `
 
 const Welcome = ({ close }) => {

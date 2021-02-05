@@ -8,6 +8,7 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Alert from '../../atomic-ui/components/Alert'
 import Spinner from '../../atomic-ui/components/Spinner'
 
+import { Loader } from '../Styled'
 import { getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
@@ -43,16 +44,6 @@ export const Wrap = styled(Column)`
       border-radius: 0;
       box-shadow: none;
     `}
-`
-
-export const Loader = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
 `
 
 export const Members = ({ user, style, appearance, className, onMemberLink }) => {

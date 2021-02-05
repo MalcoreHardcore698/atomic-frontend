@@ -22,6 +22,7 @@ import Select from '../../atomic-ui/components/Select'
 import Divider from '../../atomic-ui/components/Divider'
 
 import Form from '../Form'
+import { Loader } from '../Styled'
 import { getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
@@ -74,16 +75,6 @@ export const Tab = styled(Column)`
     css`
       display: flex;
     `}
-`
-
-export const Loader = styled.div`
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  width: 100%;
-  height: 100%;
 `
 
 export const detect = (list, value) => {
