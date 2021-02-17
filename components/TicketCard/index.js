@@ -95,7 +95,7 @@ export const Card = ({
   <Wrap className={className} style={style} appearance={appearance}>
     <Column style={{ gridGap: 0 }}>
       <Header>
-        <Meta date={ticket.createdAt} category={ticket.category} />
+        <Meta date={ticket.createdAt} category={ticket.category?.name} />
 
         {onChecked && onEdit && onDelete && (
           <Actions>
@@ -121,7 +121,6 @@ export const Card = ({
       </Name>
 
       <Row style={{ gridGap: 5 }}>
-        <Text>{ticket.token}</Text>
         <Status>{ticket.status}</Status>
       </Row>
     </Column>
@@ -130,10 +129,10 @@ export const Card = ({
 
     <Footer>
       <Difinition
-        img={ticket.author?.avatar}
         label={'Автор'}
+        img={ticket.author?.avatar?.path}
         text={ticket.author?.name}
-        onLink={onAuthorLink}
+        onLink={onAuthorLink && (() => onAuthorLink(ticket.author?.email))}
       />
 
       <Difinition icon={'chat'} label={'Сообщений'} text={ticket.messages?.length} />

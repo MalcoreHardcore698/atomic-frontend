@@ -466,8 +466,7 @@ export const User = ({
 
             <Row>
               <Button type={'submit'} style={{ flexGrow: 1 }} disabled={loading}>
-                {!user && 'Создать'}
-                {user && 'Сохранить'}
+                {user ? 'Сохранить' : 'Создать'}
               </Button>
             </Row>
           </React.Fragment>

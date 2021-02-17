@@ -94,8 +94,7 @@ export const Role = ({ role, permissions, mutation, appearance, className, onSub
 
           <Row>
             <Button style={{ flexGrow: 1 }} type={'submit'} disabled={disabled || loading}>
-              {!role && 'Создать'}
-              {role && 'Сохранить'}
+              {role ? 'Сохранить' : 'Создать'}
             </Button>
           </Row>
         </React.Fragment>

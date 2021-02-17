@@ -168,7 +168,7 @@ export const View = ({
               <Divider />
 
               <About>
-                {data.getUser?.about.length > 255 ? (
+                {data.getUser?.about?.length > 255 ? (
                   <React.Fragment>
                     <Text>{data.getUser.about.slice(0, 255)}...</Text>
                     <More onClick={() => onAboutMore(data.getUser)}>Подробнее</More>

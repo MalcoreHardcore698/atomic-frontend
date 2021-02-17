@@ -1,9 +1,18 @@
 import gql from 'graphql-tag'
 import { TicketFields } from '../../fragments'
 
+export const GET_TICKET = gql`
+  query getTicket($id: ID!) {
+    getTicket(id: $id) {
+      ...TicketFields
+    }
+  }
+  ${TicketFields}
+`
+
 export const GET_TICKETS = gql`
-  query getTickets($search: String) {
-    getTickets(search: $search) {
+  query getTickets($offset: Int, $limit: Int, $search: String) {
+    getTickets(offset: $offset, limit: $limit, search: $search) {
       ...TicketFields
     }
   }

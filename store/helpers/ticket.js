@@ -11,7 +11,7 @@ import { onUserLink } from './user'
 import { onFileLink } from '.'
 
 export function onTicketLink(dispatch, props) {
-  const { ticket } = props
+  const { id } = props
 
   dispatch(
     setDrawer({
@@ -19,9 +19,9 @@ export function onTicketLink(dispatch, props) {
       title: 'Обращение',
       content: (
         <TicketView
-          ticket={ticket}
+          ticket={id}
           appearance={'clear'}
-          onFileLink={() => onFileLink(dispatch)}
+          onAttach={() => onFileLink(dispatch)}
           onMemberLink={() => onUserLink(dispatch)}
         />
       )
@@ -46,8 +46,9 @@ export function onTicketCreate(dispatch, props) {
                 variables: {
                   input: {
                     title: form.title,
-                    body: form.body || 'Содержимое отсутствует',
-                    status: form.status.value
+                    author: form.author?.value?.email,
+                    counsellor: form.counsellor?.value?.email,
+                    category: form.category.value
                   }
                 }
               })
@@ -76,22 +77,22 @@ export function onTicketCreate(dispatch, props) {
 }
 
 export function onTicketEdit(dispatch, props) {
-  const { ticket, mutation } = props
+  const { id, mutation } = props
 
   dispatch(
     setDrawer({
       icon: 'ticket',
-      title: 'Редактирвоание обращения',
+      title: 'Редактирование обращения',
       content: (
         <TicketForm
-          ticket={ticket}
+          ticket={id}
           mutation={mutation}
           appearance={'clear'}
           onSubmit={async (form, action) => {
             try {
               const tickets = await action({
                 variables: {
-                  id: ticket.id,
+                  id,
                   input: {
                     title: form.title,
                     body: form.body || 'Содержимое отсутствует',

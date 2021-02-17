@@ -170,8 +170,7 @@ export const Article = ({
 
             <Row>
               <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-                {!article && 'Создать'}
-                {article && 'Сохранить'}
+                {article ? 'Сохранить' : 'Создать'}
               </Button>
             </Row>
           </React.Fragment>

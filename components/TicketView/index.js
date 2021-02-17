@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
+import { useQuery } from '@apollo/react-hooks'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
 import Member from '../../atomic-ui/components/Member'
 import Alert from '../../atomic-ui/components/Alert'
+import Spinner from '../../atomic-ui/components/Spinner'
 
-import TicketForm from '../FormTicket'
 import Search from '../SearchBar'
+import TicketChat from '../TicketChat'
+import queries from '../../graphql/queries'
+import { Loader } from '../Styled'
 
 export const Wrap = styled(Row)`
   height: 100%;
@@ -69,8 +73,10 @@ export const Ticket = styled(Member)`
     `}
 `
 
+export const LIMIT_TICKETS = 36
+
 export const View = ({
-  tickets,
+  ticket,
   appearance,
   onMemberLink,
   onFinish,
@@ -80,34 +86,73 @@ export const View = ({
   ...props
 }) => {
   const [currentTicket, setCurrentTicket] = useState(null)
+  // TODO: Fetch more tickets by scrolling
+  // eslint-disable-next-line no-unused-vars
+  const [offsetTickets, setOffsetTickets] = useState(0)
+  const [tickets, setTickets] = useState([])
+
+  const { data, loading } = useQuery(queries.GET_TICKET, {
+    variables: {
+      id: ticket
+    },
+    fetchPolicy: 'no-cache'
+  })
+
+  const {
+    data: dataTickets,
+    loading: loadingTickets,
+    error: errorTickets
+    // fetchMore: updateTickets
+  } = useQuery(queries.GET_TICKETS, {
+    variables: {
+      offset: offsetTickets,
+      limit: LIMIT_TICKETS
+    },
+    fetchPolicy: 'no-cache'
+  })
+
+  useEffect(() => {
+    if (!loading && data.getTicket) {
+      setCurrentTicket(data.getTicket)
+    }
+  }, [data, loading])
+
+  useEffect(() => {
+    if (!loadingTickets && dataTickets) {
+      setTickets((prev) => [...prev, ...dataTickets.getTickets])
+    }
+  }, [dataTickets, loadingTickets])
 
   return (
     <Wrap {...props} appearance={appearance}>
       <Tickets>
         <Search appearance={'ghost'} />
-        {tickets?.length > 0 ? (
-          tickets.map((ticket) => (
+        {!loadingTickets ? (
+          tickets.map((item) => (
             <Ticket
-              key={ticket.id}
-              name={ticket.title}
-              budge={ticket.messages.reduce((acc, item) => acc + (item.unreaded ? 1 : 0), 0)}
-              position={ticket.token}
-              onClick={() => setCurrentTicket(ticket)}
-              active={currentTicket && currentTicket.id === ticket.id}
+              key={item.id}
+              name={item.title}
+              position={item.author?.name}
+              active={currentTicket && currentTicket.id === item.id}
+              onClick={() => setCurrentTicket(item)}
             />
           ))
-        ) : (
-          <Alert style={{ marginTop: 15 }} appearance={'warning'}>
-            Активные обращения отсутствуют
+        ) : errorTickets ? (
+          <Alert appearance={'error'} style={{ marginTop: 15, width: '100%', textAlign: 'center' }}>
+            Упс! Не удалось загрузить информацию об обращении
           </Alert>
+        ) : (
+          <Loader>
+            <Spinner />
+          </Loader>
         )}
       </Tickets>
-      <TicketForm
+      <TicketChat
         ticket={currentTicket}
-        appearance={'ghost'}
+        loading={loading}
+        onLink={onMemberLink}
         onFinish={onFinish}
         onReport={onReport}
-        onLink={onMemberLink}
         onAttach={onAttach}
         onSubmit={onSubmit}
       />

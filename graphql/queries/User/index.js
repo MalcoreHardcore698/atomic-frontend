@@ -90,6 +90,29 @@ export const GET_USERS = gql`
   ${UserFields}
 `
 
+export const GET_USERS_FOR_TICKET = gql`
+  query getUsers(
+    $offset: Int
+    $limit: Int
+    $search: String
+    $email: [String]
+    $account: [AccountType]
+    $company: String
+  ) {
+    getUsers(
+      offset: $offset
+      limit: $limit
+      search: $search
+      email: $email
+      account: $account
+      company: $company
+    ) {
+      name
+      email
+    }
+  }
+`
+
 export const GET_USER_MEMBERS = gql`
   query getUserMembers($email: String!) {
     getUserMembers(email: $email) {

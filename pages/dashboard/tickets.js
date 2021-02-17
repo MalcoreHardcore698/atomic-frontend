@@ -21,6 +21,7 @@ import {
   onTicketLink
 } from '../../store/helpers/ticket'
 import { setDocuments } from '../../store/actions/documents'
+import { onUserLink } from '../../store/helpers/user'
 import queries from '../../graphql/queries'
 import { categories } from '../../__mock__'
 
@@ -28,7 +29,10 @@ const TITLE = 'Обращения'
 
 const Tickets = ({ store }) => {
   const recall = useHelper()
-  const documents = useSelector((state) => state.documents)
+  const { user, documents } = useSelector((state) => ({
+    user: state.user,
+    documents: state.documents
+  }))
   const dispatch = useDispatch()
   const [date, onChangeDate] = useState()
   const [select, onChangeSelect] = useState()
@@ -89,12 +93,12 @@ const Tickets = ({ store }) => {
           data={tickets}
           template={templates.ticket}
           onChecked={() => {}}
-          onClick={(ticket) => recall(onTicketLink, { id: ticket.id, ticket })()}
+          onClick={(ticket) => recall(onTicketLink, { id: ticket.id })()}
           onDelete={(ticket) =>
-            recall(onTicketDelete, { id: ticket.id, ticket, mutation: queries.DELETE_TICKET })()
+            recall(onTicketDelete, { ticket, mutation: queries.DELETE_TICKET })()
           }
           onEdit={(ticket) =>
-            recall(onTicketEdit, { id: ticket.id, ticket, mutation: queries.UPDATE_TICKET })()
+            recall(onTicketEdit, { id: ticket.id, mutation: queries.UPDATE_TICKET })()
           }
           style={{ overflowX: 'auto', width: 'calc(100vw - 290px)' }}
         />
@@ -107,15 +111,20 @@ const Tickets = ({ store }) => {
               key={ticket.id}
               ticket={ticket}
               onChecked={() => {}}
-              onLink={recall(onTicketLink, { id: ticket.id, ticket })}
+              onLink={recall(onTicketLink, { id: ticket.id })}
+              onAuthorLink={(author) =>
+                recall(onUserLink, {
+                  id: author,
+                  auth: user?.email,
+                  owned: author === user.name
+                })()
+              }
               onDelete={recall(onTicketDelete, {
-                id: ticket.id,
                 ticket,
                 mutation: queries.DELETE_TICKET
               })}
               onEdit={recall(onTicketEdit, {
                 id: ticket.id,
-                ticket,
                 mutation: queries.UPDATE_TICKET
               })}
             />

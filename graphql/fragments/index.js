@@ -197,6 +197,37 @@ export const TicketFields = gql`
   fragment TicketFields on Ticket {
     id
     title
+    author {
+      name
+      email
+      avatar {
+        path
+      }
+    }
+    counsellor {
+      name
+      email
+      avatar {
+        path
+      }
+    }
+    messages {
+      id
+      text
+      user {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      updatedAt
+      createdAt
+    }
+    category {
+      id
+      name
+    }
     status
     updatedAt
     createdAt

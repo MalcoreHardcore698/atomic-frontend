@@ -18,8 +18,6 @@ export const Category = ({
   mutation,
   appearance,
   className,
-  create,
-  edit,
   onSubmit
 }) => {
   const [typeError, setTypeError] = useState(false)
@@ -118,8 +116,7 @@ export const Category = ({
 
           <Row>
             <Button style={{ flexGrow: 1 }} type={'submit'} disabled={disabled || loading}>
-              {create && !edit && 'Создать'}
-              {!create && edit && 'Сохранить'}
+              {category ? 'Сохранить' : 'Создать'}
             </Button>
           </Row>
         </React.Fragment>

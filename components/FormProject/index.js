@@ -456,8 +456,7 @@ export const Project = ({
 
             <Row>
               <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-                {!project && 'Создать'}
-                {project && 'Сохранить'}
+                {project ? 'Сохранить' : 'Создать'}
               </Button>
             </Row>
           </React.Fragment>
