@@ -72,7 +72,7 @@ export const Name = styled(Title)`
 `
 
 export const Status = styled(Text)`
-  color: var(--default-color-accent);
+  color: ${({ status }) => `var(--default-color-${status === 'OPENED' ? 'accent' : 'red'})`};
 `
 
 export const Footer = styled(Row)`
@@ -121,7 +121,7 @@ export const Card = ({
       </Name>
 
       <Row style={{ gridGap: 5 }}>
-        <Status>{ticket.status}</Status>
+        <Status status={ticket.status}>{ticket.status}</Status>
       </Row>
     </Column>
 

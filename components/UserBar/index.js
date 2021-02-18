@@ -103,7 +103,7 @@ export const User = ({ user, onEdit, onAboutMore }) => (
       <Divider style={{ margin: '5px 0' }} />
 
       <About>
-        {user?.about.length > 135 ? (
+        {user?.about?.length > 135 ? (
           <React.Fragment>
             <Text>{user.about.slice(0, 135)}...</Text>
             <More onClick={onAboutMore}>Подробнее</More>

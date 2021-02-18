@@ -85,9 +85,11 @@ export const TicketChat = ({
         <Difinition label={'Автор обращения'} text={ticket.author?.name || '-'} />
 
         <Row>
-          <Button onClick={onFinish} disabled={!ticket}>
-            Закрыть обращение
-          </Button>
+          {ticket.status !== 'CLOSED' && (
+            <Button onClick={onFinish} disabled={!ticket}>
+              Закрыть обращение
+            </Button>
+          )}
           <Button onClick={onReport} kind={'icon'} appearance={'red'} disabled={!ticket}>
             <Icon icon={'flag'} stroke={'white'} />
           </Button>
@@ -104,7 +106,7 @@ export const TicketChat = ({
           ticket.messages.map((message) => (
             <Message
               key={message.id}
-              avatar={message.avatar}
+              avatar={message.user?.avatar?.path}
               side={message.side}
               name={message.name}
               text={message.text}

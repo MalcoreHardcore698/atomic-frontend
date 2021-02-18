@@ -45,3 +45,12 @@ export const DELETE_TICKET = gql`
   }
   ${TicketFields}
 `
+
+export const CLOSE_TICKET = gql`
+  mutation closeTicket($id: ID!) {
+    closeTicket(id: $id) {
+      ...TicketFields
+    }
+  }
+  ${TicketFields}
+`

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
@@ -79,7 +79,6 @@ export const View = ({
   ticket,
   appearance,
   onMemberLink,
-  onFinish,
   onReport,
   onAttach,
   onSubmit,
@@ -98,6 +97,11 @@ export const View = ({
     fetchPolicy: 'no-cache'
   })
 
+  const [
+    closeTicket,
+    { data: dataCloseTicket, loading: loadingCloseTicket, error: errorCloseTicket }
+  ] = useMutation(queries.CLOSE_TICKET)
+
   const {
     data: dataTickets,
     loading: loadingTickets,
@@ -112,10 +116,10 @@ export const View = ({
   })
 
   useEffect(() => {
-    if (!loading && data.getTicket) {
-      setCurrentTicket(data.getTicket)
+    if ((!loading && data?.getTicket) || (!loadingCloseTicket && dataCloseTicket?.closeTicket)) {
+      setCurrentTicket(data?.getTicket || dataCloseTicket?.closeTicket)
     }
-  }, [data, loading])
+  }, [data, dataCloseTicket, loading, loadingCloseTicket])
 
   useEffect(() => {
     if (!loadingTickets && dataTickets) {
@@ -149,9 +153,15 @@ export const View = ({
       </Tickets>
       <TicketChat
         ticket={currentTicket}
-        loading={loading}
+        loading={loading || errorCloseTicket}
         onLink={onMemberLink}
-        onFinish={onFinish}
+        onFinish={() =>
+          closeTicket({
+            variables: {
+              id: ticket
+            }
+          })
+        }
         onReport={onReport}
         onAttach={onAttach}
         onSubmit={onSubmit}

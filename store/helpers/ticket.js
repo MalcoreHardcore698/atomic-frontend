@@ -46,9 +46,10 @@ export function onTicketCreate(dispatch, props) {
                 variables: {
                   input: {
                     title: form.title,
+                    message: form.message,
                     author: form.author?.value?.email,
                     counsellor: form.counsellor?.value?.email,
-                    category: form.category.value
+                    category: form.category?.value
                   }
                 }
               })
@@ -95,8 +96,10 @@ export function onTicketEdit(dispatch, props) {
                   id,
                   input: {
                     title: form.title,
-                    body: form.body || 'Содержимое отсутствует',
-                    status: form.status.value
+                    message: form.message,
+                    author: form.author?.value?.email,
+                    counsellor: form.counsellor?.value?.email,
+                    category: form.category?.value
                   }
                 }
               })

@@ -15,23 +15,12 @@ import Spinner from '../../atomic-ui/components/Spinner'
 import { getLabelCategory } from '../../utils/functions'
 import { Loader } from '../Styled'
 import Form from '../Form'
-import TicketChat from '../TicketChat'
 import queries from '../../graphql/queries'
+import TextArea from '../../atomic-ui/components/TextArea'
 
 export const LIMIT_USERS = 15
 
-export const Ticket = ({
-  ticket,
-  appearance,
-  mutation,
-  className,
-  onFinish,
-  onReport,
-  onLink,
-  onAttach,
-  onSubmit,
-  ...props
-}) => {
+export const Ticket = ({ ticket, appearance, mutation, className, onSubmit }) => {
   const [offsetUsers, setOffsetUsers] = useState(0)
   // const [usersSelectInput, setUsersSelectInput] = useState('')
   const [users, setUsers] = useState([])
@@ -69,184 +58,180 @@ export const Ticket = ({
     }
   }, [dataUsers, loadingUsers])
 
-  if (!ticket) {
-    return (
-      <Form className={className} appearance={appearance} mutation={mutation} onSubmit={onSubmit}>
-        {({ register, loading, errors, control, getValues }) =>
-          !loadingTicket && data ? (
-            <React.Fragment>
-              <Column>
-                <Title tag={'h4'}>Основное</Title>
-
-                {errors && errors.title && (
-                  <Alert style={{ width: '100%' }} appearance={'error'}>
-                    Введите название обращение
-                  </Alert>
-                )}
-                <Input
-                  type={'text'}
-                  name={'title'}
-                  ref={register({ required: true })}
-                  defaultValue={getValues('title') || data.getTicket?.title}
-                  placeholder={'Название'}
-                  appearance={'ghost'}
-                  disabled={loading}
-                />
-
-                <Controller
-                  name={'author'}
-                  control={control}
-                  defaultValue={
-                    data.getTicket?.author
-                      ? {
-                          value: data.getTicket.author.id,
-                          label: data.getTicket.author.name
-                        }
-                      : null
-                  }
-                  render={({ value, onChange }) => (
-                    <Select
-                      options={users.map((user) => ({
-                        value: user,
-                        label: user.name
-                      }))}
-                      appearance={'ghost'}
-                      defaultValue={value}
-                      // inputValue={usersSelectInput}
-                      placeholder={'Выберите автора обращения'}
-                      onChange={onChange}
-                      // onInputChange={(input) => setUsersSelectInput(input)}
-                      // onKeyDown={(e) => {
-                      //   // Pressed ENTER
-                      //   if (e.keyCode === 13) {
-                      //     searchUsers({
-                      //       search: usersSelectInput
-                      //     })
-                      //   }
-                      // }}
-                      onMenuScrollToBottom={async () => {
-                        await updateUsers({
-                          variables: {
-                            offset: offsetUsers,
-                            limit: LIMIT_USERS
-                          },
-                          updateQuery: (...props) => props
-                        })
-                        setOffsetUsers((prev) => prev + LIMIT_USERS)
-                      }}
-                      isLoading={loadingUsers}
-                      // isSearchable
-                    />
-                  )}
-                />
-
-                <Controller
-                  name={'counsellor'}
-                  control={control}
-                  defaultValue={
-                    data.getTicket?.counsellor
-                      ? {
-                          value: data.getTicket.counsellor.id,
-                          label: data.getTicket.counsellor.name
-                        }
-                      : null
-                  }
-                  render={({ value, onChange }) => (
-                    <Select
-                      options={
-                        !loadingUsers && dataUsers
-                          ? dataUsers.getUsers.map((user) => ({
-                              value: user,
-                              label: user.name
-                            }))
-                          : []
-                      }
-                      appearance={'ghost'}
-                      defaultValue={value}
-                      placeholder={'Выберите советника'}
-                      onChange={onChange}
-                      onMenuScrollToBottom={async () => {
-                        await updateUsers({
-                          variables: {
-                            offset: offsetUsers,
-                            limit: LIMIT_USERS
-                          },
-                          updateQuery: (...props) => props
-                        })
-                        setOffsetUsers((prev) => prev + LIMIT_USERS)
-                      }}
-                      isLoading={loadingUsers}
-                    />
-                  )}
-                />
-
-                <Controller
-                  name={'category'}
-                  control={control}
-                  defaultValue={
-                    data.getTicket?.category
-                      ? {
-                          value: data.getTicket.category.id,
-                          label: getLabelCategory(data.getTicket.category.name)
-                        }
-                      : null
-                  }
-                  render={({ value, onChange }) => (
-                    <Select
-                      appearance={'ghost'}
-                      placeholder={'Выберите раздел'}
-                      options={
-                        !loadingCategories && dataCategories
-                          ? dataCategories.getCategories
-                              .filter((item) => item.type === 'TICKET')
-                              .map((item) => ({
-                                value: item.id,
-                                label: getLabelCategory(item.name)
-                              }))
-                          : []
-                      }
-                      onChange={onChange}
-                      defaultValue={value}
-                      isLoading={loadingCategories}
-                      isClearable
-                    />
-                  )}
-                />
-              </Column>
-
-              <Divider clear />
-
-              <Row>
-                <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-                  Создать
-                </Button>
-              </Row>
-            </React.Fragment>
-          ) : errorTicket ? (
-            <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-              Упс! Не удалось загрузить информацию об обращении
-            </Alert>
-          ) : (
-            <Loader>
-              <Spinner />
-            </Loader>
-          )
-        }
-      </Form>
-    )
-  }
-
   return (
-    <TicketChat
-      {...props}
-      ticket={data?.getTicket}
-      loading={loadingTicket}
-      onLink={onLink}
-      onFinish={onFinish}
-      onReport={onReport}
-      onAttach={onAttach}
-      onSubmit={onSubmit}
-    />
+    <Form className={className} appearance={appearance} mutation={mutation} onSubmit={onSubmit}>
+      {({ register, loading, errors, control, getValues }) =>
+        !loadingTicket && data ? (
+          <React.Fragment>
+            <Column>
+              <Title tag={'h4'}>Основное</Title>
+
+              {errors && errors.title && (
+                <Alert style={{ width: '100%' }} appearance={'error'}>
+                  Введите название обращение
+                </Alert>
+              )}
+              <Input
+                type={'text'}
+                name={'title'}
+                ref={register({ required: true })}
+                defaultValue={getValues('title') || data.getTicket?.title}
+                placeholder={'Название'}
+                appearance={'ghost'}
+                disabled={loading}
+              />
+              {(!ticket || data.getTicket?.messages?.length === 0) && (
+                <TextArea
+                  type={'text'}
+                  name={'message'}
+                  ref={register()}
+                  defaultValue={getValues('message') || ''}
+                  placeholder={'Описание обращения'}
+                  disabled={loading}
+                  appearance={'ghost'}
+                />
+              )}
+
+              <Controller
+                name={'author'}
+                control={control}
+                defaultValue={
+                  data.getTicket?.author
+                    ? {
+                        value: data.getTicket.author.id,
+                        label: data.getTicket.author.name
+                      }
+                    : null
+                }
+                render={({ value, onChange }) => (
+                  <Select
+                    options={users.map((user) => ({
+                      value: user,
+                      label: user.name
+                    }))}
+                    appearance={'ghost'}
+                    defaultValue={value}
+                    // inputValue={usersSelectInput}
+                    placeholder={'Выберите автора обращения'}
+                    onChange={onChange}
+                    // onInputChange={(input) => setUsersSelectInput(input)}
+                    // onKeyDown={(e) => {
+                    //   // Pressed ENTER
+                    //   if (e.keyCode === 13) {
+                    //     searchUsers({
+                    //       search: usersSelectInput
+                    //     })
+                    //   }
+                    // }}
+                    onMenuScrollToBottom={async () => {
+                      await updateUsers({
+                        variables: {
+                          offset: offsetUsers,
+                          limit: LIMIT_USERS
+                        },
+                        updateQuery: (...props) => props
+                      })
+                      setOffsetUsers((prev) => prev + LIMIT_USERS)
+                    }}
+                    isLoading={loadingUsers}
+                    // isSearchable
+                  />
+                )}
+              />
+
+              <Controller
+                name={'counsellor'}
+                control={control}
+                defaultValue={
+                  data.getTicket?.counsellor
+                    ? {
+                        value: data.getTicket.counsellor.id,
+                        label: data.getTicket.counsellor.name
+                      }
+                    : null
+                }
+                render={({ value, onChange }) => (
+                  <Select
+                    options={
+                      !loadingUsers && dataUsers
+                        ? dataUsers.getUsers.map((user) => ({
+                            value: user,
+                            label: user.name
+                          }))
+                        : []
+                    }
+                    appearance={'ghost'}
+                    defaultValue={value}
+                    placeholder={'Выберите советника'}
+                    onChange={onChange}
+                    onMenuScrollToBottom={async () => {
+                      await updateUsers({
+                        variables: {
+                          offset: offsetUsers,
+                          limit: LIMIT_USERS
+                        },
+                        updateQuery: (...props) => props
+                      })
+                      setOffsetUsers((prev) => prev + LIMIT_USERS)
+                    }}
+                    isLoading={loadingUsers}
+                  />
+                )}
+              />
+
+              <Controller
+                name={'category'}
+                control={control}
+                defaultValue={
+                  data.getTicket?.category
+                    ? {
+                        value: data.getTicket.category.id,
+                        label: getLabelCategory(data.getTicket.category.name)
+                      }
+                    : null
+                }
+                render={({ value, onChange }) => (
+                  <Select
+                    appearance={'ghost'}
+                    placeholder={'Выберите раздел'}
+                    options={
+                      !loadingCategories && dataCategories
+                        ? dataCategories.getCategories
+                            .filter((item) => item.type === 'TICKET')
+                            .map((item) => ({
+                              value: item.id,
+                              label: getLabelCategory(item.name)
+                            }))
+                        : []
+                    }
+                    onChange={onChange}
+                    defaultValue={value}
+                    isLoading={loadingCategories}
+                    isClearable
+                  />
+                )}
+              />
+            </Column>
+
+            <Divider clear />
+
+            <Row>
+              <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
+                Создать
+              </Button>
+            </Row>
+          </React.Fragment>
+        ) : errorTicket ? (
+          <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
+            Упс! Не удалось загрузить информацию об обращении
+          </Alert>
+        ) : (
+          <Loader>
+            <Spinner />
+          </Loader>
+        )
+      }
+    </Form>
   )
 }
 
