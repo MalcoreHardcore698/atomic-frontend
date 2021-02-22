@@ -48,6 +48,10 @@ export const Chat = ({ mutation, messages, appearance, className, onLink, onSubm
                   name={message.name}
                   text={message.text}
                   time={message.createdAt}
+                  tails={{
+                    default: '/parts/tail.svg',
+                    owner: '/parts/tail-owner.svg'
+                  }}
                   onLink={onLink}
                 />
               ))}

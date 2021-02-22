@@ -93,7 +93,7 @@ const Tickets = ({ store }) => {
           data={tickets}
           template={templates.ticket}
           onChecked={() => {}}
-          onClick={(ticket) => recall(onTicketLink, { id: ticket.id })()}
+          onClick={(ticket) => recall(onTicketLink, { id: ticket.id, auth: user?.email })()}
           onDelete={(ticket) =>
             recall(onTicketDelete, { ticket, mutation: queries.DELETE_TICKET })()
           }
@@ -111,7 +111,7 @@ const Tickets = ({ store }) => {
               key={ticket.id}
               ticket={ticket}
               onChecked={() => {}}
-              onLink={recall(onTicketLink, { id: ticket.id })}
+              onLink={recall(onTicketLink, { id: ticket.id, auth: user?.email })}
               onAuthorLink={(author) =>
                 recall(onUserLink, {
                   id: author,

@@ -7,11 +7,14 @@ import Button from '../../atomic-ui/components/Button'
 import Dash from '../../atomic-ui/components/Menu/Dash'
 import Text from '../../atomic-ui/components/Text'
 
+import TicketForm from '../../components/FormTicket'
 import Notifications from '../../components/Notifications'
 import Messenger from '../../components/Messenger'
 import { setDrawer } from '../actions/drawer'
 import { setModal } from '../actions/modal'
 import { onUserLink } from './user'
+import { setDocuments } from '../actions/documents'
+import { setItem } from '../actions/snacks'
 
 export const Presentation = styled(YouTube)`
   display: flex;
@@ -36,6 +39,57 @@ export function onMenu(dispatch, props) {
       half: true,
       content: <Dash links={links} />
     })
+  )
+}
+
+export function onHelp(dispatch, props) {
+  const { mutation } = props
+
+  dispatch(
+    setModal([
+      {
+        path: '/',
+        title: 'Поддержка',
+        component: () => (
+          <Column style={{ padding: '15px' }}>
+            <TicketForm
+              title={false}
+              mutation={mutation}
+              appearance={'clear'}
+              onSubmit={async (form, action) => {
+                try {
+                  await action({
+                    variables: {
+                      input: {
+                        title: form.title,
+                        message: form.message,
+                        category: form.category?.value
+                      }
+                    }
+                  })
+                  dispatch(
+                    setItem({
+                      type: 'success',
+                      message: 'Вопрос успешно отправлен'
+                    })
+                  )
+                } catch (err) {
+                  dispatch(
+                    setItem({
+                      type: 'error',
+                      message: 'Не удалось отправить вопрос'
+                    })
+                  )
+                } finally {
+                  dispatch(setModal(null))
+                }
+              }}
+              isClient
+            />
+          </Column>
+        )
+      }
+    ])
   )
 }
 

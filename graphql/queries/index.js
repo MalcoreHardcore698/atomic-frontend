@@ -7,6 +7,7 @@ import * as Image from './Image'
 import * as Ticket from './Ticket'
 import * as UserChat from './UserChat'
 import * as Message from './Message'
+import * as TicketMessage from './TicketMessage'
 import * as Article from './Article'
 import * as Project from './Project'
 import * as Category from './Category'
@@ -22,6 +23,7 @@ export default {
   ...Ticket,
   ...UserChat,
   ...Message,
+  ...TicketMessage,
   ...Article,
   ...Project,
   ...Category,

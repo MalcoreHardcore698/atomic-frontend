@@ -149,6 +149,26 @@ export const MessageFields = gql`
   }
 `
 
+export const TicketMessageFields = gql`
+  fragment TicketMessageFields on TicketMessage {
+    id
+    user {
+      name
+      email
+      avatar {
+        path
+      }
+    }
+    ticket {
+      id
+    }
+    text
+    type
+    updatedAt
+    createdAt
+  }
+`
+
 export const ChatFields = gql`
   fragment ChatFields on Chat {
     id

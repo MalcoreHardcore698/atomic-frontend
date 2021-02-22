@@ -24,6 +24,7 @@ import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
   grid-gap: 0;
+  flex-grow: 1;
 
   ${({ appearance }) =>
     appearance === 'default' &&

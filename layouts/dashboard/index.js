@@ -17,6 +17,7 @@ import Tooltip from '../../atomic-ui/components/Tooltip'
 
 import { useHelper } from '../../hooks/useHelper'
 import MainLayout from '../main'
+import { FixedLoader } from '../../components/Styled'
 import BaseSideBar from '../../components/SideBar'
 import SearchBar from '../../components/SearchBar'
 import { onMenu } from '../../store/helpers'
@@ -111,19 +112,6 @@ const Content = styled(Container)`
   }
 `
 
-const Loader = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
-`
-
 export const DashboardLayout = ({ children, title = 'Панель администрирования' }) => {
   const recall = useHelper()
   const router = useRouter()
@@ -154,9 +142,9 @@ export const DashboardLayout = ({ children, title = 'Панель админис
 
   if (loading || !user.authenticated) {
     return (
-      <Loader>
+      <FixedLoader>
         <Spinner />
-      </Loader>
+      </FixedLoader>
     )
   }
 

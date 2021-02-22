@@ -8,6 +8,7 @@ export const Wrap = styled.form`
   flex-direction: column;
   grid-gap: var(--default-gap);
   padding: var(--default-gap);
+  flex-grow: 1;
 
   ${({ appearance }) =>
     appearance === 'default' &&

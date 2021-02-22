@@ -19,6 +19,12 @@ export const GET_TICKETS = gql`
   ${TicketFields}
 `
 
+export const CREATE_USER_TICKET = gql`
+  mutation createUserTicket($input: UserTicketCreateInput!) {
+    createUserTicket(input: $input)
+  }
+`
+
 export const CREATE_TICKET = gql`
   mutation createTicket($input: TicketCreateInput!) {
     createTicket(input: $input) {

@@ -16,10 +16,10 @@ import MainLayout from './main'
 import Scaffold from '../components/Scaffold'
 import AppBar from '../components/AppBar'
 import Footer from '../components/Footer'
-import { Loader } from '../components/Styled'
+import { FixedLoader } from '../components/Styled'
 import { setLogout } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
-import { onMenu, onNotification } from '../store/helpers'
+import { onMenu, onHelp, onNotification } from '../store/helpers'
 import { onUserClientEdit } from '../store/helpers/user'
 import queries from '../graphql/queries'
 import { supportLinks, socials, contacts } from '../__mock__'
@@ -104,9 +104,9 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
 
   if (loading) {
     return (
-      <Loader>
+      <FixedLoader>
         <Spinner />
-      </Loader>
+      </FixedLoader>
     )
   }
 
@@ -182,6 +182,9 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
                 }
               }
             ]
+          })}
+          onHelp={recall(onHelp, {
+            mutation: queries.CREATE_USER_TICKET
           })}
           onSettings={recall(onUserClientEdit, {
             user: user?.email,

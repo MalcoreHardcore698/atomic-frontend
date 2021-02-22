@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import styled, { css } from 'styled-components'
 import { useQuery, useMutation } from '@apollo/react-hooks'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
 import Member from '../../atomic-ui/components/Member'
 import Alert from '../../atomic-ui/components/Alert'
+import Search from '../../atomic-ui/components/Search'
 import Spinner from '../../atomic-ui/components/Spinner'
 
-import Search from '../SearchBar'
 import TicketChat from '../TicketChat'
+import { setDocuments } from '../../store/actions/documents'
 import queries from '../../graphql/queries'
 import { Loader } from '../Styled'
 
@@ -75,22 +77,25 @@ export const Ticket = styled(Member)`
 
 export const LIMIT_TICKETS = 36
 
-export const View = ({
-  ticket,
-  appearance,
-  onMemberLink,
-  onReport,
-  onAttach,
-  onSubmit,
-  ...props
-}) => {
+export const View = ({ auth, ticket, appearance, onMemberLink, onReport, onAttach, ...props }) => {
   const [currentTicket, setCurrentTicket] = useState(null)
   // TODO: Fetch more tickets by scrolling
   // eslint-disable-next-line no-unused-vars
   const [offsetTickets, setOffsetTickets] = useState(0)
+  const [loadingTicket, setLoadingTicket] = useState(false)
   const [tickets, setTickets] = useState([])
+  const documents = useSelector((state) => state.documents)
+  const dispatch = useDispatch()
 
-  const { data, loading } = useQuery(queries.GET_TICKET, {
+  const variablesTickets = useMemo(
+    () => ({
+      offset: offsetTickets,
+      limit: LIMIT_TICKETS
+    }),
+    [offsetTickets]
+  )
+
+  const { data, loading, refetch } = useQuery(queries.GET_TICKET, {
     variables: {
       id: ticket
     },
@@ -102,22 +107,34 @@ export const View = ({
     { data: dataCloseTicket, loading: loadingCloseTicket, error: errorCloseTicket }
   ] = useMutation(queries.CLOSE_TICKET)
 
+  const [sendTicketMessage, { data: dataSendMessage, loading: loadingSendMessage }] = useMutation(
+    queries.SEND_TICKET_MESSAGE
+  )
+
   const {
     data: dataTickets,
     loading: loadingTickets,
     error: errorTickets
     // fetchMore: updateTickets
   } = useQuery(queries.GET_TICKETS, {
-    variables: {
-      offset: offsetTickets,
-      limit: LIMIT_TICKETS
-    },
+    variables: variablesTickets,
     fetchPolicy: 'no-cache'
   })
 
   useEffect(() => {
-    if ((!loading && data?.getTicket) || (!loadingCloseTicket && dataCloseTicket?.closeTicket)) {
-      setCurrentTicket(data?.getTicket || dataCloseTicket?.closeTicket)
+    if (!loading && data?.getTicket) {
+      setCurrentTicket(data.getTicket)
+    }
+
+    if (!loadingCloseTicket && dataCloseTicket?.closeTicket) {
+      const candidate = dataCloseTicket.closeTicket
+
+      setCurrentTicket(candidate)
+      dispatch(
+        setDocuments(
+          (documents || []).map((document) => (document.id === candidate.id ? candidate : document))
+        )
+      )
     }
   }, [data, dataCloseTicket, loading, loadingCloseTicket])
 
@@ -127,10 +144,19 @@ export const View = ({
     }
   }, [dataTickets, loadingTickets])
 
+  useEffect(() => {
+    if (!loadingSendMessage && dataSendMessage) {
+      setCurrentTicket((prev) => ({
+        ...prev,
+        messages: dataSendMessage.sendTicketMessage
+      }))
+    }
+  }, [dataSendMessage, loadingSendMessage])
+
   return (
     <Wrap {...props} appearance={appearance}>
       <Tickets>
-        <Search appearance={'ghost'} />
+        <Search appearance={'ghost'} onSubmit={() => {}} />
         {!loadingTickets ? (
           tickets.map((item) => (
             <Ticket
@@ -138,7 +164,12 @@ export const View = ({
               name={item.title}
               position={item.author?.name}
               active={currentTicket && currentTicket.id === item.id}
-              onClick={() => setCurrentTicket(item)}
+              onClick={async () => {
+                setLoadingTicket(true)
+                await refetch({ id: item.id })
+                setCurrentTicket(item)
+                setLoadingTicket(false)
+              }}
             />
           ))
         ) : errorTickets ? (
@@ -152,8 +183,9 @@ export const View = ({
         )}
       </Tickets>
       <TicketChat
+        auth={auth}
         ticket={currentTicket}
-        loading={loading || errorCloseTicket}
+        loading={loading || loadingSendMessage || loadingTicket || errorCloseTicket}
         onLink={onMemberLink}
         onFinish={() =>
           closeTicket({
@@ -164,7 +196,15 @@ export const View = ({
         }
         onReport={onReport}
         onAttach={onAttach}
-        onSubmit={onSubmit}
+        onSubmit={(value) =>
+          sendTicketMessage({
+            variables: {
+              ticket: currentTicket.id,
+              recipient: currentTicket.author?.email,
+              text: value
+            }
+          })
+        }
       />
     </Wrap>
   )

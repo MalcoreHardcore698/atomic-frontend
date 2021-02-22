@@ -1,4 +1,14 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+
+export const loaderStyles = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+`
 
 export const GridAside = styled.aside`
   display: grid;
@@ -16,21 +26,17 @@ export const More = styled.p`
 `
 
 export const LowerLoader = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  ${loaderStyles}
   height: 80px;
 `
 
-export const Loader = styled.div`
+export const FixedLoader = styled.div`
+  ${loaderStyles}
   position: fixed;
   top: 0;
   left: 0;
+`
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: 100%;
+export const Loader = styled.div`
+  ${loaderStyles}
 `

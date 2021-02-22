@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
@@ -6,6 +6,7 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Button from '../../atomic-ui/components/Button'
 import Icon from '../../atomic-ui/components/Icon'
 import Text from '../../atomic-ui/components/Text'
+import DateText from '../../atomic-ui/components/DateText'
 import Message from '../../atomic-ui/components/Message'
 import Input from '../../atomic-ui/components/Input'
 import Column from '../../atomic-ui/components/Column'
@@ -42,6 +43,17 @@ export const Meta = styled(Row)`
   padding: 8px var(--default-gap);
   border-radius: var(--surface-border-radius) var(--surface-border-radius) 0 0;
   background: var(--ghost-color-background);
+
+  time {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-regular);
+    color: var(--default-color-text);
+  }
+`
+
+export const AuthAlert = styled(Alert)`
+  width: 100%;
+  text-align: center;
 `
 
 export const Empty = styled(Text)`
@@ -54,6 +66,7 @@ export const Empty = styled(Text)`
 `
 
 export const TicketChat = ({
+  auth,
   ticket,
   loading,
   onLink,
@@ -63,34 +76,29 @@ export const TicketChat = ({
   onSubmit,
   ...props
 }) => {
-  if (loading) {
-    return (
-      <Loader>
-        <Spinner />
-      </Loader>
-    )
-  }
-
-  if (!ticket) {
-    return (
-      <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-        Упс! Не удалось загрузить информацию об обращении
-      </Alert>
-    )
-  }
+  const [message, setMessage] = useState('')
+  const messageRef = useRef(null)
+  const isAccess = ticket?.counsellor?.email === auth
 
   return (
     <Wrap {...props}>
       <Header>
-        <Difinition label={'Автор обращения'} text={ticket.author?.name || '-'} />
+        <Difinition
+          label={'Автор обращения'}
+          text={ticket?.author?.name && !loading ? ticket.author.name : '-'}
+        />
 
         <Row>
-          {ticket.status !== 'CLOSED' && (
-            <Button onClick={onFinish} disabled={!ticket}>
+          {ticket?.status !== 'CLOSED' && (
+            <Button onClick={onFinish} disabled={!isAccess || loading || !ticket}>
               Закрыть обращение
             </Button>
           )}
-          <Button onClick={onReport} kind={'icon'} appearance={'red'} disabled={!ticket}>
+          <Button
+            onClick={onReport}
+            kind={'icon'}
+            appearance={'red'}
+            disabled={!isAccess || loading || !ticket}>
             <Icon icon={'flag'} stroke={'white'} />
           </Button>
         </Row>
@@ -98,36 +106,90 @@ export const TicketChat = ({
 
       <Messages>
         <Meta>
-          <Text>Тема: {ticket.title}</Text>
-          <Text>{ticket.createdAt}</Text>
+          <Text>Тема: {ticket?.title && !loading ? ticket.title : '-'}</Text>
+          {ticket?.createdAt && !loading ? (
+            <DateText
+              text={ticket.createdAt}
+              options={{
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+              }}
+            />
+          ) : (
+            <Text>-</Text>
+          )}
         </Meta>
 
-        {ticket && ticket.messages && ticket.messages.length > 0 ? (
-          ticket.messages.map((message) => (
+        {!loading && ticket && ticket?.messages && ticket?.messages?.length > 0 ? (
+          (ticket?.messages || []).map((message) => (
             <Message
               key={message.id}
               avatar={message.user?.avatar?.path}
-              side={message.side}
-              name={message.name}
+              side={message.user?.email === ticket.counsellor?.email ? 'owner' : 'observer'}
+              name={message.user?.name}
               text={message.text}
-              time={message.time}
-              onLink={onLink}
+              time={message.createdAt !== message.updatedAt ? message.updatedAt : message.createdAt}
+              tails={{
+                default: '/parts/tail.svg',
+                owner: '/parts/tail-owner.svg'
+              }}
+              onLink={() => onLink(message.user)}
             />
           ))
+        ) : loading ? (
+          <Loader>
+            <Spinner />
+          </Loader>
+        ) : !ticket ? (
+          <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
+            Упс! Не удалось загрузить информацию об обращении
+          </Alert>
         ) : (
           <Empty>Выберите обращение</Empty>
         )}
       </Messages>
 
-      <Row>
-        <Button kind={'icon'} onSubmit={onAttach}>
-          <Icon icon={'attach'} stroke={'white'} />
-        </Button>
-        <Input placeholder={'Отправьте сообщенение...'} appearance={'ghost'} />
-        <Button kind={'icon'} onSubmit={onSubmit}>
-          <Icon icon={'send'} stroke={'white'} />
-        </Button>
-      </Row>
+      {isAccess ? (
+        <Row>
+          <Button kind={'icon'} disabled={loading || !ticket} onSubmit={onAttach}>
+            <Icon icon={'attach'} stroke={'white'} />
+          </Button>
+          <Input
+            ref={messageRef}
+            placeholder={'Отправьте сообщенение...'}
+            disabled={loading || !ticket}
+            appearance={'ghost'}
+            onChange={(e) => setMessage(e?.target?.value || '')}
+            onKeyDown={(e) => {
+              // Pressed ENTER
+              if (e.keyCode === 13) {
+                onSubmit(message)
+                messageRef.current.value = ''
+              }
+            }}
+            tabIndex={-1}
+          />
+          <Button
+            kind={'icon'}
+            disabled={loading || !ticket}
+            onClick={() => {
+              onSubmit(message)
+              messageRef.current.value = ''
+            }}>
+            <Icon icon={'send'} stroke={'white'} />
+          </Button>
+        </Row>
+      ) : loading ? (
+        <Loader>
+          <Spinner />
+        </Loader>
+      ) : (
+        <AuthAlert>
+          Для ответа на это обращение, авторизуйтесь под пользователем {ticket?.counsellor?.name} (
+          {ticket?.counsellor?.email})
+        </AuthAlert>
+      )}
     </Wrap>
   )
 }
