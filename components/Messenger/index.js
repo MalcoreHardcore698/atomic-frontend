@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
 import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
 import Member from '../../atomic-ui/components/Member'
 import Alert from '../../atomic-ui/components/Alert'
+import Search from '../../atomic-ui/components/Search'
 import Spinner from '../../atomic-ui/components/Spinner'
 
-import Search from '../SearchBar'
+import { Loader } from '../Styled'
 import { Wrap as WrapForm } from '../Form'
-import ChatForm from '../FormChat'
-import { setCurrentChat } from '../../store/actions/root'
+import MessengerChat from '../MessengerChat'
+import queries from '../../graphql/queries'
 
 export const Wrap = styled(Row)`
   height: 100%;
@@ -58,6 +58,10 @@ export const Wrap = styled(Row)`
     `}
 `
 
+export const ChatsSearch = styled(Search)`
+  margin-bottom: 10px;
+`
+
 export const Chats = styled(Column)`
   grid-gap: 0;
   width: 320px;
@@ -68,123 +72,260 @@ export const Chats = styled(Column)`
 `
 
 export const Chat = styled(Member)`
-  margin: 10px 0 0 0;
-  padding: 10px;
+  margin: 0;
+  padding: 10px 0;
   border-radius: var(--surface-border-radius);
+  transition: all 150ms ease;
 
   ${({ active }) =>
     active &&
     css`
       background: var(--input-background);
+      padding: 10px;
     `}
 `
 
-export const Messenger = ({
-  queries,
-  mutations,
-  appearance,
-  recipient,
-  sender,
-  onSubmit,
-  onMemberLink,
-  ...props
-}) => {
-  if (!mutations) return null
-
-  const currentChat = useSelector((state) => state.root.chat)
-  const dispatch = useDispatch()
-
-  const { data: userChats, loading: userChatsLoading, refetch: getUserChats } = useQuery(
-    queries.userChats
+export const getUnreadedMessages = (messages, sender) =>
+  (messages || []).reduce(
+    (acc, item) => acc + (item.type === 'UNREADED' && item.user?.email !== sender.email ? 1 : 0),
+    0
   )
 
+export const getLastMessage = (messages, sender) => {
+  const list = messages || []
+  const message = list[list.length - 1]
+  if (!message) return ''
+  return `${message.user?.email === sender.email ? 'Вы: ' : ''}${message.text}`
+}
+
+export const getExtendMessages = (messages, sender) =>
+  messages.map((message) => ({
+    ...message,
+    side: sender.name === message.user.name ? 'owner' : 'observer'
+  }))
+
+export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLink, ...props }) => {
+  const [currentChat, setCurrentChat] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [chats, setChats] = useState([])
+  const [userChats, setUserChats] = useState([])
+  const [ticketChats, setTicketChats] = useState([])
+
   const [
-    getChatLazy,
-    { data: chat, loading: chatLoading, refetch: getChat, networkStatus }
-  ] = useLazyQuery(queries.chat)
+    getChat,
+    { data: chat, loading: loadingChat, error: errorChat, refetch: refetchChat }
+  ] = useLazyQuery(queries.GET_CHAT)
+  const [
+    getTicket,
+    { data: ticket, loading: loadingTicket, error: errorTicket, refetch: refetchTicket }
+  ] = useLazyQuery(queries.GET_TICKET)
 
-  const [addUserChat] = useMutation(mutations.addUserChat)
+  const {
+    data: dataUserChats,
+    loading: loadingUserChats,
+    error: errorUserChats,
+    refetch: getUserChats
+  } = useQuery(queries.GET_USER_CHATS)
+
+  const {
+    data: dataTicketChats,
+    loading: loadingTicketChats,
+    error: errorUserTickets,
+    refetch: getUserTickets
+  } = useQuery(queries.GET_USER_TICKETS)
+
+  const [
+    sendMessage,
+    { data: dataSendMessage, loading: loadingSendMessage, error: errorSendMessage }
+  ] = useMutation(queries.SEND_MESSAGE)
+  const [
+    sendTicketMessage,
+    { data: dataUserSendMessage, loading: loadingUserSendMessage, error: errorUserSendMessage }
+  ] = useMutation(queries.SEND_TICKET_MESSAGE)
+  const [addUserChat] = useMutation(queries.ADD_USER_CHAT)
 
   useEffect(() => {
-    addUserChat({
-      variables: { recipient: recipient.email }
-    }).then(() => getUserChats())
-  }, [addUserChat])
-
-  useEffect(() => {
-    if (!currentChat && !userChatsLoading && userChats && userChats.getUserChats) {
-      getChatLazy({
-        variables: {
-          id: userChats.getUserChats.find((userChat) =>
-            userChat.chat.members.find((member) => member.name === recipient.name)
-          )?.chat.id
-        }
+    if (recipient) {
+      addUserChat({
+        variables: { recipient: recipient.email }
+      }).then(() => {
+        getUserChats()
+        getUserTickets()
       })
     }
-  }, [userChats, userChatsLoading])
+  }, [recipient, addUserChat])
 
   useEffect(() => {
-    if (!chatLoading && chat && chat.getChat && networkStatus === 7) {
-      dispatch(setCurrentChat(chat.getChat))
+    if (recipient && !currentChat && !loadingUserChats && dataUserChats?.getUserChats) {
+      const id = dataUserChats.getUserChats.find((userChat) =>
+        userChat.chat.members.find((member) => member.name === recipient.name)
+      )?.chat.id
+
+      if (id) getChat({ variables: { id } })
     }
-  }, [chat, chatLoading, networkStatus])
+  }, [recipient, dataUserChats, loadingUserChats])
+
+  useEffect(() => {
+    if (!loadingChat && chat?.getChat) {
+      setCurrentChat(chat.getChat)
+    }
+  }, [chat, loadingChat])
+
+  useEffect(() => {
+    if (!loadingTicket && ticket?.getTicket) {
+      setCurrentChat(ticket.getTicket)
+    }
+  }, [ticket, loadingTicket])
+
+  useEffect(() => {
+    if (!loadingSendMessage && dataSendMessage) {
+      setCurrentChat((prev) => ({
+        ...prev,
+        messages: getExtendMessages(dataSendMessage.sendMessage, sender)
+      }))
+    }
+  }, [sender, dataSendMessage, loadingSendMessage])
+
+  useEffect(() => {
+    if (!loadingUserSendMessage && dataUserSendMessage) {
+      setCurrentChat((prev) => ({
+        ...prev,
+        messages: getExtendMessages(dataUserSendMessage.sendTicketMessage, sender)
+      }))
+    }
+  }, [sender, dataUserSendMessage, loadingUserSendMessage])
+
+  useEffect(() => {
+    if (!loadingUserChats && dataUserChats?.getUserChats) {
+      setUserChats(dataUserChats.getUserChats)
+    }
+  }, [dataUserChats, loadingUserChats])
+
+  useEffect(() => {
+    if (!loadingTicketChats && dataTicketChats?.getUserTickets) {
+      setTicketChats(dataTicketChats.getUserTickets)
+    }
+  }, [dataTicketChats, loadingTicketChats])
+
+  useEffect(() => {
+    setChats(userChats.concat(ticketChats))
+  }, [userChats, ticketChats])
 
   return (
     <Wrap {...props} appearance={appearance}>
       <Chats>
-        <Search appearance={'ghost'} />
-        {userChatsLoading && !userChats && <Spinner />}
-        {userChats && userChats.getUserChats?.length > 0 ? (
-          userChats.getUserChats.map((chat) => (
+        <ChatsSearch appearance={'ghost'} />
+        {!loadingChat &&
+        !loadingTicket &&
+        !loadingUserChats &&
+        !loadingTicketChats &&
+        !loadingSendMessage &&
+        !loadingUserSendMessage &&
+        chats.length > 0 ? (
+          chats.map((chat) => (
             <Chat
-              key={chat.chat?.id}
-              name={chat.chat?.members.filter((member) => member.name !== sender.name)[0].name}
+              key={chat.chat?.id || chat.id}
+              name={
+                chat.chat?.members.filter((member) => member.name !== sender.name)[0].name ||
+                chat.counsellor?.name
+              }
               avatar={
                 chat.chat?.members.filter((member) => member.name !== sender.name)[0].avatar
-                  ?.path || '/images/avatar-default.png'
+                  ?.path ||
+                chat.counsellor?.avatar?.path ||
+                '/images/avatar-default.png'
               }
               budge={
-                (chat.chat?.messages[chat.chat?.messages?.length - 1]?.user.name !== sender.name &&
-                  chat.chat?.messages?.reduce(
-                    (acc, item) =>
-                      acc + (item.type === 'UNREADED' && item.user.name !== sender.name ? 1 : 0),
-                    0
-                  )) ||
+                (chat.chat?.messages && getUnreadedMessages(chat.chat?.messages, sender)) ||
+                (chat.messages && getUnreadedMessages(chat.messages, sender)) ||
                 null
               }
-              position={chat.chat?.messages[chat.chat.messages.length - 1]?.text || null}
-              onClick={() =>
-                chat.chat &&
-                getChat &&
-                ((currentChat && chat.chat.id !== currentChat.id) || !currentChat) &&
-                getChat({ id: chat.chat.id })
+              position={
+                (chat.chat?.messages && getLastMessage(chat.chat?.messages, sender)) ||
+                (chat.messages && getLastMessage(chat.messages, sender)) ||
+                null
               }
-              active={currentChat && currentChat.id === chat.chat?.id}
+              onClick={async () => {
+                setLoading(true)
+                if (chat.chat?.id) {
+                  const variables = { id: chat.chat?.id }
+                  if (refetchChat) await refetchChat(variables)
+                  else await getChat({ variables })
+                  setCurrentChat(chat.chat)
+                } else {
+                  const variables = { id: chat.id }
+                  if (refetchTicket) await refetchTicket(variables)
+                  else await getTicket({ variables })
+                  setCurrentChat(chat)
+                }
+                setLoading(false)
+              }}
+              active={currentChat && currentChat.id === (chat.chat?.id || chat.id)}
             />
           ))
+        ) : loadingChat ||
+          loadingTicket ||
+          loadingUserChats ||
+          loadingTicketChats ||
+          loadingSendMessage ||
+          loadingUserSendMessage ? (
+          <Loader>
+            <Spinner />
+          </Loader>
         ) : (
           <Alert style={{ marginTop: 15 }}>Активные чаты отсутствуют</Alert>
         )}
       </Chats>
-      <ChatForm
-        mutation={mutations.sendMessage}
-        messages={
-          currentChat &&
-          currentChat.messages.map((message) => ({
-            ...message,
-            side: sender.name === message.user.name ? 'owner' : 'observer'
-          }))
+      <MessengerChat
+        chat={
+          currentChat && {
+            ...currentChat,
+            messages: currentChat.messages.map((message) => ({
+              ...message,
+              side: sender.name === message.user.name ? 'owner' : 'observer'
+            }))
+          }
         }
         appearance={'ghost'}
-        loading={chatLoading}
+        error={
+          errorChat ||
+          errorTicket ||
+          errorUserChats ||
+          errorUserTickets ||
+          errorSendMessage ||
+          errorUserSendMessage
+        }
+        loading={
+          loading ||
+          loadingTicket ||
+          loadingChat ||
+          loadingUserChats ||
+          loadingTicketChats ||
+          loadingSendMessage ||
+          loadingUserSendMessage
+        }
         onLink={onMemberLink}
-        onSubmit={async (form, action) => {
-          await onSubmit(
-            form,
-            action,
-            currentChat.members.find((member) => sender.name !== member.name)
-          )
-          await getChat({ id: currentChat.id })
+        onAttach={onAttach}
+        onSubmit={(value) => {
+          if (currentChat.members) {
+            const candidate = currentChat.members.find((member) => member.email !== sender.email)
+            sendMessage({
+              variables: {
+                sender: sender.email,
+                recipient: recipient?.email || candidate?.email,
+                text: value
+              }
+            })
+          } else {
+            sendTicketMessage({
+              variables: {
+                ticket: currentChat.id,
+                recipient: currentChat.author?.email,
+                text: value,
+                isClient: true
+              }
+            })
+          }
         }}
       />
     </Wrap>

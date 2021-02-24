@@ -71,7 +71,7 @@ export const TicketChat = ({
   loading,
   onLink,
   onFinish,
-  onReport,
+  // onReport,
   onAttach,
   onSubmit,
   ...props
@@ -94,13 +94,13 @@ export const TicketChat = ({
               Закрыть обращение
             </Button>
           )}
-          <Button
-            onClick={onReport}
-            kind={'icon'}
-            appearance={'red'}
-            disabled={!isAccess || loading || !ticket}>
-            <Icon icon={'flag'} stroke={'white'} />
-          </Button>
+          {/*<Button*/}
+          {/*  onClick={onReport}*/}
+          {/*  kind={'icon'}*/}
+          {/*  appearance={'red'}*/}
+          {/*  disabled={!isAccess || loading || !ticket}>*/}
+          {/*  <Icon icon={'flag'} stroke={'white'} />*/}
+          {/*</Button>*/}
         </Row>
       </Header>
 
@@ -121,7 +121,7 @@ export const TicketChat = ({
           )}
         </Meta>
 
-        {!loading && ticket && ticket?.messages && ticket?.messages?.length > 0 ? (
+        {!loading && ticket?.messages?.length > 0 ? (
           (ticket?.messages || []).map((message) => (
             <Message
               key={message.id}

@@ -138,6 +138,7 @@ export const MessageFields = gql`
     id
     user {
       name
+      email
       avatar {
         path
       }

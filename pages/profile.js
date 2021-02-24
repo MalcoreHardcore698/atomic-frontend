@@ -390,7 +390,7 @@ export async function getServerSideProps() {
 
   try {
     const response = await client.query({
-      query: queries.GET_META_PROFILE
+      query: queries.GET_CATEGORIES
     })
 
     if (response && response.data) {

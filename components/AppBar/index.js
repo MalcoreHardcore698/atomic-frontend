@@ -136,6 +136,7 @@ export const App = ({
   className,
   onMenu,
   onHelp,
+  onChat,
   onProfile,
   onSettings,
   onNotification,
@@ -202,6 +203,10 @@ export const App = ({
           <React.Fragment>
             <Button type={'button'} kind={'icon'} size={'xs'} onClick={onNotification}>
               <Icon size={'xs'} icon={'notification'} stroke={'white'} />
+            </Button>
+
+            <Button type={'button'} kind={'icon'} size={'xs'} onClick={onChat}>
+              <Icon size={'xs'} icon={'chat'} stroke={'white'} />
             </Button>
 
             <Popper

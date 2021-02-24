@@ -13,7 +13,6 @@ import Messenger from '../../components/Messenger'
 import { setDrawer } from '../actions/drawer'
 import { setModal } from '../actions/modal'
 import { onUserLink } from './user'
-import { setDocuments } from '../actions/documents'
 import { setItem } from '../actions/snacks'
 
 export const Presentation = styled(YouTube)`
@@ -106,7 +105,7 @@ export function onNotification(dispatch, props) {
 }
 
 export function onChat(dispatch, props) {
-  const { sender, recipient, queries, mutations } = props
+  const { sender, recipient } = props
 
   dispatch(
     setDrawer({
@@ -114,8 +113,6 @@ export function onChat(dispatch, props) {
       title: 'Мессенджер',
       content: (
         <Messenger
-          queries={queries}
-          mutations={mutations}
           recipient={recipient}
           sender={sender}
           appearance={'clear'}

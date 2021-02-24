@@ -37,22 +37,8 @@ export function onUserCheckin(dispatch, props) {
           mutations={mutations}
           onCreate={() => onUserRegister(dispatch, props)}
           onForgot={() => onUserForgotEmail(dispatch, props)}
-          onGoogleError={() =>
-            dispatch(
-              setItem({
-                type: 'error',
-                message: 'Не удалось авторизоваться через Google'
-              })
-            )
-          }
-          onFacebookError={() =>
-            dispatch(
-              setItem({
-                type: 'error',
-                message: 'Не удалось авторизоваться через Facebook'
-              })
-            )
-          }
+          onGoogleError={() => {}}
+          onFacebookError={() => {}}
           onGoogleFinally={(user) => dispatch(setUser(user))}
           onFacebookFinally={(user) => dispatch(setUser(user))}
           onGoogleSubmit={async (response, action) => {

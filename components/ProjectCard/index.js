@@ -284,10 +284,10 @@ export const Card = ({
         <Media>
           {project.preview ? (
             <Poster
-              src={project.preview.path}
+              src={project.preview?.path}
               alt={project.title}
               onClick={() =>
-                onScreenshotClick && onScreenshotClick(project.preview, project.preview.id)
+                onScreenshotClick && onScreenshotClick(project.preview, project.preview?.id)
               }
               magnify
             />
@@ -356,9 +356,9 @@ export const Card = ({
           </Name>
 
           <About>
-            {project.description.length > 135 ? (
+            {project.description?.length > 135 ? (
               <React.Fragment>
-                <Text>{project.description.slice(0, 135)}...</Text>
+                <Text>{project.description?.slice(0, 135)}...</Text>
                 <More onClick={onAboutMore}>Подробнее</More>
               </React.Fragment>
             ) : (

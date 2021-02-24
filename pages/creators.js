@@ -14,16 +14,6 @@ import queries from '../graphql/queries'
 const TITLE = 'Авторы'
 const START_OFFSET = 6
 
-const chatQueries = {
-  userChats: queries.GET_USER_CHATS,
-  chat: queries.GET_CHAT
-}
-
-const chatMutations = {
-  addUserChat: queries.ADD_USER_CHAT,
-  sendMessage: queries.SEND_MESSAGE
-}
-
 const Creators = ({ store }) => {
   const recall = useHelper()
   const user = useSelector((state) => state.user)
@@ -74,9 +64,7 @@ const Creators = ({ store }) => {
                     user.email &&
                     recall(onChat, {
                       sender: user,
-                      recipient: author,
-                      queries: chatQueries,
-                      mutations: chatMutations
+                      recipient: author
                     })
                   }
                   onAboutMore={recall(onUserAboutMore, { user: author })}
@@ -84,15 +72,11 @@ const Creators = ({ store }) => {
                   onLink={recall(onUserLink, {
                     id: author.email,
                     auth: user?.email,
-                    owned,
-                    queries: chatQueries,
-                    mutations: chatMutations
+                    owned
                   })}
                   onCompanyLink={recall(onUserLink, {
                     id: author.company?.email,
-                    auth: user?.email,
-                    queries: chatQueries,
-                    mutations: chatMutations
+                    auth: user?.email
                   })}
                 />
               </motion.div>

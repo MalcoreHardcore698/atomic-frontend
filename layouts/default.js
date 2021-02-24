@@ -19,7 +19,7 @@ import Footer from '../components/Footer'
 import { FixedLoader } from '../components/Styled'
 import { setLogout } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
-import { onMenu, onHelp, onNotification } from '../store/helpers'
+import { onMenu, onHelp, onNotification, onChat } from '../store/helpers'
 import { onUserClientEdit } from '../store/helpers/user'
 import queries from '../graphql/queries'
 import { supportLinks, socials, contacts } from '../__mock__'
@@ -185,6 +185,17 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
           })}
           onHelp={recall(onHelp, {
             mutation: queries.CREATE_USER_TICKET
+          })}
+          onChat={recall(onChat, {
+            sender: user,
+            queries: {
+              userChats: queries.GET_USER_CHATS,
+              chat: queries.GET_CHAT
+            },
+            mutations: {
+              addUserChat: queries.ADD_USER_CHAT,
+              sendMessage: queries.SEND_MESSAGE
+            }
           })}
           onSettings={recall(onUserClientEdit, {
             user: user?.email,

@@ -98,8 +98,7 @@ export const View = ({ auth, ticket, appearance, onMemberLink, onReport, onAttac
   const { data, loading, refetch } = useQuery(queries.GET_TICKET, {
     variables: {
       id: ticket
-    },
-    fetchPolicy: 'no-cache'
+    }
   })
 
   const [
@@ -117,8 +116,7 @@ export const View = ({ auth, ticket, appearance, onMemberLink, onReport, onAttac
     error: errorTickets
     // fetchMore: updateTickets
   } = useQuery(queries.GET_TICKETS, {
-    variables: variablesTickets,
-    fetchPolicy: 'no-cache'
+    variables: variablesTickets
   })
 
   useEffect(() => {
@@ -140,7 +138,7 @@ export const View = ({ auth, ticket, appearance, onMemberLink, onReport, onAttac
 
   useEffect(() => {
     if (!loadingTickets && dataTickets) {
-      setTickets((prev) => [...prev, ...dataTickets.getTickets])
+      setTickets(dataTickets.getTickets)
     }
   }, [dataTickets, loadingTickets])
 
@@ -185,7 +183,9 @@ export const View = ({ auth, ticket, appearance, onMemberLink, onReport, onAttac
       <TicketChat
         auth={auth}
         ticket={currentTicket}
-        loading={loading || loadingSendMessage || loadingTicket || errorCloseTicket}
+        loading={
+          loading || loadingSendMessage || loadingTicket || loadingTickets || errorCloseTicket
+        }
         onLink={onMemberLink}
         onFinish={() =>
           closeTicket({

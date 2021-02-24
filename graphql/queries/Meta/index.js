@@ -47,30 +47,6 @@ export const GET_META_ARTICLES = gql`
   ${CategoryFields}
 `
 
-export const GET_META_PROFILE = gql`
-  query getMetaProfile($offset: Int, $limit: Int) {
-    getUser {
-      ...UserFields
-      projects(offset: $offset, limit: $limit) {
-        ...ProjectFields
-      }
-      articles(offset: $offset, limit: $limit) {
-        ...ArticleFields
-      }
-      likedProjects {
-        ...ProjectFields
-      }
-    }
-    getCategories {
-      ...CategoryFields
-    }
-  }
-  ${UserFields}
-  ${ProjectFields}
-  ${ArticleFields}
-  ${CategoryFields}
-`
-
 export const GET_META_PROJECTS = gql`
   query getMetaProjects(
     $offset: Int

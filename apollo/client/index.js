@@ -20,6 +20,17 @@ const request = async (operation) => {
   })
 }
 
+const defaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore'
+  },
+  query: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'all'
+  }
+}
+
 export const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors) {
     console.log('[graphQLErrors]', graphQLErrors)
@@ -56,10 +67,11 @@ const uploadLink = createUploadLink({
   credentials: 'same-origin'
 })
 
-export default function createApolloClient(cache = {}) {
+export default function createApolloClient() {
   return new ApolloClient({
     ssrMode: SSR,
     link: ApolloLink.from([errorLink, requestLink, uploadLink]),
-    cache: new InMemoryCache().restore(cache)
+    cache: new InMemoryCache(),
+    defaultOptions
   })
 }
