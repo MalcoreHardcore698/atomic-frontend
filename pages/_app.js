@@ -34,7 +34,7 @@ const App = ({ Component, pageProps }) => {
             name={'description'}
             content={'Атомик – портал для формирования новой сферы образования'}
           />
-          <meta name={'yandex-verification'} content={'3e23950b3ed78bf4'} />
+          <meta name={'yandex-verification'} content={'bfd04b96d30382f5'} />
         </Head>
 
         <ThemeProvider theme={theme}>
