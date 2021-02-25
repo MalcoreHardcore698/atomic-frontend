@@ -23,6 +23,7 @@ const App = ({ Component, pageProps }) => {
     <Provider store={store}>
       <ApolloProvider client={client}>
         <Head>
+          <title>Атомик</title>
           <meta charSet={'utf-8'} />
           <meta
             name={'viewport'}
@@ -33,7 +34,7 @@ const App = ({ Component, pageProps }) => {
             name={'description'}
             content={'Атомик – портал для формирования новой сферы образования'}
           />
-          <title>Атомик</title>
+          <meta name={'yandex-verification'} content={'3e23950b3ed78bf4'} />
         </Head>
 
         <ThemeProvider theme={theme}>

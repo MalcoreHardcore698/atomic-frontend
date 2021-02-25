@@ -32,7 +32,6 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta name={'yandex-verification'} content={'3e23950b3ed78bf4'} />
           <link rel="shortcut icon" href="/favicon.ico" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />

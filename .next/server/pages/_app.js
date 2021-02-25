@@ -536,7 +536,7 @@ const App = ({
     store: store
   }, /*#__PURE__*/external_react_default.a.createElement(react_hooks_["ApolloProvider"], {
     client: client
-  }, /*#__PURE__*/external_react_default.a.createElement(head_default.a, null, /*#__PURE__*/external_react_default.a.createElement("meta", {
+  }, /*#__PURE__*/external_react_default.a.createElement(head_default.a, null, /*#__PURE__*/external_react_default.a.createElement("title", null, "\u0410\u0442\u043E\u043C\u0438\u043A"), /*#__PURE__*/external_react_default.a.createElement("meta", {
     charSet: 'utf-8'
   }), /*#__PURE__*/external_react_default.a.createElement("meta", {
     name: 'viewport',
@@ -547,7 +547,10 @@ const App = ({
   }), /*#__PURE__*/external_react_default.a.createElement("meta", {
     name: 'description',
     content: 'Атомик – портал для формирования новой сферы образования'
-  }), /*#__PURE__*/external_react_default.a.createElement("title", null, "\u0410\u0442\u043E\u043C\u0438\u043A")), /*#__PURE__*/external_react_default.a.createElement(external_styled_components_["ThemeProvider"], {
+  }), /*#__PURE__*/external_react_default.a.createElement("meta", {
+    name: 'yandex-verification',
+    content: '3e23950b3ed78bf4'
+  })), /*#__PURE__*/external_react_default.a.createElement(external_styled_components_["ThemeProvider"], {
     theme: theme
   }, /*#__PURE__*/external_react_default.a.createElement(external_framer_motion_["motion"].div, {
     key: router.route,
