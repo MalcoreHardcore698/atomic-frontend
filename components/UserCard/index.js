@@ -204,7 +204,7 @@ export const Card = ({
           <About>
             {user?.about?.length > 135 ? (
               <React.Fragment>
-                <Text>{user.about.slice(0, 135)}...</Text>
+                <Text>{user.about.slice(0, 120)}...</Text>
                 <More onClick={onAboutMore}>Подробнее</More>
               </React.Fragment>
             ) : (

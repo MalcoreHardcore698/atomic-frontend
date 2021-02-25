@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { ArticleFields } from '../../fragments'
+import { ArticleFields, CommentFields } from '../../fragments'
 
 export const GET_ARTICLE = gql`
   query getArticle($id: ID!) {

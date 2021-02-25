@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 import { Controller } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import { useQuery } from '@apollo/react-hooks'
 
 import Row from '../../atomic-ui/components/Row'
@@ -11,6 +13,7 @@ import Select from '../../atomic-ui/components/Select'
 import TextEditor from '../../atomic-ui/components/TextEditor'
 import Dropzone from '../../atomic-ui/components/Dropzone'
 import Alert from '../../atomic-ui/components/Alert'
+import Comment from '../../atomic-ui/components/Comment'
 import Divider from '../../atomic-ui/components/Divider'
 import Spinner from '../../atomic-ui/components/Spinner'
 
@@ -19,6 +22,130 @@ import { Loader } from '../Styled'
 import { getLabelStatus, getLabelCategory } from '../../utils/functions'
 import queries from '../../graphql/queries'
 import config from '../../config'
+import Checkbox from '../../atomic-ui/components/Checkbox'
+
+export const Header = styled(Row)`
+  justify-content: space-between;
+
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+    align-items: end;
+    grid-gap: var(--default-gap);
+  }
+`
+
+export const Comments = ({ article, setValue }) => {
+  const [comments, setComments] = useState([])
+
+  const user = useSelector((state) => state.user)
+  const [checkedAll, setCheckedAll] = useState(false)
+
+  const { data: dataComments, loading: loadingComments } = useQuery(queries.GET_COMMENTS, {
+    variables: {
+      id: article
+    }
+  })
+
+  const handleCheckedComments = (e) => {
+    setCheckedAll(e.target.checked)
+    setComments((prev) =>
+      prev.map((item) => ({
+        ...item,
+        checked: !item.checked
+      }))
+    )
+  }
+
+  const handleCheckedComment = (message, value) => {
+    setComments((prev) =>
+      prev.map((item) =>
+        item.id === message.id
+          ? {
+              ...item,
+              checked: value
+            }
+          : item
+      )
+    )
+  }
+
+  const handleDeleteChecked = () => {
+    setComments((prev) => prev.filter((message) => !message.checked))
+  }
+
+  const handleCommentEdit = (message, text) => {
+    setComments((prev) =>
+      prev.map((item) =>
+        item.id === message.id
+          ? {
+              ...item,
+              updatedAt: new Date(),
+              text
+            }
+          : item
+      )
+    )
+  }
+
+  const handleCommentDelete = (message) => {
+    setComments((prev) => prev.filter((item) => item.id !== message.id))
+  }
+
+  useEffect(() => {
+    if (article && !loadingComments && dataComments) {
+      setComments(
+        dataComments.getComments.map((comment) => ({
+          ...comment,
+          checked: false
+        }))
+      )
+    }
+  }, [article, dataComments, loadingComments])
+
+  useEffect(() => {
+    setValue('comments', comments)
+  }, [comments])
+
+  if (!article || comments.length === 0) {
+    return null
+  }
+
+  return (
+    <React.Fragment>
+      <Divider clear />
+
+      <Title tag={'h4'}>Комментарии</Title>
+
+      <Header>
+        <Checkbox label={'Выделить все'} checked={checkedAll} onChange={handleCheckedComments} />
+        <Button
+          style={{ color: 'var(--default-color-red)' }}
+          appearance={'clear'}
+          onClick={handleDeleteChecked}>
+          Удалить выделенное
+        </Button>
+      </Header>
+      <Column style={{ gridGap: 5 }}>
+        {comments.map((comment) => (
+          <Comment
+            key={`${comment.id}_${comment.checked}`}
+            user={comment.author}
+            message={comment.text}
+            likes={comment.likes?.length}
+            time={comment.createdAt !== comment.updatedAt ? comment.updatedAt : comment.createdAt}
+            isLiked={comment.likes.find((likedUser) => likedUser.email === user.email)}
+            isChecked={comment.checked}
+            isUpdated={comment.createdAt !== comment.updatedAt}
+            onChecked={(value) => handleCheckedComment(comment, value)}
+            onEdit={(text) => handleCommentEdit(comment, text)}
+            onDelete={() => handleCommentDelete(comment)}
+            compact
+          />
+        ))}
+      </Column>
+    </React.Fragment>
+  )
+}
 
 export const Article = ({
   article,
@@ -40,7 +167,7 @@ export const Article = ({
 
   return (
     <Form className={className} appearance={appearance} mutation={mutation} onSubmit={onSubmit}>
-      {({ register, loading, errors, control, getValues }) =>
+      {({ register, loading, errors, control, getValues, setValue }) =>
         !loadingArticle && data ? (
           <React.Fragment>
             <Column>
@@ -132,6 +259,8 @@ export const Article = ({
                   />
                 )}
               />
+
+              <Comments article={article} setValue={setValue} />
 
               {canEditStatus && <Divider clear />}
 

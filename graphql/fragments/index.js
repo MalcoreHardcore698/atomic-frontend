@@ -258,13 +258,17 @@ export const TicketFields = gql`
 export const CommentFields = gql`
   fragment CommentFields on Comment {
     id
-    user {
+    author {
       name
       avatar {
         id
         path
         filename
       }
+    }
+    likes {
+      email
+      name
     }
     text
     updatedAt

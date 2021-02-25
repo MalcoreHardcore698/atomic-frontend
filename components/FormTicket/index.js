@@ -82,12 +82,6 @@ export const Ticket = ({ title, ticket, appearance, mutation, className, isClien
 
   const handleCheckedMessages = (e) => {
     setCheckedAll(e.target.checked)
-    setMessages((prev) =>
-      prev.map((item) => ({
-        ...item,
-        checked: !item.checked
-      }))
-    )
   }
 
   const handleCheckedMessage = (message, value) => {

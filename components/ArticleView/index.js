@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
-import { useQuery, useLazyQuery } from '@apollo/react-hooks'
+import { useQuery, useMutation } from '@apollo/react-hooks'
 
 import Column from '../../atomic-ui/components/Column'
 import Title from '../../atomic-ui/components/Title'
@@ -71,16 +71,17 @@ export const View = ({
   style,
   onLink,
   onCommentLink,
-  onCommentReply,
-  onCommentLike,
-  onCommentSend
+  onCommentReply
 }) => {
+  const [comments, setComments] = useState([])
+
   const { data, loading, error } = useQuery(queries.GET_ARTICLE, {
     variables: {
       id: article
     }
   })
-  const [loadComments, { dataComments, loadingComments, errorComments }] = useLazyQuery(
+
+  const { data: dataComments, loading: loadingComments, error: errorComments } = useQuery(
     queries.GET_COMMENTS,
     {
       variables: {
@@ -88,6 +89,25 @@ export const View = ({
       }
     }
   )
+
+  const [
+    sendComment,
+    { data: dataSendComment, loading: loadingSendComment, error: errorSendComment }
+  ] = useMutation(queries.SEND_COMMENT)
+
+  const [likeComment] = useMutation(queries.LIKE_COMMENT)
+
+  useEffect(() => {
+    if (!loadingComments && dataComments) {
+      setComments(dataComments.getComments)
+    }
+  }, [dataComments, loadingComments])
+
+  useEffect(() => {
+    if (!loadingSendComment && dataSendComment) {
+      setComments(dataSendComment.sendComment)
+    }
+  }, [dataSendComment, loadingSendComment])
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
@@ -108,15 +128,25 @@ export const View = ({
 
           <Title tag={'h4'}>Комментарии</Title>
           <Comments
-            comments={dataComments}
+            comments={comments}
             appearance={'ghost'}
-            errorComments={errorComments}
-            loadingComments={loadingComments}
-            onLoad={loadComments}
+            error={errorComments || errorSendComment}
+            loading={loadingComments || loadingSendComment}
             onLink={onCommentLink}
             onReply={onCommentReply}
-            onLike={onCommentLike}
-            onSubmit={onCommentSend}
+            onLike={(id, liked) =>
+              likeComment({
+                variables: { comment: id, liked }
+              })
+            }
+            onSubmit={(value) =>
+              sendComment({
+                variables: {
+                  article: data.getArticle.id,
+                  text: value
+                }
+              })
+            }
           />
         </React.Fragment>
       ) : error ? (

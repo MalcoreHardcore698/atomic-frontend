@@ -10,9 +10,18 @@ export const GET_COMMENTS = gql`
   ${CommentFields}
 `
 
+export const SEND_COMMENT = gql`
+  mutation sendComment($article: ID!, $text: String!) {
+    sendComment(article: $article, text: $text) {
+      ...CommentFields
+    }
+  }
+  ${CommentFields}
+`
+
 export const LIKE_COMMENT = gql`
-  mutation likeComment($id: ID!) {
-    likeComment(id: $id) {
+  mutation likeComment($comment: ID!, $likedUser: String, $liked: Boolean!) {
+    likeComment(comment: $comment, likedUser: $likedUser, liked: $liked) {
       ...CommentFields
     }
   }

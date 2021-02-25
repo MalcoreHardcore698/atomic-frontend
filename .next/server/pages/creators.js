@@ -5851,9 +5851,6 @@ const Ticket = ({
 
   const handleCheckedMessages = e => {
     setCheckedAll(e.target.checked);
-    setMessages(prev => prev.map(item => ({ ...item,
-      checked: !item.checked
-    })));
   };
 
   const handleCheckedMessage = (message, value) => {
@@ -7010,7 +7007,7 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
     onClick: onLink
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about.slice(0, 135), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
+  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about.slice(0, 120), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
     onClick: onAboutMore
   }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
     icon: 'work',
@@ -17952,6 +17949,7 @@ __webpack_require__.d(Category_namespaceObject, "DELETE_CATEGORY", function() { 
 var Comment_namespaceObject = {};
 __webpack_require__.r(Comment_namespaceObject);
 __webpack_require__.d(Comment_namespaceObject, "GET_COMMENTS", function() { return GET_COMMENTS; });
+__webpack_require__.d(Comment_namespaceObject, "SEND_COMMENT", function() { return SEND_COMMENT; });
 __webpack_require__.d(Comment_namespaceObject, "LIKE_COMMENT", function() { return LIKE_COMMENT; });
 __webpack_require__.d(Comment_namespaceObject, "CREATE_COMMENT", function() { return CREATE_COMMENT; });
 __webpack_require__.d(Comment_namespaceObject, "UPDATE_COMMENT", function() { return UPDATE_COMMENT; });
@@ -18210,13 +18208,17 @@ const TicketFields = external_graphql_tag_default.a`
 const CommentFields = external_graphql_tag_default.a`
   fragment CommentFields on Comment {
     id
-    user {
+    author {
       name
       avatar {
         id
         path
         filename
       }
+    }
+    likes {
+      email
+      name
     }
     text
     updatedAt
@@ -19003,9 +19005,17 @@ const GET_COMMENTS = external_graphql_tag_default.a`
   }
   ${CommentFields}
 `;
+const SEND_COMMENT = external_graphql_tag_default.a`
+  mutation sendComment($article: ID!, $text: String!) {
+    sendComment(article: $article, text: $text) {
+      ...CommentFields
+    }
+  }
+  ${CommentFields}
+`;
 const LIKE_COMMENT = external_graphql_tag_default.a`
-  mutation likeComment($id: ID!) {
-    likeComment(id: $id) {
+  mutation likeComment($comment: ID!, $likedUser: String, $liked: Boolean!) {
+    likeComment(comment: $comment, likedUser: $likedUser, liked: $liked) {
       ...CommentFields
     }
   }

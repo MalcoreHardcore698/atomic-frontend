@@ -5706,9 +5706,6 @@ const Ticket = ({
 
   const handleCheckedMessages = e => {
     setCheckedAll(e.target.checked);
-    setMessages(prev => prev.map(item => ({ ...item,
-      checked: !item.checked
-    })));
   };
 
   const handleCheckedMessage = (message, value) => {
@@ -7186,7 +7183,7 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
     onClick: onLink
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about.slice(0, 135), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
+  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about.slice(0, 120), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
     onClick: onAboutMore
   }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
     icon: 'work',
@@ -15324,8 +15321,15 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
 // EXTERNAL MODULE: external "react-hook-form"
 var external_react_hook_form_ = __webpack_require__("BTiB");
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
 
 // EXTERNAL MODULE: external "@apollo/react-hooks"
 var react_hooks_ = __webpack_require__("mU8t");
@@ -15356,230 +15360,6 @@ var Dropzone = __webpack_require__("kJLk");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
-var Divider = __webpack_require__("RKiZ");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
-var Spinner = __webpack_require__("auMy");
-
-// EXTERNAL MODULE: ./components/Form/index.js
-var Form = __webpack_require__("qoM+");
-
-// EXTERNAL MODULE: ./components/Styled/index.js
-var Styled = __webpack_require__("586Q");
-
-// EXTERNAL MODULE: ./utils/functions.js
-var functions = __webpack_require__("ObTy");
-
-// EXTERNAL MODULE: ./graphql/queries/index.js + 15 modules
-var queries = __webpack_require__("u2Cb");
-
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
-
-// CONCATENATED MODULE: ./components/FormArticle/index.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const Article = ({
-  article,
-  categories,
-  statuses,
-  mutation,
-  appearance,
-  className,
-  canEditStatus,
-  onSubmit
-}) => {
-  const {
-    data,
-    loading: loadingArticle,
-    error: errorArticle
-  } = article ? Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_ARTICLE, {
-    variables: {
-      id: article
-    }
-  }) : {
-    data: {
-      getArticle: {}
-    },
-    loading: false,
-    error: false
-  };
-  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
-    className: className,
-    appearance: appearance,
-    mutation: mutation,
-    onSubmit: onSubmit
-  }, ({
-    register,
-    loading,
-    errors,
-    control,
-    getValues
-  }) => {
-    var _data$getArticle, _data$getArticle2, _data$getArticle3, _data$getArticle4, _data$getArticle5;
-
-    return !loadingArticle && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
-      tag: 'h4'
-    }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.preview && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-      style: {
-        width: '100%'
-      },
-      appearance: 'error'
-    }, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F \u043F\u0440\u0435\u0432\u044C\u044E"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
-      name: 'preview',
-      control: control,
-      rules: {
-        required: true
-      },
-      defaultValue: ((_data$getArticle = data.getArticle) === null || _data$getArticle === void 0 ? void 0 : _data$getArticle.preview) || null,
-      render: ({
-        value,
-        onChange
-      }) => /*#__PURE__*/external_react_default.a.createElement(Dropzone["b" /* default */], {
-        accept: 'image/*',
-        defaultValue: value,
-        onChange: onChange,
-        placeholder: 'Перетащите сюда изображение для превью',
-        tooltip: 'Разрешение: 960x480px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
-      })
-    }), errors && errors.title && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-      style: {
-        width: '100%'
-      },
-      appearance: 'error'
-    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0441\u0442\u0430\u0442\u044C\u0438"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
-      type: 'text',
-      name: 'title',
-      ref: register({
-        required: true
-      }),
-      defaultValue: getValues('title') || ((_data$getArticle2 = data.getArticle) === null || _data$getArticle2 === void 0 ? void 0 : _data$getArticle2.title),
-      placeholder: 'Название',
-      appearance: 'ghost',
-      disabled: loading
-    }), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
-      name: 'category',
-      control: control,
-      defaultValue: (_data$getArticle3 = data.getArticle) !== null && _data$getArticle3 !== void 0 && _data$getArticle3.category ? {
-        value: data.getArticle.category.id,
-        label: Object(functions["c" /* getLabelCategory */])(data.getArticle.category.name)
-      } : null,
-      render: ({
-        value,
-        onChange
-      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
-        appearance: 'ghost',
-        placeholder: 'Выберите раздел',
-        options: categories.filter(item => item.type === 'DIVISION').map(item => ({
-          value: item.id,
-          label: Object(functions["c" /* getLabelCategory */])(item.name)
-        })),
-        onChange: onChange,
-        defaultValue: value,
-        isLoading: loading,
-        isClearable: true
-      })
-    }), errors && errors.body && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-      style: {
-        width: '100%'
-      },
-      appearance: 'error'
-    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u043D\u0438\u0435 \u0441\u0442\u0430\u0442\u044C\u0438"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
-      name: 'body',
-      control: control,
-      defaultValue: getValues('body') || ((_data$getArticle4 = data.getArticle) === null || _data$getArticle4 === void 0 ? void 0 : _data$getArticle4.body) || null,
-      rules: {
-        required: true
-      },
-      render: ({
-        value,
-        onChange
-      }) => /*#__PURE__*/external_react_default.a.createElement(TextEditor["a" /* default */], {
-        apiKey: config["a" /* default */].get('tiny-key'),
-        appearance: 'ghost',
-        defaultValue: value,
-        onChange: onChange
-      })
-    }), canEditStatus && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
-      clear: true
-    }), canEditStatus && /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
-      name: 'status',
-      control: control,
-      defaultValue: (_data$getArticle5 = data.getArticle) !== null && _data$getArticle5 !== void 0 && _data$getArticle5.status ? {
-        value: data.getArticle.status,
-        label: Object(functions["f" /* getLabelStatus */])(data.getArticle.status)
-      } : null,
-      render: ({
-        value,
-        onChange
-      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
-        appearance: 'ghost',
-        placeholder: 'Выберите статус',
-        options: statuses.map(item => ({
-          value: item,
-          label: Object(functions["f" /* getLabelStatus */])(item)
-        })),
-        onChange: onChange,
-        defaultValue: value,
-        menuPlacement: 'top',
-        isLoading: loading,
-        isClearable: true
-      })
-    })), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
-      clear: true
-    }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-      style: {
-        flexGrow: 1
-      },
-      type: 'submit',
-      disabled: loading
-    }, article ? 'Сохранить' : 'Создать'))) : errorArticle ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-      appearance: 'error',
-      style: {
-        width: '100%',
-        textAlign: 'center'
-      }
-    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u0441\u0442\u0430\u0442\u044C\u0435") : /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
-  });
-};
-/* harmony default export */ var FormArticle = (Article);
-// EXTERNAL MODULE: ./components/FormDelete/index.js
-var FormDelete = __webpack_require__("xAqQ");
-
-// EXTERNAL MODULE: ./components/ArticleCard/index.js + 1 modules
-var ArticleCard = __webpack_require__("UwjQ");
-
-// EXTERNAL MODULE: external "styled-components"
-var external_styled_components_ = __webpack_require__("Dtiu");
-var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
-
-// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
-var Image = __webpack_require__("V0nP");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
-var Meta = __webpack_require__("aBfq");
-
-// EXTERNAL MODULE: ./components/HTMLView/index.js
-var HTMLView = __webpack_require__("ji1G");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Avatar/index.js
 var Avatar = __webpack_require__("ThpJ");
@@ -15668,7 +15448,7 @@ const Content = external_styled_components_default()(Column["a" /* default */])`
   grid-gap: 0;
   width: 100%;
 `;
-const Comment_Meta = external_styled_components_default()(Row["b" /* default */])`
+const Meta = external_styled_components_default()(Row["b" /* default */])`
   grid-gap: 5px;
 `;
 const Line = external_styled_components_default()(Row["b" /* default */])`
@@ -15868,16 +15648,16 @@ const Comment = ({
     icon: 'closeSquare',
     size: 'xs',
     stroke: 'white'
-  }))))), __jsx(Line, null, __jsx(Comment_Meta, null, updatedAt ? __jsx(DispatchUpdatedDate, null, "\u041E\u0442\u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E", ' ', new Date(updatedAt).toLocaleString('ru-RU', {
+  }))))), __jsx(Line, null, __jsx(Meta, null, updatedAt ? __jsx(DispatchUpdatedDate, null, "\u041E\u0442\u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E", ' ', new Date(updatedAt).toLocaleString('ru-RU', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
   })) : __jsx(DispatchTime, {
     text: time
-  }), __jsx(ReplyButton, {
+  }), onReply && __jsx(ReplyButton, {
     appearance: 'clear',
     onClick: onReply
-  }, "\u041E\u0442\u0432\u0435\u0442\u0438\u0442\u044C")), likes && likes > 0 && __jsx(Likes, null, __jsx(Tooltip["b" /* default */], {
+  }, "\u041E\u0442\u0432\u0435\u0442\u0438\u0442\u044C")), __jsx(Likes, null, count > 0 && __jsx(Tooltip["b" /* default */], {
     text: `${count} ${textLikes} это нравится`
   }, __jsx(LikesButton, {
     type: 'button',
@@ -15903,7 +15683,336 @@ const Comment = ({
   })))))));
 };
 /* harmony default export */ var components_Comment = (Comment);
+// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
+var Divider = __webpack_require__("RKiZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./components/Form/index.js
+var Form = __webpack_require__("qoM+");
+
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
+
+// EXTERNAL MODULE: ./utils/functions.js
+var functions = __webpack_require__("ObTy");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 15 modules
+var queries = __webpack_require__("u2Cb");
+
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
+// CONCATENATED MODULE: ./components/FormArticle/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "FormArticle__Header",
+  componentId: "sc-1ftxonu-0"
+})(["justify-content:space-between;@media only screen and (max-width:480px){flex-direction:column;align-items:end;grid-gap:var(--default-gap);}"]);
+const Comments = ({
+  article,
+  setValue
+}) => {
+  const [comments, setComments] = Object(external_react_["useState"])([]);
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const [checkedAll, setCheckedAll] = Object(external_react_["useState"])(false);
+  const {
+    data: dataComments,
+    loading: loadingComments
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_COMMENTS, {
+    variables: {
+      id: article
+    }
+  });
+
+  const handleCheckedComments = e => {
+    setCheckedAll(e.target.checked);
+    setComments(prev => prev.map(item => ({ ...item,
+      checked: !item.checked
+    })));
+  };
+
+  const handleCheckedComment = (message, value) => {
+    setComments(prev => prev.map(item => item.id === message.id ? { ...item,
+      checked: value
+    } : item));
+  };
+
+  const handleDeleteChecked = () => {
+    setComments(prev => prev.filter(message => !message.checked));
+  };
+
+  const handleCommentEdit = (message, text) => {
+    setComments(prev => prev.map(item => item.id === message.id ? { ...item,
+      updatedAt: new Date(),
+      text
+    } : item));
+  };
+
+  const handleCommentDelete = message => {
+    setComments(prev => prev.filter(item => item.id !== message.id));
+  };
+
+  Object(external_react_["useEffect"])(() => {
+    if (article && !loadingComments && dataComments) {
+      setComments(dataComments.getComments.map(comment => ({ ...comment,
+        checked: false
+      })));
+    }
+  }, [article, dataComments, loadingComments]);
+  Object(external_react_["useEffect"])(() => {
+    setValue('comments', comments);
+  }, [comments]);
+
+  if (!article || comments.length === 0) {
+    return null;
+  }
+
+  return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    clear: true
+  }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    tag: 'h4'
+  }, "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438"), /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Checkbox["a" /* default */], {
+    label: 'Выделить все',
+    checked: checkedAll,
+    onChange: handleCheckedComments
+  }), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    style: {
+      color: 'var(--default-color-red)'
+    },
+    appearance: 'clear',
+    onClick: handleDeleteChecked
+  }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0432\u044B\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0435")), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+    style: {
+      gridGap: 5
+    }
+  }, comments.map(comment => {
+    var _comment$likes;
+
+    return /*#__PURE__*/external_react_default.a.createElement(components_Comment, {
+      key: `${comment.id}_${comment.checked}`,
+      user: comment.author,
+      message: comment.text,
+      likes: (_comment$likes = comment.likes) === null || _comment$likes === void 0 ? void 0 : _comment$likes.length,
+      time: comment.createdAt !== comment.updatedAt ? comment.updatedAt : comment.createdAt,
+      isLiked: comment.likes.find(likedUser => likedUser.email === user.email),
+      isChecked: comment.checked,
+      isUpdated: comment.createdAt !== comment.updatedAt,
+      onChecked: value => handleCheckedComment(comment, value),
+      onEdit: text => handleCommentEdit(comment, text),
+      onDelete: () => handleCommentDelete(comment),
+      compact: true
+    });
+  })));
+};
+const Article = ({
+  article,
+  categories,
+  statuses,
+  mutation,
+  appearance,
+  className,
+  canEditStatus,
+  onSubmit
+}) => {
+  const {
+    data,
+    loading: loadingArticle,
+    error: errorArticle
+  } = article ? Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_ARTICLE, {
+    variables: {
+      id: article
+    }
+  }) : {
+    data: {
+      getArticle: {}
+    },
+    loading: false,
+    error: false
+  };
+  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+    className: className,
+    appearance: appearance,
+    mutation: mutation,
+    onSubmit: onSubmit
+  }, ({
+    register,
+    loading,
+    errors,
+    control,
+    getValues,
+    setValue
+  }) => {
+    var _data$getArticle, _data$getArticle2, _data$getArticle3, _data$getArticle4, _data$getArticle5;
+
+    return !loadingArticle && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.preview && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F \u043F\u0440\u0435\u0432\u044C\u044E"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'preview',
+      control: control,
+      rules: {
+        required: true
+      },
+      defaultValue: ((_data$getArticle = data.getArticle) === null || _data$getArticle === void 0 ? void 0 : _data$getArticle.preview) || null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Dropzone["b" /* default */], {
+        accept: 'image/*',
+        defaultValue: value,
+        onChange: onChange,
+        placeholder: 'Перетащите сюда изображение для превью',
+        tooltip: 'Разрешение: 960x480px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
+      })
+    }), errors && errors.title && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0441\u0442\u0430\u0442\u044C\u0438"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      type: 'text',
+      name: 'title',
+      ref: register({
+        required: true
+      }),
+      defaultValue: getValues('title') || ((_data$getArticle2 = data.getArticle) === null || _data$getArticle2 === void 0 ? void 0 : _data$getArticle2.title),
+      placeholder: 'Название',
+      appearance: 'ghost',
+      disabled: loading
+    }), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'category',
+      control: control,
+      defaultValue: (_data$getArticle3 = data.getArticle) !== null && _data$getArticle3 !== void 0 && _data$getArticle3.category ? {
+        value: data.getArticle.category.id,
+        label: Object(functions["c" /* getLabelCategory */])(data.getArticle.category.name)
+      } : null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+        appearance: 'ghost',
+        placeholder: 'Выберите раздел',
+        options: categories.filter(item => item.type === 'DIVISION').map(item => ({
+          value: item.id,
+          label: Object(functions["c" /* getLabelCategory */])(item.name)
+        })),
+        onChange: onChange,
+        defaultValue: value,
+        isLoading: loading,
+        isClearable: true
+      })
+    }), errors && errors.body && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u043D\u0438\u0435 \u0441\u0442\u0430\u0442\u044C\u0438"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'body',
+      control: control,
+      defaultValue: getValues('body') || ((_data$getArticle4 = data.getArticle) === null || _data$getArticle4 === void 0 ? void 0 : _data$getArticle4.body) || null,
+      rules: {
+        required: true
+      },
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(TextEditor["a" /* default */], {
+        apiKey: config["a" /* default */].get('tiny-key'),
+        appearance: 'ghost',
+        defaultValue: value,
+        onChange: onChange
+      })
+    }), /*#__PURE__*/external_react_default.a.createElement(Comments, {
+      article: article,
+      setValue: setValue
+    }), canEditStatus && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), canEditStatus && /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'status',
+      control: control,
+      defaultValue: (_data$getArticle5 = data.getArticle) !== null && _data$getArticle5 !== void 0 && _data$getArticle5.status ? {
+        value: data.getArticle.status,
+        label: Object(functions["f" /* getLabelStatus */])(data.getArticle.status)
+      } : null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+        appearance: 'ghost',
+        placeholder: 'Выберите статус',
+        options: statuses.map(item => ({
+          value: item,
+          label: Object(functions["f" /* getLabelStatus */])(item)
+        })),
+        onChange: onChange,
+        defaultValue: value,
+        menuPlacement: 'top',
+        isLoading: loading,
+        isClearable: true
+      })
+    })), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      style: {
+        flexGrow: 1
+      },
+      type: 'submit',
+      disabled: loading
+    }, article ? 'Сохранить' : 'Создать'))) : errorArticle ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      appearance: 'error',
+      style: {
+        width: '100%',
+        textAlign: 'center'
+      }
+    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u0441\u0442\u0430\u0442\u044C\u0435") : /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
+  });
+};
+/* harmony default export */ var FormArticle = (Article);
+// EXTERNAL MODULE: ./components/FormDelete/index.js
+var FormDelete = __webpack_require__("xAqQ");
+
+// EXTERNAL MODULE: ./components/ArticleCard/index.js + 1 modules
+var ArticleCard = __webpack_require__("UwjQ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
+var Image = __webpack_require__("V0nP");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+var components_Meta = __webpack_require__("aBfq");
+
+// EXTERNAL MODULE: ./components/HTMLView/index.js
+var HTMLView = __webpack_require__("ji1G");
+
 // CONCATENATED MODULE: ./components/Comments/index.js
+
 
 
 
@@ -15921,36 +16030,74 @@ const CentralAlert = external_styled_components_default()(Alert["a" /* default *
   displayName: "Comments__CentralAlert",
   componentId: "sc-6rcmxi-1"
 })(["display:flex;justify-content:center;align-items:center;text-align:center;width:100%;flex-grow:1;"]);
-const Comments = ({
+const Comments_Comments = ({
   comments,
+  loading,
   appearance,
   onLink,
   onReply,
   onLike,
+  onAttach,
   onSubmit
-}) => /*#__PURE__*/external_react_default.a.createElement(Comments_Wrap, null, comments && comments.length > 0 ? comments.map(comment => /*#__PURE__*/external_react_default.a.createElement(components_Comment, {
-  key: comment.id,
-  user: comment.user,
-  message: comment.message,
-  likes: comment.likes,
-  time: comment.time,
-  onLink: onLink,
-  onReply: onReply,
-  onLike: onLike
-})) : /*#__PURE__*/external_react_default.a.createElement(CentralAlert, null, "\u0412\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u043F\u0435\u0440\u0432\u044B\u043C"), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
-  placeholder: 'Оставьте комментарий...',
-  appearance: appearance
-}), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-  kind: 'icon',
-  onSubmit: onSubmit
-}, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
-  icon: 'send',
-  stroke: 'white'
-}))));
-Comments.defaultProps = {
+}) => {
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const [message, setMessage] = Object(external_react_["useState"])('');
+  const messageRef = Object(external_react_["useRef"])(null);
+  return /*#__PURE__*/external_react_default.a.createElement(Comments_Wrap, null, comments && comments.length > 0 ? comments.map(comment => {
+    var _comment$likes;
+
+    return /*#__PURE__*/external_react_default.a.createElement(components_Comment, {
+      key: comment.id,
+      user: comment.author,
+      message: comment.text,
+      likes: (_comment$likes = comment.likes) === null || _comment$likes === void 0 ? void 0 : _comment$likes.length,
+      time: comment.time,
+      isLiked: comment.likes.find(likedUser => likedUser.email === user.email),
+      onLink: onLink,
+      onReply: onReply,
+      onLike: liked => onLike(comment.id, liked)
+    });
+  }) : /*#__PURE__*/external_react_default.a.createElement(CentralAlert, null, "\u0412\u044B \u043C\u043E\u0436\u0435\u0442\u0435 \u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C \u043A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439 \u043F\u0435\u0440\u0432\u044B\u043C"), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    kind: 'icon',
+    disabled: loading || !comments,
+    onSubmit: onAttach
+  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+    icon: 'attach',
+    stroke: 'white'
+  })), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    name: 'text',
+    ref: messageRef,
+    placeholder: 'Отправьте комментарий...',
+    disabled: loading && !comments,
+    appearance: appearance,
+    onChange: e => {
+      var _e$target;
+
+      return setMessage((e === null || e === void 0 ? void 0 : (_e$target = e.target) === null || _e$target === void 0 ? void 0 : _e$target.value) || '');
+    },
+    onKeyDown: e => {
+      // Pressed ENTER
+      if (e.keyCode === 13) {
+        onSubmit(message);
+        messageRef.current.value = '';
+      }
+    },
+    tabIndex: -1
+  }), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    kind: 'icon',
+    onClick: () => {
+      onSubmit(message);
+      messageRef.current.value = '';
+    }
+  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+    icon: 'send',
+    stroke: 'white'
+  }))));
+};
+Comments_Comments.defaultProps = {
   appearance: 'default'
 };
-/* harmony default export */ var components_Comments = (Comments);
+/* harmony default export */ var components_Comments = (Comments_Comments);
 // CONCATENATED MODULE: ./components/ArticleView/index.js
 
 
@@ -15991,12 +16138,11 @@ const View = ({
   style,
   onLink,
   onCommentLink,
-  onCommentReply,
-  onCommentLike,
-  onCommentSend
+  onCommentReply
 }) => {
   var _data$getArticle$cate;
 
+  const [comments, setComments] = Object(external_react_["useState"])([]);
   const {
     data,
     loading,
@@ -16006,22 +16152,38 @@ const View = ({
       id: article
     }
   });
-  const [loadComments, {
-    dataComments,
-    loadingComments,
-    errorComments
-  }] = Object(react_hooks_["useLazyQuery"])(queries["a" /* default */].GET_COMMENTS, {
+  const {
+    data: dataComments,
+    loading: loadingComments,
+    error: errorComments
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_COMMENTS, {
     variables: {
       id: article
     }
   });
+  const [sendComment, {
+    data: dataSendComment,
+    loading: loadingSendComment,
+    error: errorSendComment
+  }] = Object(react_hooks_["useMutation"])(queries["a" /* default */].SEND_COMMENT);
+  const [likeComment] = Object(react_hooks_["useMutation"])(queries["a" /* default */].LIKE_COMMENT);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingComments && dataComments) {
+      setComments(dataComments.getComments);
+    }
+  }, [dataComments, loadingComments]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingSendComment && dataSendComment) {
+      setComments(dataSendComment.sendComment);
+    }
+  }, [dataSendComment, loadingSendComment]);
   return /*#__PURE__*/external_react_default.a.createElement(ArticleView_Wrap, {
     className: className,
     style: style,
     appearance: appearance
   }, !loading && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, data.getArticle.preview && /*#__PURE__*/external_react_default.a.createElement(Poster, {
     src: data.getArticle.preview.path
-  }), /*#__PURE__*/external_react_default.a.createElement(ArticleView_Content, null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
+  }), /*#__PURE__*/external_react_default.a.createElement(ArticleView_Content, null, /*#__PURE__*/external_react_default.a.createElement(components_Meta["a" /* default */], {
     date: data.getArticle.createdAt,
     category: (_data$getArticle$cate = data.getArticle.category) === null || _data$getArticle$cate === void 0 ? void 0 : _data$getArticle$cate.name
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
@@ -16038,15 +16200,24 @@ const View = ({
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
   }, "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438"), /*#__PURE__*/external_react_default.a.createElement(components_Comments, {
-    comments: dataComments,
+    comments: comments,
     appearance: 'ghost',
-    errorComments: errorComments,
-    loadingComments: loadingComments,
-    onLoad: loadComments,
+    error: errorComments || errorSendComment,
+    loading: loadingComments || loadingSendComment,
     onLink: onCommentLink,
     onReply: onCommentReply,
-    onLike: onCommentLike,
-    onSubmit: onCommentSend
+    onLike: (id, liked) => likeComment({
+      variables: {
+        comment: id,
+        liked
+      }
+    }),
+    onSubmit: value => sendComment({
+      variables: {
+        article: data.getArticle.id,
+        text: value
+      }
+    })
   })) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     appearance: 'error',
     style: {
@@ -19283,6 +19454,7 @@ __webpack_require__.d(Category_namespaceObject, "DELETE_CATEGORY", function() { 
 var Comment_namespaceObject = {};
 __webpack_require__.r(Comment_namespaceObject);
 __webpack_require__.d(Comment_namespaceObject, "GET_COMMENTS", function() { return GET_COMMENTS; });
+__webpack_require__.d(Comment_namespaceObject, "SEND_COMMENT", function() { return SEND_COMMENT; });
 __webpack_require__.d(Comment_namespaceObject, "LIKE_COMMENT", function() { return LIKE_COMMENT; });
 __webpack_require__.d(Comment_namespaceObject, "CREATE_COMMENT", function() { return CREATE_COMMENT; });
 __webpack_require__.d(Comment_namespaceObject, "UPDATE_COMMENT", function() { return UPDATE_COMMENT; });
@@ -19541,13 +19713,17 @@ const TicketFields = external_graphql_tag_default.a`
 const CommentFields = external_graphql_tag_default.a`
   fragment CommentFields on Comment {
     id
-    user {
+    author {
       name
       avatar {
         id
         path
         filename
       }
+    }
+    likes {
+      email
+      name
     }
     text
     updatedAt
@@ -20334,9 +20510,17 @@ const GET_COMMENTS = external_graphql_tag_default.a`
   }
   ${CommentFields}
 `;
+const SEND_COMMENT = external_graphql_tag_default.a`
+  mutation sendComment($article: ID!, $text: String!) {
+    sendComment(article: $article, text: $text) {
+      ...CommentFields
+    }
+  }
+  ${CommentFields}
+`;
 const LIKE_COMMENT = external_graphql_tag_default.a`
-  mutation likeComment($id: ID!) {
-    likeComment(id: $id) {
+  mutation likeComment($comment: ID!, $likedUser: String, $liked: Boolean!) {
+    likeComment(comment: $comment, likedUser: $likedUser, liked: $liked) {
       ...CommentFields
     }
   }
