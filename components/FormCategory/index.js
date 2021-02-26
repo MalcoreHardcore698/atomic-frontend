@@ -8,9 +8,9 @@ import Button from '../../atomic-ui/components/Button'
 import Select from '../../atomic-ui/components/Select'
 import TextArea from '../../atomic-ui/components/TextArea'
 import Alert from '../../atomic-ui/components/Alert'
+import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
 import Form from '../Form'
-import { getLabelCategory } from '../../utils/functions'
 
 export const Category = ({
   category,

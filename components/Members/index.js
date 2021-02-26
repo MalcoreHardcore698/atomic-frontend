@@ -7,9 +7,9 @@ import Grid from '../../atomic-ui/components/Grid'
 import Difinition from '../../atomic-ui/components/Difinition'
 import Alert from '../../atomic-ui/components/Alert'
 import Spinner from '../../atomic-ui/components/Spinner'
+import { getLabelRole } from '../../atomic-ui/utils/functions'
 
 import { Loader } from '../Styled'
-import { getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`

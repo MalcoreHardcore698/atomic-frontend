@@ -15,11 +15,11 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Spinner from '../../atomic-ui/components/Spinner'
 import Button from '../../atomic-ui/components/Button'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
+import { getLabelRole } from '../../atomic-ui/utils/functions'
 
 import { More } from '../Styled'
 import ProjectCard from '../ProjectCard'
 import { Loader } from '../Styled'
-import { getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`

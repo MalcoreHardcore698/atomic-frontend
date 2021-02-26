@@ -7,6 +7,7 @@ import DatePicker from '../../atomic-ui/components/DatePicker'
 import Select from '../../atomic-ui/components/Select'
 import Table from '../../atomic-ui/components/Table'
 import templates from '../../atomic-ui/components/Table/templates'
+import { createSelectOptions } from '../../atomic-ui/utils/functions'
 
 import { initializeApollo } from '../../apollo'
 import { useHelper } from '../../hooks/useHelper'
@@ -21,7 +22,6 @@ import {
   onArticleLink
 } from '../../store/helpers/article'
 import { setDocuments } from '../../store/actions/documents'
-import { createSelectOptions } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
 const TITLE = 'Статьи'

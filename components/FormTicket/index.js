@@ -15,10 +15,10 @@ import Spinner from '../../atomic-ui/components/Spinner'
 import TextArea from '../../atomic-ui/components/TextArea'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Message from '../../atomic-ui/components/Message'
+import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
 import Form from '../Form'
 import { Loader } from '../Styled'
-import { getLabelCategory } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
 export const LIMIT_USERS = 15

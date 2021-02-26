@@ -17,10 +17,10 @@ import Divider from '../../atomic-ui/components/Divider'
 import Spinner from '../../atomic-ui/components/Spinner'
 import Difinition from '../../atomic-ui/components/Difinition'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
+import { getFileSize, getLabelRole } from '../../atomic-ui/utils/functions'
 
 import HTMLView from '../HTMLView'
 import { Loader } from '../Styled'
-import { getFileSize, getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`

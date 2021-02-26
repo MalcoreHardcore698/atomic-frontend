@@ -9,8 +9,7 @@ import Divider from '../../atomic-ui/components/Divider'
 import Chip from '../../atomic-ui/components/Chip'
 import Alert from '../../atomic-ui/components/Alert'
 import Title from '../../atomic-ui/components/Title'
-
-import { getLabelRole, getLabelPermission } from '../../utils/functions'
+import { getLabelRole, getLabelPermission } from '../../atomic-ui/utils/functions'
 
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);

@@ -12,8 +12,7 @@ import Icon from '../../atomic-ui/components/Icon'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Title from '../../atomic-ui/components/Title'
 import Tooltip from '../../atomic-ui/components/Tooltip'
-
-import { getLabelRole, getLabelPermission } from '../../utils/functions'
+import { getLabelRole, getLabelPermission } from '../../atomic-ui/utils/functions'
 
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);

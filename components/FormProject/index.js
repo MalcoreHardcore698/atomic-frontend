@@ -22,10 +22,15 @@ import Divider from '../../atomic-ui/components/Divider'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 import Alert from '../../atomic-ui/components/Alert'
 import Icon from '../../atomic-ui/components/Icon'
+import {
+  getLabelStatus,
+  getLabelCategory,
+  getLabelRole,
+  getFileSize
+} from '../../atomic-ui/utils/functions'
 
 import Form from '../Form'
 import { Loader } from '../Styled'
-import { getLabelStatus, getLabelCategory, getLabelRole, getFileSize } from '../../utils/functions'
 import { setProjectMembers, setProjectScreenshots, setProjectFiles } from '../../store/actions/root'
 import queries from '../../graphql/queries'
 import config from '../../config'

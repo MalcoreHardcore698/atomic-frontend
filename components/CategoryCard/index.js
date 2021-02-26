@@ -11,8 +11,7 @@ import Button from '../../atomic-ui/components/Button'
 import Icon from '../../atomic-ui/components/Icon'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Tooltip from '../../atomic-ui/components/Tooltip'
-
-import { getLabelCategory } from '../../utils/functions'
+import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
 export const Wrap = styled(Column)`
   ${({ appearance }) =>

@@ -6,8 +6,7 @@ import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
 import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
-
-import { getLabelCategory } from '../../utils/functions'
+import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
 export const Wrap = styled(Column)`
   ${({ appearance }) =>

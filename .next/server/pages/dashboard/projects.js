@@ -1019,7 +1019,7 @@ const Projects = ({
       type: 'SELECT',
       options: store === null || store === void 0 ? void 0 : store.categories.map(category => ({
         value: category.id,
-        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_12__[/* getLabelCategory */ "a"])(category.name)
+        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_12__[/* getLabelCategory */ "c"])(category.name)
       }))
     }],
     options: [{
@@ -3900,14 +3900,14 @@ var Spinner = __webpack_require__("auMy");
 // EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
 var Divider = __webpack_require__("RKiZ");
 
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
+
 // EXTERNAL MODULE: ./components/Form/index.js
 var Form = __webpack_require__("qoM+");
 
 // EXTERNAL MODULE: ./components/Styled/index.js
 var Styled = __webpack_require__("586Q");
-
-// EXTERNAL MODULE: ./utils/functions.js
-var functions = __webpack_require__("ObTy");
 
 // EXTERNAL MODULE: ./store/actions/root.js
 var root = __webpack_require__("Sza6");
@@ -5295,12 +5295,12 @@ const Container = (_ref) => {
 
 "use strict";
 /* unused harmony export createSelectOption */
-/* unused harmony export createSelectOptions */
-/* unused harmony export getLabelStatus */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getLabelRole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return getLabelCategory; });
-/* unused harmony export getLabelPermission */
-/* unused harmony export getFileSize */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createSelectOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getLabelStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getLabelRole; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getLabelCategory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getLabelPermission; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getFileSize; });
 function createSelectOption(option) {
   return {
     value: option,
@@ -5930,164 +5930,6 @@ Switch.defaultProps = {
 
 /***/ }),
 
-/***/ "ObTy":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export createSelectOption */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createSelectOptions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getLabelStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getLabelRole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getLabelCategory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getLabelPermission; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getFileSize; });
-function createSelectOption(option) {
-  return {
-    value: option,
-    label: option
-  };
-}
-function createSelectOptions(options) {
-  return options.map(option => createSelectOption(option));
-}
-const getLabelStatus = status => {
-  switch (status) {
-    case 'PUBLISHED':
-      return 'Опубликовано';
-
-    case 'MODERATION':
-      return 'На модерации';
-
-    default:
-      return status;
-  }
-};
-const getLabelRole = role => {
-  switch (role) {
-    case 'ADMIN':
-      return 'Админ';
-
-    case 'USER':
-      return 'Пользователь';
-
-    case 'MODERATOR':
-      return 'Модератор';
-
-    case 'OFICIAL':
-      return 'Оф. лицо';
-
-    case 'ENTITY':
-      return 'Юр. лицо';
-
-    case 'INDIVIDUAL':
-      return 'Физ. лицо';
-
-    default:
-      return role;
-  }
-};
-const getLabelCategory = category => {
-  switch (category) {
-    case 'TICKET':
-      return 'Тема обращения';
-
-    case 'DIVISION':
-      return 'Раздел проектов/статей';
-
-    default:
-      return category;
-  }
-};
-const getLabelPermission = permission => {
-  switch (permission) {
-    case 'ACCESS_CLIENT':
-      return 'Доступ к сайту';
-
-    case 'ACCESS_DASHBOARD':
-      return 'Доступ к административной панели';
-
-    case 'VIEW_USER':
-      return 'Просмотр пользователя';
-
-    case 'VIEW_CATEGORY':
-      return 'Просмотр категории';
-
-    case 'VIEW_ARTICLE':
-      return 'Просмотр статьи';
-
-    case 'VIEW_PROJECT':
-      return 'Просмотр проекта';
-
-    case 'VIEW_TICKET':
-      return 'Просмотр обращения';
-
-    case 'VIEW_ROLE':
-      return 'Просмотр роли';
-
-    case 'ADD_USER':
-      return 'Создание пользователя';
-
-    case 'ADD_CATEGORY':
-      return 'Создание категории';
-
-    case 'ADD_ARTICLE':
-      return 'Создание статьи';
-
-    case 'ADD_PROJECT':
-      return 'Создание проекта';
-
-    case 'EDIT_USER':
-      return 'Редактирвоание пользователя';
-
-    case 'EDIT_CATEGORY':
-      return 'Редактирование категории';
-
-    case 'EDIT_ARTICLE':
-      return 'Редактирвоание статьи';
-
-    case 'EDIT_PROJECT':
-      return 'Редактирвоание проекта';
-
-    case 'DELETE_USER':
-      return 'Удаление пользователя';
-
-    case 'DELETE_CATEGORY':
-      return 'Удаление категории';
-
-    case 'DELETE_ARTICLE':
-      return 'Удаление статьи';
-
-    case 'DELETE_PROJECT':
-      return 'Удаление проекта';
-
-    case 'COMMENT_ARTICLE':
-      return 'Комментирование статьи';
-
-    case 'COMMENT_PROJECT':
-      return 'Комментирование проекта';
-
-    case 'CHATTING':
-      return 'Общение';
-
-    default:
-      return 'Не определено';
-  }
-};
-const getFileSize = size => {
-  if (!size) return 'Неизвестно';
-  const limit = 1024;
-  const bytes = Number(size);
-  const kilobytes = bytes / limit;
-  const megabytes = kilobytes / limit;
-  const gigabytes = megabytes / limit;
-  if (Math.trunc(gigabytes) > 0) return `${Math.round(gigabytes)} ГБ`;
-  if (Math.trunc(megabytes) > 0) return `${Math.round(megabytes)} МБ`;
-  if (Math.trunc(kilobytes) > 0) return `${Math.round(kilobytes)} КБ`;
-  return `${bytes} байт`;
-};
-
-/***/ }),
-
 /***/ "Osoz":
 /***/ (function(module, exports) {
 
@@ -6137,9 +5979,9 @@ module.exports = require("apollo-link-error");
 /* harmony import */ var _atomic_ui_components_TextArea__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("3jgA");
 /* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("79b8");
 /* harmony import */ var _atomic_ui_components_Message__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("7ni8");
-/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("qoM+");
-/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("586Q");
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("ObTy");
+/* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("NWnW");
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("qoM+");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("586Q");
 /* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("u2Cb");
 
 
@@ -6265,7 +6107,7 @@ const Ticket = ({
       setUsers(prev => [...prev, ...dataUsers.getUsers]);
     }
   }, [dataUsers, loadingUsers]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Form__WEBPACK_IMPORTED_MODULE_16__[/* default */ "b"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Form__WEBPACK_IMPORTED_MODULE_17__[/* default */ "b"], {
     className: className,
     appearance: appearance,
     mutation: mutation,
@@ -6375,7 +6217,7 @@ const Ticket = ({
       control: control,
       defaultValue: (_data$getTicket5 = data.getTicket) !== null && _data$getTicket5 !== void 0 && _data$getTicket5.category ? {
         value: data.getTicket.category.id,
-        label: Object(_utils_functions__WEBPACK_IMPORTED_MODULE_18__[/* getLabelCategory */ "c"])(data.getTicket.category.name)
+        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__[/* getLabelCategory */ "c"])(data.getTicket.category.name)
       } : null,
       render: ({
         value,
@@ -6385,7 +6227,7 @@ const Ticket = ({
         placeholder: 'Выберите раздел',
         options: !loadingCategories && dataCategories ? dataCategories.getCategories.filter(item => item.type === 'TICKET').map(item => ({
           value: item.id,
-          label: Object(_utils_functions__WEBPACK_IMPORTED_MODULE_18__[/* getLabelCategory */ "c"])(item.name)
+          label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__[/* getLabelCategory */ "c"])(item.name)
         })) : [],
         onChange: onChange,
         defaultValue: value,
@@ -6436,7 +6278,7 @@ const Ticket = ({
         width: '100%',
         textAlign: 'center'
       }
-    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E\u0431 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0438") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_17__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null));
+    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E\u0431 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0438") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_18__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null));
   });
 };
 Ticket.defaultProps = {
@@ -7252,7 +7094,7 @@ module.exports = _interopRequireDefault;
 /* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("ZeZO");
 /* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("DTT8");
 /* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("79b8");
-/* harmony import */ var _utils_functions__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("ObTy");
+/* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("NWnW");
 /* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("586Q");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -7358,7 +7200,7 @@ const Card = ({
       gridGap: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
-    category: Object(_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "e"])(user.account)
+    category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "e"])(user.account)
   }), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
     text: 'Удалить пользователя'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
@@ -9082,14 +8924,6 @@ const styles = {
     borderRadius: '50%',
     width: '3em',
     height: '3em'
-  },
-  '@keyframes load': {
-    '0%': {
-      transform: 'rotate(0deg)'
-    },
-    '100%': {
-      transform: 'rotate(360deg)'
-    }
   }
 };
 const Spinner = () => __jsx("div", {
@@ -15794,7 +15628,7 @@ const Side = ({
   src: user.avatar,
   alt: 'Avatar',
   size: 'm'
-}), /*#__PURE__*/external_react_default.a.createElement(Info, null, /*#__PURE__*/external_react_default.a.createElement(Name, null, user.name), /*#__PURE__*/external_react_default.a.createElement(Role, null, Object(functions["b" /* getLabelRole */])(user.role)))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+}), /*#__PURE__*/external_react_default.a.createElement(Info, null, /*#__PURE__*/external_react_default.a.createElement(Name, null, user.name), /*#__PURE__*/external_react_default.a.createElement(Role, null, Object(functions["e" /* getLabelRole */])(user.role)))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
   style: {
     background: 'var(--admin-color-accent-dim)',
     margin: '10px 0'
@@ -16408,14 +16242,14 @@ var Select = __webpack_require__("QclZ");
 // EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
 var Divider = __webpack_require__("RKiZ");
 
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
+
 // EXTERNAL MODULE: ./components/Form/index.js
 var Form = __webpack_require__("qoM+");
 
 // EXTERNAL MODULE: ./components/Styled/index.js
 var Styled = __webpack_require__("586Q");
-
-// EXTERNAL MODULE: ./utils/functions.js
-var functions = __webpack_require__("ObTy");
 
 // EXTERNAL MODULE: ./graphql/queries/index.js + 15 modules
 var queries = __webpack_require__("u2Cb");

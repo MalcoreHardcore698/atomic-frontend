@@ -20,10 +20,10 @@ import Icon from '../../atomic-ui/components/Icon'
 import Alert from '../../atomic-ui/components/Alert'
 import Select from '../../atomic-ui/components/Select'
 import Divider from '../../atomic-ui/components/Divider'
+import { getLabelRole } from '../../atomic-ui/utils/functions'
 
 import Form from '../Form'
 import { Loader } from '../Styled'
-import { getLabelRole } from '../../utils/functions'
 import queries from '../../graphql/queries'
 
 const TAB_TYPES = [

@@ -11,8 +11,8 @@ import Image from '../../atomic-ui/components/Image'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 import Button from '../../atomic-ui/components/Button'
 import Difinition from '../../atomic-ui/components/Difinition'
+import { getLabelRole } from '../../atomic-ui/utils/functions'
 
-import { getLabelRole } from '../../utils/functions'
 import { More } from '../Styled'
 
 export const Wrap = styled(Row)`

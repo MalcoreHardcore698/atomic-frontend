@@ -8,11 +8,11 @@ import NextNprogress from 'nextjs-progressbar'
 import { motion } from 'framer-motion'
 
 import '../atomic-ui/theme/default.css'
+import '../atomic-ui/assets/styles/styles.css'
 import theme from '../atomic-ui/theme'
 
 import { useApollo, initializeApollo } from '../apollo'
 import { useStore, initializeStore } from '../store'
-import '../assets/styles/styles.css'
 
 const App = ({ Component, pageProps }) => {
   const client = useApollo(pageProps.initialApolloState)

@@ -13,8 +13,8 @@ import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
 import Difinition from '../../atomic-ui/components/Difinition'
 import Checkbox from '../../atomic-ui/components/Checkbox'
+import { getLabelRole } from '../../atomic-ui/utils/functions'
 
-import { getLabelRole } from '../../utils/functions'
 import { More } from '../Styled'
 
 export const Wrap = styled(Column)`

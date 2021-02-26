@@ -7,9 +7,9 @@ import Input from '../../atomic-ui/components/Input'
 import Button from '../../atomic-ui/components/Button'
 import Select from '../../atomic-ui/components/Select'
 import Alert from '../../atomic-ui/components/Alert'
+import { createSelectOptions, getLabelPermission } from '../../atomic-ui/utils/functions'
 
 import Form from '../Form'
-import { createSelectOptions, getLabelPermission } from '../../utils/functions'
 
 export const Role = ({ role, permissions, mutation, appearance, className, onSubmit }) => {
   const [permissionsError, setPermissionsError] = useState(false)
