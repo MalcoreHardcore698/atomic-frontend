@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { ArticleFields, CommentFields } from '../../fragments'
+import { ArticleFields } from '../../fragments'
 
 export const GET_ARTICLE = gql`
   query getArticle($id: ID!) {
@@ -13,10 +13,24 @@ export const GET_ARTICLE = gql`
 export const GET_ARTICLES = gql`
   query getArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
     getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {
-      ...ArticleFields
+      id
+      author {
+        name
+        avatar {
+          path
+        }
+      }
+      title
+      body
+      preview {
+        path
+      }
+      category {
+        id
+        name
+      }
     }
   }
-  ${ArticleFields}
 `
 
 export const CREATE_ARTICLE = gql`

@@ -892,45 +892,6 @@ function isDynamicRoute(route) {
 
 /***/ }),
 
-/***/ "07fs":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Wrap */
-/* unused harmony export FadeLoad */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
-  displayName: "FadeLoad__Wrap",
-  componentId: "sc-1rdnrub-0"
-})(["opacity:0;transition:opacity 100ms ease;", ""], ({
-  isVisible
-}) => isVisible && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["opacity:1;"]));
-const FadeLoad = ({
-  children
-}) => {
-  const [isVisible, setVisible] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true);
-  const domRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => setVisible(entry.isIntersecting));
-    });
-    observer.observe(domRef.current);
-    return () => observer.unobserve(domRef.current);
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
-    isVisible: isVisible,
-    ref: domRef
-  }, children);
-};
-/* harmony default export */ __webpack_exports__["a"] = (FadeLoad);
-
-/***/ }),
-
 /***/ "0Bsm":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1076,7 +1037,7 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic
   componentId: "g3ik0u-3"
 })(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
   layout
-}) => layout && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
+}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
 const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Screenshots",
   componentId: "g3ik0u-4"
@@ -6014,12 +5975,14 @@ const ContentLayout = ({
   variables = {},
   limit = 6,
   startOffset = 6,
+  initialize,
   children
 }) => {
   const Layout = dashboard ? layouts_dashboard["a" /* default */] : layouts_default["a" /* default */];
   const [date, onChangeDate] = Object(external_react_["useState"])();
   const [select, onChangeSelect] = Object(external_react_["useState"])();
   const [search, setSearch] = Object(external_react_["useState"])(null);
+  const [isFetching, setFetching] = Object(external_react_["useState"])(false);
   const [visibleFilter, setVisibleFilter] = Object(external_react_["useState"])(false);
   const [offset, setOffset] = Object(external_react_["useState"])(startOffset);
   const [documents, setDocuments] = Object(external_react_["useState"])((store === null || store === void 0 ? void 0 : store.documents) || []);
@@ -6090,23 +6053,42 @@ const ContentLayout = ({
   };
 
   useInfiniteScroll({
-    callbackOnBottom: () => {
+    callbackOnBottom: async () => {
       const updateOffset = () => setOffset(prev => prev + limit);
 
-      if (!loading) {
+      if (!loading && !isFetching) {
+        setFetching(true);
         const result = { ...variables,
           offset,
           limit
         };
-        if (search) refetchBySearch(variables).then(updateOffset);else {
-          if (refetch) refetch(result).then(updateOffset);else loadDocuments({
-            variables: result
-          });
+
+        if (search) {
+          await refetchBySearch(variables);
+        } else {
+          if (refetch) {
+            await refetch(result);
+            updateOffset();
+          } else {
+            await loadDocuments({
+              variables: result
+            });
+          }
         }
+
+        setFetching(false);
       }
     },
     offset: 850
   });
+  Object(external_react_["useEffect"])(() => {
+    if (initialize) loadDocuments({
+      variables: {
+        offset,
+        limit
+      }
+    });
+  }, [initialize]);
   Object(external_react_["useEffect"])(() => {
     if (research) onSearch(research);
   }, [research]);
@@ -6148,7 +6130,7 @@ const ContentLayout = ({
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (!error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (isFetching || !error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -6283,31 +6265,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("h74D");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("4Q3z");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("NWnW");
 /* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("pyQH");
-/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ApjV");
-/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("lphG");
-/* harmony import */ var _components_ProjectCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("1zqG");
-/* harmony import */ var _components_Styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("586Q");
-/* harmony import */ var _components_LazyLoad__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("VP1n");
-/* harmony import */ var _components_FadeLoad__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("07fs");
-/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("8ihE");
-/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("IxyI");
-/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("rP4V");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("u2Cb");
-/* harmony import */ var _layouts_content__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("QX5T");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("4Q3z");
-/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_15__);
-
-
-
-
-
-
-
-
+/* harmony import */ var _layouts_content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("QX5T");
+/* harmony import */ var _components_Styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("586Q");
+/* harmony import */ var _components_ProjectList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("qF4B");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("u2Cb");
 
 
 
@@ -6322,12 +6287,8 @@ const START_OFFSET = 6;
 const Projects = ({
   store
 }) => {
-  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_4__[/* useHelper */ "b"])();
-  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_5__[/* useMutate */ "a"])();
-  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_15__["useRouter"])();
-  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.user);
-  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_content__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_1__["useRouter"])();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_content__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
     title: TITLE,
     filters: [{
       type: 'DATEPICKER'
@@ -6348,7 +6309,7 @@ const Projects = ({
       label: 'Дата публикации',
       value: 'createdAt'
     }],
-    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].GET_PROJECTS,
+    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].GET_PROJECTS,
     variables: {
       category: router.query.category,
       status: 'PUBLISHED'
@@ -6358,42 +6319,9 @@ const Projects = ({
     }
   }, ({
     documents
-  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Styled__WEBPACK_IMPORTED_MODULE_7__[/* GridAside */ "b"], null, documents.map(project => {
-    var _user$projects, _project$company;
-
-    const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === project.id);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FadeLoad__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
-      key: project.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LazyLoad__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectCard__WEBPACK_IMPORTED_MODULE_6__[/* default */ "c"], {
-      project: project,
-      owned: owned,
-      liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_11__[/* onProjectLink */ "e"], {
-        id: project.id,
-        auth: user,
-        owned
-      }),
-      onLike: (user === null || user === void 0 ? void 0 : user.email) && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].LIKE_PROJECT, {
-        id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_10__[/* updateUser */ "e"])(response.data.likeProject))),
-      onAdd: (user === null || user === void 0 ? void 0 : user.email) && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_11__[/* onProjectAdd */ "a"], {
-        id: project.id
-      }),
-      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserAboutMore */ "a"], {
-        user: project
-      }),
-      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserLink */ "i"], {
-        id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        recipient: project.author,
-        query: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].GET_USER_CHATS,
-        mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].SEND_MESSAGE
-      }),
-      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_11__[/* onProjectScreenshot */ "f"], {
-        screenshots: [project.preview, ...project.screenshots],
-        key
-      })()
-    })));
+  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Styled__WEBPACK_IMPORTED_MODULE_5__[/* GridAside */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectList__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    initialList: documents,
+    layout: true
   })));
 };
 
@@ -6406,7 +6334,7 @@ async function getServerSideProps({
 
   try {
     const response = await client.query({
-      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].GET_META_PROJECTS,
+      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].GET_META_PROJECTS,
       variables: {
         offset: 0,
         limit: START_OFFSET,
@@ -6836,7 +6764,7 @@ const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_
 const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Actions",
   componentId: "bx733i-4"
-})(["grid-gap:5px;"]);
+})(["grid-gap:5px;height:100%;"]);
 const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Name",
   componentId: "bx733i-5"
@@ -8554,7 +8482,9 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])``;
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+  flex-wrap: wrap;
+`;
 const DateRow = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
   position: relative;
   top: -2px;
@@ -15022,9 +14952,13 @@ const Label = external_styled_components_default()(Row["b" /* default */]).withC
 const LabelIcon = external_styled_components_default()(Icon["a" /* default */]).withConfig({
   displayName: "SideBar__LabelIcon",
   componentId: "sc-158a552-7"
-})(["width:var(--input-height-s);height:var(--input-height-s);background:var(--admin-color-accent-dim);border-radius:var(--surface-border-radius);", ""], ({
+})(["width:var(--input-height-s);height:var(--input-height-s);background:var(--admin-color-accent-dim);border-radius:var(--surface-border-radius);", " @media only screen and (max-width:480px){background:var(--default-color-accent-dim);", " svg{path{stroke:var(--default-color-accent);", "}}}"], ({
   active
-}) => active && Object(external_styled_components_["css"])(["background:white;"]));
+}) => active && Object(external_styled_components_["css"])(["background:white;"]), ({
+  active
+}) => active && Object(external_styled_components_["css"])(["background:var(--default-color-accent);"]), ({
+  active
+}) => active && Object(external_styled_components_["css"])(["stroke:white;"]));
 const LabelText = external_styled_components_default()(Text["b" /* default */]).withConfig({
   displayName: "SideBar__LabelText",
   componentId: "sc-158a552-8"
@@ -15289,13 +15223,13 @@ const DashboardLayout = ({
     name: "description",
     content: "primar project description"
   }), /*#__PURE__*/external_react_default.a.createElement("title", null, title)), /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(MenuButton, {
-    appearance: 'clear',
     kind: 'icon',
+    appearance: 'clear',
     onClick: recall(helpers["e" /* onMenu */], {
       links: dashboard_links((user === null || user === void 0 ? void 0 : user.role.permissions) || []).map((link, index) => ({
         id: index,
         text: link.component,
-        onClick: () => router.push(link.path)
+        onClick: () => router.push(`/dashboard${link.path}`)
       }))
     })
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
@@ -15474,6 +15408,153 @@ function useApollo(initialState) {
 /***/ (function(module, exports) {
 
 module.exports = require("react-custom-scrollbars");
+
+/***/ }),
+
+/***/ "qF4B":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export ProjectList */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("mU8t");
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ZwIX");
+/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("auMy");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("586Q");
+/* harmony import */ var _LazyLoad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("VP1n");
+/* harmony import */ var _ProjectCard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("1zqG");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("ApjV");
+/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("lphG");
+/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("8ihE");
+/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("rP4V");
+/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("IxyI");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("u2Cb");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+  displayName: "ProjectList__Wrap",
+  componentId: "zcwfmw-0"
+})(["display:grid;grid-template-columns:repeat(auto-fit,minmax(442px,1fr));grid-gap:var(--default-gap);grid-auto-rows:max-content;@media only screen and (max-width:768px){grid-template-columns:repeat(auto-fit,minmax(285px,1fr));}"]);
+const ProjectList = ({
+  variables,
+  layout,
+  initialList
+}) => {
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_9__[/* useHelper */ "b"])();
+  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_10__[/* useMutate */ "a"])();
+  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(state => state.user);
+  const [projects, setProjects] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(initialList || []);
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
+  const {
+    data,
+    loading,
+    error
+  } = initialList ? {
+    data: null,
+    loading: false,
+    error: false
+  } : Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].GET_PROJECTS, {
+    variables
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (!loading && data) {
+      setProjects(data.getProjects);
+    }
+  }, [data, loading]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if ((initialList === null || initialList === void 0 ? void 0 : initialList.length) > 0) setProjects(initialList);
+  }, [initialList]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, !loading && data || projects.length > 0 ? projects.map(project => {
+    var _user$projects, _user$folders, _project$company;
+
+    const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === project.id);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LazyLoad__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+      key: project.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProjectCard__WEBPACK_IMPORTED_MODULE_8__[/* default */ "c"], {
+      project: project,
+      layout: layout || 'column',
+      owned: owned,
+      added: !!(user !== null && user !== void 0 && (_user$folders = user.folders) !== null && _user$folders !== void 0 && _user$folders.find(folder => !!(folder !== null && folder !== void 0 && folder.projects.find(item => item.id === project.id)))),
+      liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
+      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectLink */ "e"], {
+        id: project.id,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
+        onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].LIKE_PROJECT, {
+          id: project.id
+        }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_11__[/* updateUser */ "e"])(response.data.likeProject))),
+        onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+          id: project.id,
+          project,
+          folders: user === null || user === void 0 ? void 0 : user.folders,
+          mutations: {
+            addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_PROJECT,
+            createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_FOLDER
+          }
+        }),
+        owned
+      }),
+      onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].LIKE_PROJECT, {
+        id: project.id
+      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_11__[/* updateUser */ "e"])(response.data.likeProject))),
+      onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+        id: project.id,
+        project,
+        folders: user === null || user === void 0 ? void 0 : user.folders,
+        mutations: {
+          addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_PROJECT,
+          createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_FOLDER
+        }
+      }),
+      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserAboutMore */ "a"], {
+        user: project
+      }),
+      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserLink */ "i"], {
+        id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        recipient: project.author,
+        query: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].GET_USER_CHATS,
+        mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].SEND_MESSAGE
+      }),
+      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectScreenshot */ "f"], {
+        screenshots: [project.preview, ...project.screenshots],
+        key
+      })()
+    }));
+  }) : error ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435") : loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_6__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043D\u0435\u0442"));
+};
+/* harmony default export */ __webpack_exports__["a"] = (ProjectList);
 
 /***/ }),
 
@@ -18267,10 +18348,27 @@ const GET_USERS = external_graphql_tag_default.a`
       account: $account
       company: $company
     ) {
-      ...UserFields
+      name
+      about
+      email
+      avatar {
+        path
+      }
+      account
+      members
+      company {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      role {
+        id
+        name
+      }
     }
   }
-  ${UserFields}
 `;
 const GET_USERS_FOR_TICKET = external_graphql_tag_default.a`
   query getUsers(
@@ -18806,10 +18904,24 @@ const GET_ARTICLE = external_graphql_tag_default.a`
 const GET_ARTICLES = external_graphql_tag_default.a`
   query getArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
     getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {
-      ...ArticleFields
+      id
+      author {
+        name
+        avatar {
+          path
+        }
+      }
+      title
+      body
+      preview {
+        path
+      }
+      category {
+        id
+        name
+      }
     }
   }
-  ${ArticleFields}
 `;
 const CREATE_ARTICLE = external_graphql_tag_default.a`
   mutation createArticle($input: ArticleCreateInput!, $status: PostStatus) {
@@ -18861,14 +18973,10 @@ const GET_PROJECTS = external_graphql_tag_default.a`
       }
       preview {
         id
-        filename
-        size
         path
       }
       screenshots {
         id
-        filename
-        size
         path
       }
       category {
@@ -18876,8 +18984,6 @@ const GET_PROJECTS = external_graphql_tag_default.a`
         name
       }
       status
-      updatedAt
-      createdAt
     }
   }
 `;

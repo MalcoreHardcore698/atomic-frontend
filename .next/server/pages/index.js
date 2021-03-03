@@ -892,45 +892,6 @@ function isDynamicRoute(route) {
 
 /***/ }),
 
-/***/ "07fs":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Wrap */
-/* unused harmony export FadeLoad */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
-  displayName: "FadeLoad__Wrap",
-  componentId: "sc-1rdnrub-0"
-})(["opacity:0;transition:opacity 100ms ease;", ""], ({
-  isVisible
-}) => isVisible && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["opacity:1;"]));
-const FadeLoad = ({
-  children
-}) => {
-  const [isVisible, setVisible] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true);
-  const domRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => setVisible(entry.isIntersecting));
-    });
-    observer.observe(domRef.current);
-    return () => observer.unobserve(domRef.current);
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
-    isVisible: isVisible,
-    ref: domRef
-  }, children);
-};
-/* harmony default export */ __webpack_exports__["a"] = (FadeLoad);
-
-/***/ }),
-
 /***/ "0Bsm":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1084,7 +1045,7 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic
   componentId: "g3ik0u-3"
 })(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
   layout
-}) => layout && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
+}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
 const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Screenshots",
   componentId: "g3ik0u-4"
@@ -1259,6 +1220,135 @@ Card.defaultProps = {
   appearance: 'default'
 };
 /* harmony default export */ __webpack_exports__["c"] = (Card);
+
+/***/ }),
+
+/***/ "20ex":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export UserList */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("mU8t");
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("ZwIX");
+/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("auMy");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("586Q");
+/* harmony import */ var _LazyLoad__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("VP1n");
+/* harmony import */ var _UserCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("TsNn");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("ApjV");
+/* harmony import */ var _store_helpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("+EEm");
+/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("rP4V");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("u2Cb");
+
+
+
+
+
+
+
+
+
+
+
+
+const UserList = ({
+  variables,
+  initialList
+}) => {
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_8__[/* useHelper */ "b"])();
+  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
+  const [users, setUsers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(initialList || []);
+  const {
+    data,
+    loading,
+    error
+  } = initialList ? {
+    data: null,
+    loading: false,
+    error: false
+  } : Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USERS, {
+    variables
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (!loading && data) {
+      setUsers(data.getUsers);
+    }
+  }, [data, loading]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if ((initialList === null || initialList === void 0 ? void 0 : initialList.length) > 0) setUsers(initialList);
+  }, [initialList]);
+  return !loading && data || users.length > 0 ? users.map(author => {
+    var _author$company;
+
+    const owned = author.name === (user === null || user === void 0 ? void 0 : user.name);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LazyLoad__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+      key: author.email
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserCard__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+      user: author,
+      owned: owned,
+      onChat: user.email && recall(_store_helpers__WEBPACK_IMPORTED_MODULE_9__[/* onChat */ "a"], {
+        email: author.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        queries: {
+          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USER_CHATS,
+          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_CHAT
+        },
+        mutations: {
+          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].ADD_USER_CHAT,
+          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].SEND_MESSAGE
+        }
+      }),
+      onLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserLink */ "i"], {
+        id: author.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        owned,
+        queries: {
+          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USER_CHATS,
+          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_CHAT
+        },
+        mutations: {
+          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].ADD_USER_CHAT,
+          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].SEND_MESSAGE
+        }
+      }),
+      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserAboutMore */ "a"], {
+        user: author
+      }),
+      onMembers: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserMembers */ "j"], {
+        id: author === null || author === void 0 ? void 0 : author.email,
+        auth: user === null || user === void 0 ? void 0 : user.email
+      }),
+      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserLink */ "i"], {
+        id: (_author$company = author.company) === null || _author$company === void 0 ? void 0 : _author$company.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        queries: {
+          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USER_CHATS,
+          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_CHAT
+        },
+        mutations: {
+          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].ADD_USER_CHAT,
+          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].SEND_MESSAGE
+        }
+      })
+    }));
+  }) : error ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435") : loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_5__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u0410\u0432\u0442\u043E\u0440\u043E\u0432 \u043D\u0435\u0442");
+};
+/* harmony default export */ __webpack_exports__["a"] = (UserList);
 
 /***/ }),
 
@@ -5446,6 +5536,94 @@ Switch.defaultProps = {
 
 /***/ }),
 
+/***/ "OaTT":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export ArticleList */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("mU8t");
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("ZwIX");
+/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("auMy");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("586Q");
+/* harmony import */ var _LazyLoad__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("VP1n");
+/* harmony import */ var _ArticleCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("UwjQ");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("ApjV");
+/* harmony import */ var _store_helpers_article__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("owvJ");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("u2Cb");
+
+
+
+
+
+
+
+
+
+
+
+const ArticleList = ({
+  variables,
+  layout,
+  initialList
+}) => {
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_8__[/* useHelper */ "b"])();
+  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
+  const [articles, setArticles] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(initialList || []);
+  const {
+    data,
+    loading,
+    error
+  } = initialList ? {
+    data: null,
+    loading: false,
+    error: false
+  } : Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"].GET_ARTICLES, {
+    variables
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (!loading && data) {
+      setArticles(data.getArticles);
+    }
+  }, [data, loading]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if ((initialList === null || initialList === void 0 ? void 0 : initialList.length) > 0) setArticles(initialList);
+  }, [initialList]);
+  return !loading && data || articles.length > 0 ? articles.map(article => {
+    var _user$articles;
+
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LazyLoad__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+      key: article.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ArticleCard__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+      article: article,
+      layout: layout || 'column',
+      owned: user === null || user === void 0 ? void 0 : (_user$articles = user.articles) === null || _user$articles === void 0 ? void 0 : _user$articles.find(candidate => candidate.id === article.id),
+      onLink: recall(_store_helpers_article__WEBPACK_IMPORTED_MODULE_9__[/* onArticleLink */ "d"], {
+        id: article.id,
+        auth: user === null || user === void 0 ? void 0 : user.email
+      })
+    }));
+  }) : error ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435") : loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_5__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041D\u043E\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0435\u0442");
+};
+/* harmony default export */ __webpack_exports__["a"] = (ArticleList);
+
+/***/ }),
+
 /***/ "Osoz":
 /***/ (function(module, exports) {
 
@@ -6014,12 +6192,14 @@ const ContentLayout = ({
   variables = {},
   limit = 6,
   startOffset = 6,
+  initialize,
   children
 }) => {
   const Layout = dashboard ? layouts_dashboard["a" /* default */] : layouts_default["a" /* default */];
   const [date, onChangeDate] = Object(external_react_["useState"])();
   const [select, onChangeSelect] = Object(external_react_["useState"])();
   const [search, setSearch] = Object(external_react_["useState"])(null);
+  const [isFetching, setFetching] = Object(external_react_["useState"])(false);
   const [visibleFilter, setVisibleFilter] = Object(external_react_["useState"])(false);
   const [offset, setOffset] = Object(external_react_["useState"])(startOffset);
   const [documents, setDocuments] = Object(external_react_["useState"])((store === null || store === void 0 ? void 0 : store.documents) || []);
@@ -6090,23 +6270,42 @@ const ContentLayout = ({
   };
 
   useInfiniteScroll({
-    callbackOnBottom: () => {
+    callbackOnBottom: async () => {
       const updateOffset = () => setOffset(prev => prev + limit);
 
-      if (!loading) {
+      if (!loading && !isFetching) {
+        setFetching(true);
         const result = { ...variables,
           offset,
           limit
         };
-        if (search) refetchBySearch(variables).then(updateOffset);else {
-          if (refetch) refetch(result).then(updateOffset);else loadDocuments({
-            variables: result
-          });
+
+        if (search) {
+          await refetchBySearch(variables);
+        } else {
+          if (refetch) {
+            await refetch(result);
+            updateOffset();
+          } else {
+            await loadDocuments({
+              variables: result
+            });
+          }
         }
+
+        setFetching(false);
       }
     },
     offset: 850
   });
+  Object(external_react_["useEffect"])(() => {
+    if (initialize) loadDocuments({
+      variables: {
+        offset,
+        limit
+      }
+    });
+  }, [initialize]);
   Object(external_react_["useEffect"])(() => {
     if (research) onSearch(research);
   }, [research]);
@@ -6148,7 +6347,7 @@ const ContentLayout = ({
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (!error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (isFetching || !error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -6352,28 +6551,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("ZwIX");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("7sPp");
-/* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("pyQH");
-/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("ApjV");
-/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("lphG");
-/* harmony import */ var _layouts_content__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("QX5T");
-/* harmony import */ var _components_ProjectCard__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("1zqG");
-/* harmony import */ var _components_ArticleCard__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("UwjQ");
-/* harmony import */ var _components_UserCard__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("TsNn");
-/* harmony import */ var _components_LazyLoad__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("VP1n");
-/* harmony import */ var _components_FadeLoad__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("07fs");
-/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("8ihE");
-/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("IxyI");
-/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("rP4V");
-/* harmony import */ var _store_helpers_article__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("owvJ");
-/* harmony import */ var _store_helpers__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("+EEm");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("u2Cb");
-
-
-
-
-
+/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("7sPp");
+/* harmony import */ var _components_ProjectList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("qF4B");
+/* harmony import */ var _components_ArticleList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("OaTT");
+/* harmony import */ var _components_UserList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("20ex");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("ApjV");
+/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("lphG");
+/* harmony import */ var _layouts_content__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("QX5T");
+/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("8ihE");
+/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("IxyI");
+/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("rP4V");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("u2Cb");
+/* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("pyQH");
 
 
 
@@ -6396,256 +6585,124 @@ const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.w
   displayName: "pages__Container",
   componentId: "sc-1kp8388-0"
 })(["display:grid;grid-template-columns:1fr min-content;grid-gap:var(--default-gap);margin-bottom:80px;@media only screen and (max-width:1196px){grid-template-columns:1fr;}"]);
-const Projects = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.aside.withConfig({
-  displayName: "pages__Projects",
-  componentId: "sc-1kp8388-1"
-})(["display:grid;grid-template-columns:repeat(auto-fit,minmax(442px,1fr));grid-gap:var(--default-gap);grid-auto-rows:max-content;@media only screen and (max-width:768px){grid-template-columns:repeat(auto-fit,minmax(285px,1fr));}"]);
 const Aside = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.aside.withConfig({
   displayName: "pages__Aside",
-  componentId: "sc-1kp8388-2"
+  componentId: "sc-1kp8388-1"
 })(["display:flex;flex-direction:column;grid-gap:var(--default-gap);width:394px;@media only screen and (max-width:1196px){width:auto;}"]);
 
 const Home = ({
   store
 }) => {
-  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_6__[/* useHelper */ "b"])();
-  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_7__[/* useMutate */ "a"])();
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_7__[/* useHelper */ "b"])();
+  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_8__[/* useMutate */ "a"])();
+  const [search, setSearch] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
   const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
   const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useDispatch"])();
-  const [search, setSearch] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null);
-  const {
-    articles,
-    users
-  } = store;
-  const scaffold = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => ({
-    title: 'Создавай школу будущего с нами',
-    background: '/images/main-background.png',
-    primary: store.projects.length > 0 && store.projects[0],
-    residue: store.projects.length > 4 && store.projects.slice(1, 3),
-    onLink: (project, owned) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectLink */ "e"], {
-      id: project.id,
-      auth: user === null || user === void 0 ? void 0 : user.email,
-      project,
-      liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-      onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].LIKE_PROJECT, {
+  const scaffold = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => {
+    var _store$projects, _store$projects2;
+
+    return {
+      title: 'Создавай школу будущего с нами',
+      background: '/images/main-background.png',
+      primary: ((_store$projects = store.projects) === null || _store$projects === void 0 ? void 0 : _store$projects.length) > 0 && store.projects[0],
+      residue: ((_store$projects2 = store.projects) === null || _store$projects2 === void 0 ? void 0 : _store$projects2.length) === 3 && store.projects.slice(1, 3),
+      onLink: (project, owned) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_11__[/* onProjectLink */ "e"], {
+        id: project.id,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        project,
+        liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
+        onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].LIKE_PROJECT, {
+          id: project.id
+        }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_10__[/* updateUser */ "e"])(response.data.likeProject))),
+        onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_11__[/* onProjectAdd */ "a"], {
+          id: project.id,
+          project,
+          folders: user === null || user === void 0 ? void 0 : user.folders,
+          mutations: {
+            addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].ADD_USER_PROJECT,
+            createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].ADD_USER_FOLDER
+          }
+        }),
+        owned
+      })(),
+      onLike: user.email && (project => mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].LIKE_PROJECT, {
         id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_14__[/* updateUser */ "e"])(response.data.likeProject))),
-      onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectAdd */ "a"], {
+      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_10__[/* updateUser */ "e"])(response.data.likeProject)))()),
+      onAdd: user.email && (project => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_11__[/* onProjectAdd */ "a"], {
         id: project.id,
         project,
         folders: user === null || user === void 0 ? void 0 : user.folders,
         mutations: {
-          addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_PROJECT,
-          createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_FOLDER
+          addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].ADD_USER_PROJECT,
+          createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].ADD_USER_FOLDER
         }
+      })()),
+      onSearch: value => setSearch(value),
+      onAboutMore: project => recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserAboutMore */ "a"], {
+        user: project
       }),
-      owned
-    })(),
-    onLike: user.email && (project => mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].LIKE_PROJECT, {
-      id: project.id
-    }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_14__[/* updateUser */ "e"])(response.data.likeProject)))()),
-    onAdd: user.email && (project => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectAdd */ "a"], {
-      id: project.id,
-      project,
-      folders: user === null || user === void 0 ? void 0 : user.folders,
-      mutations: {
-        addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_PROJECT,
-        createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_FOLDER
-      }
-    })()),
-    onSearch: value => setSearch(value),
-    onAboutMore: project => recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserAboutMore */ "a"], {
-      user: project
-    }),
-    onCompanyLink: project => {
-      var _project$company;
+      onCompanyLink: project => {
+        var _project$company;
 
-      return recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserLink */ "i"], {
-        id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
-        auth: user
-      })();
-    },
-    onScreenshotClick: (project, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectScreenshot */ "f"], {
-      screenshots: [project.preview, ...project.screenshots],
-      key
-    })()
-  }), [store]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_content__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+        return recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserLink */ "i"], {
+          id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
+          auth: user
+        })();
+      },
+      onScreenshotClick: (project, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_11__[/* onProjectScreenshot */ "f"], {
+        screenshots: [project.preview, ...project.screenshots],
+        key
+      })()
+    };
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_content__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
     title: TITLE,
     limit: LIMIT,
     research: search,
     scaffold: scaffold,
     startOffset: START_OFFSET,
-    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_PROJECTS,
+    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].GET_PROJECTS,
     variables: {
       status: 'PUBLISHED'
     },
-    store: {
-      documents: store === null || store === void 0 ? void 0 : store.projects
-    }
+    initialize: true
   }, ({
     documents
-  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Projects, null, documents.map(project => {
-    var _user$projects, _user$folders, _project$company2;
-
-    const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === project.id);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FadeLoad__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
-      key: project.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LazyLoad__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectCard__WEBPACK_IMPORTED_MODULE_9__[/* default */ "c"], {
-      project: project,
-      owned: owned,
-      added: !!(user !== null && user !== void 0 && (_user$folders = user.folders) !== null && _user$folders !== void 0 && _user$folders.find(folder => !!(folder !== null && folder !== void 0 && folder.projects.find(item => item.id === project.id)))),
-      liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectLink */ "e"], {
-        id: project.id,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-        onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].LIKE_PROJECT, {
-          id: project.id
-        }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_14__[/* updateUser */ "e"])(response.data.likeProject))),
-        onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectAdd */ "a"], {
-          id: project.id,
-          project,
-          folders: user === null || user === void 0 ? void 0 : user.folders,
-          mutations: {
-            addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_PROJECT,
-            createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_FOLDER
-          }
-        }),
-        owned
-      }),
-      onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].LIKE_PROJECT, {
-        id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_14__[/* updateUser */ "e"])(response.data.likeProject))),
-      onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectAdd */ "a"], {
-        id: project.id,
-        project,
-        folders: user === null || user === void 0 ? void 0 : user.folders,
-        mutations: {
-          addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_PROJECT,
-          createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_FOLDER
-        }
-      }),
-      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserAboutMore */ "a"], {
-        user: project
-      }),
-      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserLink */ "i"], {
-        id: (_project$company2 = project.company) === null || _project$company2 === void 0 ? void 0 : _project$company2.email,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        recipient: project.author,
-        query: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_USER_CHATS,
-        mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].SEND_MESSAGE
-      }),
-      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_15__[/* onProjectScreenshot */ "f"], {
-        screenshots: [project.preview, ...project.screenshots],
-        key
-      })()
-    })));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Aside, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ProjectList__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    initialList: documents,
+    layout: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Aside, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
     tag: 'h4'
-  }, "\u0410\u0432\u0442\u043E\u0440\u044B"), users.length > 0 ? users.slice(0, 3).map(author => {
-    var _author$company;
-
-    const owned = author.name === (user === null || user === void 0 ? void 0 : user.name);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FadeLoad__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
-      key: author.email
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LazyLoad__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserCard__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
-      user: author,
-      owned: owned,
-      onChat: user.email && recall(_store_helpers__WEBPACK_IMPORTED_MODULE_18__[/* onChat */ "a"], {
-        email: author.email,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        queries: {
-          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_USER_CHATS,
-          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_CHAT
-        },
-        mutations: {
-          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_CHAT,
-          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].SEND_MESSAGE
-        }
-      }),
-      onLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserLink */ "i"], {
-        id: author.email,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        owned,
-        queries: {
-          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_USER_CHATS,
-          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_CHAT
-        },
-        mutations: {
-          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_CHAT,
-          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].SEND_MESSAGE
-        }
-      }),
-      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserAboutMore */ "a"], {
-        user: author
-      }),
-      onMembers: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserMembers */ "j"], {
-        id: author === null || author === void 0 ? void 0 : author.email,
-        auth: user === null || user === void 0 ? void 0 : user.email
-      }),
-      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_16__[/* onUserLink */ "i"], {
-        id: (_author$company = author.company) === null || _author$company === void 0 ? void 0 : _author$company.email,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        queries: {
-          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_USER_CHATS,
-          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_CHAT
-        },
-        mutations: {
-          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].ADD_USER_CHAT,
-          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].SEND_MESSAGE
-        }
-      })
-    })));
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
-    style: {
-      width: '100%',
-      textAlign: 'center'
+  }, "\u0410\u0432\u0442\u043E\u0440\u044B"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserList__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    variables: {
+      offset: 0,
+      limit: 3
     }
-  }, "\u0410\u0432\u0442\u043E\u0440\u043E\u0432 \u043D\u0435\u0442"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
     tag: 'h4'
-  }, "\u041D\u043E\u0432\u043E\u0441\u0442\u0438"), articles.length > 0 ? articles.slice(0, 2).map(article => {
-    var _user$articles;
-
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FadeLoad__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
-      key: article.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LazyLoad__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ArticleCard__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
-      layout: 'column',
-      article: article,
-      owned: user === null || user === void 0 ? void 0 : (_user$articles = user.articles) === null || _user$articles === void 0 ? void 0 : _user$articles.find(candidate => candidate.id === article.id),
-      onLink: recall(_store_helpers_article__WEBPACK_IMPORTED_MODULE_17__[/* onArticleLink */ "d"], {
-        id: article.id,
-        auth: user === null || user === void 0 ? void 0 : user.email
-      })
-    })));
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
-    style: {
-      width: '100%',
-      textAlign: 'center'
+  }, "\u041D\u043E\u0432\u043E\u0441\u0442\u0438"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ArticleList__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    variables: {
+      offset: 0,
+      limit: 2
     }
-  }, "\u041D\u043E\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0435\u0442"))));
+  }))));
 };
 
-const getServerSideProps = async () => {
-  const client = Object(_apollo__WEBPACK_IMPORTED_MODULE_5__[/* initializeApollo */ "a"])();
-  let articles = [];
+async function getServerSideProps() {
+  const client = Object(_apollo__WEBPACK_IMPORTED_MODULE_14__[/* initializeApollo */ "a"])();
   let projects = [];
-  let users = [];
 
   try {
     const response = await client.query({
-      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_META_INDEX,
+      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].GET_PROJECTS,
       variables: {
         offset: 0,
-        limit: START_OFFSET,
-        status: 'PUBLISHED'
+        limit: 3
       }
     });
 
     if (response && response.data) {
-      articles = response.data.getArticles;
       projects = response.data.getProjects;
-      users = response.data.getUsers;
     }
   } catch (err) {
     console.log(err);
@@ -6654,13 +6711,11 @@ const getServerSideProps = async () => {
   return {
     props: {
       store: {
-        articles,
-        projects,
-        users
+        projects
       }
     }
   };
-};
+}
 /* harmony default export */ __webpack_exports__["default"] = (Home);
 
 /***/ }),
@@ -7000,7 +7055,7 @@ const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_
 const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Actions",
   componentId: "bx733i-4"
-})(["grid-gap:5px;"]);
+})(["grid-gap:5px;height:100%;"]);
 const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Name",
   componentId: "bx733i-5"
@@ -7362,7 +7417,7 @@ var Tooltip = __webpack_require__("VWQm");
 const ArticleCard_Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "ArticleCard__Wrap",
   componentId: "sc-17tznl7-0"
-})(["display:grid;grid-template-columns:1fr 2fr;padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);height:100%;", " ", " ", " ", " @media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"], ({
+})(["display:grid;grid-template-columns:1fr 2fr;padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);height:min-content;& > span{display:flex;}", " ", " ", " ", " @media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"], ({
   layout
 }) => layout === 'column' && Object(external_styled_components_["css"])(["display:flex;flex-wrap:wrap;grid-gap:var(--default-gap);"]), ({
   appearance
@@ -7384,7 +7439,7 @@ const Header = external_styled_components_default()(Row["b" /* default */]).with
 const Actions = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "ArticleCard__Actions",
   componentId: "sc-17tznl7-3"
-})(["grid-gap:5px;"]);
+})(["grid-gap:5px;height:100%;"]);
 const Name = external_styled_components_default()(Title["a" /* default */]).withConfig({
   displayName: "ArticleCard__Name",
   componentId: "sc-17tznl7-4"
@@ -8927,7 +8982,9 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])``;
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+  flex-wrap: wrap;
+`;
 const DateRow = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
   position: relative;
   top: -2px;
@@ -16517,9 +16574,13 @@ const Label = external_styled_components_default()(Row["b" /* default */]).withC
 const LabelIcon = external_styled_components_default()(Icon["a" /* default */]).withConfig({
   displayName: "SideBar__LabelIcon",
   componentId: "sc-158a552-7"
-})(["width:var(--input-height-s);height:var(--input-height-s);background:var(--admin-color-accent-dim);border-radius:var(--surface-border-radius);", ""], ({
+})(["width:var(--input-height-s);height:var(--input-height-s);background:var(--admin-color-accent-dim);border-radius:var(--surface-border-radius);", " @media only screen and (max-width:480px){background:var(--default-color-accent-dim);", " svg{path{stroke:var(--default-color-accent);", "}}}"], ({
   active
-}) => active && Object(external_styled_components_["css"])(["background:white;"]));
+}) => active && Object(external_styled_components_["css"])(["background:white;"]), ({
+  active
+}) => active && Object(external_styled_components_["css"])(["background:var(--default-color-accent);"]), ({
+  active
+}) => active && Object(external_styled_components_["css"])(["stroke:white;"]));
 const LabelText = external_styled_components_default()(Text["b" /* default */]).withConfig({
   displayName: "SideBar__LabelText",
   componentId: "sc-158a552-8"
@@ -16784,13 +16845,13 @@ const DashboardLayout = ({
     name: "description",
     content: "primar project description"
   }), /*#__PURE__*/external_react_default.a.createElement("title", null, title)), /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(MenuButton, {
-    appearance: 'clear',
     kind: 'icon',
+    appearance: 'clear',
     onClick: recall(helpers["e" /* onMenu */], {
       links: dashboard_links((user === null || user === void 0 ? void 0 : user.role.permissions) || []).map((link, index) => ({
         id: index,
         text: link.component,
-        onClick: () => router.push(link.path)
+        onClick: () => router.push(`/dashboard${link.path}`)
       }))
     })
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
@@ -16969,6 +17030,153 @@ function useApollo(initialState) {
 /***/ (function(module, exports) {
 
 module.exports = require("react-custom-scrollbars");
+
+/***/ }),
+
+/***/ "qF4B":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export ProjectList */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("mU8t");
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ZwIX");
+/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("auMy");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("586Q");
+/* harmony import */ var _LazyLoad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("VP1n");
+/* harmony import */ var _ProjectCard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("1zqG");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("ApjV");
+/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("lphG");
+/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("8ihE");
+/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("rP4V");
+/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("IxyI");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("u2Cb");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+  displayName: "ProjectList__Wrap",
+  componentId: "zcwfmw-0"
+})(["display:grid;grid-template-columns:repeat(auto-fit,minmax(442px,1fr));grid-gap:var(--default-gap);grid-auto-rows:max-content;@media only screen and (max-width:768px){grid-template-columns:repeat(auto-fit,minmax(285px,1fr));}"]);
+const ProjectList = ({
+  variables,
+  layout,
+  initialList
+}) => {
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_9__[/* useHelper */ "b"])();
+  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_10__[/* useMutate */ "a"])();
+  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(state => state.user);
+  const [projects, setProjects] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(initialList || []);
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
+  const {
+    data,
+    loading,
+    error
+  } = initialList ? {
+    data: null,
+    loading: false,
+    error: false
+  } : Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].GET_PROJECTS, {
+    variables
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (!loading && data) {
+      setProjects(data.getProjects);
+    }
+  }, [data, loading]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if ((initialList === null || initialList === void 0 ? void 0 : initialList.length) > 0) setProjects(initialList);
+  }, [initialList]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, !loading && data || projects.length > 0 ? projects.map(project => {
+    var _user$projects, _user$folders, _project$company;
+
+    const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === project.id);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LazyLoad__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+      key: project.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProjectCard__WEBPACK_IMPORTED_MODULE_8__[/* default */ "c"], {
+      project: project,
+      layout: layout || 'column',
+      owned: owned,
+      added: !!(user !== null && user !== void 0 && (_user$folders = user.folders) !== null && _user$folders !== void 0 && _user$folders.find(folder => !!(folder !== null && folder !== void 0 && folder.projects.find(item => item.id === project.id)))),
+      liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
+      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectLink */ "e"], {
+        id: project.id,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
+        onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].LIKE_PROJECT, {
+          id: project.id
+        }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_11__[/* updateUser */ "e"])(response.data.likeProject))),
+        onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+          id: project.id,
+          project,
+          folders: user === null || user === void 0 ? void 0 : user.folders,
+          mutations: {
+            addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_PROJECT,
+            createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_FOLDER
+          }
+        }),
+        owned
+      }),
+      onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].LIKE_PROJECT, {
+        id: project.id
+      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_11__[/* updateUser */ "e"])(response.data.likeProject))),
+      onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+        id: project.id,
+        project,
+        folders: user === null || user === void 0 ? void 0 : user.folders,
+        mutations: {
+          addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_PROJECT,
+          createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_FOLDER
+        }
+      }),
+      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserAboutMore */ "a"], {
+        user: project
+      }),
+      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserLink */ "i"], {
+        id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        recipient: project.author,
+        query: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].GET_USER_CHATS,
+        mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].SEND_MESSAGE
+      }),
+      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectScreenshot */ "f"], {
+        screenshots: [project.preview, ...project.screenshots],
+        key
+      })()
+    }));
+  }) : error ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435") : loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_6__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043D\u0435\u0442"));
+};
+/* harmony default export */ __webpack_exports__["a"] = (ProjectList);
 
 /***/ }),
 
@@ -19762,10 +19970,27 @@ const GET_USERS = external_graphql_tag_default.a`
       account: $account
       company: $company
     ) {
-      ...UserFields
+      name
+      about
+      email
+      avatar {
+        path
+      }
+      account
+      members
+      company {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      role {
+        id
+        name
+      }
     }
   }
-  ${UserFields}
 `;
 const GET_USERS_FOR_TICKET = external_graphql_tag_default.a`
   query getUsers(
@@ -20301,10 +20526,24 @@ const GET_ARTICLE = external_graphql_tag_default.a`
 const GET_ARTICLES = external_graphql_tag_default.a`
   query getArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
     getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {
-      ...ArticleFields
+      id
+      author {
+        name
+        avatar {
+          path
+        }
+      }
+      title
+      body
+      preview {
+        path
+      }
+      category {
+        id
+        name
+      }
     }
   }
-  ${ArticleFields}
 `;
 const CREATE_ARTICLE = external_graphql_tag_default.a`
   mutation createArticle($input: ArticleCreateInput!, $status: PostStatus) {
@@ -20356,14 +20595,10 @@ const GET_PROJECTS = external_graphql_tag_default.a`
       }
       preview {
         id
-        filename
-        size
         path
       }
       screenshots {
         id
-        filename
-        size
         path
       }
       category {
@@ -20371,8 +20606,6 @@ const GET_PROJECTS = external_graphql_tag_default.a`
         name
       }
       status
-      updatedAt
-      createdAt
     }
   }
 `;

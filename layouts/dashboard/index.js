@@ -158,13 +158,13 @@ export const DashboardLayout = ({ children, title = 'Панель админис
 
       <Header>
         <MenuButton
-          appearance={'clear'}
           kind={'icon'}
+          appearance={'clear'}
           onClick={recall(onMenu, {
             links: getLinks(user?.role.permissions || []).map((link, index) => ({
               id: index,
               text: link.component,
-              onClick: () => router.push(link.path)
+              onClick: () => router.push(`/dashboard${link.path}`)
             }))
           })}>
           <Icon icon={'menu'} />

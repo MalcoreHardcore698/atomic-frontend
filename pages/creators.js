@@ -1,84 +1,42 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 import { initializeApollo } from '../apollo'
-import { useHelper } from '../hooks/useHelper'
 import ContentLayout from '../layouts/content'
-import UserCard from '../components/UserCard'
-import LazyLoad from '../components/LazyLoad'
-import FadeLoad from '../components/FadeLoad'
 import { GridAside as Container } from '../components/Styled'
-import { onUserAboutMore, onUserLink, onUserMembers } from '../store/helpers/user'
-import { onChat } from '../store/helpers'
+import UserList from '../components/UserList'
 import queries from '../graphql/queries'
 
 const TITLE = 'Авторы'
 const START_OFFSET = 6
 
-const Creators = ({ store }) => {
-  const recall = useHelper()
-  const user = useSelector((state) => state.user)
-
-  return (
-    <ContentLayout
-      title={TITLE}
-      filters={[
-        { type: 'DATEPICKER', placeholder: 'Дата регистарции' },
-        {
-          type: 'SELECT',
-          placeholder: 'Компания',
-          options: store?.companies.map((company) => ({
-            value: company.email,
-            label: company.name
-          }))
-        }
-      ]}
-      options={[
-        { label: 'Компания', value: 'company' },
-        { label: 'Участники', value: 'members' },
-        { label: 'Дата регистарции', value: 'createdAt' }
-      ]}
-      query={queries.GET_USERS}
-      store={{ documents: store?.users }}>
-      {({ documents }) => (
-        <Container>
-          {documents.map((author) => {
-            const owned = author.name === user.name
-
-            return (
-              <FadeLoad key={author.email}>
-                <LazyLoad>
-                  <UserCard
-                    user={author}
-                    owned={owned}
-                    onChat={
-                      user.email &&
-                      recall(onChat, {
-                        sender: user,
-                        recipient: author
-                      })
-                    }
-                    onAboutMore={recall(onUserAboutMore, { user: author })}
-                    onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
-                    onLink={recall(onUserLink, {
-                      id: author.email,
-                      auth: user?.email,
-                      owned
-                    })}
-                    onCompanyLink={recall(onUserLink, {
-                      id: author.company?.email,
-                      auth: user?.email
-                    })}
-                  />
-                </LazyLoad>
-              </FadeLoad>
-            )
-          })}
-        </Container>
-      )}
-    </ContentLayout>
-  )
-}
+const Creators = ({ store }) => (
+  <ContentLayout
+    title={TITLE}
+    filters={[
+      { type: 'DATEPICKER', placeholder: 'Дата регистарции' },
+      {
+        type: 'SELECT',
+        placeholder: 'Компания',
+        options: store?.companies.map((company) => ({
+          value: company.email,
+          label: company.name
+        }))
+      }
+    ]}
+    options={[
+      { label: 'Компания', value: 'company' },
+      { label: 'Участники', value: 'members' },
+      { label: 'Дата регистарции', value: 'createdAt' }
+    ]}
+    query={queries.GET_USERS}
+    store={{ documents: store?.users }}>
+    {({ documents }) => (
+      <Container>
+        <UserList initialList={documents} />
+      </Container>
+    )}
+  </ContentLayout>
+)
 
 export async function getServerSideProps() {
   const client = initializeApollo()

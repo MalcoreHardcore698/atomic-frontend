@@ -122,7 +122,7 @@ export const Content = styled(Row)`
   width: 100%;
 
   ${({ layout }) =>
-    layout &&
+    layout === 'column' &&
     css`
       display: flex;
       flex-direction: column;

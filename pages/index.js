@@ -2,24 +2,19 @@ import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 
-import Alert from '../atomic-ui/components/Alert'
 import Title from '../atomic-ui/components/Title'
 
-import { initializeApollo } from '../apollo'
+import ProjectList from '../components/ProjectList'
+import ArticleList from '../components/ArticleList'
+import UserList from '../components/UserList'
 import { useHelper } from '../hooks/useHelper'
 import { useMutate } from '../hooks/useMutate'
 import ContentLayout from '../layouts/content'
-import ProjectCard from '../components/ProjectCard'
-import ArticleCard from '../components/ArticleCard'
-import UserCard from '../components/UserCard'
-import LazyLoad from '../components/LazyLoad'
-import FadeLoad from '../components/FadeLoad'
 import { updateUser } from '../store/actions/user'
 import { onProjectLink, onProjectAdd, onProjectScreenshot } from '../store/helpers/project'
-import { onUserAboutMore, onUserLink, onUserMembers } from '../store/helpers/user'
-import { onArticleLink } from '../store/helpers/article'
-import { onChat } from '../store/helpers'
+import { onUserAboutMore, onUserLink } from '../store/helpers/user'
 import queries from '../graphql/queries'
+import { initializeApollo } from '../apollo'
 
 const TITLE = 'Атомик'
 const START_OFFSET = 13
@@ -33,17 +28,6 @@ const Container = styled.div`
 
   @media only screen and (max-width: 1196px) {
     grid-template-columns: 1fr;
-  }
-`
-
-const Projects = styled.aside`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(442px, 1fr));
-  grid-gap: var(--default-gap);
-  grid-auto-rows: max-content;
-
-  @media only screen and (max-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
   }
 `
 
@@ -61,17 +45,16 @@ const Aside = styled.aside`
 const Home = ({ store }) => {
   const recall = useHelper()
   const mutate = useMutate()
+  const [search, setSearch] = useState(null)
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
-  const [search, setSearch] = useState(null)
-  const { articles, users } = store
 
   const scaffold = useMemo(
     () => ({
       title: 'Создавай школу будущего с нами',
       background: '/images/main-background.png',
-      primary: store.projects.length > 0 && store.projects[0],
-      residue: store.projects.length > 4 && store.projects.slice(1, 3),
+      primary: store.projects?.length > 0 && store.projects[0],
+      residue: store.projects?.length === 3 && store.projects.slice(1, 3),
       onLink: (project, owned) =>
         recall(onProjectLink, {
           id: project.id,
@@ -123,7 +106,7 @@ const Home = ({ store }) => {
           key
         })()
     }),
-    [store]
+    []
   )
 
   return (
@@ -135,166 +118,17 @@ const Home = ({ store }) => {
       startOffset={START_OFFSET}
       query={queries.GET_PROJECTS}
       variables={{ status: 'PUBLISHED' }}
-      store={{ documents: store?.projects }}>
+      initialize>
       {({ documents }) => (
         <Container>
-          <Projects>
-            {documents.map((project) => {
-              const owned = user?.projects?.find((candidate) => candidate.id === project.id)
-
-              return (
-                <FadeLoad key={project.id}>
-                  <LazyLoad>
-                    <ProjectCard
-                      project={project}
-                      owned={owned}
-                      added={
-                        !!user?.folders?.find(
-                          (folder) => !!folder?.projects.find((item) => item.id === project.id)
-                        )
-                      }
-                      liked={!!(user?.likedProjects || []).find((item) => item.id === project.id)}
-                      onLink={recall(onProjectLink, {
-                        id: project.id,
-                        auth: user?.email,
-                        liked: !!(user?.likedProjects || []).find((item) => item.id === project.id),
-                        onLike:
-                          user.email &&
-                          mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-                            dispatch(updateUser(response.data.likeProject))
-                          ),
-                        onAdd:
-                          user.email &&
-                          recall(onProjectAdd, {
-                            id: project.id,
-                            project,
-                            folders: user?.folders,
-                            mutations: {
-                              addProject: queries.ADD_USER_PROJECT,
-                              createFolder: queries.ADD_USER_FOLDER
-                            }
-                          }),
-                        owned
-                      })}
-                      onLike={
-                        user.email &&
-                        mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-                          dispatch(updateUser(response.data.likeProject))
-                        )
-                      }
-                      onAdd={
-                        user.email &&
-                        recall(onProjectAdd, {
-                          id: project.id,
-                          project,
-                          folders: user?.folders,
-                          mutations: {
-                            addProject: queries.ADD_USER_PROJECT,
-                            createFolder: queries.ADD_USER_FOLDER
-                          }
-                        })
-                      }
-                      onAboutMore={recall(onUserAboutMore, { user: project })}
-                      onCompanyLink={recall(onUserLink, {
-                        id: project.company?.email,
-                        auth: user?.email,
-                        recipient: project.author,
-                        query: queries.GET_USER_CHATS,
-                        mutation: queries.SEND_MESSAGE
-                      })}
-                      onScreenshotClick={(_, key) =>
-                        recall(onProjectScreenshot, {
-                          screenshots: [project.preview, ...project.screenshots],
-                          key
-                        })()
-                      }
-                    />
-                  </LazyLoad>
-                </FadeLoad>
-              )
-            })}
-          </Projects>
+          <ProjectList initialList={documents} layout />
 
           <Aside>
             <Title tag={'h4'}>Авторы</Title>
-            {users.length > 0 ? (
-              users.slice(0, 3).map((author) => {
-                const owned = author.name === user?.name
-
-                return (
-                  <FadeLoad key={author.email}>
-                    <LazyLoad>
-                      <UserCard
-                        user={author}
-                        owned={owned}
-                        onChat={
-                          user.email &&
-                          recall(onChat, {
-                            email: author.email,
-                            auth: user?.email,
-                            queries: {
-                              userChats: queries.GET_USER_CHATS,
-                              chat: queries.GET_CHAT
-                            },
-                            mutations: {
-                              addUserChat: queries.ADD_USER_CHAT,
-                              sendMessage: queries.SEND_MESSAGE
-                            }
-                          })
-                        }
-                        onLink={recall(onUserLink, {
-                          id: author.email,
-                          auth: user?.email,
-                          owned,
-                          queries: {
-                            userChats: queries.GET_USER_CHATS,
-                            chat: queries.GET_CHAT
-                          },
-                          mutations: {
-                            addUserChat: queries.ADD_USER_CHAT,
-                            sendMessage: queries.SEND_MESSAGE
-                          }
-                        })}
-                        onAboutMore={recall(onUserAboutMore, { user: author })}
-                        onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
-                        onCompanyLink={recall(onUserLink, {
-                          id: author.company?.email,
-                          auth: user?.email,
-                          queries: {
-                            userChats: queries.GET_USER_CHATS,
-                            chat: queries.GET_CHAT
-                          },
-                          mutations: {
-                            addUserChat: queries.ADD_USER_CHAT,
-                            sendMessage: queries.SEND_MESSAGE
-                          }
-                        })}
-                      />
-                    </LazyLoad>
-                  </FadeLoad>
-                )
-              })
-            ) : (
-              <Alert style={{ width: '100%', textAlign: 'center' }}>Авторов нет</Alert>
-            )}
+            <UserList variables={{ offset: 0, limit: 3 }} />
 
             <Title tag={'h4'}>Новости</Title>
-            {articles.length > 0 ? (
-              articles.slice(0, 2).map((article) => (
-                <FadeLoad key={article.id}>
-                  <LazyLoad>
-                    <ArticleCard
-                      layout={'column'}
-                      article={article}
-                      owned={user?.articles?.find((candidate) => candidate.id === article.id)}
-                      onLink={recall(onArticleLink, { id: article.id, auth: user?.email })}
-                    />
-                  </LazyLoad>
-                </FadeLoad>
-              ))
-            ) : (
-              <Alert style={{ width: '100%', textAlign: 'center' }}>Новостей нет</Alert>
-            )}
+            <ArticleList variables={{ offset: 0, limit: 2 }} />
           </Aside>
         </Container>
       )}
@@ -302,27 +136,22 @@ const Home = ({ store }) => {
   )
 }
 
-export const getServerSideProps = async () => {
+export async function getServerSideProps() {
   const client = initializeApollo()
 
-  let articles = []
   let projects = []
-  let users = []
 
   try {
     const response = await client.query({
-      query: queries.GET_META_INDEX,
+      query: queries.GET_PROJECTS,
       variables: {
         offset: 0,
-        limit: START_OFFSET,
-        status: 'PUBLISHED'
+        limit: 3
       }
     })
 
     if (response && response.data) {
-      articles = response.data.getArticles
       projects = response.data.getProjects
-      users = response.data.getUsers
     }
   } catch (err) {
     console.log(err)
@@ -331,9 +160,7 @@ export const getServerSideProps = async () => {
   return {
     props: {
       store: {
-        articles,
-        projects,
-        users
+        projects
       }
     }
   }

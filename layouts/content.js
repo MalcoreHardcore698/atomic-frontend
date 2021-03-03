@@ -45,12 +45,14 @@ const ContentLayout = ({
   variables = {},
   limit = 6,
   startOffset = 6,
+  initialize,
   children
 }) => {
   const Layout = dashboard ? DashboardLayout : DefaultLayout
   const [date, onChangeDate] = useState()
   const [select, onChangeSelect] = useState()
   const [search, setSearch] = useState(null)
+  const [isFetching, setFetching] = useState(false)
   const [visibleFilter, setVisibleFilter] = useState(false)
   const [offset, setOffset] = useState(startOffset)
   const [documents, setDocuments] = useState(store?.documents || [])
@@ -110,20 +112,34 @@ const ContentLayout = ({
   }
 
   useInfiniteScroll({
-    callbackOnBottom: () => {
+    callbackOnBottom: async () => {
       const updateOffset = () => setOffset((prev) => prev + limit)
 
-      if (!loading) {
+      if (!loading && !isFetching) {
+        setFetching(true)
+
         const result = { ...variables, offset, limit }
-        if (search) refetchBySearch(variables).then(updateOffset)
-        else {
-          if (refetch) refetch(result).then(updateOffset)
-          else loadDocuments({ variables: result })
+
+        if (search) {
+          await refetchBySearch(variables)
+        } else {
+          if (refetch) {
+            await refetch(result)
+            updateOffset()
+          } else {
+            await loadDocuments({ variables: result })
+          }
         }
+
+        setFetching(false)
       }
     },
     offset: 850
   })
+
+  useEffect(() => {
+    if (initialize) loadDocuments({ variables: { offset, limit } })
+  }, [initialize])
 
   useEffect(() => {
     if (research) onSearch(research)
@@ -172,7 +188,7 @@ const ContentLayout = ({
           </Alert>
         )}
 
-        {((!error && loading) || (search && !errorBySearch && loadingBySearch)) && (
+        {(isFetching || (!error && loading) || (search && !errorBySearch && loadingBySearch)) && (
           <LowerLoader>
             <Spinner />
           </LowerLoader>

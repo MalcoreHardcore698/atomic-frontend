@@ -55,6 +55,7 @@ export const Header = styled(Row)`
 
 export const Actions = styled(Row)`
   grid-gap: 5px;
+  height: 100%;
 `
 
 export const Name = styled(Title)`

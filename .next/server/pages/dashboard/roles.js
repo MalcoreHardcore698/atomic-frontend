@@ -1123,7 +1123,7 @@ const Name = external_styled_components_default()(Title["a" /* default */]).with
 const Actions = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "RoleCard__Actions",
   componentId: "sc-1nltqyr-3"
-})(["grid-gap:5px;"]);
+})(["grid-gap:5px;height:100%;"]);
 const Permissions = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "RoleCard__Permissions",
   componentId: "sc-1nltqyr-4"
@@ -1767,7 +1767,7 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic
   componentId: "g3ik0u-3"
 })(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
   layout
-}) => layout && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
+}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
 const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Screenshots",
   componentId: "g3ik0u-4"
@@ -7393,7 +7393,7 @@ const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_
 const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Actions",
   componentId: "bx733i-4"
-})(["grid-gap:5px;"]);
+})(["grid-gap:5px;height:100%;"]);
 const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Name",
   componentId: "bx733i-5"
@@ -8440,7 +8440,9 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])``;
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+  flex-wrap: wrap;
+`;
 const DateRow = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
   position: relative;
   top: -2px;
@@ -15198,9 +15200,13 @@ const Label = external_styled_components_default()(Row["b" /* default */]).withC
 const LabelIcon = external_styled_components_default()(Icon["a" /* default */]).withConfig({
   displayName: "SideBar__LabelIcon",
   componentId: "sc-158a552-7"
-})(["width:var(--input-height-s);height:var(--input-height-s);background:var(--admin-color-accent-dim);border-radius:var(--surface-border-radius);", ""], ({
+})(["width:var(--input-height-s);height:var(--input-height-s);background:var(--admin-color-accent-dim);border-radius:var(--surface-border-radius);", " @media only screen and (max-width:480px){background:var(--default-color-accent-dim);", " svg{path{stroke:var(--default-color-accent);", "}}}"], ({
   active
-}) => active && Object(external_styled_components_["css"])(["background:white;"]));
+}) => active && Object(external_styled_components_["css"])(["background:white;"]), ({
+  active
+}) => active && Object(external_styled_components_["css"])(["background:var(--default-color-accent);"]), ({
+  active
+}) => active && Object(external_styled_components_["css"])(["stroke:white;"]));
 const LabelText = external_styled_components_default()(Text["b" /* default */]).withConfig({
   displayName: "SideBar__LabelText",
   componentId: "sc-158a552-8"
@@ -15465,13 +15471,13 @@ const DashboardLayout = ({
     name: "description",
     content: "primar project description"
   }), /*#__PURE__*/external_react_default.a.createElement("title", null, title)), /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(MenuButton, {
-    appearance: 'clear',
     kind: 'icon',
+    appearance: 'clear',
     onClick: recall(helpers["e" /* onMenu */], {
       links: dashboard_links((user === null || user === void 0 ? void 0 : user.role.permissions) || []).map((link, index) => ({
         id: index,
         text: link.component,
-        onClick: () => router.push(link.path)
+        onClick: () => router.push(`/dashboard${link.path}`)
       }))
     })
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
@@ -18443,10 +18449,27 @@ const GET_USERS = external_graphql_tag_default.a`
       account: $account
       company: $company
     ) {
-      ...UserFields
+      name
+      about
+      email
+      avatar {
+        path
+      }
+      account
+      members
+      company {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      role {
+        id
+        name
+      }
     }
   }
-  ${UserFields}
 `;
 const GET_USERS_FOR_TICKET = external_graphql_tag_default.a`
   query getUsers(
@@ -18982,10 +19005,24 @@ const GET_ARTICLE = external_graphql_tag_default.a`
 const GET_ARTICLES = external_graphql_tag_default.a`
   query getArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
     getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {
-      ...ArticleFields
+      id
+      author {
+        name
+        avatar {
+          path
+        }
+      }
+      title
+      body
+      preview {
+        path
+      }
+      category {
+        id
+        name
+      }
     }
   }
-  ${ArticleFields}
 `;
 const CREATE_ARTICLE = external_graphql_tag_default.a`
   mutation createArticle($input: ArticleCreateInput!, $status: PostStatus) {
@@ -19037,14 +19074,10 @@ const GET_PROJECTS = external_graphql_tag_default.a`
       }
       preview {
         id
-        filename
-        size
         path
       }
       screenshots {
         id
-        filename
-        size
         path
       }
       category {
@@ -19052,8 +19085,6 @@ const GET_PROJECTS = external_graphql_tag_default.a`
         name
       }
       status
-      updatedAt
-      createdAt
     }
   }
 `;

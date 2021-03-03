@@ -892,45 +892,6 @@ function isDynamicRoute(route) {
 
 /***/ }),
 
-/***/ "07fs":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Wrap */
-/* unused harmony export FadeLoad */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
-  displayName: "FadeLoad__Wrap",
-  componentId: "sc-1rdnrub-0"
-})(["opacity:0;transition:opacity 100ms ease;", ""], ({
-  isVisible
-}) => isVisible && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["opacity:1;"]));
-const FadeLoad = ({
-  children
-}) => {
-  const [isVisible, setVisible] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true);
-  const domRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => setVisible(entry.isIntersecting));
-    });
-    observer.observe(domRef.current);
-    return () => observer.unobserve(domRef.current);
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
-    isVisible: isVisible,
-    ref: domRef
-  }, children);
-};
-/* harmony default export */ __webpack_exports__["a"] = (FadeLoad);
-
-/***/ }),
-
 /***/ "0Bsm":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1084,7 +1045,7 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic
   componentId: "g3ik0u-3"
 })(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
   layout
-}) => layout && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
+}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
 const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Screenshots",
   componentId: "g3ik0u-4"
@@ -6710,7 +6671,7 @@ const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_
 const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Actions",
   componentId: "bx733i-4"
-})(["grid-gap:5px;"]);
+})(["grid-gap:5px;height:100%;"]);
 const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Name",
   componentId: "bx733i-5"
@@ -7330,9 +7291,6 @@ var apollo = __webpack_require__("pyQH");
 // EXTERNAL MODULE: ./hooks/useHelper.js
 var useHelper = __webpack_require__("ApjV");
 
-// EXTERNAL MODULE: ./hooks/useMutate.js
-var useMutate = __webpack_require__("lphG");
-
 // EXTERNAL MODULE: ./layouts/default.js + 3 modules
 var layouts_default = __webpack_require__("X+Rt");
 
@@ -7449,23 +7407,8 @@ var FilterBar = __webpack_require__("RoTl");
 // EXTERNAL MODULE: ./components/SearchBar/index.js
 var SearchBar = __webpack_require__("EYtC");
 
-// EXTERNAL MODULE: ./components/ProjectCard/index.js
-var ProjectCard = __webpack_require__("1zqG");
-
-// EXTERNAL MODULE: ./components/LazyLoad/index.js
-var LazyLoad = __webpack_require__("VP1n");
-
-// EXTERNAL MODULE: ./components/FadeLoad/index.js
-var FadeLoad = __webpack_require__("07fs");
-
 // EXTERNAL MODULE: ./store/actions/root.js
 var root = __webpack_require__("Sza6");
-
-// EXTERNAL MODULE: ./store/actions/user.js
-var actions_user = __webpack_require__("8ihE");
-
-// EXTERNAL MODULE: ./store/helpers/project.js + 6 modules
-var helpers_project = __webpack_require__("IxyI");
 
 // EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
@@ -7476,12 +7419,10 @@ var queries = __webpack_require__("u2Cb");
 // EXTERNAL MODULE: ./__mock__/index.js
 var _mock_ = __webpack_require__("wha1");
 
+// EXTERNAL MODULE: ./components/ProjectList/index.js
+var ProjectList = __webpack_require__("qF4B");
+
 // CONCATENATED MODULE: ./pages/profile.js
-
-
-
-
-
 
 
 
@@ -7548,57 +7489,9 @@ const Loader = external_styled_components_default.a.div.withConfig({
 
 const Projects = ({
   projects
-}) => {
-  const recall = Object(useHelper["b" /* useHelper */])();
-  const mutate = Object(useMutate["a" /* useMutate */])();
-  const user = Object(external_react_redux_["useSelector"])(state => state.user);
-  const dispatch = Object(external_react_redux_["useDispatch"])();
-
-  if (projects && projects.length === 0) {
-    return /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-      style: {
-        width: '100%',
-        textAlign: 'center'
-      }
-    }, "\u041F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043D\u0435\u0442");
-  }
-
-  return /*#__PURE__*/external_react_default.a.createElement(Container, null, projects && projects.length > 0 && projects.map(project => {
-    var _project$company;
-
-    return /*#__PURE__*/external_react_default.a.createElement(FadeLoad["a" /* default */], {
-      key: project.id
-    }, /*#__PURE__*/external_react_default.a.createElement(LazyLoad["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(ProjectCard["c" /* default */], {
-      owned: true,
-      project: project,
-      liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
-      onLike: mutate(queries["a" /* default */].LIKE_PROJECT, {
-        id: project.id
-      }, response => dispatch(Object(actions_user["e" /* updateUser */])(response.data.likeProject))),
-      onLink: recall(helpers_project["e" /* onProjectLink */], {
-        id: project.id,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        project,
-        owned: true
-      }),
-      onAdd: recall(helpers_project["a" /* onProjectAdd */], {
-        id: project.id,
-        project
-      }),
-      onAboutMore: recall(helpers_user["a" /* onUserAboutMore */], {
-        user: project
-      }),
-      onCompanyLink: project.company && recall(helpers_user["i" /* onUserLink */], {
-        id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
-        auth: user === null || user === void 0 ? void 0 : user.email
-      }),
-      onScreenshotClick: (_, key) => recall(helpers_project["f" /* onProjectScreenshot */], {
-        screenshots: [project.preview, ...project.screenshots],
-        key
-      })()
-    })));
-  }));
-};
+}) => /*#__PURE__*/external_react_default.a.createElement(Container, null, /*#__PURE__*/external_react_default.a.createElement(ProjectList["a" /* default */], {
+  initialList: projects
+}));
 
 const InProgress = () => {
   const recall = Object(useHelper["b" /* useHelper */])();
@@ -7670,35 +7563,8 @@ const InProgress = () => {
   }, /*#__PURE__*/external_react_default.a.createElement("span", null, "\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430"), /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'add',
     stroke: 'white'
-  }))), loading && /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null), data && data.getProjectsByIds.length > 0 && data.getProjectsByIds.map(project => {
-    var _project$company2;
-
-    return /*#__PURE__*/external_react_default.a.createElement(FadeLoad["a" /* default */], {
-      key: project.id
-    }, /*#__PURE__*/external_react_default.a.createElement(LazyLoad["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(ProjectCard["c" /* default */], {
-      owned: true,
-      project: project,
-      onLink: recall(helpers_project["e" /* onProjectLink */], {
-        id: project.id,
-        project,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        owned: true
-      }),
-      onAdd: recall(helpers_project["a" /* onProjectAdd */], {
-        project
-      }),
-      onAboutMore: recall(helpers_user["a" /* onUserAboutMore */], {
-        user: project
-      }),
-      onCompanyLink: project.company && recall(helpers_user["i" /* onUserLink */], {
-        id: (_project$company2 = project.company) === null || _project$company2 === void 0 ? void 0 : _project$company2.email,
-        auth: user === null || user === void 0 ? void 0 : user.email
-      }),
-      onScreenshotClick: (_, key) => recall(helpers_project["f" /* onProjectScreenshot */], {
-        screenshots: [project.preview, ...project.screenshots],
-        key
-      })()
-    })));
+  }))), loading && /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null), data && data.getProjectsByIds.length > 0 && /*#__PURE__*/external_react_default.a.createElement(ProjectList["a" /* default */], {
+    initialList: data.getProjectsByIds
   }), (data && data.getProjectsByIds.length === 0 || !data) && /*#__PURE__*/external_react_default.a.createElement(AlertEmpty, null, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0430\u043F\u043A\u0443 \u0441 \u043F\u0440\u043E\u0435\u043A\u0442\u0430\u043C\u0438"));
 };
 
@@ -8980,7 +8846,9 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])``;
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+  flex-wrap: wrap;
+`;
 const DateRow = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
   position: relative;
   top: -2px;
@@ -15637,6 +15505,153 @@ module.exports = require("react-custom-scrollbars");
 
 /***/ }),
 
+/***/ "qF4B":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export ProjectList */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("mU8t");
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ZwIX");
+/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("auMy");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("586Q");
+/* harmony import */ var _LazyLoad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("VP1n");
+/* harmony import */ var _ProjectCard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("1zqG");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("ApjV");
+/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("lphG");
+/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("8ihE");
+/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("rP4V");
+/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("IxyI");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("u2Cb");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+  displayName: "ProjectList__Wrap",
+  componentId: "zcwfmw-0"
+})(["display:grid;grid-template-columns:repeat(auto-fit,minmax(442px,1fr));grid-gap:var(--default-gap);grid-auto-rows:max-content;@media only screen and (max-width:768px){grid-template-columns:repeat(auto-fit,minmax(285px,1fr));}"]);
+const ProjectList = ({
+  variables,
+  layout,
+  initialList
+}) => {
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_9__[/* useHelper */ "b"])();
+  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_10__[/* useMutate */ "a"])();
+  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(state => state.user);
+  const [projects, setProjects] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(initialList || []);
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useDispatch"])();
+  const {
+    data,
+    loading,
+    error
+  } = initialList ? {
+    data: null,
+    loading: false,
+    error: false
+  } : Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_2__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].GET_PROJECTS, {
+    variables
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (!loading && data) {
+      setProjects(data.getProjects);
+    }
+  }, [data, loading]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if ((initialList === null || initialList === void 0 ? void 0 : initialList.length) > 0) setProjects(initialList);
+  }, [initialList]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, !loading && data || projects.length > 0 ? projects.map(project => {
+    var _user$projects, _user$folders, _project$company;
+
+    const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === project.id);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LazyLoad__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+      key: project.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ProjectCard__WEBPACK_IMPORTED_MODULE_8__[/* default */ "c"], {
+      project: project,
+      layout: layout || 'column',
+      owned: owned,
+      added: !!(user !== null && user !== void 0 && (_user$folders = user.folders) !== null && _user$folders !== void 0 && _user$folders.find(folder => !!(folder !== null && folder !== void 0 && folder.projects.find(item => item.id === project.id)))),
+      liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
+      onLink: recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectLink */ "e"], {
+        id: project.id,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
+        onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].LIKE_PROJECT, {
+          id: project.id
+        }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_11__[/* updateUser */ "e"])(response.data.likeProject))),
+        onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+          id: project.id,
+          project,
+          folders: user === null || user === void 0 ? void 0 : user.folders,
+          mutations: {
+            addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_PROJECT,
+            createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_FOLDER
+          }
+        }),
+        owned
+      }),
+      onLike: user.email && mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].LIKE_PROJECT, {
+        id: project.id
+      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_11__[/* updateUser */ "e"])(response.data.likeProject))),
+      onAdd: user.email && recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectAdd */ "a"], {
+        id: project.id,
+        project,
+        folders: user === null || user === void 0 ? void 0 : user.folders,
+        mutations: {
+          addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_PROJECT,
+          createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].ADD_USER_FOLDER
+        }
+      }),
+      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserAboutMore */ "a"], {
+        user: project
+      }),
+      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_12__[/* onUserLink */ "i"], {
+        id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        recipient: project.author,
+        query: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].GET_USER_CHATS,
+        mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"].SEND_MESSAGE
+      }),
+      onScreenshotClick: (_, key) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_13__[/* onProjectScreenshot */ "f"], {
+        screenshots: [project.preview, ...project.screenshots],
+        key
+      })()
+    }));
+  }) : error ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435") : loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_6__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043D\u0435\u0442"));
+};
+/* harmony default export */ __webpack_exports__["a"] = (ProjectList);
+
+/***/ }),
+
 /***/ "qOKH":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18427,10 +18442,27 @@ const GET_USERS = external_graphql_tag_default.a`
       account: $account
       company: $company
     ) {
-      ...UserFields
+      name
+      about
+      email
+      avatar {
+        path
+      }
+      account
+      members
+      company {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      role {
+        id
+        name
+      }
     }
   }
-  ${UserFields}
 `;
 const GET_USERS_FOR_TICKET = external_graphql_tag_default.a`
   query getUsers(
@@ -18966,10 +18998,24 @@ const GET_ARTICLE = external_graphql_tag_default.a`
 const GET_ARTICLES = external_graphql_tag_default.a`
   query getArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
     getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {
-      ...ArticleFields
+      id
+      author {
+        name
+        avatar {
+          path
+        }
+      }
+      title
+      body
+      preview {
+        path
+      }
+      category {
+        id
+        name
+      }
     }
   }
-  ${ArticleFields}
 `;
 const CREATE_ARTICLE = external_graphql_tag_default.a`
   mutation createArticle($input: ArticleCreateInput!, $status: PostStatus) {
@@ -19021,14 +19067,10 @@ const GET_PROJECTS = external_graphql_tag_default.a`
       }
       preview {
         id
-        filename
-        size
         path
       }
       screenshots {
         id
-        filename
-        size
         path
       }
       category {
@@ -19036,8 +19078,6 @@ const GET_PROJECTS = external_graphql_tag_default.a`
         name
       }
       status
-      updatedAt
-      createdAt
     }
   }
 `;

@@ -892,45 +892,6 @@ function isDynamicRoute(route) {
 
 /***/ }),
 
-/***/ "07fs":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Wrap */
-/* unused harmony export FadeLoad */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-
-
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
-  displayName: "FadeLoad__Wrap",
-  componentId: "sc-1rdnrub-0"
-})(["opacity:0;transition:opacity 100ms ease;", ""], ({
-  isVisible
-}) => isVisible && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["opacity:1;"]));
-const FadeLoad = ({
-  children
-}) => {
-  const [isVisible, setVisible] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true);
-  const domRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => setVisible(entry.isIntersecting));
-    });
-    observer.observe(domRef.current);
-    return () => observer.unobserve(domRef.current);
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
-    isVisible: isVisible,
-    ref: domRef
-  }, children);
-};
-/* harmony default export */ __webpack_exports__["a"] = (FadeLoad);
-
-/***/ }),
-
 /***/ "0Bsm":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1076,7 +1037,7 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic
   componentId: "g3ik0u-3"
 })(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
   layout
-}) => layout && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
+}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
 const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Screenshots",
   componentId: "g3ik0u-4"
@@ -1251,6 +1212,135 @@ Card.defaultProps = {
   appearance: 'default'
 };
 /* harmony default export */ __webpack_exports__["c"] = (Card);
+
+/***/ }),
+
+/***/ "20ex":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export UserList */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("mU8t");
+/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("ZwIX");
+/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("auMy");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("586Q");
+/* harmony import */ var _LazyLoad__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("VP1n");
+/* harmony import */ var _UserCard__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("TsNn");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("ApjV");
+/* harmony import */ var _store_helpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("+EEm");
+/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("rP4V");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("u2Cb");
+
+
+
+
+
+
+
+
+
+
+
+
+const UserList = ({
+  variables,
+  initialList
+}) => {
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_8__[/* useHelper */ "b"])();
+  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
+  const [users, setUsers] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(initialList || []);
+  const {
+    data,
+    loading,
+    error
+  } = initialList ? {
+    data: null,
+    loading: false,
+    error: false
+  } : Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_1__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USERS, {
+    variables
+  });
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (!loading && data) {
+      setUsers(data.getUsers);
+    }
+  }, [data, loading]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if ((initialList === null || initialList === void 0 ? void 0 : initialList.length) > 0) setUsers(initialList);
+  }, [initialList]);
+  return !loading && data || users.length > 0 ? users.map(author => {
+    var _author$company;
+
+    const owned = author.name === (user === null || user === void 0 ? void 0 : user.name);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LazyLoad__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+      key: author.email
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_UserCard__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+      user: author,
+      owned: owned,
+      onChat: user.email && recall(_store_helpers__WEBPACK_IMPORTED_MODULE_9__[/* onChat */ "a"], {
+        email: author.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        queries: {
+          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USER_CHATS,
+          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_CHAT
+        },
+        mutations: {
+          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].ADD_USER_CHAT,
+          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].SEND_MESSAGE
+        }
+      }),
+      onLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserLink */ "i"], {
+        id: author.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        owned,
+        queries: {
+          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USER_CHATS,
+          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_CHAT
+        },
+        mutations: {
+          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].ADD_USER_CHAT,
+          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].SEND_MESSAGE
+        }
+      }),
+      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserAboutMore */ "a"], {
+        user: author
+      }),
+      onMembers: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserMembers */ "j"], {
+        id: author === null || author === void 0 ? void 0 : author.email,
+        auth: user === null || user === void 0 ? void 0 : user.email
+      }),
+      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserLink */ "i"], {
+        id: (_author$company = author.company) === null || _author$company === void 0 ? void 0 : _author$company.email,
+        auth: user === null || user === void 0 ? void 0 : user.email,
+        queries: {
+          userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USER_CHATS,
+          chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_CHAT
+        },
+        mutations: {
+          addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].ADD_USER_CHAT,
+          sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].SEND_MESSAGE
+        }
+      })
+    }));
+  }) : error ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435") : loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_5__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u0410\u0432\u0442\u043E\u0440\u043E\u0432 \u043D\u0435\u0442");
+};
+/* harmony default export */ __webpack_exports__["a"] = (UserList);
 
 /***/ }),
 
@@ -2689,24 +2779,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("h74D");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("pyQH");
-/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("ApjV");
-/* harmony import */ var _layouts_content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("QX5T");
-/* harmony import */ var _components_UserCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("TsNn");
-/* harmony import */ var _components_LazyLoad__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("VP1n");
-/* harmony import */ var _components_FadeLoad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("07fs");
-/* harmony import */ var _components_Styled__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("586Q");
-/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("rP4V");
-/* harmony import */ var _store_helpers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("+EEm");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("u2Cb");
-
-
-
-
-
-
+/* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("pyQH");
+/* harmony import */ var _layouts_content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("QX5T");
+/* harmony import */ var _components_Styled__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("586Q");
+/* harmony import */ var _components_UserList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("20ex");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("u2Cb");
 
 
 
@@ -2718,79 +2795,47 @@ const START_OFFSET = 6;
 
 const Creators = ({
   store
-}) => {
-  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_3__[/* useHelper */ "b"])();
-  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.user);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_content__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
-    title: TITLE,
-    filters: [{
-      type: 'DATEPICKER',
-      placeholder: 'Дата регистарции'
-    }, {
-      type: 'SELECT',
-      placeholder: 'Компания',
-      options: store === null || store === void 0 ? void 0 : store.companies.map(company => ({
-        value: company.email,
-        label: company.name
-      }))
-    }],
-    options: [{
-      label: 'Компания',
-      value: 'company'
-    }, {
-      label: 'Участники',
-      value: 'members'
-    }, {
-      label: 'Дата регистарции',
-      value: 'createdAt'
-    }],
-    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_USERS,
-    store: {
-      documents: store === null || store === void 0 ? void 0 : store.users
-    }
-  }, ({
-    documents
-  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Styled__WEBPACK_IMPORTED_MODULE_8__[/* GridAside */ "b"], null, documents.map(author => {
-    var _author$company;
-
-    const owned = author.name === user.name;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FadeLoad__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-      key: author.email
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LazyLoad__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserCard__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
-      user: author,
-      owned: owned,
-      onChat: user.email && recall(_store_helpers__WEBPACK_IMPORTED_MODULE_10__[/* onChat */ "a"], {
-        sender: user,
-        recipient: author
-      }),
-      onAboutMore: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_9__[/* onUserAboutMore */ "a"], {
-        user: author
-      }),
-      onMembers: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_9__[/* onUserMembers */ "j"], {
-        id: author === null || author === void 0 ? void 0 : author.email,
-        auth: user === null || user === void 0 ? void 0 : user.email
-      }),
-      onLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_9__[/* onUserLink */ "i"], {
-        id: author.email,
-        auth: user === null || user === void 0 ? void 0 : user.email,
-        owned
-      }),
-      onCompanyLink: recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_9__[/* onUserLink */ "i"], {
-        id: (_author$company = author.company) === null || _author$company === void 0 ? void 0 : _author$company.email,
-        auth: user === null || user === void 0 ? void 0 : user.email
-      })
-    })));
-  })));
-};
+}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_layouts_content__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], {
+  title: TITLE,
+  filters: [{
+    type: 'DATEPICKER',
+    placeholder: 'Дата регистарции'
+  }, {
+    type: 'SELECT',
+    placeholder: 'Компания',
+    options: store === null || store === void 0 ? void 0 : store.companies.map(company => ({
+      value: company.email,
+      label: company.name
+    }))
+  }],
+  options: [{
+    label: 'Компания',
+    value: 'company'
+  }, {
+    label: 'Участники',
+    value: 'members'
+  }, {
+    label: 'Дата регистарции',
+    value: 'createdAt'
+  }],
+  query: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].GET_USERS,
+  store: {
+    documents: store === null || store === void 0 ? void 0 : store.users
+  }
+}, ({
+  documents
+}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Styled__WEBPACK_IMPORTED_MODULE_3__[/* GridAside */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserList__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  initialList: documents
+})));
 
 async function getServerSideProps() {
-  const client = Object(_apollo__WEBPACK_IMPORTED_MODULE_2__[/* initializeApollo */ "a"])();
+  const client = Object(_apollo__WEBPACK_IMPORTED_MODULE_1__[/* initializeApollo */ "a"])();
   let users = [];
   let companies = [];
 
   try {
     const response = await client.query({
-      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"].GET_META_AUTHORS,
+      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].GET_META_AUTHORS,
       variables: {
         offset: 0,
         limit: START_OFFSET
@@ -6150,12 +6195,14 @@ const ContentLayout = ({
   variables = {},
   limit = 6,
   startOffset = 6,
+  initialize,
   children
 }) => {
   const Layout = dashboard ? layouts_dashboard["a" /* default */] : layouts_default["a" /* default */];
   const [date, onChangeDate] = Object(external_react_["useState"])();
   const [select, onChangeSelect] = Object(external_react_["useState"])();
   const [search, setSearch] = Object(external_react_["useState"])(null);
+  const [isFetching, setFetching] = Object(external_react_["useState"])(false);
   const [visibleFilter, setVisibleFilter] = Object(external_react_["useState"])(false);
   const [offset, setOffset] = Object(external_react_["useState"])(startOffset);
   const [documents, setDocuments] = Object(external_react_["useState"])((store === null || store === void 0 ? void 0 : store.documents) || []);
@@ -6226,23 +6273,42 @@ const ContentLayout = ({
   };
 
   useInfiniteScroll({
-    callbackOnBottom: () => {
+    callbackOnBottom: async () => {
       const updateOffset = () => setOffset(prev => prev + limit);
 
-      if (!loading) {
+      if (!loading && !isFetching) {
+        setFetching(true);
         const result = { ...variables,
           offset,
           limit
         };
-        if (search) refetchBySearch(variables).then(updateOffset);else {
-          if (refetch) refetch(result).then(updateOffset);else loadDocuments({
-            variables: result
-          });
+
+        if (search) {
+          await refetchBySearch(variables);
+        } else {
+          if (refetch) {
+            await refetch(result);
+            updateOffset();
+          } else {
+            await loadDocuments({
+              variables: result
+            });
+          }
         }
+
+        setFetching(false);
       }
     },
     offset: 850
   });
+  Object(external_react_["useEffect"])(() => {
+    if (initialize) loadDocuments({
+      variables: {
+        offset,
+        limit
+      }
+    });
+  }, [initialize]);
   Object(external_react_["useEffect"])(() => {
     if (research) onSearch(research);
   }, [research]);
@@ -6284,7 +6350,7 @@ const ContentLayout = ({
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (!error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (isFetching || !error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -6811,7 +6877,7 @@ const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_
 const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Actions",
   componentId: "bx733i-4"
-})(["grid-gap:5px;"]);
+})(["grid-gap:5px;height:100%;"]);
 const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Name",
   componentId: "bx733i-5"
@@ -8529,7 +8595,9 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])``;
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+  flex-wrap: wrap;
+`;
 const DateRow = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
   position: relative;
   top: -2px;
@@ -14997,9 +15065,13 @@ const Label = external_styled_components_default()(Row["b" /* default */]).withC
 const LabelIcon = external_styled_components_default()(Icon["a" /* default */]).withConfig({
   displayName: "SideBar__LabelIcon",
   componentId: "sc-158a552-7"
-})(["width:var(--input-height-s);height:var(--input-height-s);background:var(--admin-color-accent-dim);border-radius:var(--surface-border-radius);", ""], ({
+})(["width:var(--input-height-s);height:var(--input-height-s);background:var(--admin-color-accent-dim);border-radius:var(--surface-border-radius);", " @media only screen and (max-width:480px){background:var(--default-color-accent-dim);", " svg{path{stroke:var(--default-color-accent);", "}}}"], ({
   active
-}) => active && Object(external_styled_components_["css"])(["background:white;"]));
+}) => active && Object(external_styled_components_["css"])(["background:white;"]), ({
+  active
+}) => active && Object(external_styled_components_["css"])(["background:var(--default-color-accent);"]), ({
+  active
+}) => active && Object(external_styled_components_["css"])(["stroke:white;"]));
 const LabelText = external_styled_components_default()(Text["b" /* default */]).withConfig({
   displayName: "SideBar__LabelText",
   componentId: "sc-158a552-8"
@@ -15264,13 +15336,13 @@ const DashboardLayout = ({
     name: "description",
     content: "primar project description"
   }), /*#__PURE__*/external_react_default.a.createElement("title", null, title)), /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(MenuButton, {
-    appearance: 'clear',
     kind: 'icon',
+    appearance: 'clear',
     onClick: recall(helpers["e" /* onMenu */], {
       links: dashboard_links((user === null || user === void 0 ? void 0 : user.role.permissions) || []).map((link, index) => ({
         id: index,
         text: link.component,
-        onClick: () => router.push(link.path)
+        onClick: () => router.push(`/dashboard${link.path}`)
       }))
     })
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
@@ -18242,10 +18314,27 @@ const GET_USERS = external_graphql_tag_default.a`
       account: $account
       company: $company
     ) {
-      ...UserFields
+      name
+      about
+      email
+      avatar {
+        path
+      }
+      account
+      members
+      company {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      role {
+        id
+        name
+      }
     }
   }
-  ${UserFields}
 `;
 const GET_USERS_FOR_TICKET = external_graphql_tag_default.a`
   query getUsers(
@@ -18781,10 +18870,24 @@ const GET_ARTICLE = external_graphql_tag_default.a`
 const GET_ARTICLES = external_graphql_tag_default.a`
   query getArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
     getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {
-      ...ArticleFields
+      id
+      author {
+        name
+        avatar {
+          path
+        }
+      }
+      title
+      body
+      preview {
+        path
+      }
+      category {
+        id
+        name
+      }
     }
   }
-  ${ArticleFields}
 `;
 const CREATE_ARTICLE = external_graphql_tag_default.a`
   mutation createArticle($input: ArticleCreateInput!, $status: PostStatus) {
@@ -18836,14 +18939,10 @@ const GET_PROJECTS = external_graphql_tag_default.a`
       }
       preview {
         id
-        filename
-        size
         path
       }
       screenshots {
         id
-        filename
-        size
         path
       }
       category {
@@ -18851,8 +18950,6 @@ const GET_PROJECTS = external_graphql_tag_default.a`
         name
       }
       status
-      updatedAt
-      createdAt
     }
   }
 `;

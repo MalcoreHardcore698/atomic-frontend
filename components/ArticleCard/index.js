@@ -20,7 +20,11 @@ export const Wrap = styled(Row)`
   border: var(--surface-border);
   border-radius: var(--surface-border-radius);
   box-shadow: var(--surface-shadow);
-  height: 100%;
+  height: min-content;
+
+  & > span {
+    display: flex;
+  }
 
   ${({ layout }) =>
     layout === 'column' &&
@@ -88,6 +92,7 @@ export const Header = styled(Row)`
 
 export const Actions = styled(Row)`
   grid-gap: 5px;
+  height: 100%;
 `
 
 export const Name = styled(Title)`

@@ -19,19 +19,12 @@ import templates from '../atomic-ui/components/Table/templates'
 
 import { initializeApollo } from '../apollo'
 import { useHelper } from '../hooks/useHelper'
-import { useMutate } from '../hooks/useMutate'
 import DefaultLayout from '../layouts/default'
 import UserBar from '../components/UserBar'
 import FilterBar from '../components/FilterBar'
 import SearchBar from '../components/SearchBar'
-import ProjectCard from '../components/ProjectCard'
-import LazyLoad from '../components/LazyLoad'
-import FadeLoad from '../components/FadeLoad'
 import { setFolder } from '../store/actions/root'
-import { updateUser } from '../store/actions/user'
-import { onProjectLink, onProjectAdd, onProjectScreenshot } from '../store/helpers/project'
 import {
-  onUserLink,
   onUserClientEdit,
   onUserAboutMore,
   onUserFolderAdd,
@@ -39,6 +32,7 @@ import {
 } from '../store/helpers/user'
 import queries from '../graphql/queries'
 import { profilePages } from '../__mock__'
+import ProjectList from '../components/ProjectList'
 
 const TITLE = 'Профиль'
 
@@ -141,55 +135,11 @@ const Loader = styled.div`
   height: 80px;
 `
 
-const Projects = ({ projects }) => {
-  const recall = useHelper()
-  const mutate = useMutate()
-  const user = useSelector((state) => state.user)
-  const dispatch = useDispatch()
-
-  if (projects && projects.length === 0) {
-    return <Alert style={{ width: '100%', textAlign: 'center' }}>Проектов нет</Alert>
-  }
-
-  return (
-    <Container>
-      {projects &&
-        projects.length > 0 &&
-        projects.map((project) => (
-          <FadeLoad key={project.id}>
-            <LazyLoad>
-              <ProjectCard
-                owned
-                project={project}
-                liked={!!(user?.likedProjects || []).find((item) => item.id === project.id)}
-                onLike={mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-                  dispatch(updateUser(response.data.likeProject))
-                )}
-                onLink={recall(onProjectLink, {
-                  id: project.id,
-                  auth: user?.email,
-                  project,
-                  owned: true
-                })}
-                onAdd={recall(onProjectAdd, { id: project.id, project })}
-                onAboutMore={recall(onUserAboutMore, { user: project })}
-                onCompanyLink={
-                  project.company &&
-                  recall(onUserLink, { id: project.company?.email, auth: user?.email })
-                }
-                onScreenshotClick={(_, key) =>
-                  recall(onProjectScreenshot, {
-                    screenshots: [project.preview, ...project.screenshots],
-                    key
-                  })()
-                }
-              />
-            </LazyLoad>
-          </FadeLoad>
-        ))}
-    </Container>
-  )
-}
+const Projects = ({ projects }) => (
+  <Container>
+    <ProjectList initialList={projects} />
+  </Container>
+)
 
 const InProgress = () => {
   const recall = useHelper()
@@ -259,36 +209,9 @@ const InProgress = () => {
 
       {loading && <Spinner />}
 
-      {data &&
-        data.getProjectsByIds.length > 0 &&
-        data.getProjectsByIds.map((project) => (
-          <FadeLoad key={project.id}>
-            <LazyLoad>
-              <ProjectCard
-                owned
-                project={project}
-                onLink={recall(onProjectLink, {
-                  id: project.id,
-                  project,
-                  auth: user?.email,
-                  owned: true
-                })}
-                onAdd={recall(onProjectAdd, { project })}
-                onAboutMore={recall(onUserAboutMore, { user: project })}
-                onCompanyLink={
-                  project.company &&
-                  recall(onUserLink, { id: project.company?.email, auth: user?.email })
-                }
-                onScreenshotClick={(_, key) =>
-                  recall(onProjectScreenshot, {
-                    screenshots: [project.preview, ...project.screenshots],
-                    key
-                  })()
-                }
-              />
-            </LazyLoad>
-          </FadeLoad>
-        ))}
+      {data && data.getProjectsByIds.length > 0 && (
+        <ProjectList initialList={data.getProjectsByIds} />
+      )}
 
       {((data && data.getProjectsByIds.length === 0) || !data) && (
         <AlertEmpty>Выберите папку с проектами</AlertEmpty>

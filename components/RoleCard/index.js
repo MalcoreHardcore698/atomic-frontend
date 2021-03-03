@@ -70,6 +70,7 @@ export const Name = styled(Title)`
 
 export const Actions = styled(Row)`
   grid-gap: 5px;
+  height: 100%;
 `
 
 export const Permissions = styled(Row)`

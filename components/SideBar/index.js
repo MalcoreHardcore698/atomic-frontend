@@ -101,6 +101,28 @@ export const LabelIcon = styled(Icon)`
     css`
       background: white;
     `}
+
+  @media only screen and (max-width: 480px) {
+    background: var(--default-color-accent-dim);
+
+    ${({ active }) =>
+      active &&
+      css`
+        background: var(--default-color-accent);
+      `}
+
+    svg {
+      path {
+        stroke: var(--default-color-accent);
+
+        ${({ active }) =>
+          active &&
+          css`
+            stroke: white;
+          `}
+      }
+    }
+  }
 `
 
 export const LabelText = styled(Text)`

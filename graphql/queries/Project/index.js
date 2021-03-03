@@ -25,14 +25,10 @@ export const GET_PROJECTS = gql`
       }
       preview {
         id
-        filename
-        size
         path
       }
       screenshots {
         id
-        filename
-        size
         path
       }
       category {
@@ -40,8 +36,6 @@ export const GET_PROJECTS = gql`
         name
       }
       status
-      updatedAt
-      createdAt
     }
   }
 `

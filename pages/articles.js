@@ -1,59 +1,43 @@
 import React from 'react'
 
-import { initializeApollo } from '../apollo'
-import { useHelper } from '../hooks/useHelper'
-import ContentLayout from '../layouts/content'
-import LazyLoad from '../components/LazyLoad'
-import FadeLoad from '../components/FadeLoad'
-import ArticleCard from '../components/ArticleCard'
-import { GridAside as Container } from '../components/Styled'
 import { getLabelCategory } from '../atomic-ui/utils/functions'
-import { onArticleLink } from '../store/helpers/article'
+
+import { initializeApollo } from '../apollo'
+import ContentLayout from '../layouts/content'
+import { GridAside as Container } from '../components/Styled'
+import ArticleList from '../components/ArticleList'
 import queries from '../graphql/queries'
 
 const TITLE = 'Статьи'
 const START_OFFSET = 6
 
-const Articles = ({ store }) => {
-  const recall = useHelper()
-
-  return (
-    <ContentLayout
-      title={TITLE}
-      filters={[
-        { type: 'DATEPICKER', placeholder: 'Дата публикации' },
-        {
-          type: 'SELECT',
-          options: store?.categories.map((category) => ({
-            value: category.id,
-            label: getLabelCategory(category.name)
-          }))
-        }
-      ]}
-      options={[
-        { label: 'Категория', value: 'category' },
-        { label: 'Дата публикации', value: 'createdAt' }
-      ]}
-      query={queries.GET_ARTICLES}
-      variables={{ status: 'PUBLISHED' }}
-      store={{ documents: store?.articles }}>
-      {({ documents }) => (
-        <Container>
-          {documents.map((article) => (
-            <FadeLoad key={article.id}>
-              <LazyLoad>
-                <ArticleCard
-                  article={article}
-                  onLink={recall(onArticleLink, { id: article.id, article })}
-                />
-              </LazyLoad>
-            </FadeLoad>
-          ))}
-        </Container>
-      )}
-    </ContentLayout>
-  )
-}
+const Articles = ({ store }) => (
+  <ContentLayout
+    title={TITLE}
+    filters={[
+      { type: 'DATEPICKER', placeholder: 'Дата публикации' },
+      {
+        type: 'SELECT',
+        options: store?.categories.map((category) => ({
+          value: category.id,
+          label: getLabelCategory(category.name)
+        }))
+      }
+    ]}
+    options={[
+      { label: 'Категория', value: 'category' },
+      { label: 'Дата публикации', value: 'createdAt' }
+    ]}
+    query={queries.GET_ARTICLES}
+    variables={{ status: 'PUBLISHED' }}
+    store={{ documents: store?.articles }}>
+    {({ documents }) => (
+      <Container>
+        <ArticleList initialList={documents} layout />
+      </Container>
+    )}
+  </ContentLayout>
+)
 
 export async function getServerSideProps() {
   const client = initializeApollo()
