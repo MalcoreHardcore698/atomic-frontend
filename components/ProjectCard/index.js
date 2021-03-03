@@ -20,6 +20,13 @@ import { More } from '../Styled'
 export const Media = styled(Column)`
   grid-gap: 5px;
 
+  & > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 165px;
+  }
+
   & > figure {
     max-height: 225px;
     min-height: 170px;
