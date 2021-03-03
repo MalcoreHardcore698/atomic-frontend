@@ -1277,7 +1277,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 const Media = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Media",
   componentId: "g3ik0u-0"
-})(["grid-gap:5px;& > span{display:flex;justify-content:center;align-items:center;max-height:165px;}& > figure{max-height:225px;min-height:170px;border:1px solid var(--ghost-color-background);}"]);
+})(["grid-gap:5px;& > span{display:flex !important;justify-content:center;align-items:center;height:100%;max-height:165px;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);}& > figure{max-height:225px;min-height:170px;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);}"]);
 const Poster = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Poster",
   componentId: "g3ik0u-1"

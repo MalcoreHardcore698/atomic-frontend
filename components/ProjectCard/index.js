@@ -21,15 +21,19 @@ export const Media = styled(Column)`
   grid-gap: 5px;
 
   & > span {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
+    height: 100%;
     max-height: 165px;
+    border-radius: var(--surface-border-radius);
+    border: 1px solid var(--ghost-color-background);
   }
 
   & > figure {
     max-height: 225px;
     min-height: 170px;
+    border-radius: var(--surface-border-radius);
     border: 1px solid var(--ghost-color-background);
   }
 `
