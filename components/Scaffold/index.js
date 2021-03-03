@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import Column from '../../atomic-ui/components/Column'
 import Search from '../../atomic-ui/components/Search'
@@ -19,7 +19,6 @@ export const Wrap = styled(Column)`
     top: 0;
     left: 0;
     z-index: var(--z-11);
-
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.15);
@@ -109,6 +108,12 @@ export const PrimaryProject = styled(ProjectCard)`
 
   ${Poster} {
     height: 256px;
+
+    ${({ layout }) =>
+      layout === 'column' &&
+      css`
+        height: 100%;
+      `}
   }
 
   @media only screen and (max-width: 768px) {

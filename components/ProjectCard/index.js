@@ -25,9 +25,14 @@ export const Media = styled(Column)`
     justify-content: center;
     align-items: center;
     height: 100%;
-    max-height: 165px;
     border-radius: var(--surface-border-radius);
     border: 1px solid var(--ghost-color-background);
+
+    ${({ layout }) =>
+      layout !== 'column' &&
+      css`
+        max-height: 220px;
+      `}
   }
 
   & > figure {
@@ -48,7 +53,7 @@ export const Poster = styled(Image)`
   transition: opacity 150ms ease;
 
   ${({ layout }) =>
-    layout === 'column' &&
+    layout !== 'column' &&
     css`
       min-height: 128px;
     `}
@@ -309,7 +314,7 @@ export const Card = ({
   return (
     <Wrap className={className} style={style} appearance={appearance} layout={layout}>
       <Content layout={layout}>
-        <Media>
+        <Media layout={layout}>
           {project.preview ? (
             <Poster
               src={project.preview?.path}

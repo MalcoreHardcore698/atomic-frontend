@@ -1739,13 +1739,15 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 const Media = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Media",
   componentId: "g3ik0u-0"
-})(["grid-gap:5px;& > span{display:flex !important;justify-content:center;align-items:center;height:100%;max-height:165px;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);}& > figure{max-height:225px;min-height:170px;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);}"]);
+})(["grid-gap:5px;& > span{display:flex !important;justify-content:center;align-items:center;height:100%;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);", "}& > figure{max-height:225px;min-height:170px;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);}"], ({
+  layout
+}) => layout !== 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["max-height:220px;"]));
 const Poster = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Poster",
   componentId: "g3ik0u-1"
 })(["position:relative;width:100%;height:100%;border-radius:var(--surface-border-radius);overflow:hidden;object-fit:cover;transition:opacity 150ms ease;", " ", " @media only screen and (max-width:480px){min-height:128px;}"], ({
   layout
-}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["min-height:128px;"]), ({
+}) => layout !== 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["min-height:128px;"]), ({
   onClick
 }) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["cursor:pointer;&:hover{opacity:0.65;}"]));
 const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
@@ -1846,7 +1848,9 @@ const Card = ({
     layout: layout
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, {
     layout: layout
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Media, null, project.preview ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Poster, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Media, {
+    layout: layout
+  }, project.preview ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Poster, {
     src: (_project$preview = project.preview) === null || _project$preview === void 0 ? void 0 : _project$preview.path,
     alt: project.title,
     onClick: () => {
@@ -7477,7 +7481,7 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
     onClick: onLink
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about.slice(0, 120), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
+  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about.slice(0, 100), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
     onClick: onAboutMore
   }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
     icon: 'work',
