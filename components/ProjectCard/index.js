@@ -306,7 +306,6 @@ export const Card = ({
               onClick={() =>
                 onScreenshotClick && onScreenshotClick(project.preview, project.preview?.id)
               }
-              magnify
             />
           ) : (
             <CentralAlert>Превью нет</CentralAlert>
@@ -322,9 +321,6 @@ export const Card = ({
                     alt={screenshot.name}
                     bottomOffset={300}
                     layout={'fill'}
-                    scale={5}
-                    magnify
-                    portal
                   />
                   {index === screenshots?.length - 1 && residue > 0 && (
                     <ScreenshotsCounter>

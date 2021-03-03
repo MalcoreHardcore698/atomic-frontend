@@ -1842,8 +1842,7 @@ const Card = ({
       var _project$preview2;
 
       return onScreenshotClick && onScreenshotClick(project.preview, (_project$preview2 = project.preview) === null || _project$preview2 === void 0 ? void 0 : _project$preview2.id);
-    },
-    magnify: true
+    }
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CentralAlert, null, "\u041F\u0440\u0435\u0432\u044C\u044E \u043D\u0435\u0442"), project.screenshots && ((_project$screenshots3 = project.screenshots) === null || _project$screenshots3 === void 0 ? void 0 : _project$screenshots3.length) > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Screenshots, null, screenshots.map((screenshot, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Screenshot, {
     key: screenshot.id,
     onClick: () => onScreenshotClick && onScreenshotClick(screenshot, screenshot.id)
@@ -1851,10 +1850,7 @@ const Card = ({
     src: screenshot.path,
     alt: screenshot.name,
     bottomOffset: 300,
-    layout: 'fill',
-    scale: 5,
-    magnify: true,
-    portal: true
+    layout: 'fill'
   }), index === (screenshots === null || screenshots === void 0 ? void 0 : screenshots.length) - 1 && residue > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ScreenshotsCounter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "+", residue)))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     style: {
       gridGap: 5
