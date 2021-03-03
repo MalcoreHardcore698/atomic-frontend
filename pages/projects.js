@@ -8,6 +8,8 @@ import { useHelper } from '../hooks/useHelper'
 import { useMutate } from '../hooks/useMutate'
 import ProjectCard from '../components/ProjectCard'
 import { GridAside as Container } from '../components/Styled'
+import LazyLoad from '../components/LazyLoad'
+import FadeLoad from '../components/FadeLoad'
 import { updateUser } from '../store/actions/user'
 import { onProjectLink, onProjectAdd, onProjectScreenshot } from '../store/helpers/project'
 import { onUserAboutMore, onUserLink } from '../store/helpers/user'
@@ -52,34 +54,37 @@ const Projects = ({ store }) => {
             const owned = user?.projects?.find((candidate) => candidate.id === project.id)
 
             return (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                owned={owned}
-                liked={!!(user?.likedProjects || []).find((item) => item.id === project.id)}
-                onLink={recall(onProjectLink, { id: project.id, auth: user, owned })}
-                onLike={
-                  user?.email &&
-                  mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-                    dispatch(updateUser(response.data.likeProject))
-                  )
-                }
-                onAdd={user?.email && recall(onProjectAdd, { id: project.id })}
-                onAboutMore={recall(onUserAboutMore, { user: project })}
-                onCompanyLink={recall(onUserLink, {
-                  id: project.company?.email,
-                  auth: user?.email,
-                  recipient: project.author,
-                  query: queries.GET_USER_CHATS,
-                  mutation: queries.SEND_MESSAGE
-                })}
-                onScreenshotClick={(_, key) =>
-                  recall(onProjectScreenshot, {
-                    screenshots: [project.preview, ...project.screenshots],
-                    key
-                  })()
-                }
-              />
+              <FadeLoad key={project.id}>
+                <LazyLoad>
+                  <ProjectCard
+                    project={project}
+                    owned={owned}
+                    liked={!!(user?.likedProjects || []).find((item) => item.id === project.id)}
+                    onLink={recall(onProjectLink, { id: project.id, auth: user, owned })}
+                    onLike={
+                      user?.email &&
+                      mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
+                        dispatch(updateUser(response.data.likeProject))
+                      )
+                    }
+                    onAdd={user?.email && recall(onProjectAdd, { id: project.id })}
+                    onAboutMore={recall(onUserAboutMore, { user: project })}
+                    onCompanyLink={recall(onUserLink, {
+                      id: project.company?.email,
+                      auth: user?.email,
+                      recipient: project.author,
+                      query: queries.GET_USER_CHATS,
+                      mutation: queries.SEND_MESSAGE
+                    })}
+                    onScreenshotClick={(_, key) =>
+                      recall(onProjectScreenshot, {
+                        screenshots: [project.preview, ...project.screenshots],
+                        key
+                      })()
+                    }
+                  />
+                </LazyLoad>
+              </FadeLoad>
             )
           })}
         </Container>

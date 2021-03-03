@@ -1,11 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { motion } from 'framer-motion'
 
 import { initializeApollo } from '../apollo'
 import { useHelper } from '../hooks/useHelper'
 import ContentLayout from '../layouts/content'
 import UserCard from '../components/UserCard'
+import LazyLoad from '../components/LazyLoad'
+import FadeLoad from '../components/FadeLoad'
 import { GridAside as Container } from '../components/Styled'
 import { onUserAboutMore, onUserLink, onUserMembers } from '../store/helpers/user'
 import { onChat } from '../store/helpers'
@@ -45,41 +46,32 @@ const Creators = ({ store }) => {
             const owned = author.name === user.name
 
             return (
-              <motion.div
-                key={author.email}
-                initial={'pageInitial'}
-                animate={'pageAnimate'}
-                variants={{
-                  pageInitial: {
-                    opacity: 0
-                  },
-                  pageAnimate: {
-                    opacity: 1
-                  }
-                }}>
-                <UserCard
-                  user={author}
-                  owned={owned}
-                  onChat={
-                    user.email &&
-                    recall(onChat, {
-                      sender: user,
-                      recipient: author
-                    })
-                  }
-                  onAboutMore={recall(onUserAboutMore, { user: author })}
-                  onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
-                  onLink={recall(onUserLink, {
-                    id: author.email,
-                    auth: user?.email,
-                    owned
-                  })}
-                  onCompanyLink={recall(onUserLink, {
-                    id: author.company?.email,
-                    auth: user?.email
-                  })}
-                />
-              </motion.div>
+              <FadeLoad key={author.email}>
+                <LazyLoad>
+                  <UserCard
+                    user={author}
+                    owned={owned}
+                    onChat={
+                      user.email &&
+                      recall(onChat, {
+                        sender: user,
+                        recipient: author
+                      })
+                    }
+                    onAboutMore={recall(onUserAboutMore, { user: author })}
+                    onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
+                    onLink={recall(onUserLink, {
+                      id: author.email,
+                      auth: user?.email,
+                      owned
+                    })}
+                    onCompanyLink={recall(onUserLink, {
+                      id: author.company?.email,
+                      auth: user?.email
+                    })}
+                  />
+                </LazyLoad>
+              </FadeLoad>
             )
           })}
         </Container>

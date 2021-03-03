@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { v4 } from 'uuid'
 
 import Grid from '../../atomic-ui/components/Grid'
 import Alert from '../../atomic-ui/components/Alert'
@@ -14,6 +13,8 @@ import DashboardLayout from '../../layouts/dashboard'
 import HandleBar from '../../components/HandleBar'
 import FilterBar from '../../components/FilterBar'
 import CategoryCard from '../../components/CategoryCard'
+import LazyLoad from '../../components/LazyLoad'
+import FadeLoad from '../../components/FadeLoad'
 import {
   onCategoryCreate,
   onCategoryEdit,
@@ -111,23 +112,26 @@ const Categories = ({ store, types }) => {
       {displayMethod === 'grid' && (
         <Grid>
           {categories.map((category) => (
-            <CategoryCard
-              key={v4()}
-              category={category}
-              onChecked={() => {}}
-              onLink={recall(onCategoryLink, { id: category.id, category })}
-              onDelete={recall(onCategoryDelete, {
-                id: category.id,
-                category,
-                mutation: queries.DELETE_CATEGORY
-              })}
-              onEdit={recall(onCategoryEdit, {
-                id: category.id,
-                category,
-                types,
-                mutation: queries.UPDATE_CATEGORY
-              })}
-            />
+            <FadeLoad key={category.id}>
+              <LazyLoad>
+                <CategoryCard
+                  category={category}
+                  onChecked={() => {}}
+                  onLink={recall(onCategoryLink, { id: category.id, category })}
+                  onDelete={recall(onCategoryDelete, {
+                    id: category.id,
+                    category,
+                    mutation: queries.DELETE_CATEGORY
+                  })}
+                  onEdit={recall(onCategoryEdit, {
+                    id: category.id,
+                    category,
+                    types,
+                    mutation: queries.UPDATE_CATEGORY
+                  })}
+                />
+              </LazyLoad>
+            </FadeLoad>
           ))}
         </Grid>
       )}

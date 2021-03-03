@@ -10,6 +10,8 @@ import { useHelper } from '../../hooks/useHelper'
 import { useMutate } from '../../hooks/useMutate'
 import ContentLayout from '../../layouts/content'
 import ProjectCard from '../../components/ProjectCard'
+import LazyLoad from '../../components/LazyLoad'
+import FadeLoad from '../../components/FadeLoad'
 import {
   onProjectCreate,
   onProjectEdit,
@@ -111,36 +113,39 @@ const Projects = ({ store }) => {
         ) : (
           <Grid>
             {documents.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                onChecked={() => {}}
-                onScreenshotClick={(_, key) =>
-                  recall(onProjectScreenshot, {
-                    screenshots: [project.preview, ...project.screenshots],
-                    key
-                  })()
-                }
-                onLink={recall(onProjectLink, { id: project.id, user })}
-                onAboutMore={recall(onUserAboutMore, { user: project })}
-                onDelete={recall(onProjectDelete, {
-                  id: project.id,
-                  project,
-                  auth: user,
-                  mutation: queries.DELETE_PROJECT
-                })}
-                onEdit={recall(onProjectEdit, {
-                  id: project.id,
-                  companies: store.companies,
-                  categories: store.categories,
-                  statuses: store.statuses,
-                  canEditStatus,
-                  mutation: queries.UPDATE_PROJECT,
-                  query: queries.GET_USERS,
-                  onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' })
-                })}
-                preview
-              />
+              <FadeLoad key={project.id}>
+                <LazyLoad>
+                  <ProjectCard
+                    project={project}
+                    onChecked={() => {}}
+                    onScreenshotClick={(_, key) =>
+                      recall(onProjectScreenshot, {
+                        screenshots: [project.preview, ...project.screenshots],
+                        key
+                      })()
+                    }
+                    onLink={recall(onProjectLink, { id: project.id, user })}
+                    onAboutMore={recall(onUserAboutMore, { user: project })}
+                    onDelete={recall(onProjectDelete, {
+                      id: project.id,
+                      project,
+                      auth: user,
+                      mutation: queries.DELETE_PROJECT
+                    })}
+                    onEdit={recall(onProjectEdit, {
+                      id: project.id,
+                      companies: store.companies,
+                      categories: store.categories,
+                      statuses: store.statuses,
+                      canEditStatus,
+                      mutation: queries.UPDATE_PROJECT,
+                      query: queries.GET_USERS,
+                      onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' })
+                    })}
+                    preview
+                  />
+                </LazyLoad>
+              </FadeLoad>
             ))}
           </Grid>
         )

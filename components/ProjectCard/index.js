@@ -17,6 +17,16 @@ import Checkbox from '../../atomic-ui/components/Checkbox'
 
 import { More } from '../Styled'
 
+export const Media = styled(Column)`
+  grid-gap: 5px;
+
+  & > figure {
+    max-height: 225px;
+    min-height: 170px;
+    border: 1px solid var(--ghost-color-background);
+  }
+`
+
 export const Poster = styled(Image)`
   position: relative;
   width: 100%;
@@ -123,8 +133,19 @@ export const Screenshot = styled.div`
   min-width: var(--input-height-s);
   min-height: var(--input-height-s);
   border-radius: var(--surface-border-radius);
+  border: 1px solid var(--ghost-color-background);
   flex-grow: 1;
   transition: opacity 150ms ease;
+
+  span,
+  span > img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+  }
 
   img {
     width: 100%;
@@ -166,10 +187,6 @@ export const ScreenshotsCounter = styled(Text)`
     border-radius: var(--surface-border-radius);
     opacity: 0.65;
   }
-`
-
-export const Media = styled(Column)`
-  grid-gap: 5px;
 `
 
 export const CentralAlert = styled(Alert)`

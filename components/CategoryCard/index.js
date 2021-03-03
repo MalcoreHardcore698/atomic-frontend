@@ -14,6 +14,8 @@ import Tooltip from '../../atomic-ui/components/Tooltip'
 import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
 export const Wrap = styled(Column)`
+  height: 100%;
+
   ${({ appearance }) =>
     appearance === 'default' &&
     css`

@@ -15,6 +15,8 @@ import DashboardLayout from '../../layouts/dashboard'
 import HandleBar from '../../components/HandleBar'
 import FilterBar from '../../components/FilterBar'
 import ArticleCard from '../../components/ArticleCard'
+import LazyLoad from '../../components/LazyLoad'
+import FadeLoad from '../../components/FadeLoad'
 import {
   onArticleCreate,
   onArticleEdit,
@@ -118,25 +120,28 @@ const Articles = ({ store, categories, statuses }) => {
       {displayMethod === 'grid' && (
         <Grid>
           {articles.map((article) => (
-            <ArticleCard
-              key={article.id}
-              layout={'column'}
-              article={article}
-              onChecked={() => {}}
-              onLink={recall(onArticleLink, { id: article.id })}
-              onDelete={recall(onArticleDelete, {
-                id: article.id,
-                article,
-                mutation: queries.DELETE_ARTICLE
-              })}
-              onEdit={recall(onArticleEdit, {
-                id: article.id,
-                categories,
-                statuses,
-                canEditStatus,
-                mutation: queries.UPDATE_ARTICLE
-              })}
-            />
+            <FadeLoad key={article.id}>
+              <LazyLoad>
+                <ArticleCard
+                  layout={'column'}
+                  article={article}
+                  onChecked={() => {}}
+                  onLink={recall(onArticleLink, { id: article.id })}
+                  onDelete={recall(onArticleDelete, {
+                    id: article.id,
+                    article,
+                    mutation: queries.DELETE_ARTICLE
+                  })}
+                  onEdit={recall(onArticleEdit, {
+                    id: article.id,
+                    categories,
+                    statuses,
+                    canEditStatus,
+                    mutation: queries.UPDATE_ARTICLE
+                  })}
+                />
+              </LazyLoad>
+            </FadeLoad>
           ))}
         </Grid>
       )}

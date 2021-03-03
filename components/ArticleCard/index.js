@@ -4,11 +4,11 @@ import styled, { css } from 'styled-components'
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
 import Title from '../../atomic-ui/components/Title'
-import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
 import More from '../../atomic-ui/components/More'
 import Button from '../../atomic-ui/components/Button'
 import Icon from '../../atomic-ui/components/Icon'
+import Image from '../../atomic-ui/components/Image'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 
@@ -20,6 +20,7 @@ export const Wrap = styled(Row)`
   border: var(--surface-border);
   border-radius: var(--surface-border-radius);
   box-shadow: var(--surface-shadow);
+  height: 100%;
 
   ${({ layout }) =>
     layout === 'column' &&
@@ -71,6 +72,7 @@ export const Poster = styled(Image)`
   width: 100%;
   height: 100%;
   border-radius: var(--surface-border-radius);
+  border: 1px solid var(--ghost-color-background);
 
   ${({ layout }) =>
     layout === 'column' &&
@@ -139,7 +141,14 @@ export const Card = ({
 }) => {
   return (
     <Wrap appearance={appearance} layout={layout}>
-      {article.preview && <Poster src={article.preview?.path} layout={layout} />}
+      {article.preview && (
+        <Poster
+          src={article.preview?.path}
+          alt={article.title}
+          effect={'opacity'}
+          layout={layout}
+        />
+      )}
       <Column
         style={{
           gridGap: 5,

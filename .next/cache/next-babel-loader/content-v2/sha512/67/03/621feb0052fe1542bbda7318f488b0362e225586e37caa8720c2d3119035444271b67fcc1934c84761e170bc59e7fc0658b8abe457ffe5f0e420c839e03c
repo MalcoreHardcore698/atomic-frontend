@@ -1,0 +1,1 @@
+{"ast":null,"code":"import React from 'react';\nimport { LazyLoadComponent, trackWindowScroll } from 'react-lazy-load-image-component';\n\nconst LazyLoad = ({\n  children\n}) => /*#__PURE__*/React.createElement(LazyLoadComponent, null, children);\n\nexport default trackWindowScroll(LazyLoad);","map":null,"metadata":{},"sourceType":"module"}

@@ -45,7 +45,6 @@ const ContentLayout = ({
   variables = {},
   limit = 6,
   startOffset = 6,
-  bottomScrollOffset = 450,
   children
 }) => {
   const Layout = dashboard ? DashboardLayout : DefaultLayout
@@ -62,17 +61,6 @@ const ContentLayout = ({
   ] = useLazyQuery(query)
 
   const [loadDocuments, { data, loading, error, refetch }] = useLazyQuery(query)
-
-  const [isFetching, setIsFetching] = useInfiniteScroll(async () => {
-    const result = { ...variables, offset, limit }
-    if (search) await refetchBySearch(variables)
-    else {
-      if (refetch) await refetch(result)
-      else await loadDocuments({ variables: result })
-    }
-    setOffset((prev) => prev + limit)
-    setIsFetching(false)
-  }, bottomScrollOffset)
 
   const getFilters = () => {
     return filters.map((filter) => {
@@ -107,7 +95,6 @@ const ContentLayout = ({
     setDocuments([])
     if (value) {
       setSearch(value)
-      setOffset(startOffset)
       loadDocumentsBySearch({
         variables: { ...variables, search: value, offset: 0, limit: startOffset }
       })
@@ -115,12 +102,28 @@ const ContentLayout = ({
       const result = { ...variables, offset: 0, limit }
 
       setSearch(null)
-      setOffset(0)
 
       if (refetch) refetch(result)
       else loadDocuments({ variables: result })
     }
+    setOffset(0)
   }
+
+  useInfiniteScroll({
+    callbackOnBottom: () => {
+      const updateOffset = () => setOffset((prev) => prev + limit)
+
+      if (!loading) {
+        const result = { ...variables, offset, limit }
+        if (search) refetchBySearch(variables).then(updateOffset)
+        else {
+          if (refetch) refetch(result).then(updateOffset)
+          else loadDocuments({ variables: result })
+        }
+      }
+    },
+    offset: 850
+  })
 
   useEffect(() => {
     if (research) onSearch(research)
@@ -169,7 +172,7 @@ const ContentLayout = ({
           </Alert>
         )}
 
-        {((!error && loading) || (search && !errorBySearch && loadingBySearch) || isFetching) && (
+        {((!error && loading) || (search && !errorBySearch && loadingBySearch)) && (
           <LowerLoader>
             <Spinner />
           </LowerLoader>

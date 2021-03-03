@@ -170,20 +170,20 @@ export const DashboardLayout = ({ children, title = 'Панель админис
           <Icon icon={'menu'} />
         </MenuButton>
         <LogoZone>
-          <Logotype>
-            <Link href={'/'}>
-              <a>
-                <Tooltip
-                  text={'Атомик – портал для формирования новой сферы образования'}
-                  offset={{ bottom: 5 }}
-                  place={'bottom'}
-                  maxWidth={256}
-                  multiline>
+          <Tooltip
+            text={'Атомик – портал для формирования новой сферы образования'}
+            offset={{ bottom: 5 }}
+            place={'bottom'}
+            maxWidth={256}
+            multiline>
+            <Logotype>
+              <Link href={'/'}>
+                <a>
                   <Image src={'/images/logo.png'} alt={'Logotype'} />
-                </Tooltip>
-              </a>
-            </Link>
-          </Logotype>
+                </a>
+              </Link>
+            </Logotype>
+          </Tooltip>
         </LogoZone>
         <SearchBar appearance={'ghost'} />
       </Header>

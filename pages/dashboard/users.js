@@ -9,6 +9,8 @@ import { initializeApollo } from '../../apollo'
 import { useHelper } from '../../hooks/useHelper'
 import ContentLayout from '../../layouts/content'
 import UserCard from '../../components/UserCard'
+import LazyLoad from '../../components/LazyLoad'
+import FadeLoad from '../../components/FadeLoad'
 import {
   onUserCreate,
   onUserEdit,
@@ -122,58 +124,61 @@ const Users = ({ store }) => {
             {documents.map((author) => {
               const owned = author.name === user.name
               return (
-                <UserCard
-                  key={author.email}
-                  user={author}
-                  onChecked={() => {}}
-                  onChat={
-                    user.email &&
-                    recall(onChat, {
-                      id: author.email,
-                      auth: user?.email,
-                      queries: {
-                        userChats: queries.GET_USER_CHATS,
-                        chat: queries.GET_CHAT
-                      },
-                      mutations: {
-                        addUserChat: queries.ADD_USER_CHAT,
-                        sendMessage: queries.SEND_MESSAGE
+                <FadeLoad key={author.email}>
+                  <LazyLoad>
+                    <UserCard
+                      user={author}
+                      onChecked={() => {}}
+                      onChat={
+                        user.email &&
+                        recall(onChat, {
+                          id: author.email,
+                          auth: user?.email,
+                          queries: {
+                            userChats: queries.GET_USER_CHATS,
+                            chat: queries.GET_CHAT
+                          },
+                          mutations: {
+                            addUserChat: queries.ADD_USER_CHAT,
+                            sendMessage: queries.SEND_MESSAGE
+                          }
+                        })
                       }
-                    })
-                  }
-                  onLink={recall(onUserLink, {
-                    id: author.email,
-                    auth: user?.email,
-                    owned,
-                    queries: {
-                      userChats: queries.GET_USER_CHATS,
-                      chat: queries.GET_CHAT
-                    },
-                    mutations: {
-                      addUserChat: queries.ADD_USER_CHAT,
-                      sendMessage: queries.SEND_MESSAGE
-                    }
-                  })}
-                  onAboutMore={recall(onUserAboutMore, { user: author })}
-                  onDelete={recall(onUserDelete, {
-                    id: author.email,
-                    user: author,
-                    auth: user?.email,
-                    mutation: queries.DELETE_USER
-                  })}
-                  onEdit={recall(onUserEdit, {
-                    user: author.email,
-                    auth: user?.email,
-                    roles,
-                    canEditRole,
-                    mutations: {
-                      update: queries.UPDATE_USER,
-                      del: queries.DELETE_USER,
-                      changePassword: queries.UPDATE_USER
-                    }
-                  })}
-                  preview
-                />
+                      onLink={recall(onUserLink, {
+                        id: author.email,
+                        auth: user?.email,
+                        owned,
+                        queries: {
+                          userChats: queries.GET_USER_CHATS,
+                          chat: queries.GET_CHAT
+                        },
+                        mutations: {
+                          addUserChat: queries.ADD_USER_CHAT,
+                          sendMessage: queries.SEND_MESSAGE
+                        }
+                      })}
+                      onAboutMore={recall(onUserAboutMore, { user: author })}
+                      onDelete={recall(onUserDelete, {
+                        id: author.email,
+                        user: author,
+                        auth: user?.email,
+                        mutation: queries.DELETE_USER
+                      })}
+                      onEdit={recall(onUserEdit, {
+                        user: author.email,
+                        auth: user?.email,
+                        roles,
+                        canEditRole,
+                        mutations: {
+                          update: queries.UPDATE_USER,
+                          del: queries.DELETE_USER,
+                          changePassword: queries.UPDATE_USER
+                        }
+                      })}
+                      preview
+                    />
+                  </LazyLoad>
+                </FadeLoad>
               )
             })}
           </Grid>

@@ -25,6 +25,8 @@ import UserBar from '../components/UserBar'
 import FilterBar from '../components/FilterBar'
 import SearchBar from '../components/SearchBar'
 import ProjectCard from '../components/ProjectCard'
+import LazyLoad from '../components/LazyLoad'
+import FadeLoad from '../components/FadeLoad'
 import { setFolder } from '../store/actions/root'
 import { updateUser } from '../store/actions/user'
 import { onProjectLink, onProjectAdd, onProjectScreenshot } from '../store/helpers/project'
@@ -154,33 +156,36 @@ const Projects = ({ projects }) => {
       {projects &&
         projects.length > 0 &&
         projects.map((project) => (
-          <ProjectCard
-            owned
-            key={project.id}
-            project={project}
-            liked={!!(user?.likedProjects || []).find((item) => item.id === project.id)}
-            onLike={mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-              dispatch(updateUser(response.data.likeProject))
-            )}
-            onLink={recall(onProjectLink, {
-              id: project.id,
-              auth: user?.email,
-              project,
-              owned: true
-            })}
-            onAdd={recall(onProjectAdd, { id: project.id, project })}
-            onAboutMore={recall(onUserAboutMore, { user: project })}
-            onCompanyLink={
-              project.company &&
-              recall(onUserLink, { id: project.company?.email, auth: user?.email })
-            }
-            onScreenshotClick={(_, key) =>
-              recall(onProjectScreenshot, {
-                screenshots: [project.preview, ...project.screenshots],
-                key
-              })()
-            }
-          />
+          <FadeLoad key={project.id}>
+            <LazyLoad>
+              <ProjectCard
+                owned
+                project={project}
+                liked={!!(user?.likedProjects || []).find((item) => item.id === project.id)}
+                onLike={mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
+                  dispatch(updateUser(response.data.likeProject))
+                )}
+                onLink={recall(onProjectLink, {
+                  id: project.id,
+                  auth: user?.email,
+                  project,
+                  owned: true
+                })}
+                onAdd={recall(onProjectAdd, { id: project.id, project })}
+                onAboutMore={recall(onUserAboutMore, { user: project })}
+                onCompanyLink={
+                  project.company &&
+                  recall(onUserLink, { id: project.company?.email, auth: user?.email })
+                }
+                onScreenshotClick={(_, key) =>
+                  recall(onProjectScreenshot, {
+                    screenshots: [project.preview, ...project.screenshots],
+                    key
+                  })()
+                }
+              />
+            </LazyLoad>
+          </FadeLoad>
         ))}
     </Container>
   )
@@ -257,29 +262,32 @@ const InProgress = () => {
       {data &&
         data.getProjectsByIds.length > 0 &&
         data.getProjectsByIds.map((project) => (
-          <ProjectCard
-            owned
-            key={project.id}
-            project={project}
-            onLink={recall(onProjectLink, {
-              id: project.id,
-              project,
-              auth: user?.email,
-              owned: true
-            })}
-            onAdd={recall(onProjectAdd, { project })}
-            onAboutMore={recall(onUserAboutMore, { user: project })}
-            onCompanyLink={
-              project.company &&
-              recall(onUserLink, { id: project.company?.email, auth: user?.email })
-            }
-            onScreenshotClick={(_, key) =>
-              recall(onProjectScreenshot, {
-                screenshots: [project.preview, ...project.screenshots],
-                key
-              })()
-            }
-          />
+          <FadeLoad key={project.id}>
+            <LazyLoad>
+              <ProjectCard
+                owned
+                project={project}
+                onLink={recall(onProjectLink, {
+                  id: project.id,
+                  project,
+                  auth: user?.email,
+                  owned: true
+                })}
+                onAdd={recall(onProjectAdd, { project })}
+                onAboutMore={recall(onUserAboutMore, { user: project })}
+                onCompanyLink={
+                  project.company &&
+                  recall(onUserLink, { id: project.company?.email, auth: user?.email })
+                }
+                onScreenshotClick={(_, key) =>
+                  recall(onProjectScreenshot, {
+                    screenshots: [project.preview, ...project.screenshots],
+                    key
+                  })()
+                }
+              />
+            </LazyLoad>
+          </FadeLoad>
         ))}
 
       {((data && data.getProjectsByIds.length === 0) || !data) && (

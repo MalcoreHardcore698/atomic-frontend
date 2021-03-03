@@ -4,11 +4,11 @@ import styled, { css } from 'styled-components'
 import Row, { Wrap as WrapRow } from '../../atomic-ui/components/Row'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import Column from '../../atomic-ui/components/Column'
-import Image from '../../atomic-ui/components/Image'
 import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
 import Icon from '../../atomic-ui/components/Icon'
 import Meta from '../../atomic-ui/components/Meta'
+import Image from '../../atomic-ui/components/Image'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
 import Difinition from '../../atomic-ui/components/Difinition'
@@ -75,6 +75,7 @@ export const Avatar = styled(Image)`
   width: 100%;
   height: 100%;
   border-radius: var(--surface-border-radius);
+  border: 1px solid var(--ghost-color-background);
   overflow: hidden;
   object-fit: cover;
 `
@@ -165,8 +166,9 @@ export const Card = ({
       <Content>
         <Avatar
           src={user?.avatar?.path || '/images/avatar-default.png'}
-          layout={'fill'}
           alt={user.name}
+          effect={'opacity'}
+          layout={'fill'}
         />
         <Column style={{ gridGap: 5 }}>
           <Header>

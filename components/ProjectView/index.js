@@ -24,6 +24,8 @@ import { Loader } from '../Styled'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
+  flex-grow: 1;
+
   ${({ appearance }) =>
     appearance === 'default' &&
     css`
@@ -66,6 +68,11 @@ export const Media = styled(Column)`
   grid-gap: 5px;
   flex-basis: 35%;
 
+  & > span {
+    display: flex;
+    flex-grow: 1;
+  }
+
   @media only screen and (max-width: 480px) {
     flex-basis: 100%;
   }
@@ -96,6 +103,22 @@ export const Screenshot = styled.div`
   overflow: hidden;
   transition: opacity 150ms ease;
 
+  span,
+  span > img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   ${({ onClick }) =>
     onClick &&
     css`
@@ -105,12 +128,6 @@ export const Screenshot = styled.div`
         opacity: 0.65;
       }
     `}
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 `
 
 export const ScreenshotsCounter = styled(Text)`
@@ -158,6 +175,8 @@ export const CentralAlert = styled(Alert)`
 `
 
 export const Poster = styled(Image)`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: var(--surface-border-radius);
   flex-grow: 1;

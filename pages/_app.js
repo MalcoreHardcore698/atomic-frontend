@@ -7,6 +7,7 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import NextNprogress from 'nextjs-progressbar'
 import { motion } from 'framer-motion'
 
+import 'react-lazy-load-image-component/src/effects/opacity.css'
 import '../atomic-ui/theme/default.css'
 import '../atomic-ui/assets/styles/styles.css'
 import theme from '../atomic-ui/theme'

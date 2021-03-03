@@ -1,30 +1,39 @@
 import { useState, useEffect } from 'react'
 
-export const useInfiniteScroll = (fetchCallback, offsetBottom = 0) => {
-  const [isFetching, setIsFetching] = useState(false)
-
-  const onScroll = () => {
-    const offsetHeight = document.documentElement.scrollHeight - offsetBottom
-    const innerHeight = window.innerHeight
-    const scrollTop =
-      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
-
-    if (isFetching || innerHeight + scrollTop >= offsetHeight) return
-
-    setIsFetching(true)
-  }
+export const useInfiniteScroll = ({ callbackOnTop, callbackOnBottom, offset = 50 }) => {
+  const [lastScrollTop, setLastScrollTop] = useState(0)
 
   useEffect(() => {
-    if (!isFetching) return
-    fetchCallback()
-  }, [isFetching])
+    const scrollElement = document.documentElement
 
-  useEffect(() => {
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const onScroll = () => {
+      if (!scrollElement) return
+      const dir = scrollElement.scrollTop - lastScrollTop
 
-  return [isFetching, setIsFetching]
+      if (
+        callbackOnBottom &&
+        dir > 0 &&
+        scrollElement.scrollTop + scrollElement.clientHeight >= scrollElement.scrollHeight - offset
+      ) {
+        callbackOnBottom(scrollElement.scrollTop, scrollElement.scrollHeight)
+      }
+      if (callbackOnTop && dir < 0 && scrollElement.scrollTop <= offset) {
+        callbackOnTop(scrollElement.scrollTop, scrollElement.scrollHeight)
+      }
+
+      setLastScrollTop(scrollElement.scrollTop)
+    }
+
+    if (scrollElement) {
+      window.addEventListener('scroll', onScroll)
+    }
+
+    return () => {
+      if (scrollElement) {
+        window.removeEventListener('scroll', onScroll)
+      }
+    }
+  }, [callbackOnTop, callbackOnBottom, offset])
 }
 
 export default useInfiniteScroll

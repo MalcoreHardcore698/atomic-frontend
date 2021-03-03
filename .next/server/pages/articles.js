@@ -892,6 +892,45 @@ function isDynamicRoute(route) {
 
 /***/ }),
 
+/***/ "07fs":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export FadeLoad */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+  displayName: "FadeLoad__Wrap",
+  componentId: "sc-1rdnrub-0"
+})(["opacity:0;transition:opacity 100ms ease;", ""], ({
+  isVisible
+}) => isVisible && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["opacity:1;"]));
+const FadeLoad = ({
+  children
+}) => {
+  const [isVisible, setVisible] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true);
+  const domRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])();
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => setVisible(entry.isIntersecting));
+    });
+    observer.observe(domRef.current);
+    return () => observer.unobserve(domRef.current);
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
+    isVisible: isVisible,
+    ref: domRef
+  }, children);
+};
+/* harmony default export */ __webpack_exports__["a"] = (FadeLoad);
+
+/***/ }),
+
 /***/ "0Bsm":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -955,13 +994,13 @@ exports.default = _default;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Media; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Poster; });
 /* unused harmony export Wrap */
 /* unused harmony export Content */
 /* unused harmony export Screenshots */
 /* unused harmony export Screenshot */
 /* unused harmony export ScreenshotsCounter */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Media; });
 /* unused harmony export CentralAlert */
 /* unused harmony export Header */
 /* unused harmony export Actions */
@@ -1006,9 +1045,13 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
+const Media = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
+  displayName: "ProjectCard__Media",
+  componentId: "g3ik0u-0"
+})(["grid-gap:5px;& > figure{max-height:225px;min-height:170px;border:1px solid var(--ghost-color-background);}"]);
 const Poster = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Poster",
-  componentId: "g3ik0u-0"
+  componentId: "g3ik0u-1"
 })(["position:relative;width:100%;height:100%;border-radius:var(--surface-border-radius);overflow:hidden;object-fit:cover;transition:opacity 150ms ease;", " ", " @media only screen and (max-width:480px){min-height:128px;}"], ({
   layout
 }) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["min-height:128px;"]), ({
@@ -1016,7 +1059,7 @@ const Poster = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_
 }) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["cursor:pointer;&:hover{opacity:0.65;}"]));
 const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Wrap",
-  componentId: "g3ik0u-1"
+  componentId: "g3ik0u-2"
 })(["grid-gap:var(--default-gap);height:100%;", " ", " ", " ", ""], ({
   layout
 }) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-wrap:wrap;"]), ({
@@ -1028,26 +1071,22 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui
 }) => appearance === 'clear' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
 const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Content",
-  componentId: "g3ik0u-2"
+  componentId: "g3ik0u-3"
 })(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
   layout
 }) => layout && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
 const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Screenshots",
-  componentId: "g3ik0u-3"
+  componentId: "g3ik0u-4"
 })(["justify-content:space-between;grid-gap:5px;"]);
 const Screenshot = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "ProjectCard__Screenshot",
-  componentId: "g3ik0u-4"
-})(["position:relative;z-index:var(--z-12);width:auto;height:var(--input-height-s);min-width:var(--input-height-s);min-height:var(--input-height-s);border-radius:var(--surface-border-radius);flex-grow:1;transition:opacity 150ms ease;img{width:100%;height:100%;object-fit:cover;}"]);
+  componentId: "g3ik0u-5"
+})(["position:relative;z-index:var(--z-12);width:auto;height:var(--input-height-s);min-width:var(--input-height-s);min-height:var(--input-height-s);border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);flex-grow:1;transition:opacity 150ms ease;span,span > img{display:flex;justify-content:center;align-items:center;flex-grow:1;width:100%;height:100%;}img{width:100%;height:100%;object-fit:cover;}"]);
 const ScreenshotsCounter = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__ScreenshotsCounter",
-  componentId: "g3ik0u-5"
-})(["position:absolute;top:0;left:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;width:100%;height:100%;span{position:relative;z-index:var(--z-12);color:white;}&::before{content:'';position:absolute;top:0;left:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;width:100%;height:100%;background:var(--default-color-accent);border-radius:var(--surface-border-radius);opacity:0.65;}"]);
-const Media = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
-  displayName: "ProjectCard__Media",
   componentId: "g3ik0u-6"
-})(["grid-gap:5px;"]);
+})(["position:absolute;top:0;left:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;width:100%;height:100%;span{position:relative;z-index:var(--z-12);color:white;}&::before{content:'';position:absolute;top:0;left:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;width:100%;height:100%;background:var(--default-color-accent);border-radius:var(--surface-border-radius);opacity:0.65;}"]);
 const CentralAlert = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__CentralAlert",
   componentId: "g3ik0u-7"
@@ -3148,9 +3187,10 @@ const Wrap = external_styled_components_default()(Column["a" /* default */])`
   padding: var(--default-gap);
 `;
 const Content = external_styled_components_default()(Image["a" /* default */])`
-  border-radius: var(--surface-border-radius);
+  width: 100%;
   max-height: 650px;
   object-fit: cover;
+  border-radius: var(--surface-border-radius);
 `;
 const Navigation = external_styled_components_default()(Row["b" /* default */])`
   justify-content: space-between;
@@ -3866,7 +3906,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 const ProjectView_Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "ProjectView__Wrap",
   componentId: "sc-1fg5jgh-0"
-})(["", " ", " ", ""], ({
+})(["flex-grow:1;", " ", " ", ""], ({
   appearance
 }) => appearance === 'default' && Object(external_styled_components_["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
   appearance
@@ -3880,7 +3920,7 @@ const Container = external_styled_components_default()(Row["b" /* default */]).w
 const Media = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "ProjectView__Media",
   componentId: "sc-1fg5jgh-2"
-})(["grid-gap:5px;flex-basis:35%;@media only screen and (max-width:480px){flex-basis:100%;}"]);
+})(["grid-gap:5px;flex-basis:35%;& > span{display:flex;flex-grow:1;}@media only screen and (max-width:480px){flex-basis:100%;}"]);
 const ProjectView_Content = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "ProjectView__Content",
   componentId: "sc-1fg5jgh-3"
@@ -3892,7 +3932,7 @@ const Screenshots = external_styled_components_default()(Row["b" /* default */])
 const ProjectView_Screenshot = external_styled_components_default.a.div.withConfig({
   displayName: "ProjectView__Screenshot",
   componentId: "sc-1fg5jgh-5"
-})(["position:relative;z-index:var(--z-12);width:auto;height:var(--input-height-s);min-width:var(--input-height-s);min-height:var(--input-height-s);border-radius:var(--surface-border-radius);overflow:hidden;transition:opacity 150ms ease;", " img{width:100%;height:100%;object-fit:cover;}"], ({
+})(["position:relative;z-index:var(--z-12);width:auto;height:var(--input-height-s);min-width:var(--input-height-s);min-height:var(--input-height-s);border-radius:var(--surface-border-radius);overflow:hidden;transition:opacity 150ms ease;span,span > img{display:flex;justify-content:center;align-items:center;flex-grow:1;width:100%;height:100%;}img{width:100%;height:100%;object-fit:cover;}", ""], ({
   onClick
 }) => onClick && Object(external_styled_components_["css"])(["cursor:pointer;&:hover{opacity:0.65;}"]));
 const ScreenshotsCounter = external_styled_components_default()(Text["b" /* default */]).withConfig({
@@ -3906,7 +3946,7 @@ const CentralAlert = external_styled_components_default()(Alert["a" /* default *
 const Poster = external_styled_components_default()(Image["a" /* default */]).withConfig({
   displayName: "ProjectView__Poster",
   componentId: "sc-1fg5jgh-8"
-})(["object-fit:cover;border-radius:var(--surface-border-radius);flex-grow:1;transition:opacity 150ms ease;", ""], ({
+})(["width:100%;height:100%;object-fit:cover;border-radius:var(--surface-border-radius);flex-grow:1;transition:opacity 150ms ease;", ""], ({
   onClick
 }) => onClick && Object(external_styled_components_["css"])(["cursor:pointer;&:hover{opacity:0.65;}"]));
 const Difinitions = external_styled_components_default()(Row["b" /* default */]).withConfig({
@@ -5883,26 +5923,40 @@ var Select = __webpack_require__("QclZ");
 
 // CONCATENATED MODULE: ./hooks/useInfiniteScroll.js
 
-const useInfiniteScroll = (fetchCallback, offsetBottom = 0) => {
-  const [isFetching, setIsFetching] = Object(external_react_["useState"])(false);
-
-  const onScroll = () => {
-    const offsetHeight = document.documentElement.scrollHeight - offsetBottom;
-    const innerHeight = window.innerHeight;
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    if (isFetching || innerHeight + scrollTop >= offsetHeight) return;
-    setIsFetching(true);
-  };
-
+const useInfiniteScroll = ({
+  callbackOnTop,
+  callbackOnBottom,
+  offset = 50
+}) => {
+  const [lastScrollTop, setLastScrollTop] = Object(external_react_["useState"])(0);
   Object(external_react_["useEffect"])(() => {
-    if (!isFetching) return;
-    fetchCallback();
-  }, [isFetching]);
-  Object(external_react_["useEffect"])(() => {
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-  return [isFetching, setIsFetching];
+    const scrollElement = document.documentElement;
+
+    const onScroll = () => {
+      if (!scrollElement) return;
+      const dir = scrollElement.scrollTop - lastScrollTop;
+
+      if (callbackOnBottom && dir > 0 && scrollElement.scrollTop + scrollElement.clientHeight >= scrollElement.scrollHeight - offset) {
+        callbackOnBottom(scrollElement.scrollTop, scrollElement.scrollHeight);
+      }
+
+      if (callbackOnTop && dir < 0 && scrollElement.scrollTop <= offset) {
+        callbackOnTop(scrollElement.scrollTop, scrollElement.scrollHeight);
+      }
+
+      setLastScrollTop(scrollElement.scrollTop);
+    };
+
+    if (scrollElement) {
+      window.addEventListener('scroll', onScroll);
+    }
+
+    return () => {
+      if (scrollElement) {
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+  }, [callbackOnTop, callbackOnBottom, offset]);
 };
 /* harmony default export */ var hooks_useInfiniteScroll = (useInfiniteScroll);
 // EXTERNAL MODULE: ./layouts/default.js + 3 modules
@@ -5960,7 +6014,6 @@ const ContentLayout = ({
   variables = {},
   limit = 6,
   startOffset = 6,
-  bottomScrollOffset = 450,
   children
 }) => {
   const Layout = dashboard ? layouts_dashboard["a" /* default */] : layouts_default["a" /* default */];
@@ -5982,19 +6035,6 @@ const ContentLayout = ({
     error,
     refetch
   }] = Object(react_hooks_["useLazyQuery"])(query);
-  const [isFetching, setIsFetching] = useInfiniteScroll(async () => {
-    const result = { ...variables,
-      offset,
-      limit
-    };
-    if (search) await refetchBySearch(variables);else {
-      if (refetch) await refetch(result);else await loadDocuments({
-        variables: result
-      });
-    }
-    setOffset(prev => prev + limit);
-    setIsFetching(false);
-  }, bottomScrollOffset);
 
   const getFilters = () => {
     return filters.map(filter => {
@@ -6028,7 +6068,6 @@ const ContentLayout = ({
 
     if (value) {
       setSearch(value);
-      setOffset(startOffset);
       loadDocumentsBySearch({
         variables: { ...variables,
           search: value,
@@ -6042,13 +6081,32 @@ const ContentLayout = ({
         limit
       };
       setSearch(null);
-      setOffset(0);
       if (refetch) refetch(result);else loadDocuments({
         variables: result
       });
     }
+
+    setOffset(0);
   };
 
+  useInfiniteScroll({
+    callbackOnBottom: () => {
+      const updateOffset = () => setOffset(prev => prev + limit);
+
+      if (!loading) {
+        const result = { ...variables,
+          offset,
+          limit
+        };
+        if (search) refetchBySearch(variables).then(updateOffset);else {
+          if (refetch) refetch(result).then(updateOffset);else loadDocuments({
+            variables: result
+          });
+        }
+      }
+    },
+    offset: 850
+  });
   Object(external_react_["useEffect"])(() => {
     if (research) onSearch(research);
   }, [research]);
@@ -6090,7 +6148,7 @@ const ContentLayout = ({
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (!error && loading || search && !errorBySearch && loadingBySearch || isFetching) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (!error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -6561,11 +6619,11 @@ module.exports = _interopRequireDefault;
 /* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
 /* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("VWQm");
 /* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("V0nP");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("7sPp");
-/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("QUga");
-/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("feIE");
-/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("aBfq");
+/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("7sPp");
+/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("QUga");
+/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("feIE");
+/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("aBfq");
+/* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("V0nP");
 /* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("RKiZ");
 /* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("ZeZO");
 /* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("DTT8");
@@ -6606,10 +6664,10 @@ const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic
   displayName: "UserCard__Content",
   componentId: "bx733i-1"
 })(["display:grid;grid-template-columns:120px 1fr;grid-template-rows:175px;@media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"]);
-const Avatar = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
+const Avatar = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Avatar",
   componentId: "bx733i-2"
-})(["position:relative;width:100%;height:100%;border-radius:var(--surface-border-radius);overflow:hidden;object-fit:cover;"]);
+})(["position:relative;width:100%;height:100%;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);overflow:hidden;object-fit:cover;"]);
 const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Header",
   componentId: "bx733i-3"
@@ -6618,7 +6676,7 @@ const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic
   displayName: "UserCard__Actions",
   componentId: "bx733i-4"
 })(["grid-gap:5px;"]);
-const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]).withConfig({
+const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Name",
   componentId: "bx733i-5"
 })(["transition:opacity 150ms ease;", ""], ({
@@ -6669,13 +6727,14 @@ const Card = ({
     appearance: appearance
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Avatar, {
     src: (user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png',
-    layout: 'fill',
-    alt: user.name
+    alt: user.name,
+    effect: 'opacity',
+    layout: 'fill'
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
     style: {
       gridGap: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "e"])(user.account)
   }), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
     text: 'Удалить пользователя'
@@ -6684,7 +6743,7 @@ const Card = ({
     size: 'xs',
     appearance: 'red',
     onClick: onDelete
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     icon: 'delete',
     size: 'xs',
     stroke: 'white'
@@ -6694,7 +6753,7 @@ const Card = ({
     kind: 'icon',
     size: 'xs',
     onClick: onEdit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     icon: 'edit',
     size: 'xs',
     stroke: 'white'
@@ -6704,9 +6763,9 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
     onClick: onLink
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about.slice(0, 120), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
+  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about.slice(0, 120), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
     onClick: onAboutMore
-  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
+  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
     icon: 'work',
     label: 'Проекты',
     text: (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.length
@@ -6733,7 +6792,7 @@ const Card = ({
     appearance: 'green',
     onClick: onChat,
     revert: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     icon: 'chat',
     stroke: 'var(--default-color-green)'
   }))), onAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
@@ -6743,7 +6802,7 @@ const Card = ({
     kind: 'icon',
     onClick: onClickAdd,
     revert: !isAdded
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     icon: isAdded ? 'check' : 'add',
     stroke: isAdded ? 'white' : 'var(--default-color-accent)'
   })))))));
@@ -6906,9 +6965,6 @@ var Column = __webpack_require__("8CDE");
 // EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
 var Title = __webpack_require__("7sPp");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
-var Image = __webpack_require__("V0nP");
-
 // EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
 var Meta = __webpack_require__("aBfq");
 
@@ -6956,6 +7012,9 @@ More.defaultProps = {
   withText: true
 };
 /* harmony default export */ var components_More = (More);
+// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
+var Image = __webpack_require__("V0nP");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Checkbox/index.js
 var Checkbox = __webpack_require__("79b8");
 
@@ -6978,7 +7037,7 @@ var Tooltip = __webpack_require__("VWQm");
 const ArticleCard_Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "ArticleCard__Wrap",
   componentId: "sc-17tznl7-0"
-})(["display:grid;grid-template-columns:1fr 2fr;padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);", " ", " ", " ", " @media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"], ({
+})(["display:grid;grid-template-columns:1fr 2fr;padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);height:100%;", " ", " ", " ", " @media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"], ({
   layout
 }) => layout === 'column' && Object(external_styled_components_["css"])(["display:flex;flex-wrap:wrap;grid-gap:var(--default-gap);"]), ({
   appearance
@@ -6990,7 +7049,7 @@ const ArticleCard_Wrap = external_styled_components_default()(Row["b" /* default
 const Poster = external_styled_components_default()(Image["a" /* default */]).withConfig({
   displayName: "ArticleCard__Poster",
   componentId: "sc-17tznl7-1"
-})(["object-fit:cover;width:100%;height:100%;border-radius:var(--surface-border-radius);", ""], ({
+})(["object-fit:cover;width:100%;height:100%;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);", ""], ({
   layout
 }) => layout === 'column' && Object(external_styled_components_["css"])(["height:128px;"]));
 const Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
@@ -7037,6 +7096,8 @@ const Card = ({
     layout: layout
   }, article.preview && /*#__PURE__*/external_react_default.a.createElement(Poster, {
     src: (_article$preview = article.preview) === null || _article$preview === void 0 ? void 0 : _article$preview.path,
+    alt: article.title,
+    effect: 'opacity',
     layout: layout
   }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
     style: {
@@ -7101,6 +7162,8 @@ Card.defaultProps = {
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("g8bt");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2__);
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -7117,12 +7180,23 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
+
 const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.figure`
   position: relative;
   width: 100%;
   height: 100%;
   border-radius: var(--surface-border-radius);
   cursor: crosshair;
+
+  span,
+  span > img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+  }
 `;
 const Magnify = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
   position: absolute !important;
@@ -7148,7 +7222,7 @@ const Magnify = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
       transform: scale(${scale});
     `}
 `;
-const Source = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.img`
+const Source = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_2__["LazyLoadImage"])`
   overflow: hidden;
   border-radius: var(--surface-border-radius);
 
@@ -7235,9 +7309,11 @@ const Image = (_ref) => {
       height,
       opacity
     },
+    effect: 'opacity',
     magnify: magnify
   }))) : __jsx(Source, _extends({}, props, {
     src: src,
+    effect: 'opacity',
     style: {
       width,
       height
@@ -7250,6 +7326,25 @@ Image.defaultProps = {
   scale: 2
 };
 /* harmony default export */ __webpack_exports__["a"] = (Image);
+
+/***/ }),
+
+/***/ "VP1n":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("g8bt");
+/* harmony import */ var react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+const LazyLoad = ({
+  children
+}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__["LazyLoadComponent"], null, children);
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(react_lazy_load_image_component__WEBPACK_IMPORTED_MODULE_1__["trackWindowScroll"])(LazyLoad));
 
 /***/ }),
 
@@ -7832,7 +7927,7 @@ function default_extends() { default_extends = Object.assign || function (target
 const default_Wrap = external_styled_components_default.a.div.withConfig({
   displayName: "default__Wrap",
   componentId: "sc-2byuzg-0"
-})(["position:relative;display:flex;flex-direction:column;justify-content:space-between;height:100vh;z-index:2;"]);
+})(["position:relative;top:-20px;display:flex;flex-direction:column;justify-content:space-between;height:100vh;z-index:2;"]);
 const default_Background = external_styled_components_default()(Image["a" /* default */]).withConfig({
   displayName: "default__Background",
   componentId: "sc-2byuzg-1"
@@ -7984,7 +8079,9 @@ const DefaultLayout = ({
     onLogout: mutate(queries["a" /* default */].LOGOUT, {}, () => dispatch(Object(actions_user["c" /* setLogout */])()))
   }), scaffold && /*#__PURE__*/external_react_default.a.createElement(components_Scaffold, default_extends({
     user: user
-  }, scaffold)), /*#__PURE__*/external_react_default.a.createElement(Main, null, children), /*#__PURE__*/external_react_default.a.createElement(components_Footer, {
+  }, scaffold)), /*#__PURE__*/external_react_default.a.createElement(Main, {
+    id: 'main'
+  }, children), /*#__PURE__*/external_react_default.a.createElement(components_Footer, {
     contacts: _mock_["b" /* contacts */],
     socials: _mock_["d" /* socials */],
     catalog: {
@@ -13920,6 +14017,13 @@ exports.ST = ST;
 
 /***/ }),
 
+/***/ "g8bt":
+/***/ (function(module, exports) {
+
+module.exports = require("react-lazy-load-image-component");
+
+/***/ }),
+
 /***/ "gguc":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16364,9 +16468,7 @@ const DashboardLayout = ({
     })
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'menu'
-  })), /*#__PURE__*/external_react_default.a.createElement(LogoZone, null, /*#__PURE__*/external_react_default.a.createElement(Logotype, null, /*#__PURE__*/external_react_default.a.createElement(link_default.a, {
-    href: '/'
-  }, /*#__PURE__*/external_react_default.a.createElement("a", null, /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
+  })), /*#__PURE__*/external_react_default.a.createElement(LogoZone, null, /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
     text: 'Атомик – портал для формирования новой сферы образования',
     offset: {
       bottom: 5
@@ -16374,7 +16476,9 @@ const DashboardLayout = ({
     place: 'bottom',
     maxWidth: 256,
     multiline: true
-  }, /*#__PURE__*/external_react_default.a.createElement(Image["a" /* default */], {
+  }, /*#__PURE__*/external_react_default.a.createElement(Logotype, null, /*#__PURE__*/external_react_default.a.createElement(link_default.a, {
+    href: '/'
+  }, /*#__PURE__*/external_react_default.a.createElement("a", null, /*#__PURE__*/external_react_default.a.createElement(Image["a" /* default */], {
     src: '/images/logo.png',
     alt: 'Logotype'
   })))))), /*#__PURE__*/external_react_default.a.createElement(SearchBar["a" /* default */], {
@@ -17930,7 +18034,7 @@ const Wrap = external_styled_components_default()(Column["a" /* default */]).wit
 const RoundedAvatar = external_styled_components_default()(Image["a" /* default */]).withConfig({
   displayName: "UserView__RoundedAvatar",
   componentId: "ph8qrp-1"
-})(["width:196px;height:196px;border-radius:var(--surface-border-radius);object-fit:cover;@media only screen and (max-width:480px){width:100%;height:256px;}"]);
+})(["width:196px;height:196px;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);object-fit:cover;@media only screen and (max-width:480px){width:100%;height:256px;}"]);
 const Content = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "UserView__Content",
   componentId: "ph8qrp-2"
@@ -21965,11 +22069,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _apollo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("pyQH");
 /* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("ApjV");
 /* harmony import */ var _layouts_content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("QX5T");
-/* harmony import */ var _components_ArticleCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("UwjQ");
-/* harmony import */ var _components_Styled__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("586Q");
-/* harmony import */ var _store_helpers_article__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("owvJ");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("u2Cb");
+/* harmony import */ var _components_LazyLoad__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("VP1n");
+/* harmony import */ var _components_FadeLoad__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("07fs");
+/* harmony import */ var _components_ArticleCard__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("UwjQ");
+/* harmony import */ var _components_Styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("586Q");
 /* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("NWnW");
+/* harmony import */ var _store_helpers_article__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("owvJ");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("u2Cb");
+
+
 
 
 
@@ -22005,7 +22113,7 @@ const Articles = ({
       label: 'Дата публикации',
       value: 'createdAt'
     }],
-    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].GET_ARTICLES,
+    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"].GET_ARTICLES,
     variables: {
       status: 'PUBLISHED'
     },
@@ -22014,14 +22122,15 @@ const Articles = ({
     }
   }, ({
     documents
-  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Styled__WEBPACK_IMPORTED_MODULE_5__[/* GridAside */ "b"], null, documents.map(article => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ArticleCard__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
-    key: article.id,
+  }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Styled__WEBPACK_IMPORTED_MODULE_7__[/* GridAside */ "b"], null, documents.map(article => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FadeLoad__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    key: article.id
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_LazyLoad__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ArticleCard__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
     article: article,
-    onLink: recall(_store_helpers_article__WEBPACK_IMPORTED_MODULE_6__[/* onArticleLink */ "d"], {
+    onLink: recall(_store_helpers_article__WEBPACK_IMPORTED_MODULE_9__[/* onArticleLink */ "d"], {
       id: article.id,
       article
     })
-  }))));
+  }))))));
 };
 
 async function getServerSideProps() {
@@ -22031,7 +22140,7 @@ async function getServerSideProps() {
 
   try {
     const response = await client.query({
-      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"].GET_META_ARTICLES,
+      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"].GET_META_ARTICLES,
       variables: {
         offset: 0,
         limit: START_OFFSET,

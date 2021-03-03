@@ -15,7 +15,7 @@ import Tooltip from '../../atomic-ui/components/Tooltip'
 
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);
-  height: max-content;
+  height: 100%;
 
   ${({ appearance }) =>
     appearance === 'default' &&

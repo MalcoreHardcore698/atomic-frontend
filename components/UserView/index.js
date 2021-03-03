@@ -61,6 +61,7 @@ export const RoundedAvatar = styled(Image)`
   width: 196px;
   height: 196px;
   border-radius: var(--surface-border-radius);
+  border: 1px solid var(--ghost-color-background);
   object-fit: cover;
 
   @media only screen and (max-width: 480px) {

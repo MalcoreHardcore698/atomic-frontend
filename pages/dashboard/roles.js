@@ -14,6 +14,8 @@ import DashboardLayout from '../../layouts/dashboard'
 import HandleBar from '../../components/HandleBar'
 import FilterBar from '../../components/FilterBar'
 import RoleCard from '../../components/RoleCard'
+import LazyLoad from '../../components/LazyLoad'
+import FadeLoad from '../../components/FadeLoad'
 import { onRoleCreate, onRoleEdit, onRoleDelete, onRoleLink } from '../../store/helpers/role'
 import { setDocuments } from '../../store/actions/documents'
 import { categories } from '../../__mock__'
@@ -98,19 +100,26 @@ const Roles = ({ store, permissions }) => {
       {displayMethod === 'grid' && (
         <Grid>
           {roles.map((role) => (
-            <RoleCard
-              key={role.id}
-              role={role}
-              onChecked={() => {}}
-              onLink={recall(onRoleLink, { id: role.id, role })}
-              onDelete={recall(onRoleDelete, { id: role.id, role, mutation: queries.DELETE_ROLE })}
-              onEdit={recall(onRoleEdit, {
-                id: role.id,
-                role,
-                permissions,
-                mutation: queries.UPDATE_ROLE
-              })}
-            />
+            <FadeLoad key={role.id}>
+              <LazyLoad>
+                <RoleCard
+                  role={role}
+                  onChecked={() => {}}
+                  onLink={recall(onRoleLink, { id: role.id, role })}
+                  onDelete={recall(onRoleDelete, {
+                    id: role.id,
+                    role,
+                    mutation: queries.DELETE_ROLE
+                  })}
+                  onEdit={recall(onRoleEdit, {
+                    id: role.id,
+                    role,
+                    permissions,
+                    mutation: queries.UPDATE_ROLE
+                  })}
+                />
+              </LazyLoad>
+            </FadeLoad>
           ))}
         </Grid>
       )}

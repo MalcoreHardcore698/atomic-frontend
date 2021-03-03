@@ -3,11 +3,13 @@ import React from 'react'
 import { initializeApollo } from '../apollo'
 import { useHelper } from '../hooks/useHelper'
 import ContentLayout from '../layouts/content'
+import LazyLoad from '../components/LazyLoad'
+import FadeLoad from '../components/FadeLoad'
 import ArticleCard from '../components/ArticleCard'
 import { GridAside as Container } from '../components/Styled'
+import { getLabelCategory } from '../atomic-ui/utils/functions'
 import { onArticleLink } from '../store/helpers/article'
 import queries from '../graphql/queries'
-import { getLabelCategory } from '../atomic-ui/utils/functions'
 
 const TITLE = 'Статьи'
 const START_OFFSET = 6
@@ -38,11 +40,14 @@ const Articles = ({ store }) => {
       {({ documents }) => (
         <Container>
           {documents.map((article) => (
-            <ArticleCard
-              key={article.id}
-              article={article}
-              onLink={recall(onArticleLink, { id: article.id, article })}
-            />
+            <FadeLoad key={article.id}>
+              <LazyLoad>
+                <ArticleCard
+                  article={article}
+                  onLink={recall(onArticleLink, { id: article.id, article })}
+                />
+              </LazyLoad>
+            </FadeLoad>
           ))}
         </Container>
       )}

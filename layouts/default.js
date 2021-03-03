@@ -26,6 +26,7 @@ import { supportLinks, socials, contacts } from '../__mock__'
 
 const Wrap = styled.div`
   position: relative;
+  top: -20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -213,7 +214,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
 
         {scaffold && <Scaffold user={user} {...scaffold} />}
 
-        <Main>{children}</Main>
+        <Main id={'main'}>{children}</Main>
 
         <Footer
           contacts={contacts}

@@ -14,6 +14,8 @@ import DashboardLayout from '../../layouts/dashboard'
 import HandleBar from '../../components/HandleBar'
 import FilterBar from '../../components/FilterBar'
 import TicketCard from '../../components/TicketCard'
+import LazyLoad from '../../components/LazyLoad'
+import FadeLoad from '../../components/FadeLoad'
 import {
   onTicketCreate,
   onTicketEdit,
@@ -107,27 +109,30 @@ const Tickets = ({ store }) => {
       {displayMethod === 'grid' && (
         <Grid>
           {tickets.map((ticket) => (
-            <TicketCard
-              key={ticket.id}
-              ticket={ticket}
-              onChecked={() => {}}
-              onLink={recall(onTicketLink, { id: ticket.id, auth: user?.email })}
-              onAuthorLink={(author) =>
-                recall(onUserLink, {
-                  id: author,
-                  auth: user?.email,
-                  owned: author === user.name
-                })()
-              }
-              onDelete={recall(onTicketDelete, {
-                ticket,
-                mutation: queries.DELETE_TICKET
-              })}
-              onEdit={recall(onTicketEdit, {
-                id: ticket.id,
-                mutation: queries.UPDATE_TICKET
-              })}
-            />
+            <FadeLoad key={ticket.id}>
+              <LazyLoad>
+                <TicketCard
+                  ticket={ticket}
+                  onChecked={() => {}}
+                  onLink={recall(onTicketLink, { id: ticket.id, auth: user?.email })}
+                  onAuthorLink={(author) =>
+                    recall(onUserLink, {
+                      id: author,
+                      auth: user?.email,
+                      owned: author === user.name
+                    })()
+                  }
+                  onDelete={recall(onTicketDelete, {
+                    ticket,
+                    mutation: queries.DELETE_TICKET
+                  })}
+                  onEdit={recall(onTicketEdit, {
+                    id: ticket.id,
+                    mutation: queries.UPDATE_TICKET
+                  })}
+                />
+              </LazyLoad>
+            </FadeLoad>
           ))}
         </Grid>
       )}
