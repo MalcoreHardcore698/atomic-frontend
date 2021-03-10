@@ -13,6 +13,8 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 
+import { useEntityQuery } from '../../hooks/useEntityQuery'
+
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);
   height: 100%;
@@ -92,54 +94,58 @@ export const Card = ({
   onChecked,
   onEdit,
   onDelete
-}) => (
-  <Wrap className={className} style={style} appearance={appearance}>
-    <Column style={{ gridGap: 0 }}>
-      <Header>
-        <Meta date={ticket.createdAt} category={ticket.category?.name} />
+}) => {
+  const { setQuery } = useEntityQuery()
 
-        {onChecked && onEdit && onDelete && (
-          <Actions>
-            <Tooltip text={'Удалить обращение'}>
-              <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
-                <Icon icon={'delete'} size={'xs'} stroke={'white'} />
-              </Button>
-            </Tooltip>
-            <Tooltip text={'Редактировать обращение'}>
-              <Button kind={'icon'} size={'xs'} onClick={onEdit}>
-                <Icon icon={'edit'} size={'xs'} stroke={'white'} />
-              </Button>
-            </Tooltip>
-            <Tooltip text={'Отметить обращение'} self>
-              <Checkbox />
-            </Tooltip>
-          </Actions>
-        )}
-      </Header>
+  return (
+    <Wrap className={className} style={style} appearance={appearance}>
+      <Column style={{ gridGap: 0 }}>
+        <Header>
+          <Meta date={ticket.createdAt} category={ticket.category?.name} />
 
-      <Name tag={'h4'} onClick={onLink}>
-        {ticket.title}
-      </Name>
+          {onChecked && onEdit && onDelete && (
+            <Actions>
+              <Tooltip text={'Удалить обращение'}>
+                <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
+                  <Icon icon={'delete'} size={'xs'} stroke={'white'} />
+                </Button>
+              </Tooltip>
+              <Tooltip text={'Редактировать обращение'}>
+                <Button kind={'icon'} size={'xs'} onClick={onEdit}>
+                  <Icon icon={'edit'} size={'xs'} stroke={'white'} />
+                </Button>
+              </Tooltip>
+              <Tooltip text={'Отметить обращение'} self>
+                <Checkbox />
+              </Tooltip>
+            </Actions>
+          )}
+        </Header>
 
-      <Row style={{ gridGap: 5 }}>
-        <Status status={ticket.status}>{ticket.status}</Status>
-      </Row>
-    </Column>
+        <Name tag={'h4'} onClick={() => setQuery(ticket.id, 'ticket', onLink)}>
+          {ticket.title}
+        </Name>
 
-    <Divider clear />
+        <Row style={{ gridGap: 5 }}>
+          <Status status={ticket.status}>{ticket.status}</Status>
+        </Row>
+      </Column>
 
-    <Footer>
-      <Difinition
-        label={'Автор'}
-        img={ticket.author?.avatar?.path}
-        text={ticket.author?.name}
-        onLink={onAuthorLink && (() => onAuthorLink(ticket.author?.email))}
-      />
+      <Divider clear />
 
-      <Difinition icon={'chat'} label={'Сообщений'} text={ticket.messages?.length} />
-    </Footer>
-  </Wrap>
-)
+      <Footer>
+        <Difinition
+          label={'Автор'}
+          img={ticket.author?.avatar?.path}
+          text={ticket.author?.name}
+          onLink={onAuthorLink && (() => onAuthorLink(ticket.author?.email))}
+        />
+
+        <Difinition icon={'chat'} label={'Сообщений'} text={ticket.messages?.length} />
+      </Footer>
+    </Wrap>
+  )
+}
 
 Card.defaultProps = {
   appearance: 'default'

@@ -18,13 +18,14 @@ import Modal from '../atomic-ui/components/Modal'
 import Text from '../atomic-ui/components/Text'
 
 import { FixedLoader } from '../components/Styled'
+import { removeItem, clearItems } from '../store/actions/snacks'
 import { setUser } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
-import { removeItem, clearItems } from '../store/actions/snacks'
 import { setModal } from '../store/actions/modal'
 import { setMutate } from '../store/actions/root'
 import queries from '../graphql/queries'
 import config from '../config'
+import useEntityQuery from '../hooks/useEntityQuery'
 
 const LIFETIME_OF_SNACK = 3000
 
@@ -121,12 +122,21 @@ const Mutator = ({ mutation, variables, callback }) => {
 }
 
 export const MainLayout = ({ children }) => {
+  const router = useRouter()
+  const { useDetectQuery } = useEntityQuery()
+  const [getUser, { data, loading }] = useLazyQuery(queries.GET_USER)
   const { root, user, drawer, snacks, modal } = useSelector((state) => state)
   const dispatch = useDispatch()
-  const router = useRouter()
-  const [getUser, { data, loading }] = useLazyQuery(queries.GET_USER)
 
-  const onDrawerBack = () => {
+  const onDrawerBack = async () => {
+    await router.push(
+      {
+        pathname: router.pathname,
+        query: {}
+      },
+      undefined,
+      { shallow: true }
+    )
     dispatch(setDrawer(null))
   }
 
@@ -166,6 +176,8 @@ export const MainLayout = ({ children }) => {
       )
     }
   }, [user, dispatch])
+
+  useDetectQuery()
 
   return (
     <React.Fragment>

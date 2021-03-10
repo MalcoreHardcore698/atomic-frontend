@@ -8,13 +8,13 @@ import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
 
 export function onRoleLink(dispatch, props) {
-  const { role } = props
+  const { id } = props
 
   dispatch(
     setDrawer({
       icon: 'lock',
       title: 'Роль',
-      content: <RoleView role={role} appearance={'clear'} />
+      content: <RoleView role={id} appearance={'clear'} />
     })
   )
 }

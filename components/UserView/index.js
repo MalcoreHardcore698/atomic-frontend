@@ -17,9 +17,10 @@ import Button from '../../atomic-ui/components/Button'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
+import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { More } from '../Styled'
-import ProjectCard from '../ProjectCard'
 import { Loader } from '../Styled'
+import ProjectCard from '../ProjectCard'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
@@ -135,6 +136,7 @@ export const View = ({
   onProjectCompanyLink,
   onProjectScreenshotClick
 }) => {
+  const { setQuery } = useEntityQuery()
   const [isAdded, setAdded] = useState(false)
   const { data, loading, error } = useQuery(queries.GET_USER, {
     variables: {
@@ -203,7 +205,10 @@ export const View = ({
                     })}
                 label={'Компания'}
                 text={data.getUser.company?.name || '-'}
-                onLink={data.getUser.company && (() => onCompanyLink(data.getUser.company))}
+                onLink={
+                  data.getUser.company &&
+                  (() => setQuery(data.getUser.company?.email, 'user', onCompanyLink))
+                }
               />
             )}
             <Difinition

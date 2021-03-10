@@ -19,6 +19,7 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import { getFileSize, getLabelRole } from '../../atomic-ui/utils/functions'
 
+import { useEntityQuery } from '../../hooks/useEntityQuery'
 import HTMLView from '../HTMLView'
 import { Loader } from '../Styled'
 import queries from '../../graphql/queries'
@@ -246,6 +247,7 @@ export const View = ({
   onMemberLink,
   onCompanyLink
 }) => {
+  const { setQuery } = useEntityQuery()
   const { data, loading, error } = useQuery(queries.GET_PROJECT, {
     variables: {
       id: project
@@ -264,7 +266,7 @@ export const View = ({
   }
 
   useEffect(() => {
-    if (!loading && data) {
+    if (!loading && data.getProject) {
       const response = data.getProject
       const images = [response.preview, ...response.screenshots]
       const slicedImages = images.slice(0, slicedFactor)
@@ -278,7 +280,7 @@ export const View = ({
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
-      {!loading && data ? (
+      {!loading && data.getProject ? (
         <React.Fragment>
           <Container>
             <Media>
@@ -343,7 +345,7 @@ export const View = ({
                         })}
                     label={'Компания'}
                     text={data.getProject.company?.name || '-'}
-                    onLink={() => onCompanyLink(data.getProject.company?.email)}
+                    onLink={() => setQuery(data.getProject.company?.email, 'user', onCompanyLink)}
                   />
 
                   {!owned && (onLike || onAdd) && (
@@ -393,7 +395,7 @@ export const View = ({
                   img={member.avatar?.path || '/images/avatar-default.png'}
                   label={getLabelRole(member.account)}
                   text={member.name}
-                  onLink={() => onMemberLink && onMemberLink(member.email)}
+                  onLink={onMemberLink && (() => setQuery(member.email, 'user', onMemberLink))}
                 />
               ))}
             </Members>
@@ -422,7 +424,7 @@ export const View = ({
             <Alert style={{ width: '100%', textAlign: 'center' }}>Файлов нет</Alert>
           )}
         </React.Fragment>
-      ) : error ? (
+      ) : error || (!loading && !data?.getProject) ? (
         <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
           Упс! Не удалось загрузить информацию о проекте
         </Alert>

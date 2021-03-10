@@ -79,7 +79,6 @@ export const ProjectList = ({ variables, layout, initialList }) => {
                     user.email &&
                     recall(onProjectAdd, {
                       id: project.id,
-                      project,
                       folders: user?.folders,
                       mutations: {
                         addProject: queries.ADD_USER_PROJECT,
@@ -98,7 +97,6 @@ export const ProjectList = ({ variables, layout, initialList }) => {
                   user.email &&
                   recall(onProjectAdd, {
                     id: project.id,
-                    project,
                     folders: user?.folders,
                     mutations: {
                       addProject: queries.ADD_USER_PROJECT,

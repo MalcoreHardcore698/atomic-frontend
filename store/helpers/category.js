@@ -8,13 +8,13 @@ import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
 
 export function onCategoryLink(dispatch, props) {
-  const { category } = props
+  const { id } = props
 
   dispatch(
     setDrawer({
       icon: 'folder',
       title: 'Категория',
-      content: <CategoryView category={category} appearance={'clear'} />
+      content: <CategoryView category={id} appearance={'clear'} />
     })
   )
 }

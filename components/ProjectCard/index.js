@@ -15,6 +15,7 @@ import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 
+import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { More } from '../Styled'
 
 export const Media = styled(Column)`
@@ -302,6 +303,7 @@ export const Card = ({
   onEdit,
   onDelete
 }) => {
+  const { setQuery } = useEntityQuery()
   const [isLiked, setLike] = useState(liked)
   const screenshots = project?.screenshots?.slice(0, slicedFactor) || []
   const residue = (project?.screenshots?.length || slicedFactor) - slicedFactor
@@ -380,7 +382,7 @@ export const Card = ({
             )}
           </Header>
 
-          <Name tag={'h4'} onClick={onLink}>
+          <Name tag={'h4'} onClick={() => setQuery(project.id, 'project', onLink)}>
             {project.title}
           </Name>
 
@@ -413,7 +415,11 @@ export const Card = ({
               label={'Компания'}
               text={project.company?.name || '-'}
               tooltip={project.company?.name}
-              onLink={project.company?.email && onCompanyLink}
+              onLink={
+                project.company?.email &&
+                onCompanyLink &&
+                (() => setQuery(project.company?.email, 'user', onCompanyLink))
+              }
             />
             {!owned && (onLike || onAdd) && (
               <Row>

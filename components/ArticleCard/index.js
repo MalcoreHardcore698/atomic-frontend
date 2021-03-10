@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
@@ -11,6 +12,7 @@ import Icon from '../../atomic-ui/components/Icon'
 import Image from '../../atomic-ui/components/Image'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Tooltip from '../../atomic-ui/components/Tooltip'
+import { b64EncodeUnicode } from '../../atomic-ui/utils/functions'
 
 export const Wrap = styled(Row)`
   display: grid;
@@ -144,6 +146,22 @@ export const Card = ({
   onEdit,
   onDelete
 }) => {
+  const router = useRouter()
+
+  const handleClick = async () => {
+    await router.push(
+      {
+        pathname: router.pathname,
+        query: {
+          article: b64EncodeUnicode(article.id)
+        }
+      },
+      undefined,
+      { shallow: true }
+    )
+    if (onLink) onLink()
+  }
+
   return (
     <Wrap appearance={appearance} layout={layout}>
       {article.preview && (
@@ -188,7 +206,7 @@ export const Card = ({
           )}
         </Header>
 
-        <Name tag={'h4'} onClick={onLink}>
+        <Name tag={'h4'} onClick={handleClick}>
           {article.title}
         </Name>
 

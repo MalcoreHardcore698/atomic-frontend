@@ -14,6 +14,8 @@ import Title from '../../atomic-ui/components/Title'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 import { getLabelRole, getLabelPermission } from '../../atomic-ui/utils/functions'
 
+import { useEntityQuery } from '../../hooks/useEntityQuery'
+
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);
   height: 100%;
@@ -89,6 +91,7 @@ export const Card = ({
   onEdit,
   onDelete
 }) => {
+  const { setQuery } = useEntityQuery()
   const permissions = role.permissions.slice(0, limitPermissions)
   const residue = role.permissions.length - limitPermissions
 
@@ -117,7 +120,7 @@ export const Card = ({
           )}
         </Header>
 
-        <Name tag={'h4'} onClick={onLink}>
+        <Name tag={'h4'} onClick={() => setQuery(role.id, 'role', onLink)}>
           {getLabelRole(role.name)}
         </Name>
       </Column>

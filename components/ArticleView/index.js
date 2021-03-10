@@ -111,7 +111,7 @@ export const View = ({
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
-      {!loading && data ? (
+      {!loading && data.getArticle ? (
         <React.Fragment>
           {data.getArticle.preview && <Poster src={data.getArticle.preview.path} />}
 

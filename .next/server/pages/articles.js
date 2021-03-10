@@ -987,8 +987,10 @@ exports.default = _default;
 /* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("RKiZ");
 /* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("ZeZO");
 /* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("79b8");
-/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("586Q");
+/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("8UhZ");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("586Q");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -1102,6 +1104,9 @@ const Card = ({
 }) => {
   var _project$screenshots, _project$screenshots2, _project$preview, _project$screenshots3, _project$category, _project$category2, _project$description, _project$description2, _project$company, _project$company$avat, _project$company2, _project$company3, _project$company4;
 
+  const {
+    setQuery
+  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__[/* useEntityQuery */ "b"])();
   const [isLiked, setLike] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(liked);
   const screenshots = (project === null || project === void 0 ? void 0 : (_project$screenshots = project.screenshots) === null || _project$screenshots === void 0 ? void 0 : _project$screenshots.slice(0, slicedFactor)) || [];
   const residue = ((project === null || project === void 0 ? void 0 : (_project$screenshots2 = project.screenshots) === null || _project$screenshots2 === void 0 ? void 0 : _project$screenshots2.length) || slicedFactor) - slicedFactor;
@@ -1172,8 +1177,8 @@ const Card = ({
     self: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
-    onClick: onLink
-  }, project.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, ((_project$description = project.description) === null || _project$description === void 0 ? void 0 : _project$description.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, (_project$description2 = project.description) === null || _project$description2 === void 0 ? void 0 : _project$description2.slice(0, 135), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
+    onClick: () => setQuery(project.id, 'project', onLink)
+  }, project.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, ((_project$description = project.description) === null || _project$description === void 0 ? void 0 : _project$description.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, (_project$description2 = project.description) === null || _project$description2 === void 0 ? void 0 : _project$description2.slice(0, 135), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_16__[/* More */ "e"], {
     onClick: onAboutMore
   }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, project.description || 'Описание не заполнено')))), !preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     clear: true
@@ -1185,7 +1190,11 @@ const Card = ({
     label: 'Компания',
     text: ((_project$company2 = project.company) === null || _project$company2 === void 0 ? void 0 : _project$company2.name) || '-',
     tooltip: (_project$company3 = project.company) === null || _project$company3 === void 0 ? void 0 : _project$company3.name,
-    onLink: ((_project$company4 = project.company) === null || _project$company4 === void 0 ? void 0 : _project$company4.email) && onCompanyLink
+    onLink: ((_project$company4 = project.company) === null || _project$company4 === void 0 ? void 0 : _project$company4.email) && onCompanyLink && (() => {
+      var _project$company5;
+
+      return setQuery((_project$company5 = project.company) === null || _project$company5 === void 0 ? void 0 : _project$company5.email, 'user', onCompanyLink);
+    })
   })), !owned && (onLike || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, onLike && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Мне нравится'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
@@ -1449,6 +1458,165 @@ function normalizeLocalePath(pathname, locales) {
 /***/ (function(module, exports) {
 
 module.exports = require("next/router");
+
+/***/ }),
+
+/***/ "4nJQ":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export Header */
+/* unused harmony export Actions */
+/* unused harmony export Name */
+/* unused harmony export Status */
+/* unused harmony export Footer */
+/* unused harmony export Card */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
+/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("8CDE");
+/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("7sPp");
+/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("QUga");
+/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("feIE");
+/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("aBfq");
+/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("RKiZ");
+/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("ZeZO");
+/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("DTT8");
+/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("79b8");
+/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("VWQm");
+/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("8UhZ");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]).withConfig({
+  displayName: "TicketCard__Wrap",
+  componentId: "sc-3sqqk7-0"
+})(["grid-gap:var(--default-gap);height:100%;", " ", " ", ""], ({
+  appearance
+}) => appearance === 'default' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
+  appearance
+}) => appearance === 'ghost' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
+  appearance
+}) => appearance === 'clear' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
+const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+  displayName: "TicketCard__Header",
+  componentId: "sc-3sqqk7-1"
+})(["justify-content:space-between;align-items:center;"]);
+const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+  displayName: "TicketCard__Actions",
+  componentId: "sc-3sqqk7-2"
+})(["grid-gap:5px;height:100%;"]);
+const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).withConfig({
+  displayName: "TicketCard__Name",
+  componentId: "sc-3sqqk7-3"
+})(["transition:opacity 150ms ease;", ""], ({
+  onClick
+}) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["cursor:pointer;&:hover{opacity:0.45;}"]));
+const Status = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_5__[/* default */ "b"]).withConfig({
+  displayName: "TicketCard__Status",
+  componentId: "sc-3sqqk7-4"
+})(["color:", ";"], ({
+  status
+}) => `var(--default-color-${status === 'OPENED' ? 'accent' : 'red'})`);
+const Footer = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+  displayName: "TicketCard__Footer",
+  componentId: "sc-3sqqk7-5"
+})(["justify-content:space-between;align-items:center;flex-grow:1;"]);
+const Card = ({
+  ticket,
+  appearance,
+  className,
+  style,
+  onLink,
+  onAuthorLink,
+  onChecked,
+  onEdit,
+  onDelete
+}) => {
+  var _ticket$category, _ticket$author, _ticket$author$avatar, _ticket$author2, _ticket$messages;
+
+  const {
+    setQuery
+  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_13__[/* useEntityQuery */ "b"])();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
+    className: className,
+    style: style,
+    appearance: appearance
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+    style: {
+      gridGap: 0
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+    date: ticket.createdAt,
+    category: (_ticket$category = ticket.category) === null || _ticket$category === void 0 ? void 0 : _ticket$category.name
+  }), onChecked && onEdit && onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_12__[/* default */ "b"], {
+    text: 'Удалить обращение'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    kind: 'icon',
+    size: 'xs',
+    appearance: 'red',
+    onClick: onDelete
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    icon: 'delete',
+    size: 'xs',
+    stroke: 'white'
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_12__[/* default */ "b"], {
+    text: 'Редактировать обращение'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    kind: 'icon',
+    size: 'xs',
+    onClick: onEdit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    icon: 'edit',
+    size: 'xs',
+    stroke: 'white'
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_12__[/* default */ "b"], {
+    text: 'Отметить обращение',
+    self: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
+    tag: 'h4',
+    onClick: () => setQuery(ticket.id, 'ticket', onLink)
+  }, ticket.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], {
+    style: {
+      gridGap: 5
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Status, {
+    status: ticket.status
+  }, ticket.status))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+    clear: true
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_10__[/* default */ "b"], {
+    label: 'Автор',
+    img: (_ticket$author = ticket.author) === null || _ticket$author === void 0 ? void 0 : (_ticket$author$avatar = _ticket$author.avatar) === null || _ticket$author$avatar === void 0 ? void 0 : _ticket$author$avatar.path,
+    text: (_ticket$author2 = ticket.author) === null || _ticket$author2 === void 0 ? void 0 : _ticket$author2.name,
+    onLink: onAuthorLink && (() => {
+      var _ticket$author3;
+
+      return onAuthorLink((_ticket$author3 = ticket.author) === null || _ticket$author3 === void 0 ? void 0 : _ticket$author3.email);
+    })
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_10__[/* default */ "b"], {
+    icon: 'chat',
+    label: 'Сообщений',
+    text: (_ticket$messages = ticket.messages) === null || _ticket$messages === void 0 ? void 0 : _ticket$messages.length
+  })));
+};
+Card.defaultProps = {
+  appearance: 'default'
+};
+/* harmony default export */ __webpack_exports__["a"] = (Card);
 
 /***/ }),
 
@@ -2542,6 +2710,318 @@ Arrower.defaultProps = {
 
 /***/ }),
 
+/***/ "8UhZ":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ useEntityQuery; });
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__("4Q3z");
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
+// CONCATENATED MODULE: ../atomic-ui/utils/functions.js
+function createSelectOption(option) {
+  return {
+    value: option,
+    label: option
+  }
+}
+
+function createSelectOptions(options) {
+  return options.map((option) => createSelectOption(option))
+}
+
+const getLabelStatus = (status) => {
+  switch (status) {
+    case 'PUBLISHED':
+      return 'Опубликовано'
+    case 'MODERATION':
+      return 'На модерации'
+    default:
+      return status
+  }
+}
+
+const getLabelRole = (role) => {
+  switch (role) {
+    case 'ADMIN':
+      return 'Админ'
+    case 'USER':
+      return 'Пользователь'
+    case 'MODERATOR':
+      return 'Модератор'
+    case 'OFICIAL':
+      return 'Оф. лицо'
+    case 'ENTITY':
+      return 'Юр. лицо'
+    case 'INDIVIDUAL':
+      return 'Физ. лицо'
+    default:
+      return role
+  }
+}
+
+const getLabelCategory = (category) => {
+  switch (category) {
+    case 'TICKET':
+      return 'Тема обращения'
+    case 'DIVISION':
+      return 'Раздел проектов/статей'
+    default:
+      return category
+  }
+}
+
+const getLabelPermission = (permission) => {
+  switch (permission) {
+    case 'ACCESS_CLIENT':
+      return 'Доступ к сайту'
+    case 'ACCESS_DASHBOARD':
+      return 'Доступ к административной панели'
+    case 'VIEW_USER':
+      return 'Просмотр пользователя'
+    case 'VIEW_CATEGORY':
+      return 'Просмотр категории'
+    case 'VIEW_ARTICLE':
+      return 'Просмотр статьи'
+    case 'VIEW_PROJECT':
+      return 'Просмотр проекта'
+    case 'VIEW_TICKET':
+      return 'Просмотр обращения'
+    case 'VIEW_ROLE':
+      return 'Просмотр роли'
+    case 'ADD_USER':
+      return 'Создание пользователя'
+    case 'ADD_CATEGORY':
+      return 'Создание категории'
+    case 'ADD_ARTICLE':
+      return 'Создание статьи'
+    case 'ADD_PROJECT':
+      return 'Создание проекта'
+    case 'EDIT_USER':
+      return 'Редактирвоание пользователя'
+    case 'EDIT_CATEGORY':
+      return 'Редактирование категории'
+    case 'EDIT_ARTICLE':
+      return 'Редактирвоание статьи'
+    case 'EDIT_PROJECT':
+      return 'Редактирвоание проекта'
+    case 'DELETE_USER':
+      return 'Удаление пользователя'
+    case 'DELETE_CATEGORY':
+      return 'Удаление категории'
+    case 'DELETE_ARTICLE':
+      return 'Удаление статьи'
+    case 'DELETE_PROJECT':
+      return 'Удаление проекта'
+    case 'COMMENT_ARTICLE':
+      return 'Комментирование статьи'
+    case 'COMMENT_PROJECT':
+      return 'Комментирование проекта'
+    case 'CHATTING':
+      return 'Общение'
+    default:
+      return 'Не определено'
+  }
+}
+
+const getFileSize = (size) => {
+  if (!size) return 'Неизвестно'
+
+  const limit = 1024
+  const bytes = Number(size)
+  const kilobytes = bytes / limit
+  const megabytes = kilobytes / limit
+  const gigabytes = megabytes / limit
+
+  if (Math.trunc(gigabytes) > 0) return `${Math.round(gigabytes)} ГБ`
+  if (Math.trunc(megabytes) > 0) return `${Math.round(megabytes)} МБ`
+  if (Math.trunc(kilobytes) > 0) return `${Math.round(kilobytes)} КБ`
+  return `${bytes} байт`
+}
+
+const b64EncodeUnicode = (str) => {
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
+      return String.fromCharCode('0x' + p1)
+    })
+  )
+}
+
+const b64DecodeUnicode = (str) => {
+  return decodeURIComponent(
+    atob(str)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+      })
+      .join('')
+  )
+}
+
+// EXTERNAL MODULE: ./hooks/useHelper.js
+var useHelper = __webpack_require__("ApjV");
+
+// EXTERNAL MODULE: ./hooks/useMutate.js
+var useMutate = __webpack_require__("lphG");
+
+// EXTERNAL MODULE: ./store/helpers/article.js + 4 modules
+var article = __webpack_require__("owvJ");
+
+// EXTERNAL MODULE: ./store/helpers/category.js + 2 modules
+var category = __webpack_require__("V9G2");
+
+// EXTERNAL MODULE: ./store/helpers/project.js + 6 modules
+var project = __webpack_require__("IxyI");
+
+// EXTERNAL MODULE: ./store/helpers/role.js + 2 modules
+var role = __webpack_require__("DF00");
+
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+var helpers_user = __webpack_require__("rP4V");
+
+// EXTERNAL MODULE: ./store/helpers/ticket.js + 2 modules
+var ticket = __webpack_require__("ZbFR");
+
+// EXTERNAL MODULE: ./store/actions/user.js
+var actions_user = __webpack_require__("8ihE");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 15 modules
+var queries = __webpack_require__("u2Cb");
+
+// CONCATENATED MODULE: ./hooks/useEntityQuery.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall) => ({
+  id,
+  auth: user === null || user === void 0 ? void 0 : user.email,
+  liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === id),
+  onLike: user.email && mutate(queries["a" /* default */].LIKE_PROJECT, {
+    id
+  }, response => dispatch(Object(actions_user["e" /* updateUser */])(response.data.likeProject))),
+  onAdd: user.email && recall(project["a" /* onProjectAdd */], {
+    id,
+    folders: user === null || user === void 0 ? void 0 : user.folders,
+    mutations: {
+      addProject: queries["a" /* default */].ADD_USER_PROJECT,
+      createFolder: queries["a" /* default */].ADD_USER_FOLDER
+    }
+  }),
+  owned
+});
+
+const getUserLinkProps = (id, user, owned) => ({
+  id,
+  auth: user === null || user === void 0 ? void 0 : user.email,
+  owned,
+  queries: {
+    userChats: queries["a" /* default */].GET_USER_CHATS,
+    chat: queries["a" /* default */].GET_CHAT
+  },
+  mutations: {
+    addUserChat: queries["a" /* default */].ADD_USER_CHAT,
+    sendMessage: queries["a" /* default */].SEND_MESSAGE
+  }
+});
+
+const useEntityQuery = () => {
+  const recall = Object(useHelper["b" /* useHelper */])();
+  const mutate = Object(useMutate["a" /* useMutate */])();
+  const router = Object(router_["useRouter"])();
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const dispatch = Object(external_react_redux_["useDispatch"])();
+
+  const setQuery = async (str, entity, callback) => {
+    await router.push({
+      pathname: router.pathname,
+      query: {
+        [entity]: b64EncodeUnicode(str)
+      }
+    }, undefined, {
+      shallow: true
+    });
+    if (callback) callback(str);
+  };
+
+  const useDetectQuery = () => {
+    Object(external_react_["useEffect"])(() => {
+      const query = router.query;
+
+      if (query.article) {
+        const id = b64DecodeUnicode(query.article);
+        recall(article["d" /* onArticleLink */], {
+          id
+        })();
+      }
+
+      if (query.category) {
+        const id = b64DecodeUnicode(query.category);
+        recall(category["d" /* onCategoryLink */], {
+          id
+        })();
+      }
+
+      if (query.project) {
+        var _user$projects;
+
+        const id = b64DecodeUnicode(query.project);
+        const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === id);
+        recall(project["e" /* onProjectLink */], getProjectLinkProps(id, user, owned, dispatch, mutate, recall))();
+      }
+
+      if (query.role) {
+        const id = b64DecodeUnicode(query.role);
+        recall(role["d" /* onRoleLink */], {
+          id
+        })();
+      }
+
+      if (query.user) {
+        const id = b64DecodeUnicode(query.user);
+        const owned = id === (user === null || user === void 0 ? void 0 : user.name);
+        recall(helpers_user["i" /* onUserLink */], getUserLinkProps(id, user, owned))();
+      }
+
+      if (query.ticket) {
+        const id = b64DecodeUnicode(query.ticket);
+        recall(ticket["d" /* onTicketLink */], {
+          id,
+          auth: user === null || user === void 0 ? void 0 : user.email
+        })();
+      }
+    }, [user, router]);
+  };
+
+  return {
+    setQuery,
+    useDetectQuery
+  };
+};
+/* harmony default export */ var hooks_useEntityQuery = __webpack_exports__["a"] = (useEntityQuery);
+
+/***/ }),
+
 /***/ "8ihE":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2680,6 +3160,415 @@ module.exports = require("react-hook-form");
 /***/ (function(module, exports) {
 
 module.exports = require("react-transition-group");
+
+/***/ }),
+
+/***/ "DF00":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ onRoleLink; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ onRoleCreate; });
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ onRoleEdit; });
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ onRoleDelete; });
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
+var Row = __webpack_require__("nShV");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
+var Column = __webpack_require__("8CDE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
+var Title = __webpack_require__("7sPp");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
+var Input = __webpack_require__("Gliw");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
+var Button = __webpack_require__("ZeZO");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Select/index.js
+var Select = __webpack_require__("QclZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
+var Alert = __webpack_require__("ZwIX");
+
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
+
+// EXTERNAL MODULE: ./components/Form/index.js
+var Form = __webpack_require__("qoM+");
+
+// CONCATENATED MODULE: ./components/FormRole/index.js
+
+
+
+
+
+
+
+
+
+
+const Role = ({
+  role,
+  permissions,
+  mutation,
+  appearance,
+  className,
+  onSubmit
+}) => {
+  var _role$permissions;
+
+  const [permissionsError, setPermissionsError] = Object(external_react_["useState"])(false);
+  const [selectedPermissions, setSelectedPermissions] = Object(external_react_["useState"])((role === null || role === void 0 ? void 0 : (_role$permissions = role.permissions) === null || _role$permissions === void 0 ? void 0 : _role$permissions.map(permission => ({
+    value: permission,
+    label: Object(functions["e" /* getLabelPermission */])(permission)
+  }))) || null);
+  const [disabled, setDisabled] = Object(external_react_["useState"])(true);
+  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+    className: className,
+    appearance: appearance,
+    mutation: mutation,
+    onSubmit: (form, action) => {
+      if ((selectedPermissions === null || selectedPermissions === void 0 ? void 0 : selectedPermissions.length) > 0) {
+        onSubmit({ ...form,
+          permissions: selectedPermissions
+        }, action);
+      } else {
+        setPermissionsError(true);
+      }
+    }
+  }, ({
+    register,
+    loading,
+    errors,
+    getValues
+  }) => /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    tag: 'h4'
+  }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.name && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    style: {
+      width: '100%'
+    },
+    appearance: 'error'
+  }, "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u0440\u043E\u043B\u0438 \u0434\u043E\u043B\u0436\u043D\u043E \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u0442\u043E\u043B\u044C\u043A\u043E \u043B\u0430\u0442\u0438\u043D\u0441\u043A\u0438\u0435 \u0441\u0438\u043C\u0432\u043E\u043B\u044B"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    type: 'text',
+    name: 'name',
+    ref: register({
+      required: true,
+      pattern: /[A-Za-z]/
+    }),
+    onChange: e => {
+      if (e.target.value === (role === null || role === void 0 ? void 0 : role.name)) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    },
+    defaultValue: (role === null || role === void 0 ? void 0 : role.name) || getValues('name'),
+    placeholder: 'Название',
+    appearance: 'ghost',
+    disabled: loading
+  }), permissionsError && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    style: {
+      width: '100%'
+    },
+    appearance: 'error'
+  }, "\u0421\u043F\u0438\u0441\u043E\u043A \u043F\u0440\u0438\u0432\u0438\u043B\u0435\u0433\u0438\u0439 \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u0445\u043E\u0442\u044F \u0431\u044B \u043E\u0434\u0438\u043D \u044D\u043B\u0435\u043C\u0435\u043D\u0442"), /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+    name: 'permissions',
+    appearance: 'ghost',
+    defaultValue: selectedPermissions,
+    onChange: value => {
+      var _role$permissions2;
+
+      setSelectedPermissions(value);
+      setPermissionsError(false);
+
+      if (value.value.length === (role === null || role === void 0 ? void 0 : (_role$permissions2 = role.permissions) === null || _role$permissions2 === void 0 ? void 0 : _role$permissions2.length)) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    },
+    placeholder: 'Выберите привелегии',
+    options: Object(functions["b" /* createSelectOptions */])(permissions).map(option => ({ ...option,
+      label: Object(functions["e" /* getLabelPermission */])(option.label)
+    })),
+    isLoading: loading,
+    isClearable: true,
+    isMulti: true
+  })), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    style: {
+      flexGrow: 1
+    },
+    type: 'submit',
+    disabled: disabled || loading
+  }, role ? 'Сохранить' : 'Создать'))));
+};
+/* harmony default export */ var FormRole = (Role);
+// EXTERNAL MODULE: ./components/FormDelete/index.js
+var FormDelete = __webpack_require__("xAqQ");
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: external "uuid"
+var external_uuid_ = __webpack_require__("kNaX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+var Meta = __webpack_require__("aBfq");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
+var Divider = __webpack_require__("RKiZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Chip/index.js
+var Chip = __webpack_require__("JyfY");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 15 modules
+var queries = __webpack_require__("u2Cb");
+
+// CONCATENATED MODULE: ./components/RoleView/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "RoleView__Wrap",
+  componentId: "sc-3s69fr-0"
+})(["grid-gap:var(--default-gap);height:max-content;", " ", " ", ""], ({
+  appearance
+}) => appearance === 'default' && Object(external_styled_components_["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
+  appearance
+}) => appearance === 'ghost' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
+  appearance
+}) => appearance === 'clear' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
+const Permissions = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "RoleView__Permissions",
+  componentId: "sc-3s69fr-1"
+})(["flex-wrap:wrap;grid-gap:10px;"]);
+const View = ({
+  role,
+  appearance,
+  className,
+  style
+}) => {
+  const {
+    data,
+    loading,
+    error
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_ROLE, {
+    variables: {
+      id: role
+    }
+  });
+  return /*#__PURE__*/external_react_default.a.createElement(Wrap, {
+    className: className,
+    style: style,
+    appearance: appearance
+  }, !loading && data.getRole ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+    style: {
+      gridGap: 0
+    }
+  }, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
+    date: data.getRole.createdAt
+  }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    tag: 'h4'
+  }, Object(functions["f" /* getLabelRole */])(data.getRole.name))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    clear: true
+  }), data.getRole && data.getRole.permissions.length > 0 ? /*#__PURE__*/external_react_default.a.createElement(Permissions, null, data.getRole.permissions.map(permission => /*#__PURE__*/external_react_default.a.createElement(Chip["a" /* default */], {
+    key: Object(external_uuid_["v4"])(),
+    color: 'ghost',
+    appearance: 'outlined'
+  }, Object(functions["e" /* getLabelPermission */])(permission)))) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], null, "\u041F\u0440\u0438\u0432\u0435\u043B\u0435\u0433\u0438\u0438 \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442")) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u0441\u0442\u0430\u0442\u044C\u0435") : /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)));
+};
+View.defaultProps = {
+  appearance: 'default'
+};
+/* harmony default export */ var RoleView = (View);
+// EXTERNAL MODULE: ./store/actions/documents.js
+var documents = __webpack_require__("j8/+");
+
+// EXTERNAL MODULE: ./store/actions/drawer.js
+var drawer = __webpack_require__("Ztxg");
+
+// EXTERNAL MODULE: ./store/actions/snacks.js
+var snacks = __webpack_require__("9Xo6");
+
+// CONCATENATED MODULE: ./store/helpers/role.js
+
+
+
+
+
+
+
+function onRoleLink(dispatch, props) {
+  const {
+    id
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'lock',
+    title: 'Роль',
+    content: /*#__PURE__*/external_react_default.a.createElement(RoleView, {
+      role: id,
+      appearance: 'clear'
+    })
+  }));
+}
+function onRoleCreate(dispatch, props) {
+  const {
+    permissions,
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'lock',
+    title: 'Создание роли',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormRole, {
+      mutation: mutation,
+      permissions: permissions,
+      appearance: 'clear',
+      onSubmit: async (form, action) => {
+        try {
+          const roles = await action({
+            variables: {
+              input: {
+                name: form.name,
+                permissions: form.permissions.map(permission => permission.value)
+              }
+            }
+          });
+          dispatch(Object(documents["a" /* setDocuments */])(roles.data.createRole));
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Роль успешно создана'
+          }));
+        } catch (_unused) {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось создать роль'
+          }));
+        }
+      }
+    })
+  }));
+}
+function onRoleEdit(dispatch, props) {
+  const {
+    role,
+    permissions,
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'lock',
+    title: 'Редактирование роли',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormRole, {
+      role: role,
+      mutation: mutation,
+      permissions: permissions,
+      appearance: 'clear',
+      onSubmit: async (form, action) => {
+        try {
+          const roles = await action({
+            variables: {
+              id: role.id,
+              input: {
+                name: form.name,
+                permissions: form.permissions.map(permission => permission.value)
+              }
+            }
+          });
+          dispatch(Object(documents["a" /* setDocuments */])(roles.data.updateRole));
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Роль успешно отредактирована'
+          }));
+        } catch (_unused2) {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось отредактировать роль'
+          }));
+        }
+      }
+    })
+  }));
+}
+function onRoleDelete(dispatch, props) {
+  const {
+    role,
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'delete',
+    color: 'red',
+    title: 'Удаление роли',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormDelete["a" /* default */], {
+      mutation: mutation,
+      appearance: 'clear',
+      onCancel: () => dispatch(Object(drawer["a" /* setDrawer */])(null)),
+      onSubmit: async (_, action) => {
+        try {
+          const roles = await action({
+            variables: {
+              id: role.id
+            }
+          });
+          dispatch(Object(documents["a" /* setDocuments */])(roles.data.deleteRole));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Роль успешно удалена'
+          }));
+        } catch (_unused3) {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось удалить роль'
+          }));
+        } finally {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+        }
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(RoleView, {
+      role: role,
+      appearance: 'clear'
+    }))
+  }));
+}
 
 /***/ }),
 
@@ -3592,7 +4481,7 @@ const Project = ({
       control: control,
       defaultValue: getValues('category') || ((_data$getProject7 = data.getProject) !== null && _data$getProject7 !== void 0 && _data$getProject7.category ? {
         value: data.getProject.category.id,
-        label: Object(functions["c" /* getLabelCategory */])(data.getProject.category.name)
+        label: Object(functions["d" /* getLabelCategory */])(data.getProject.category.name)
       } : null),
       render: ({
         value,
@@ -3602,7 +4491,7 @@ const Project = ({
         placeholder: 'Выберите раздел',
         options: categories.filter(category => category.type === 'DIVISION').map(item => ({
           value: item.id,
-          label: Object(functions["c" /* getLabelCategory */])(item.name)
+          label: Object(functions["d" /* getLabelCategory */])(item.name)
         })),
         onChange: onChange,
         defaultValue: value,
@@ -3664,7 +4553,7 @@ const Project = ({
       }, /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
         key: ((_member$value = member.value) === null || _member$value === void 0 ? void 0 : _member$value.email) || (member === null || member === void 0 ? void 0 : member.email),
         img: ((_member$value2 = member.value) === null || _member$value2 === void 0 ? void 0 : (_member$value2$avatar = _member$value2.avatar) === null || _member$value2$avatar === void 0 ? void 0 : _member$value2$avatar.path) || ((_member$avatar = member.avatar) === null || _member$avatar === void 0 ? void 0 : _member$avatar.path) || '/images/avatar-default.png',
-        label: Object(functions["e" /* getLabelRole */])((member === null || member === void 0 ? void 0 : (_member$value3 = member.value) === null || _member$value3 === void 0 ? void 0 : _member$value3.account) || (member === null || member === void 0 ? void 0 : member.account)),
+        label: Object(functions["f" /* getLabelRole */])((member === null || member === void 0 ? void 0 : (_member$value3 = member.value) === null || _member$value3 === void 0 ? void 0 : _member$value3.account) || (member === null || member === void 0 ? void 0 : member.account)),
         text: ((_member$value4 = member.value) === null || _member$value4 === void 0 ? void 0 : _member$value4.name) || (member === null || member === void 0 ? void 0 : member.name)
       }), /*#__PURE__*/external_react_default.a.createElement(RemoveTooltip, {
         place: 'left',
@@ -3706,7 +4595,7 @@ const Project = ({
         key: screenshot.id,
         img: screenshot.blob || ((_screenshot$file = screenshot.file) === null || _screenshot$file === void 0 ? void 0 : _screenshot$file.path) || screenshot.path,
         label: (((_screenshot$file2 = screenshot.file) === null || _screenshot$file2 === void 0 ? void 0 : _screenshot$file2.name) || ((_screenshot$file3 = screenshot.file) === null || _screenshot$file3 === void 0 ? void 0 : _screenshot$file3.path) || (screenshot === null || screenshot === void 0 ? void 0 : screenshot.name) || (screenshot === null || screenshot === void 0 ? void 0 : screenshot.path)).split('/').slice(-1)[0],
-        text: Object(functions["b" /* getFileSize */])(screenshot.size || ((_screenshot$file4 = screenshot.file) === null || _screenshot$file4 === void 0 ? void 0 : _screenshot$file4.size))
+        text: Object(functions["c" /* getFileSize */])(screenshot.size || ((_screenshot$file4 = screenshot.file) === null || _screenshot$file4 === void 0 ? void 0 : _screenshot$file4.size))
       }), !project && /*#__PURE__*/external_react_default.a.createElement(RemoveTooltip, {
         place: 'left',
         text: 'Удалить'
@@ -3743,7 +4632,7 @@ const Project = ({
         key: file.id,
         icon: 'document',
         label: (((_file$file = file.file) === null || _file$file === void 0 ? void 0 : _file$file.name) || ((_file$file2 = file.file) === null || _file$file2 === void 0 ? void 0 : _file$file2.path) || (file === null || file === void 0 ? void 0 : file.name) || (file === null || file === void 0 ? void 0 : file.path)).split('/').slice(-1)[0],
-        text: Object(functions["b" /* getFileSize */])(file.size || ((_file$file3 = file.file) === null || _file$file3 === void 0 ? void 0 : _file$file3.size))
+        text: Object(functions["c" /* getFileSize */])(file.size || ((_file$file3 = file.file) === null || _file$file3 === void 0 ? void 0 : _file$file3.size))
       }), !project && /*#__PURE__*/external_react_default.a.createElement(RemoveTooltip, {
         place: 'left',
         text: 'Удалить'
@@ -3784,7 +4673,7 @@ const Project = ({
       control: control,
       defaultValue: getValues('status') || ((_data$getProject11 = data.getProject) !== null && _data$getProject11 !== void 0 && _data$getProject11.status ? {
         value: data.getProject.status,
-        label: Object(functions["f" /* getLabelStatus */])(data.getProject.status)
+        label: Object(functions["g" /* getLabelStatus */])(data.getProject.status)
       } : null),
       render: ({
         value,
@@ -3794,7 +4683,7 @@ const Project = ({
         placeholder: 'Выберите статус',
         options: statuses.map(item => ({
           value: item,
-          label: Object(functions["f" /* getLabelStatus */])(item)
+          label: Object(functions["g" /* getLabelStatus */])(item)
         })),
         onChange: onChange,
         defaultValue: value,
@@ -3836,11 +4725,15 @@ var external_react_youtube_default = /*#__PURE__*/__webpack_require__.n(external
 // EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
 var Meta = __webpack_require__("aBfq");
 
+// EXTERNAL MODULE: ./hooks/useEntityQuery.js + 1 modules
+var useEntityQuery = __webpack_require__("8UhZ");
+
 // EXTERNAL MODULE: ./components/HTMLView/index.js
 var HTMLView = __webpack_require__("ji1G");
 
 // CONCATENATED MODULE: ./components/ProjectView/index.js
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -3948,6 +4841,9 @@ const View = ({
   var _data$getProject$scre, _data$getProject$cate, _data$getProject$comp, _data$getProject$comp2, _data$getProject$comp3, _data$getProject$memb, _data$getProject$memb2, _data$getProject$file;
 
   const {
+    setQuery
+  } = Object(useEntityQuery["b" /* useEntityQuery */])();
+  const {
     data,
     loading,
     error
@@ -3967,7 +4863,7 @@ const View = ({
   };
 
   Object(external_react_["useEffect"])(() => {
-    if (!loading && data) {
+    if (!loading && data.getProject) {
       var _url$searchParams;
 
       const response = data.getProject;
@@ -3983,7 +4879,7 @@ const View = ({
     className: className,
     style: style,
     appearance: appearance
-  }, !loading && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Container, null, /*#__PURE__*/external_react_default.a.createElement(Media, null, data.getProject.preview ? /*#__PURE__*/external_react_default.a.createElement(Poster, {
+  }, !loading && data.getProject ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Container, null, /*#__PURE__*/external_react_default.a.createElement(Media, null, data.getProject.preview ? /*#__PURE__*/external_react_default.a.createElement(Poster, {
     src: data.getProject.preview.path,
     onClick: () => onScreenshotClick && onScreenshotClick(data.getProject.preview, data.getProject.preview.id, [data.getProject.preview, ...data.getProject.screenshots])
   }) : /*#__PURE__*/external_react_default.a.createElement(CentralAlert, null, "\u041F\u0440\u0435\u0432\u044C\u044E \u043D\u0435\u0442"), data.getProject.screenshots && ((_data$getProject$scre = data.getProject.screenshots) === null || _data$getProject$scre === void 0 ? void 0 : _data$getProject$scre.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Screenshots, null, screenshots.map((screenshot, index) => /*#__PURE__*/external_react_default.a.createElement(ProjectView_Screenshot, {
@@ -4012,7 +4908,7 @@ const View = ({
     onLink: () => {
       var _data$getProject$comp4;
 
-      return onCompanyLink((_data$getProject$comp4 = data.getProject.company) === null || _data$getProject$comp4 === void 0 ? void 0 : _data$getProject$comp4.email);
+      return setQuery((_data$getProject$comp4 = data.getProject.company) === null || _data$getProject$comp4 === void 0 ? void 0 : _data$getProject$comp4.email, 'user', onCompanyLink);
     }
   })), !owned && (onLike || onAdd) && /*#__PURE__*/external_react_default.a.createElement(Actions, null, onLike && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
     text: 'Мне нравится'
@@ -4052,9 +4948,9 @@ const View = ({
     return /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
       key: member.email,
       img: ((_member$avatar = member.avatar) === null || _member$avatar === void 0 ? void 0 : _member$avatar.path) || '/images/avatar-default.png',
-      label: Object(functions["e" /* getLabelRole */])(member.account),
+      label: Object(functions["f" /* getLabelRole */])(member.account),
       text: member.name,
-      onLink: () => onMemberLink && onMemberLink(member.email)
+      onLink: onMemberLink && (() => setQuery(member.email, 'user', onMemberLink))
     });
   })), (!data.getProject.members || ((_data$getProject$memb2 = data.getProject.members) === null || _data$getProject$memb2 === void 0 ? void 0 : _data$getProject$memb2.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
@@ -4071,14 +4967,14 @@ const View = ({
     key: file.id,
     icon: 'paper',
     label: file.filename,
-    text: Object(functions["b" /* getFileSize */])(file.size),
+    text: Object(functions["c" /* getFileSize */])(file.size),
     onLink: () => onFileLink && onFileLink(file)
   }))), (!data.getProject.files || ((_data$getProject$file = data.getProject.files) === null || _data$getProject$file === void 0 ? void 0 : _data$getProject$file.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u0424\u0430\u0439\u043B\u043E\u0432 \u043D\u0435\u0442")) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }, "\u0424\u0430\u0439\u043B\u043E\u0432 \u043D\u0435\u0442")) : error || !loading && !(data !== null && data !== void 0 && data.getProject) ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     appearance: 'error',
     style: {
       width: '100%',
@@ -4429,7 +5325,7 @@ function onProjectDelete(dispatch, props) {
 }
 function onProjectAdd(dispatch, props) {
   const {
-    project,
+    id,
     folders,
     mutations
   } = props;
@@ -4444,7 +5340,7 @@ function onProjectAdd(dispatch, props) {
       key: folder.id,
       onClick: () => {
         dispatch(Object(root["k" /* setMutate */])(mutations.addProject, {
-          project: project.id,
+          project: id,
           folder: folder.id
         }));
         dispatch(Object(modal["a" /* setModal */])(null));
@@ -4772,12 +5668,14 @@ const Container = (_ref) => {
 
 "use strict";
 /* unused harmony export createSelectOption */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return createSelectOptions; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getLabelStatus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getLabelRole; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getLabelCategory; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getLabelPermission; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getFileSize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return createSelectOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getLabelStatus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return getLabelRole; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getLabelCategory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getLabelPermission; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getFileSize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return b64EncodeUnicode; });
+/* unused harmony export b64DecodeUnicode */
 function createSelectOption(option) {
   return {
     value: option,
@@ -4921,6 +5819,16 @@ const getFileSize = size => {
   if (Math.trunc(megabytes) > 0) return `${Math.round(megabytes)} МБ`;
   if (Math.trunc(kilobytes) > 0) return `${Math.round(kilobytes)} КБ`;
   return `${bytes} байт`;
+};
+const b64EncodeUnicode = str => {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function toSolidBytes(match, p1) {
+    return String.fromCharCode('0x' + p1);
+  }));
+};
+const b64DecodeUnicode = str => {
+  return decodeURIComponent(atob(str).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
 };
 
 /***/ }),
@@ -5782,7 +6690,7 @@ const Ticket = ({
       control: control,
       defaultValue: (_data$getTicket5 = data.getTicket) !== null && _data$getTicket5 !== void 0 && _data$getTicket5.category ? {
         value: data.getTicket.category.id,
-        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__[/* getLabelCategory */ "c"])(data.getTicket.category.name)
+        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__[/* getLabelCategory */ "d"])(data.getTicket.category.name)
       } : null,
       render: ({
         value,
@@ -5792,7 +6700,7 @@ const Ticket = ({
         placeholder: 'Выберите раздел',
         options: !loadingCategories && dataCategories ? dataCategories.getCategories.filter(item => item.type === 'TICKET').map(item => ({
           value: item.id,
-          label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__[/* getLabelCategory */ "c"])(item.name)
+          label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__[/* getLabelCategory */ "d"])(item.name)
         })) : [],
         onChange: onChange,
         defaultValue: value,
@@ -6699,8 +7607,10 @@ module.exports = _interopRequireDefault;
 /* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("DTT8");
 /* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("79b8");
 /* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("NWnW");
-/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("586Q");
+/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("8UhZ");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("586Q");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -6784,6 +7694,9 @@ const Card = ({
 }) => {
   var _user$avatar, _user$about, _user$projects, _user$company, _user$company$avatar, _user$company2;
 
+  const {
+    setQuery
+  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__[/* useEntityQuery */ "b"])();
   const [isAdded, setAdded] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(added);
 
   const onClickAdd = () => {
@@ -6805,7 +7718,7 @@ const Card = ({
       gridGap: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "e"])(user.account)
+    category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "f"])(user.account)
   }), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
     text: 'Удалить пользователя'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
@@ -6832,8 +7745,8 @@ const Card = ({
     self: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
-    onClick: onLink
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about.slice(0, 100), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
+    onClick: () => setQuery(user.email, 'user', onLink)
+  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about.slice(0, 100), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_16__[/* More */ "e"], {
     onClick: onAboutMore
   }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
     icon: 'work',
@@ -6853,7 +7766,7 @@ const Card = ({
   }, {
     label: 'Компания',
     text: ((_user$company2 = user.company) === null || _user$company2 === void 0 ? void 0 : _user$company2.name) || '-',
-    onLink: user.company && onCompanyLink
+    onLink: user.company && onCompanyLink && (() => setQuery(user.company.email, 'user', onCompanyLink))
   })), !owned && (onChat || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, onChat && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
     text: 'Написать пользователю'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
@@ -7022,6 +7935,9 @@ module.exports = require("next/dist/next-server/lib/router/utils/get-asset-path-
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__("4Q3z");
+
 // EXTERNAL MODULE: external "styled-components"
 var external_styled_components_ = __webpack_require__("Dtiu");
 var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
@@ -7091,7 +8007,12 @@ var Checkbox = __webpack_require__("79b8");
 // EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
 var Tooltip = __webpack_require__("VWQm");
 
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
+
 // CONCATENATED MODULE: ./components/ArticleCard/index.js
+
+
 
 
 
@@ -7161,6 +8082,20 @@ const Card = ({
 }) => {
   var _article$preview, _article$category;
 
+  const router = Object(router_["useRouter"])();
+
+  const handleClick = async () => {
+    await router.push({
+      pathname: router.pathname,
+      query: {
+        article: Object(functions["a" /* b64EncodeUnicode */])(article.id)
+      }
+    }, undefined, {
+      shallow: true
+    });
+    if (onLink) onLink();
+  };
+
   return /*#__PURE__*/external_react_default.a.createElement(ArticleCard_Wrap, {
     appearance: appearance,
     layout: layout
@@ -7205,7 +8140,7 @@ const Card = ({
     self: true
   }, /*#__PURE__*/external_react_default.a.createElement(Checkbox["a" /* default */], null)))), /*#__PURE__*/external_react_default.a.createElement(Name, {
     tag: 'h4',
-    onClick: onLink
+    onClick: handleClick
   }, article.title), article.body && /*#__PURE__*/external_react_default.a.createElement(ShortText, {
     content: article.body
   }), !preview && /*#__PURE__*/external_react_default.a.createElement(components_More, {
@@ -7396,6 +8331,423 @@ Image.defaultProps = {
   scale: 2
 };
 /* harmony default export */ __webpack_exports__["a"] = (Image);
+
+/***/ }),
+
+/***/ "V9G2":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ onCategoryLink; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ onCategoryCreate; });
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ onCategoryEdit; });
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ onCategoryDelete; });
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
+var Row = __webpack_require__("nShV");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
+var Column = __webpack_require__("8CDE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
+var Title = __webpack_require__("7sPp");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
+var Input = __webpack_require__("Gliw");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
+var Button = __webpack_require__("ZeZO");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Select/index.js
+var Select = __webpack_require__("QclZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/TextArea/index.js
+var TextArea = __webpack_require__("3jgA");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
+var Alert = __webpack_require__("ZwIX");
+
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
+
+// EXTERNAL MODULE: ./components/Form/index.js
+var Form = __webpack_require__("qoM+");
+
+// CONCATENATED MODULE: ./components/FormCategory/index.js
+
+
+
+
+
+
+
+
+
+
+
+const Category = ({
+  category,
+  categoryTypes,
+  mutation,
+  appearance,
+  className,
+  onSubmit
+}) => {
+  const [typeError, setTypeError] = Object(external_react_["useState"])(false);
+  const [type, setType] = Object(external_react_["useState"])(category && category.type && {
+    value: category.type,
+    label: Object(functions["d" /* getLabelCategory */])(category.type)
+  } || null);
+  const [disabled, setDisabled] = Object(external_react_["useState"])(true);
+  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+    className: className,
+    appearance: appearance,
+    mutation: mutation,
+    onSubmit: (form, action) => {
+      if (type) {
+        onSubmit({ ...form,
+          type
+        }, action);
+      } else {
+        setTypeError(true);
+      }
+    }
+  }, ({
+    register,
+    loading,
+    errors,
+    getValues
+  }) => /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    tag: 'h4'
+  }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.name && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    style: {
+      width: '100%'
+    },
+    appearance: 'error'
+  }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    type: 'text',
+    name: 'name',
+    ref: register({
+      required: true
+    }),
+    onChange: e => {
+      if (e.target.value === (category === null || category === void 0 ? void 0 : category.name)) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    },
+    defaultValue: (category === null || category === void 0 ? void 0 : category.name) || getValues('name'),
+    placeholder: 'Название',
+    appearance: 'ghost',
+    disabled: loading
+  }), typeError && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    style: {
+      width: '100%'
+    },
+    appearance: 'error'
+  }, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0442\u0438\u043F \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438"), /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+    name: 'type',
+    appearance: 'ghost',
+    defaultValue: type,
+    onChange: value => {
+      setType(value);
+      setTypeError(false);
+
+      if (value.value === (category === null || category === void 0 ? void 0 : category.type)) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    },
+    placeholder: 'Выберите тип',
+    options: categoryTypes.map(type => ({
+      value: type,
+      label: Object(functions["d" /* getLabelCategory */])(type)
+    })),
+    isLoading: loading,
+    isClearable: true
+  }), /*#__PURE__*/external_react_default.a.createElement(TextArea["a" /* default */], {
+    name: 'description',
+    ref: register(),
+    onChange: e => {
+      if (e.target.value === (category === null || category === void 0 ? void 0 : category.description)) {
+        setDisabled(true);
+      } else {
+        setDisabled(false);
+      }
+    },
+    defaultValue: (category === null || category === void 0 ? void 0 : category.description) || getValues('description'),
+    placeholder: 'Описание',
+    appearance: 'ghost',
+    disabled: loading
+  })), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    style: {
+      flexGrow: 1
+    },
+    type: 'submit',
+    disabled: disabled || loading
+  }, category ? 'Сохранить' : 'Создать'))));
+};
+Category.defaultProps = {
+  create: true
+};
+/* harmony default export */ var FormCategory = (Category);
+// EXTERNAL MODULE: ./components/FormDelete/index.js
+var FormDelete = __webpack_require__("xAqQ");
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
+var Text = __webpack_require__("QUga");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
+var Image = __webpack_require__("V0nP");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+var Meta = __webpack_require__("aBfq");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 15 modules
+var queries = __webpack_require__("u2Cb");
+
+// CONCATENATED MODULE: ./components/CategoryView/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "CategoryView__Wrap",
+  componentId: "sc-1leuzf2-0"
+})(["", " ", " ", ""], ({
+  appearance
+}) => appearance === 'default' && Object(external_styled_components_["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
+  appearance
+}) => appearance === 'ghost' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
+  appearance
+}) => appearance === 'clear' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
+const Poster = external_styled_components_default()(Image["a" /* default */]).withConfig({
+  displayName: "CategoryView__Poster",
+  componentId: "sc-1leuzf2-1"
+})(["object-fit:cover;width:100%;height:512px;border-radius:var(--surface-border-radius);"]);
+const Content = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "CategoryView__Content",
+  componentId: "sc-1leuzf2-2"
+})(["grid-gap:0;"]);
+const View = ({
+  category,
+  appearance,
+  className,
+  style
+}) => {
+  const {
+    data,
+    loading,
+    error
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_CATEGORY, {
+    variables: {
+      id: category
+    }
+  });
+  return /*#__PURE__*/external_react_default.a.createElement(Wrap, {
+    className: className,
+    style: style,
+    appearance: appearance
+  }, !loading && data.getCategory ? /*#__PURE__*/external_react_default.a.createElement(Content, null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
+    date: data.getCategory.createdAt,
+    category: Object(functions["d" /* getLabelCategory */])(data.getCategory.type)
+  }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    tag: 'h4'
+  }, data.getCategory.name), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data.getCategory.description)) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u0441\u0442\u0430\u0442\u044C\u0435") : /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)));
+};
+View.defaultProps = {
+  appearance: 'default'
+};
+/* harmony default export */ var CategoryView = (View);
+// EXTERNAL MODULE: ./store/actions/documents.js
+var documents = __webpack_require__("j8/+");
+
+// EXTERNAL MODULE: ./store/actions/drawer.js
+var drawer = __webpack_require__("Ztxg");
+
+// EXTERNAL MODULE: ./store/actions/snacks.js
+var snacks = __webpack_require__("9Xo6");
+
+// CONCATENATED MODULE: ./store/helpers/category.js
+
+
+
+
+
+
+
+function onCategoryLink(dispatch, props) {
+  const {
+    id
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'folder',
+    title: 'Категория',
+    content: /*#__PURE__*/external_react_default.a.createElement(CategoryView, {
+      category: id,
+      appearance: 'clear'
+    })
+  }));
+}
+function onCategoryCreate(dispatch, props) {
+  const {
+    types,
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'folder',
+    title: 'Создание категории',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormCategory, {
+      mutation: mutation,
+      categoryTypes: types,
+      appearance: 'clear',
+      onSubmit: async (form, action) => {
+        try {
+          const categories = await action({
+            variables: {
+              input: {
+                name: form.name,
+                type: form.type.value,
+                description: form.description
+              }
+            }
+          });
+          dispatch(Object(documents["a" /* setDocuments */])(categories.data.createCategory));
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Категория успешно создана'
+          }));
+        } catch (_unused) {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось создать категорию'
+          }));
+        }
+      }
+    })
+  }));
+}
+function onCategoryEdit(dispatch, props) {
+  const {
+    category,
+    types,
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'folder',
+    title: 'Редактирование категории',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormCategory, {
+      category: category,
+      mutation: mutation,
+      categoryTypes: types,
+      appearance: 'clear',
+      onSubmit: async (form, action) => {
+        try {
+          const categories = await action({
+            variables: {
+              id: category.id,
+              input: {
+                name: form.name,
+                type: form.type.value,
+                description: form.description
+              }
+            }
+          });
+          dispatch(Object(documents["a" /* setDocuments */])(categories.data.updateCategory));
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Категория успешно отредактирована'
+          }));
+        } catch (_unused2) {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось отредактировать категорию'
+          }));
+        }
+      }
+    })
+  }));
+}
+function onCategoryDelete(dispatch, props) {
+  const {
+    category,
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'delete',
+    color: 'red',
+    title: 'Удаление категории',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormDelete["a" /* default */], {
+      mutation: mutation,
+      appearance: 'clear',
+      onCancel: () => dispatch(Object(drawer["a" /* setDrawer */])(null)),
+      onSubmit: async (_, action) => {
+        try {
+          const categories = await action({
+            variables: {
+              id: category.id
+            }
+          });
+          dispatch(Object(documents["a" /* setDocuments */])(categories.data.deleteCategory));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Категория успешно удалена'
+          }));
+        } catch (_unused3) {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось удалить категорию'
+          }));
+        } finally {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+        }
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(CategoryView, {
+      category: category,
+      appearance: 'clear'
+    }))
+  }));
+}
 
 /***/ }),
 
@@ -8332,6 +9684,559 @@ function getRouteRegex(normalizedRoute) {
     re: new RegExp(`^${parameterizedRoute}(?:/)?$`),
     groups
   };
+}
+
+/***/ }),
+
+/***/ "ZbFR":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ onTicketLink; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ onTicketCreate; });
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ onTicketEdit; });
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ onTicketDelete; });
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: ./components/FormTicket/index.js
+var FormTicket = __webpack_require__("PYoj");
+
+// EXTERNAL MODULE: ./components/FormDelete/index.js
+var FormDelete = __webpack_require__("xAqQ");
+
+// EXTERNAL MODULE: ./components/TicketCard/index.js
+var TicketCard = __webpack_require__("4nJQ");
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
+var Row = __webpack_require__("nShV");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
+var Column = __webpack_require__("8CDE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Member/index.js
+var Member = __webpack_require__("otXJ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
+var Alert = __webpack_require__("ZwIX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Search/index.js
+var Search = __webpack_require__("t7jn");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
+var Difinition = __webpack_require__("DTT8");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
+var Button = __webpack_require__("ZeZO");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+var Icon = __webpack_require__("feIE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
+var Text = __webpack_require__("QUga");
+
+// EXTERNAL MODULE: ./atomic-ui/components/DateText/index.js
+var DateText = __webpack_require__("+nv6");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Message/index.js
+var Message = __webpack_require__("7ni8");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
+var Input = __webpack_require__("Gliw");
+
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
+
+// CONCATENATED MODULE: ./components/TicketChat/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "TicketChat__Wrap",
+  componentId: "sc-3e5jur-0"
+})(["width:100%;flex-grow:1;"]);
+const Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "TicketChat__Header",
+  componentId: "sc-3e5jur-1"
+})(["justify-content:space-between;width:100%;"]);
+const Messages = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "TicketChat__Messages",
+  componentId: "sc-3e5jur-2"
+})(["position:relative;background:#fbfbfb;border-radius:var(--surface-border-radius);padding:var(--default-gap);padding-top:55px;flex-grow:1;"]);
+const Meta = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "TicketChat__Meta",
+  componentId: "sc-3e5jur-3"
+})(["position:absolute;top:0;left:0;width:100%;justify-content:space-between;padding:8px var(--default-gap);border-radius:var(--surface-border-radius) var(--surface-border-radius) 0 0;background:var(--ghost-color-background);time{font-size:var(--font-size-m);font-weight:var(--font-weight-regular);color:var(--default-color-text);}"]);
+const AuthAlert = external_styled_components_default()(Alert["a" /* default */]).withConfig({
+  displayName: "TicketChat__AuthAlert",
+  componentId: "sc-3e5jur-4"
+})(["width:100%;text-align:center;"]);
+const Empty = external_styled_components_default()(Text["b" /* default */]).withConfig({
+  displayName: "TicketChat__Empty",
+  componentId: "sc-3e5jur-5"
+})(["display:flex;justify-content:center;align-items:center;width:100%;height:100%;flex-grow:1;"]);
+const TicketChat = ({
+  auth,
+  ticket,
+  loading,
+  onLink,
+  onFinish,
+  // onReport,
+  onAttach,
+  onSubmit,
+  ...props
+}) => {
+  var _ticket$counsellor, _ticket$author, _ticket$messages, _ticket$counsellor3, _ticket$counsellor4;
+
+  const [message, setMessage] = Object(external_react_["useState"])('');
+  const messageRef = Object(external_react_["useRef"])(null);
+  const isAccess = (ticket === null || ticket === void 0 ? void 0 : (_ticket$counsellor = ticket.counsellor) === null || _ticket$counsellor === void 0 ? void 0 : _ticket$counsellor.email) === auth;
+  return /*#__PURE__*/external_react_default.a.createElement(Wrap, props, /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
+    label: 'Автор обращения',
+    text: ticket !== null && ticket !== void 0 && (_ticket$author = ticket.author) !== null && _ticket$author !== void 0 && _ticket$author.name && !loading ? ticket.author.name : '-'
+  }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, (ticket === null || ticket === void 0 ? void 0 : ticket.status) !== 'CLOSED' && /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    onClick: onFinish,
+    disabled: !isAccess || loading || !ticket
+  }, "\u0417\u0430\u043A\u0440\u044B\u0442\u044C \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435"))), /*#__PURE__*/external_react_default.a.createElement(Messages, null, /*#__PURE__*/external_react_default.a.createElement(Meta, null, /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u0422\u0435\u043C\u0430: ", ticket !== null && ticket !== void 0 && ticket.title && !loading ? ticket.title : '-'), ticket !== null && ticket !== void 0 && ticket.createdAt && !loading ? /*#__PURE__*/external_react_default.a.createElement(DateText["a" /* default */], {
+    text: ticket.createdAt,
+    options: {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }
+  }) : /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "-")), !loading && (ticket === null || ticket === void 0 ? void 0 : (_ticket$messages = ticket.messages) === null || _ticket$messages === void 0 ? void 0 : _ticket$messages.length) > 0 ? ((ticket === null || ticket === void 0 ? void 0 : ticket.messages) || []).map(message => {
+    var _message$user, _message$user$avatar, _message$user2, _ticket$counsellor2, _message$user3;
+
+    return /*#__PURE__*/external_react_default.a.createElement(Message["a" /* default */], {
+      key: message.id,
+      avatar: (_message$user = message.user) === null || _message$user === void 0 ? void 0 : (_message$user$avatar = _message$user.avatar) === null || _message$user$avatar === void 0 ? void 0 : _message$user$avatar.path,
+      side: ((_message$user2 = message.user) === null || _message$user2 === void 0 ? void 0 : _message$user2.email) === ((_ticket$counsellor2 = ticket.counsellor) === null || _ticket$counsellor2 === void 0 ? void 0 : _ticket$counsellor2.email) ? 'owner' : 'observer',
+      name: (_message$user3 = message.user) === null || _message$user3 === void 0 ? void 0 : _message$user3.name,
+      text: message.text,
+      time: message.createdAt !== message.updatedAt ? message.updatedAt : message.createdAt,
+      tails: {
+        default: '/parts/tail.svg',
+        owner: '/parts/tail-owner.svg'
+      },
+      onLink: () => onLink(message.user)
+    });
+  }) : loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : !ticket ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    appearance: 'error',
+    style: {
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E\u0431 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0438") : /*#__PURE__*/external_react_default.a.createElement(Empty, null, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435")), isAccess ? /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    kind: 'icon',
+    disabled: loading || !ticket,
+    onSubmit: onAttach
+  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+    icon: 'attach',
+    stroke: 'white'
+  })), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    ref: messageRef,
+    placeholder: 'Отправьте сообщенение...',
+    disabled: loading || !ticket,
+    appearance: 'ghost',
+    onChange: e => {
+      var _e$target;
+
+      return setMessage((e === null || e === void 0 ? void 0 : (_e$target = e.target) === null || _e$target === void 0 ? void 0 : _e$target.value) || '');
+    },
+    onKeyDown: e => {
+      // Pressed ENTER
+      if (e.keyCode === 13) {
+        onSubmit(message);
+        messageRef.current.value = '';
+      }
+    },
+    tabIndex: -1
+  }), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    kind: 'icon',
+    disabled: loading || !ticket,
+    onClick: () => {
+      onSubmit(message);
+      messageRef.current.value = '';
+    }
+  }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+    icon: 'send',
+    stroke: 'white'
+  }))) : loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : /*#__PURE__*/external_react_default.a.createElement(AuthAlert, null, "\u0414\u043B\u044F \u043E\u0442\u0432\u0435\u0442\u0430 \u043D\u0430 \u044D\u0442\u043E \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435, \u0430\u0432\u0442\u043E\u0440\u0438\u0437\u0443\u0439\u0442\u0435\u0441\u044C \u043F\u043E\u0434 \u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u0435\u043C ", ticket === null || ticket === void 0 ? void 0 : (_ticket$counsellor3 = ticket.counsellor) === null || _ticket$counsellor3 === void 0 ? void 0 : _ticket$counsellor3.name, " (", ticket === null || ticket === void 0 ? void 0 : (_ticket$counsellor4 = ticket.counsellor) === null || _ticket$counsellor4 === void 0 ? void 0 : _ticket$counsellor4.email, ")"));
+};
+/* harmony default export */ var components_TicketChat = (TicketChat);
+// EXTERNAL MODULE: ./store/actions/documents.js
+var actions_documents = __webpack_require__("j8/+");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 15 modules
+var queries = __webpack_require__("u2Cb");
+
+// CONCATENATED MODULE: ./components/TicketView/index.js
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const TicketView_Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "TicketView__Wrap",
+  componentId: "sc-1wxiq0b-0"
+})(["height:100%;flex-grow:1;@media only screen and (max-width:568px){flex-direction:column;}", " ", " ", ""], ({
+  appearance
+}) => appearance === 'default' && Object(external_styled_components_["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
+  appearance
+}) => appearance === 'ghost' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
+  appearance
+}) => appearance === 'clear' && Object(external_styled_components_["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
+const Tickets = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "TicketView__Tickets",
+  componentId: "sc-1wxiq0b-1"
+})(["grid-gap:0;width:320px;@media only screen and (max-width:568px){width:100%;}"]);
+const Ticket = external_styled_components_default()(Member["a" /* default */]).withConfig({
+  displayName: "TicketView__Ticket",
+  componentId: "sc-1wxiq0b-2"
+})(["margin:10px 0 0 0;padding:10px;border-radius:var(--surface-border-radius);", ""], ({
+  active
+}) => active && Object(external_styled_components_["css"])(["background:var(--input-background);"]));
+const LIMIT_TICKETS = 36;
+const View = ({
+  auth,
+  ticket,
+  appearance,
+  onMemberLink,
+  onReport,
+  onAttach,
+  ...props
+}) => {
+  const [currentTicket, setCurrentTicket] = Object(external_react_["useState"])(null); // TODO: Fetch more tickets by scrolling
+  // eslint-disable-next-line no-unused-vars
+
+  const [offsetTickets, setOffsetTickets] = Object(external_react_["useState"])(0);
+  const [loadingTicket, setLoadingTicket] = Object(external_react_["useState"])(false);
+  const [tickets, setTickets] = Object(external_react_["useState"])([]);
+  const documents = Object(external_react_redux_["useSelector"])(state => state.documents);
+  const dispatch = Object(external_react_redux_["useDispatch"])();
+  const variablesTickets = Object(external_react_["useMemo"])(() => ({
+    offset: offsetTickets,
+    limit: LIMIT_TICKETS
+  }), [offsetTickets]);
+  const {
+    data,
+    loading,
+    refetch
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_TICKET, {
+    variables: {
+      id: ticket
+    }
+  });
+  const [closeTicket, {
+    data: dataCloseTicket,
+    loading: loadingCloseTicket,
+    error: errorCloseTicket
+  }] = Object(react_hooks_["useMutation"])(queries["a" /* default */].CLOSE_TICKET);
+  const [sendTicketMessage, {
+    data: dataSendMessage,
+    loading: loadingSendMessage
+  }] = Object(react_hooks_["useMutation"])(queries["a" /* default */].SEND_TICKET_MESSAGE);
+  const {
+    data: dataTickets,
+    loading: loadingTickets,
+    error: errorTickets // fetchMore: updateTickets
+
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_TICKETS, {
+    variables: variablesTickets
+  });
+  Object(external_react_["useEffect"])(() => {
+    if (!loading && data !== null && data !== void 0 && data.getTicket) {
+      setCurrentTicket(data.getTicket);
+    }
+
+    if (!loadingCloseTicket && dataCloseTicket !== null && dataCloseTicket !== void 0 && dataCloseTicket.closeTicket) {
+      const candidate = dataCloseTicket.closeTicket;
+      setCurrentTicket(candidate);
+      dispatch(Object(actions_documents["a" /* setDocuments */])((documents || []).map(document => document.id === candidate.id ? candidate : document)));
+    }
+  }, [data, dataCloseTicket, loading, loadingCloseTicket]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingTickets && dataTickets) {
+      setTickets(dataTickets.getTickets);
+    }
+  }, [dataTickets, loadingTickets]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingSendMessage && dataSendMessage) {
+      setCurrentTicket(prev => ({ ...prev,
+        messages: dataSendMessage.sendTicketMessage
+      }));
+    }
+  }, [dataSendMessage, loadingSendMessage]);
+  return /*#__PURE__*/external_react_default.a.createElement(TicketView_Wrap, _extends({}, props, {
+    appearance: appearance
+  }), /*#__PURE__*/external_react_default.a.createElement(Tickets, null, /*#__PURE__*/external_react_default.a.createElement(Search["a" /* default */], {
+    appearance: 'ghost',
+    onSubmit: () => {}
+  }), !loadingTickets ? tickets.map(item => {
+    var _item$author;
+
+    return /*#__PURE__*/external_react_default.a.createElement(Ticket, {
+      key: item.id,
+      name: item.title,
+      position: (_item$author = item.author) === null || _item$author === void 0 ? void 0 : _item$author.name,
+      active: currentTicket && currentTicket.id === item.id,
+      onClick: async () => {
+        setLoadingTicket(true);
+        await refetch({
+          id: item.id
+        });
+        setCurrentTicket(item);
+        setLoadingTicket(false);
+      }
+    });
+  }) : errorTickets ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    appearance: 'error',
+    style: {
+      marginTop: 15,
+      width: '100%',
+      textAlign: 'center'
+    }
+  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E\u0431 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0438") : /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null))), /*#__PURE__*/external_react_default.a.createElement(components_TicketChat, {
+    auth: auth,
+    ticket: currentTicket,
+    loading: loading || loadingSendMessage || loadingTicket || loadingTickets || errorCloseTicket,
+    onLink: onMemberLink,
+    onFinish: () => closeTicket({
+      variables: {
+        id: ticket
+      }
+    }),
+    onReport: onReport,
+    onAttach: onAttach,
+    onSubmit: value => {
+      var _currentTicket$author;
+
+      return sendTicketMessage({
+        variables: {
+          ticket: currentTicket.id,
+          recipient: (_currentTicket$author = currentTicket.author) === null || _currentTicket$author === void 0 ? void 0 : _currentTicket$author.email,
+          text: value
+        }
+      });
+    }
+  }));
+};
+View.defaultProps = {
+  appearance: 'default'
+};
+/* harmony default export */ var TicketView = (View);
+// EXTERNAL MODULE: ./store/actions/drawer.js
+var drawer = __webpack_require__("Ztxg");
+
+// EXTERNAL MODULE: ./store/actions/snacks.js
+var snacks = __webpack_require__("9Xo6");
+
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+var user = __webpack_require__("rP4V");
+
+// EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
+var helpers = __webpack_require__("+EEm");
+
+// CONCATENATED MODULE: ./store/helpers/ticket.js
+
+
+
+
+
+
+
+
+
+
+function onTicketLink(dispatch, props) {
+  const {
+    id,
+    auth
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'ticket',
+    title: 'Обращение',
+    content: /*#__PURE__*/external_react_default.a.createElement(TicketView, {
+      auth: auth,
+      ticket: id,
+      appearance: 'clear',
+      onAttach: () => Object(helpers["b" /* onFileLink */])(dispatch),
+      onMemberLink: member => Object(user["i" /* onUserLink */])(dispatch, {
+        id: member.email,
+        auth
+      })
+    })
+  }));
+}
+function onTicketCreate(dispatch, props) {
+  const {
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'ticket',
+    title: 'Создание обращения',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormTicket["a" /* default */], {
+      mutation: mutation,
+      appearance: 'clear',
+      onSubmit: async (form, action) => {
+        try {
+          var _form$author, _form$author$value, _form$counsellor, _form$counsellor$valu, _form$category;
+
+          const tickets = await action({
+            variables: {
+              input: {
+                title: form.title,
+                message: form.message,
+                author: (_form$author = form.author) === null || _form$author === void 0 ? void 0 : (_form$author$value = _form$author.value) === null || _form$author$value === void 0 ? void 0 : _form$author$value.email,
+                counsellor: (_form$counsellor = form.counsellor) === null || _form$counsellor === void 0 ? void 0 : (_form$counsellor$valu = _form$counsellor.value) === null || _form$counsellor$valu === void 0 ? void 0 : _form$counsellor$valu.email,
+                category: (_form$category = form.category) === null || _form$category === void 0 ? void 0 : _form$category.value
+              }
+            }
+          });
+          dispatch(Object(actions_documents["a" /* setDocuments */])(tickets.data.createTicket));
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Обращение успешно создано'
+          }));
+        } catch (err) {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось создать обращение'
+          }));
+        }
+      }
+    })
+  }));
+}
+function onTicketEdit(dispatch, props) {
+  const {
+    id,
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'ticket',
+    title: 'Редактирование обращения',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormTicket["a" /* default */], {
+      ticket: id,
+      mutation: mutation,
+      appearance: 'clear',
+      onSubmit: async (form, action) => {
+        try {
+          var _form$author2, _form$author2$value, _form$counsellor2, _form$counsellor2$val, _form$category2;
+
+          const tickets = await action({
+            variables: {
+              id,
+              input: {
+                title: form.title,
+                message: form.message,
+                messages: form.messages.map(message => ({
+                  id: message.id,
+                  text: message.text
+                })),
+                author: (_form$author2 = form.author) === null || _form$author2 === void 0 ? void 0 : (_form$author2$value = _form$author2.value) === null || _form$author2$value === void 0 ? void 0 : _form$author2$value.email,
+                counsellor: (_form$counsellor2 = form.counsellor) === null || _form$counsellor2 === void 0 ? void 0 : (_form$counsellor2$val = _form$counsellor2.value) === null || _form$counsellor2$val === void 0 ? void 0 : _form$counsellor2$val.email,
+                category: (_form$category2 = form.category) === null || _form$category2 === void 0 ? void 0 : _form$category2.value
+              }
+            }
+          });
+          dispatch(Object(actions_documents["a" /* setDocuments */])(tickets.data.updateTicket));
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Обращение успешно отредактировано'
+          }));
+        } catch (_unused) {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось отредактировать обращение'
+          }));
+        }
+      }
+    })
+  }));
+}
+function onTicketDelete(dispatch, props) {
+  const {
+    ticket,
+    mutation
+  } = props;
+  dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'delete',
+    color: 'red',
+    title: 'Удаление обращения',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormDelete["a" /* default */], {
+      mutation: mutation,
+      appearance: 'clear',
+      onCancel: () => dispatch(Object(drawer["a" /* setDrawer */])(null)),
+      onSubmit: async (_, action) => {
+        try {
+          const tickets = await action({
+            variables: {
+              id: ticket.id
+            }
+          });
+          dispatch(Object(actions_documents["a" /* setDocuments */])(tickets.data.deleteTicket));
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Обращение успешно удалено'
+          }));
+        } catch (_unused2) {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось удалить обращение'
+          }));
+        } finally {
+          dispatch(Object(drawer["a" /* setDrawer */])(null));
+        }
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(TicketCard["a" /* default */], {
+      ticket: ticket,
+      appearance: 'clear'
+    }))
+  }));
 }
 
 /***/ }),
@@ -15613,7 +17518,7 @@ const Article = ({
       control: control,
       defaultValue: (_data$getArticle3 = data.getArticle) !== null && _data$getArticle3 !== void 0 && _data$getArticle3.category ? {
         value: data.getArticle.category.id,
-        label: Object(functions["c" /* getLabelCategory */])(data.getArticle.category.name)
+        label: Object(functions["d" /* getLabelCategory */])(data.getArticle.category.name)
       } : null,
       render: ({
         value,
@@ -15623,7 +17528,7 @@ const Article = ({
         placeholder: 'Выберите раздел',
         options: categories.filter(item => item.type === 'DIVISION').map(item => ({
           value: item.id,
-          label: Object(functions["c" /* getLabelCategory */])(item.name)
+          label: Object(functions["d" /* getLabelCategory */])(item.name)
         })),
         onChange: onChange,
         defaultValue: value,
@@ -15661,7 +17566,7 @@ const Article = ({
       control: control,
       defaultValue: (_data$getArticle5 = data.getArticle) !== null && _data$getArticle5 !== void 0 && _data$getArticle5.status ? {
         value: data.getArticle.status,
-        label: Object(functions["f" /* getLabelStatus */])(data.getArticle.status)
+        label: Object(functions["g" /* getLabelStatus */])(data.getArticle.status)
       } : null,
       render: ({
         value,
@@ -15671,7 +17576,7 @@ const Article = ({
         placeholder: 'Выберите статус',
         options: statuses.map(item => ({
           value: item,
-          label: Object(functions["f" /* getLabelStatus */])(item)
+          label: Object(functions["g" /* getLabelStatus */])(item)
         })),
         onChange: onChange,
         defaultValue: value,
@@ -15882,7 +17787,7 @@ const View = ({
     className: className,
     style: style,
     appearance: appearance
-  }, !loading && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, data.getArticle.preview && /*#__PURE__*/external_react_default.a.createElement(Poster, {
+  }, !loading && data.getArticle ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, data.getArticle.preview && /*#__PURE__*/external_react_default.a.createElement(Poster, {
     src: data.getArticle.preview.path
   }), /*#__PURE__*/external_react_default.a.createElement(ArticleView_Content, null, /*#__PURE__*/external_react_default.a.createElement(components_Meta["a" /* default */], {
     date: data.getArticle.createdAt,
@@ -16307,7 +18212,7 @@ const Side = ({
   src: user.avatar,
   alt: 'Avatar',
   size: 'm'
-}), /*#__PURE__*/external_react_default.a.createElement(Info, null, /*#__PURE__*/external_react_default.a.createElement(Name, null, user.name), /*#__PURE__*/external_react_default.a.createElement(Role, null, Object(functions["e" /* getLabelRole */])(user.role)))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+}), /*#__PURE__*/external_react_default.a.createElement(Info, null, /*#__PURE__*/external_react_default.a.createElement(Name, null, user.name), /*#__PURE__*/external_react_default.a.createElement(Role, null, Object(functions["f" /* getLabelRole */])(user.role)))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
   style: {
     background: 'var(--admin-color-accent-dim)',
     margin: '10px 0'
@@ -17314,7 +19219,7 @@ const User = ({
       control: control,
       defaultValue: getValues('role') || ((_data$getUser26 = data.getUser) === null || _data$getUser26 === void 0 ? void 0 : _data$getUser26.role) && {
         value: (_data$getUser27 = data.getUser) === null || _data$getUser27 === void 0 ? void 0 : _data$getUser27.role.id,
-        label: Object(functions["e" /* getLabelRole */])((_data$getUser28 = data.getUser) === null || _data$getUser28 === void 0 ? void 0 : (_data$getUser28$role = _data$getUser28.role) === null || _data$getUser28$role === void 0 ? void 0 : _data$getUser28$role.name)
+        label: Object(functions["f" /* getLabelRole */])((_data$getUser28 = data.getUser) === null || _data$getUser28 === void 0 ? void 0 : (_data$getUser28$role = _data$getUser28.role) === null || _data$getUser28$role === void 0 ? void 0 : _data$getUser28$role.name)
       } || null,
       render: ({
         value,
@@ -17326,7 +19231,7 @@ const User = ({
         placeholder: 'Выберите роль',
         options: (roles || []).map(item => ({
           value: item.id,
-          label: Object(functions["e" /* getLabelRole */])(item.name)
+          label: Object(functions["f" /* getLabelRole */])(item.name)
         })),
         menuPlacement: 'top',
         isLoading: loading,
@@ -18072,11 +19977,15 @@ var Meta = __webpack_require__("aBfq");
 // EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
 var Difinition = __webpack_require__("DTT8");
 
+// EXTERNAL MODULE: ./hooks/useEntityQuery.js + 1 modules
+var useEntityQuery = __webpack_require__("8UhZ");
+
 // EXTERNAL MODULE: ./components/ProjectCard/index.js
 var ProjectCard = __webpack_require__("1zqG");
 
 // CONCATENATED MODULE: ./components/UserView/index.js
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -18151,6 +20060,9 @@ const View = ({
 }) => {
   var _data$getUser$avatar, _data$getUser, _data$getUser$about, _data$getUser$company, _data$getUser$company2, _data$getUser$company3, _dataParticipatingUse;
 
+  const {
+    setQuery
+  } = Object(useEntityQuery["b" /* useEntityQuery */])();
   const [isAdded, setAdded] = Object(external_react_["useState"])(false);
   const {
     data,
@@ -18183,7 +20095,7 @@ const View = ({
   }, !loading && !loadingParticipatingUserProjects && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(RoundedAvatar, {
     src: ((_data$getUser$avatar = data.getUser.avatar) === null || _data$getUser$avatar === void 0 ? void 0 : _data$getUser$avatar.path) || '/images/avatar-default.png'
   }), /*#__PURE__*/external_react_default.a.createElement(Content, null, data.getUser.account && /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
-    category: Object(functions["e" /* getLabelRole */])(data.getUser.account)
+    category: Object(functions["f" /* getLabelRole */])(data.getUser.account)
   }), data.getUser.name && /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h3'
   }, data.getUser.name), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], null), /*#__PURE__*/external_react_default.a.createElement(About, null, ((_data$getUser = data.getUser) === null || _data$getUser === void 0 ? void 0 : (_data$getUser$about = _data$getUser.about) === null || _data$getUser$about === void 0 ? void 0 : _data$getUser$about.length) > 255 ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data.getUser.about.slice(0, 255), "..."), /*#__PURE__*/external_react_default.a.createElement(Styled["e" /* More */], {
@@ -18200,7 +20112,11 @@ const View = ({
   }, {
     label: 'Компания',
     text: ((_data$getUser$company3 = data.getUser.company) === null || _data$getUser$company3 === void 0 ? void 0 : _data$getUser$company3.name) || '-',
-    onLink: data.getUser.company && (() => onCompanyLink(data.getUser.company))
+    onLink: data.getUser.company && (() => {
+      var _data$getUser$company4;
+
+      return setQuery((_data$getUser$company4 = data.getUser.company) === null || _data$getUser$company4 === void 0 ? void 0 : _data$getUser$company4.email, 'user', onCompanyLink);
+    })
   })), /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
     icon: 'work',
     label: 'Проекты',
@@ -18276,10 +20192,11 @@ var Grid = __webpack_require__("7BXr");
 
 
 
+
 const Members_Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "Members__Wrap",
   componentId: "sc-2k8qnt-0"
-})(["grid-gap:0;", " ", " ", ""], ({
+})(["grid-gap:0;flex-grow:1;", " ", " ", ""], ({
   appearance
 }) => appearance === 'default' && Object(external_styled_components_["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
   appearance
@@ -18293,6 +20210,9 @@ const Members = ({
   className,
   onMemberLink
 }) => {
+  const {
+    setQuery
+  } = Object(useEntityQuery["b" /* useEntityQuery */])();
   const {
     data,
     loading,
@@ -18314,9 +20234,9 @@ const Members = ({
     return /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
       key: member.email,
       img: ((_member$avatar = member.avatar) === null || _member$avatar === void 0 ? void 0 : _member$avatar.path) || '/images/avatar-default.png',
-      label: Object(functions["e" /* getLabelRole */])(member.about),
+      label: Object(functions["f" /* getLabelRole */])(member.about),
       text: member.name,
-      onLink: () => onMemberLink(member.email),
+      onLink: () => setQuery(member.email, 'user', onMemberLink),
       stretch: true
     });
   }))) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
@@ -19080,6 +21000,7 @@ __webpack_require__.d(Chat_namespaceObject, "GET_CHAT", function() { return GET_
 // NAMESPACE OBJECT: ./graphql/queries/Role/index.js
 var Role_namespaceObject = {};
 __webpack_require__.r(Role_namespaceObject);
+__webpack_require__.d(Role_namespaceObject, "GET_ROLE", function() { return GET_ROLE; });
 __webpack_require__.d(Role_namespaceObject, "GET_ROLES", function() { return GET_ROLES; });
 __webpack_require__.d(Role_namespaceObject, "CREATE_ROLE", function() { return CREATE_ROLE; });
 __webpack_require__.d(Role_namespaceObject, "UPDATE_ROLE", function() { return UPDATE_ROLE; });
@@ -19150,6 +21071,7 @@ __webpack_require__.d(Project_namespaceObject, "DELETE_PROJECT", function() { re
 // NAMESPACE OBJECT: ./graphql/queries/Category/index.js
 var Category_namespaceObject = {};
 __webpack_require__.r(Category_namespaceObject);
+__webpack_require__.d(Category_namespaceObject, "GET_CATEGORY", function() { return GET_CATEGORY; });
 __webpack_require__.d(Category_namespaceObject, "GET_CATEGORIES", function() { return GET_CATEGORIES; });
 __webpack_require__.d(Category_namespaceObject, "CREATE_CATEGORY", function() { return CREATE_CATEGORY; });
 __webpack_require__.d(Category_namespaceObject, "UPDATE_CATEGORY", function() { return UPDATE_CATEGORY; });
@@ -19853,6 +21775,14 @@ const GET_CHAT = external_graphql_tag_default.a`
 // CONCATENATED MODULE: ./graphql/queries/Role/index.js
 
 
+const GET_ROLE = external_graphql_tag_default.a`
+  query getRole($id: ID!) {
+    getRole(id: $id) {
+      ...RoleFields
+    }
+  }
+  ${RoleFields}
+`;
 const GET_ROLES = external_graphql_tag_default.a`
   query getRoles($search: String) {
     getRoles(search: $search) {
@@ -20197,6 +22127,14 @@ const DELETE_PROJECT = external_graphql_tag_default.a`
 // CONCATENATED MODULE: ./graphql/queries/Category/index.js
 
 
+const GET_CATEGORY = external_graphql_tag_default.a`
+  query getCategory($id: ID!) {
+    getCategory(id: $id) {
+      ...CategoryFields
+    }
+  }
+  ${CategoryFields}
+`;
 const GET_CATEGORIES = external_graphql_tag_default.a`
   query getCategories($offset: Int, $limit: Int, $type: CategoryType, $search: String) {
     getCategories(offset: $offset, limit: $limit, type: $type, search: $search) {
@@ -21274,14 +23212,14 @@ Modal.defaultProps = {
 // EXTERNAL MODULE: ./components/Styled/index.js
 var Styled = __webpack_require__("586Q");
 
+// EXTERNAL MODULE: ./store/actions/snacks.js
+var actions_snacks = __webpack_require__("9Xo6");
+
 // EXTERNAL MODULE: ./store/actions/user.js
 var actions_user = __webpack_require__("8ihE");
 
 // EXTERNAL MODULE: ./store/actions/drawer.js
 var actions_drawer = __webpack_require__("Ztxg");
-
-// EXTERNAL MODULE: ./store/actions/snacks.js
-var actions_snacks = __webpack_require__("9Xo6");
 
 // EXTERNAL MODULE: ./store/actions/modal.js
 var actions_modal = __webpack_require__("qOKH");
@@ -21295,7 +23233,11 @@ var queries = __webpack_require__("u2Cb");
 // EXTERNAL MODULE: ./config/index.js
 var config = __webpack_require__("rOcY");
 
+// EXTERNAL MODULE: ./hooks/useEntityQuery.js + 1 modules
+var useEntityQuery = __webpack_require__("8UhZ");
+
 // CONCATENATED MODULE: ./layouts/main.js
+
 
 
 
@@ -21388,6 +23330,14 @@ const Mutator = ({
 const MainLayout = ({
   children
 }) => {
+  const router = Object(router_["useRouter"])();
+  const {
+    useDetectQuery
+  } = Object(useEntityQuery["a" /* default */])();
+  const [getUser, {
+    data,
+    loading
+  }] = Object(react_hooks_["useLazyQuery"])(queries["a" /* default */].GET_USER);
   const {
     root,
     user,
@@ -21396,13 +23346,14 @@ const MainLayout = ({
     modal
   } = Object(external_react_redux_["useSelector"])(state => state);
   const dispatch = Object(external_react_redux_["useDispatch"])();
-  const router = Object(router_["useRouter"])();
-  const [getUser, {
-    data,
-    loading
-  }] = Object(react_hooks_["useLazyQuery"])(queries["a" /* default */].GET_USER);
 
-  const onDrawerBack = () => {
+  const onDrawerBack = async () => {
+    await router.push({
+      pathname: router.pathname,
+      query: {}
+    }, undefined, {
+      shallow: true
+    });
     dispatch(Object(actions_drawer["a" /* setDrawer */])(null));
   };
 
@@ -21436,6 +23387,7 @@ const MainLayout = ({
       }]));
     }
   }, [user, dispatch]);
+  useDetectQuery();
   return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(head_default.a, null, /*#__PURE__*/external_react_default.a.createElement("title", null, "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...")), loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["a" /* FixedLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : children, /*#__PURE__*/external_react_default.a.createElement(components_Drawer, {
     key: drawer.history.length,
     side: drawer.side,
@@ -22196,7 +24148,7 @@ const Articles = ({
     type: 'SELECT',
     options: store === null || store === void 0 ? void 0 : store.categories.map(category => ({
       value: category.id,
-      label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_1__[/* getLabelCategory */ "c"])(category.name)
+      label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_1__[/* getLabelCategory */ "d"])(category.name)
     }))
   }],
   options: [{

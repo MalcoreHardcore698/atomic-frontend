@@ -9,11 +9,13 @@ import Alert from '../../atomic-ui/components/Alert'
 import Spinner from '../../atomic-ui/components/Spinner'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
+import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { Loader } from '../Styled'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
   grid-gap: 0;
+  flex-grow: 1;
 
   ${({ appearance }) =>
     appearance === 'default' &&
@@ -47,6 +49,7 @@ export const Wrap = styled(Column)`
 `
 
 export const Members = ({ user, style, appearance, className, onMemberLink }) => {
+  const { setQuery } = useEntityQuery()
   const { data, loading, error } = useQuery(queries.GET_USER_MEMBERS, {
     variables: {
       email: user
@@ -64,7 +67,7 @@ export const Members = ({ user, style, appearance, className, onMemberLink }) =>
                 img={member.avatar?.path || '/images/avatar-default.png'}
                 label={getLabelRole(member.about)}
                 text={member.name}
-                onLink={() => onMemberLink(member.email)}
+                onLink={() => setQuery(member.email, 'user', onMemberLink)}
                 stretch
               />
             ))}

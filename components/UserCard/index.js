@@ -15,6 +15,7 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
+import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { More } from '../Styled'
 
 export const Wrap = styled(Column)`
@@ -155,6 +156,7 @@ export const Card = ({
   onEdit,
   onDelete
 }) => {
+  const { setQuery } = useEntityQuery()
   const [isAdded, setAdded] = useState(added)
 
   const onClickAdd = () => {
@@ -200,7 +202,7 @@ export const Card = ({
             )}
           </Header>
 
-          <Name tag={'h4'} onClick={onLink}>
+          <Name tag={'h4'} onClick={() => setQuery(user.email, 'user', onLink)}>
             {user.name}
           </Name>
 
@@ -243,7 +245,11 @@ export const Card = ({
                     })}
                 label={'Компания'}
                 text={user.company?.name || '-'}
-                onLink={user.company && onCompanyLink}
+                onLink={
+                  user.company &&
+                  onCompanyLink &&
+                  (() => setQuery(user.company.email, 'user', onCompanyLink))
+                }
               />
             )}
 

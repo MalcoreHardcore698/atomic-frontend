@@ -314,7 +314,7 @@ export function onProjectDelete(dispatch, props) {
 }
 
 export function onProjectAdd(dispatch, props) {
-  const { project, folders, mutations } = props
+  const { id, folders, mutations } = props
 
   dispatch(
     setModal([
@@ -328,9 +328,7 @@ export function onProjectAdd(dispatch, props) {
                 <Button
                   key={folder.id}
                   onClick={() => {
-                    dispatch(
-                      setMutate(mutations.addProject, { project: project.id, folder: folder.id })
-                    )
+                    dispatch(setMutate(mutations.addProject, { project: id, folder: folder.id }))
                     dispatch(setModal(null))
                   }}>
                   {folder.name}
