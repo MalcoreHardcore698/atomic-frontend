@@ -14,14 +14,13 @@ import Button from '../../atomic-ui/components/Button'
 import Icon from '../../atomic-ui/components/Icon'
 import Alert from '../../atomic-ui/components/Alert'
 import Divider from '../../atomic-ui/components/Divider'
-import Spinner from '../../atomic-ui/components/Spinner'
 import Difinition from '../../atomic-ui/components/Difinition'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import { getFileSize, getLabelRole } from '../../atomic-ui/utils/functions'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import HTMLView from '../HTMLView'
-import { Loader } from '../Styled'
+import Processed from '../Processed'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
@@ -280,25 +279,30 @@ export const View = ({
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
-      {!loading && data.getProject ? (
+      <Processed
+        data={data?.getProject}
+        loading={loading}
+        error={error}
+        errorMessage={'Упс! Не удалось загрузить информацию о проекте'}
+        emptyMessage={'Кажется такого проекта не существует'}>
         <React.Fragment>
           <Container>
             <Media>
-              {data.getProject.preview ? (
+              {data?.getProject?.preview ? (
                 <Poster
-                  src={data.getProject.preview.path}
+                  src={data?.getProject?.preview?.path}
                   onClick={() =>
                     onScreenshotClick &&
-                    onScreenshotClick(data.getProject.preview, data.getProject.preview.id, [
-                      data.getProject.preview,
-                      ...data.getProject.screenshots
+                    onScreenshotClick(data?.getProject?.preview, data?.getProject?.preview?.id, [
+                      data?.getProject?.preview,
+                      ...data?.getProject?.screenshots
                     ])
                   }
                 />
               ) : (
                 <CentralAlert>Превью нет</CentralAlert>
               )}
-              {data.getProject.screenshots && data.getProject.screenshots?.length > 0 && (
+              {data?.getProject?.screenshots && data?.getProject?.screenshots?.length > 0 && (
                 <Screenshots>
                   {screenshots.map((screenshot, index) => (
                     <Screenshot
@@ -306,8 +310,8 @@ export const View = ({
                       onClick={() =>
                         onScreenshotClick &&
                         onScreenshotClick(screenshot, screenshot.id, [
-                          data.getProject.preview,
-                          ...data.getProject.screenshots
+                          data?.getProject?.preview,
+                          ...data?.getProject?.screenshots
                         ])
                       }>
                       <Image src={screenshot.path} alt={screenshot.name} />
@@ -324,11 +328,11 @@ export const View = ({
 
             <Content>
               <Column>
-                <Meta category={data.getProject.category?.name} />
+                <Meta category={data?.getProject?.category?.name} />
                 <Title tag={'h3'} style={{ marginTop: -5, marginBottom: 5 }}>
-                  {data.getProject.title}
+                  {data?.getProject?.title}
                 </Title>
-                <Text>{data.getProject.description}</Text>
+                <Text>{data?.getProject?.description}</Text>
               </Column>
 
               <Column>
@@ -336,16 +340,16 @@ export const View = ({
 
                 <Difinitions>
                   <Difinition
-                    {...(data.getProject.company
+                    {...(data?.getProject?.company
                       ? {
-                          img: data.getProject.company?.avatar?.path
+                          img: data?.getProject?.company?.avatar?.path
                         }
                       : {
                           icon: 'work'
                         })}
                     label={'Компания'}
-                    text={data.getProject.company?.name || '-'}
-                    onLink={() => setQuery(data.getProject.company?.email, 'user', onCompanyLink)}
+                    text={data?.getProject?.company?.name || '-'}
+                    onLink={() => setQuery(data?.getProject?.company?.email, 'user', onCompanyLink)}
                   />
 
                   {!owned && (onLike || onAdd) && (
@@ -380,36 +384,36 @@ export const View = ({
 
           <Divider clear />
 
-          {data.getProject.body && <HTMLView content={data.getProject.body} />}
+          {data?.getProject?.body && <HTMLView content={data?.getProject?.body} />}
 
           <Divider clear />
 
-          {data.getProject.presentation && videoId && <Presentation videoId={videoId} />}
+          {data?.getProject?.presentation && videoId && <Presentation videoId={videoId} />}
 
           <Title tag={'h4'}>Участники проекта</Title>
-          {data.getProject.members && data.getProject.members?.length > 0 && (
+          {data?.getProject?.members && data?.getProject?.members?.length > 0 && (
             <Members percentage={'minmax(320px, 1fr)'}>
-              {data.getProject.members.map((member) => (
+              {data?.getProject?.members.map((member) => (
                 <Difinition
-                  key={member.email}
-                  img={member.avatar?.path || '/images/avatar-default.png'}
-                  label={getLabelRole(member.account)}
-                  text={member.name}
-                  onLink={onMemberLink && (() => setQuery(member.email, 'user', onMemberLink))}
+                  key={member?.email}
+                  img={member?.avatar?.path || '/images/avatar-default.png'}
+                  label={getLabelRole(member?.account)}
+                  text={member?.name}
+                  onLink={onMemberLink && (() => setQuery(member?.email, 'user', onMemberLink))}
                 />
               ))}
             </Members>
           )}
-          {(!data.getProject.members || data.getProject.members?.length === 0) && (
+          {(!data?.getProject?.members || data?.getProject?.members?.length === 0) && (
             <Alert style={{ width: '100%', textAlign: 'center' }}>Участников нет</Alert>
           )}
 
           <Divider clear />
 
           <Title tag={'h4'}>Файлы</Title>
-          {data.getProject.files && data.getProject.files.length > 0 && (
+          {data?.getProject?.files && data?.getProject?.files?.length > 0 && (
             <Files percentage={'minmax(256px, 1fr)'}>
-              {data.getProject.files.map((file) => (
+              {data?.getProject?.files.map((file) => (
                 <Difinition
                   key={file.id}
                   icon={'paper'}
@@ -420,19 +424,11 @@ export const View = ({
               ))}
             </Files>
           )}
-          {(!data.getProject.files || data.getProject.files?.length === 0) && (
+          {(!data?.getProject?.files || data?.getProject?.files?.length === 0) && (
             <Alert style={{ width: '100%', textAlign: 'center' }}>Файлов нет</Alert>
           )}
         </React.Fragment>
-      ) : error || (!loading && !data?.getProject) ? (
-        <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-          Упс! Не удалось загрузить информацию о проекте
-        </Alert>
-      ) : (
-        <Loader>
-          <Spinner />
-        </Loader>
-      )}
+      </Processed>
     </Wrap>
   )
 }

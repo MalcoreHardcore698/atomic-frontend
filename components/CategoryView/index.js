@@ -7,14 +7,14 @@ import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
 import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
-import Alert from '../../atomic-ui/components/Alert'
-import Spinner from '../../atomic-ui/components/Spinner'
 import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
-import { Loader } from '../Styled'
+import Processed from '../Processed'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
+  flex-grow: 1;
+
   ${({ appearance }) =>
     appearance === 'default' &&
     css`
@@ -66,24 +66,21 @@ export const View = ({ category, appearance, className, style }) => {
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
-      {!loading && data.getCategory ? (
+      <Processed
+        data={data?.getCategory}
+        loading={loading}
+        error={error}
+        errorMessage={'Упс! Не удалось загрузить информацию о категории'}
+        emptyMessage={'Кажется такой категории не существует'}>
         <Content>
           <Meta
-            date={data.getCategory.createdAt}
-            category={getLabelCategory(data.getCategory.type)}
+            date={data?.getCategory?.createdAt}
+            category={getLabelCategory(data?.getCategory?.type)}
           />
-          <Title tag={'h4'}>{data.getCategory.name}</Title>
-          <Text>{data.getCategory.description}</Text>
+          <Title tag={'h4'}>{data?.getCategory?.name}</Title>
+          <Text>{data?.getCategory?.description}</Text>
         </Content>
-      ) : error ? (
-        <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-          Упс! Не удалось загрузить информацию о статье
-        </Alert>
-      ) : (
-        <Loader>
-          <Spinner />
-        </Loader>
-      )}
+      </Processed>
     </Wrap>
   )
 }

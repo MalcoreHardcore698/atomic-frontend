@@ -14,15 +14,19 @@ import Indicator from '../../atomic-ui/components/Indicator'
 import Chart from '../../atomic-ui/components/Chart'
 
 import { useHelper } from '../../hooks/useHelper'
+import { useEntityQuery } from '../../hooks/useEntityQuery'
 import DashboardLayout from '../../layouts/dashboard'
 import Processed from '../../components/Processed'
 import FadeLoad from '../../components/FadeLoad'
 import LazyLoad from '../../components/LazyLoad'
 import ProjectCard from '../../components/ProjectCard'
 import ArticleCard from '../../components/ArticleCard'
+import { onUserAboutMore, onUserLink } from '../../store/helpers/user'
 import { onProjectLink } from '../../store/helpers/project'
 import { onArticleLink } from '../../store/helpers/article'
-import { onUserAboutMore } from '../../store/helpers/user'
+import { onCategoryLink } from '../../store/helpers/category'
+import { onTicketLink } from '../../store/helpers/ticket'
+import { onRoleLink } from '../../store/helpers/role'
 import queries from '../../graphql/queries'
 
 const TITLE = 'Панель администратора'
@@ -33,11 +37,12 @@ const Container = styled(Column)`
 `
 
 const Statistics = styled(Row)`
+  grid-gap: var(--default-gap);
   flex-wrap: wrap;
 `
 
 const Graph = styled(Chart)`
-  height: 100%;
+  height: 475px;
   flex-grow: 1;
 `
 
@@ -51,8 +56,42 @@ const Header = styled(Row)`
   }
 `
 
+const capitalize = (string) => string.charAt(0).toUpperCase() + string.slice(1)
+
+const getEntityLink = (id, type, user, recall) => {
+  const owned = id === user.email
+
+  switch (type) {
+    case 'USER':
+      return recall(onUserLink, {
+        id,
+        auth: user?.email,
+        owned,
+        queries: {
+          userChats: queries.GET_USER_CHATS,
+          chat: queries.GET_CHAT
+        },
+        mutations: {
+          addUserChat: queries.ADD_USER_CHAT,
+          sendMessage: queries.SEND_MESSAGE
+        }
+      })
+    case 'CATEGORY':
+      return recall(onCategoryLink, { id })
+    case 'PROJECT':
+      return recall(onProjectLink, { id, user })
+    case 'ARTICLE':
+      return recall(onArticleLink, { id })
+    case 'ROLE':
+      return recall(onRoleLink, { id })
+    case 'TICKET':
+      return recall(onTicketLink, { id, auth: user?.email })
+  }
+}
+
 const Dashboard = () => {
   const recall = useHelper()
+  const { setQuery } = useEntityQuery()
   const user = useSelector((state) => state.user)
 
   const { data: dataStatistics, loading: loadingStatistics, error: errorStatistics } = useQuery(
@@ -96,8 +135,7 @@ const Dashboard = () => {
                   key={statistic.title}
                   label={statistic.title}
                   value={statistic.total}
-                  movement={34}
-                  positive
+                  movement={0}
                 />
               ))}
             </Processed>
@@ -105,19 +143,18 @@ const Dashboard = () => {
 
           <Processed data={dataStatistics} loading={loadingStatistics} error={errorStatistics}>
             <Graph
-              data={[
-                {
-                  label: dataStatistics?.getDashboardStatistics[0].title,
-                  data: dataStatistics?.getDashboardStatistics[0].graph.map((item) => ({
-                    primary: item.createdAt,
-                    secondary: item.count
-                  }))
-                }
-              ]}
-              axes={[
-                { primary: true, type: 'linear', position: 'bottom' },
-                { type: 'linear', position: 'left' }
-              ]}
+              data={dataStatistics?.getDashboardStatistics.map((statistic, index) => ({
+                id: statistic.title,
+                color: `hsl(315, 70%, ${5 + index}0%)`,
+                data: statistic.graph.map((item) => ({
+                  x: capitalize(
+                    new Date(Number(item.createdAt)).toLocaleString('ru-RU', {
+                      month: 'short'
+                    })
+                  ),
+                  y: item.count
+                }))
+              }))}
             />
           </Processed>
         </Column>
@@ -138,6 +175,13 @@ const Dashboard = () => {
                       title={activity.user.name}
                       message={activity.message}
                       date={activity.createdAt}
+                      onClick={() =>
+                        setQuery(
+                          activity.identityString,
+                          activity.entityType.toLowerCase(),
+                          getEntityLink(activity.identityString, activity.entityType, user, recall)
+                        )
+                      }
                       appearance={'clear'}
                     />
                   </LazyLoad>
@@ -166,6 +210,13 @@ const Dashboard = () => {
                       project={project}
                       onLink={recall(onProjectLink, { id: project.id, user })}
                       onAboutMore={recall(onUserAboutMore, { user: project })}
+                      onCompanyLink={recall(onUserLink, {
+                        id: project.company?.email,
+                        auth: user?.email,
+                        recipient: project.author,
+                        query: queries.GET_USER_CHATS,
+                        mutation: queries.SEND_MESSAGE
+                      })}
                     />
                   </LazyLoad>
                 </FadeLoad>

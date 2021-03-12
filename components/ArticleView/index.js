@@ -7,12 +7,10 @@ import Title from '../../atomic-ui/components/Title'
 import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
 import Divider from '../../atomic-ui/components/Divider'
-import Alert from '../../atomic-ui/components/Alert'
-import Spinner from '../../atomic-ui/components/Spinner'
 
 import HTMLView from '../HTMLView'
 import Comments from '../Comments'
-import { Loader } from '../Styled'
+import Processed from '../Processed'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
@@ -111,17 +109,22 @@ export const View = ({
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
-      {!loading && data.getArticle ? (
+      <Processed
+        data={data?.getArticle}
+        loading={loading}
+        error={error}
+        errorMessage={'Упс! Не удалось загрузить информацию о статье'}
+        emptyMessage={'Кажется такой статьи не существует'}>
         <React.Fragment>
-          {data.getArticle.preview && <Poster src={data.getArticle.preview.path} />}
+          {data?.getArticle?.preview && <Poster src={data?.getArticle?.preview?.path} />}
 
           <Content>
-            <Meta date={data.getArticle.createdAt} category={data.getArticle.category?.name} />
+            <Meta date={data?.getArticle?.createdAt} category={data?.getArticle?.category?.name} />
             <Title tag={'h3'} onClick={onLink} style={{ marginTop: -5, marginBottom: 5 }}>
-              {data.getArticle.title}
+              {data?.getArticle?.title}
             </Title>
 
-            {data.getArticle.body && <HTMLView content={data.getArticle.body} />}
+            {data?.getArticle?.body && <HTMLView content={data?.getArticle?.body} />}
           </Content>
 
           <Divider clear />
@@ -149,15 +152,7 @@ export const View = ({
             }
           />
         </React.Fragment>
-      ) : error ? (
-        <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-          Упс! Не удалось загрузить информацию о статье
-        </Alert>
-      ) : (
-        <Loader>
-          <Spinner />
-        </Loader>
-      )}
+      </Processed>
     </Wrap>
   )
 }

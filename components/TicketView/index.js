@@ -6,14 +6,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
 import Member from '../../atomic-ui/components/Member'
-import Alert from '../../atomic-ui/components/Alert'
 import Search from '../../atomic-ui/components/Search'
-import Spinner from '../../atomic-ui/components/Spinner'
 
 import TicketChat from '../TicketChat'
+import Processed from '../Processed'
 import { setDocuments } from '../../store/actions/documents'
 import queries from '../../graphql/queries'
-import { Loader } from '../Styled'
 
 export const Wrap = styled(Row)`
   height: 100%;
@@ -95,7 +93,7 @@ export const View = ({ auth, ticket, appearance, onMemberLink, onReport, onAttac
     [offsetTickets]
   )
 
-  const { data, loading, refetch } = useQuery(queries.GET_TICKET, {
+  const { data, loading, error, refetch } = useQuery(queries.GET_TICKET, {
     variables: {
       id: ticket
     }
@@ -153,59 +151,64 @@ export const View = ({ auth, ticket, appearance, onMemberLink, onReport, onAttac
 
   return (
     <Wrap {...props} appearance={appearance}>
-      <Tickets>
-        <Search appearance={'ghost'} onSubmit={() => {}} />
-        {!loadingTickets ? (
-          tickets.map((item) => (
-            <Ticket
-              key={item.id}
-              name={item.title}
-              position={item.author?.name}
-              active={currentTicket && currentTicket.id === item.id}
-              onClick={async () => {
-                setLoadingTicket(true)
-                await refetch({ id: item.id })
-                setCurrentTicket(item)
-                setLoadingTicket(false)
-              }}
-            />
-          ))
-        ) : errorTickets ? (
-          <Alert appearance={'error'} style={{ marginTop: 15, width: '100%', textAlign: 'center' }}>
-            Упс! Не удалось загрузить информацию об обращении
-          </Alert>
-        ) : (
-          <Loader>
-            <Spinner />
-          </Loader>
-        )}
-      </Tickets>
-      <TicketChat
-        auth={auth}
-        ticket={currentTicket}
-        loading={
-          loading || loadingSendMessage || loadingTicket || loadingTickets || errorCloseTicket
-        }
-        onLink={onMemberLink}
-        onFinish={() =>
-          closeTicket({
-            variables: {
-              id: ticket
-            }
-          })
-        }
-        onReport={onReport}
-        onAttach={onAttach}
-        onSubmit={(value) =>
-          sendTicketMessage({
-            variables: {
-              ticket: currentTicket.id,
-              recipient: currentTicket.author?.email,
-              text: value
-            }
-          })
-        }
-      />
+      <Processed
+        data={data?.getTicket}
+        loading={loading}
+        error={error}
+        errorMessage={'Упс! Не удалось загрузить информацию о обращении'}
+        emptyMessage={'Кажется такого обращения не существует'}>
+        <Tickets>
+          <Search appearance={'ghost'} onSubmit={() => {}} />
+          <Processed
+            data={dataTickets?.getTickets}
+            loading={loadingTickets}
+            error={errorTickets}
+            errorMessage={'Упс! Не удалось загрузить список обращений'}
+            emptyMessage={'Список обращений пуст'}>
+            {tickets.map((item) => (
+              <Ticket
+                key={item.id}
+                name={item.title}
+                position={item.author?.name}
+                active={currentTicket && currentTicket.id === item.id}
+                onClick={async () => {
+                  setLoadingTicket(true)
+                  await refetch({ id: item.id })
+                  setCurrentTicket(item)
+                  setLoadingTicket(false)
+                }}
+              />
+            ))}
+          </Processed>
+        </Tickets>
+
+        <TicketChat
+          auth={auth}
+          ticket={currentTicket}
+          loading={
+            loading || loadingSendMessage || loadingTicket || loadingTickets || errorCloseTicket
+          }
+          onLink={onMemberLink}
+          onFinish={() =>
+            closeTicket({
+              variables: {
+                id: ticket
+              }
+            })
+          }
+          onReport={onReport}
+          onAttach={onAttach}
+          onSubmit={(value) =>
+            sendTicketMessage({
+              variables: {
+                ticket: currentTicket.id,
+                recipient: currentTicket.author?.email,
+                text: value
+              }
+            })
+          }
+        />
+      </Processed>
     </Wrap>
   )
 }

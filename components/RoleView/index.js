@@ -10,15 +10,15 @@ import Divider from '../../atomic-ui/components/Divider'
 import Chip from '../../atomic-ui/components/Chip'
 import Alert from '../../atomic-ui/components/Alert'
 import Title from '../../atomic-ui/components/Title'
-import Spinner from '../../atomic-ui/components/Spinner'
 import { getLabelRole, getLabelPermission } from '../../atomic-ui/utils/functions'
 
-import { Loader } from '../Styled'
+import Processed from '../Processed'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);
   height: max-content;
+  flex-grow: 1;
 
   ${({ appearance }) =>
     appearance === 'default' &&
@@ -65,19 +65,24 @@ export const View = ({ role, appearance, className, style }) => {
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
-      {!loading && data.getRole ? (
+      <Processed
+        data={data?.getRole}
+        loading={loading}
+        error={error}
+        errorMessage={'Упс! Не удалось загрузить информацию о роли'}
+        emptyMessage={'Кажется такой роли не существует'}>
         <React.Fragment>
           <Column style={{ gridGap: 0 }}>
-            <Meta date={data.getRole.createdAt} />
+            <Meta date={data?.getRole?.createdAt} />
 
-            <Title tag={'h4'}>{getLabelRole(data.getRole.name)}</Title>
+            <Title tag={'h4'}>{getLabelRole(data?.getRole?.name)}</Title>
           </Column>
 
           <Divider clear />
 
-          {data.getRole && data.getRole.permissions.length > 0 ? (
+          {data?.getRole && data?.getRole?.permissions?.length > 0 ? (
             <Permissions>
-              {data.getRole.permissions.map((permission) => (
+              {data?.getRole?.permissions?.map((permission) => (
                 <Chip key={v4()} color={'ghost'} appearance={'outlined'}>
                   {getLabelPermission(permission)}
                 </Chip>
@@ -87,15 +92,7 @@ export const View = ({ role, appearance, className, style }) => {
             <Alert>Привелегии отсутствует</Alert>
           )}
         </React.Fragment>
-      ) : error ? (
-        <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-          Упс! Не удалось загрузить информацию о статье
-        </Alert>
-      ) : (
-        <Loader>
-          <Spinner />
-        </Loader>
-      )}
+      </Processed>
     </Wrap>
   )
 }

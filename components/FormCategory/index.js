@@ -29,7 +29,6 @@ export const Category = ({
       }) ||
       null
   )
-  const [disabled, setDisabled] = useState(true)
 
   return (
     <Form
@@ -57,13 +56,6 @@ export const Category = ({
               type={'text'}
               name={'name'}
               ref={register({ required: true })}
-              onChange={(e) => {
-                if (e.target.value === category?.name) {
-                  setDisabled(true)
-                } else {
-                  setDisabled(false)
-                }
-              }}
               defaultValue={category?.name || getValues('name')}
               placeholder={'Название'}
               appearance={'ghost'}
@@ -82,11 +74,6 @@ export const Category = ({
               onChange={(value) => {
                 setType(value)
                 setTypeError(false)
-                if (value.value === category?.type) {
-                  setDisabled(true)
-                } else {
-                  setDisabled(false)
-                }
               }}
               placeholder={'Выберите тип'}
               options={categoryTypes.map((type) => ({
@@ -100,13 +87,6 @@ export const Category = ({
             <TextArea
               name={'description'}
               ref={register()}
-              onChange={(e) => {
-                if (e.target.value === category?.description) {
-                  setDisabled(true)
-                } else {
-                  setDisabled(false)
-                }
-              }}
               defaultValue={category?.description || getValues('description')}
               placeholder={'Описание'}
               appearance={'ghost'}
@@ -115,7 +95,7 @@ export const Category = ({
           </Column>
 
           <Row>
-            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={disabled || loading}>
+            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
               {category ? 'Сохранить' : 'Создать'}
             </Button>
           </Row>

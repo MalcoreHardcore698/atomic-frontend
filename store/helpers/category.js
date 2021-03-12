@@ -3,6 +3,7 @@ import React from 'react'
 import CategoryForm from '../../components/FormCategory'
 import DeleteForm from '../../components/FormDelete'
 import CategoryView from '../../components/CategoryView'
+import CategoryCard from '../../components/CategoryCard'
 import { setDocuments } from '../actions/documents'
 import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
@@ -116,7 +117,7 @@ export function onCategoryEdit(dispatch, props) {
 }
 
 export function onCategoryDelete(dispatch, props) {
-  const { id, mutation } = props
+  const { id, category, mutation } = props
 
   dispatch(
     setDrawer({
@@ -151,7 +152,7 @@ export function onCategoryDelete(dispatch, props) {
               dispatch(setDrawer(null))
             }
           }}>
-          <CategoryView category={id} appearance={'clear'} />
+          <CategoryCard category={category} appearance={'clear'} />
         </DeleteForm>
       )
     })

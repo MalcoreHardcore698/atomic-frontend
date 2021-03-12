@@ -3,6 +3,7 @@ import React from 'react'
 import RoleForm from '../../components/FormRole'
 import DeleteForm from '../../components/FormDelete'
 import RoleView from '../../components/RoleView'
+import RoleCard from '../../components/RoleCard'
 import { setDocuments } from '../actions/documents'
 import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
@@ -114,7 +115,7 @@ export function onRoleEdit(dispatch, props) {
 }
 
 export function onRoleDelete(dispatch, props) {
-  const { id, mutation } = props
+  const { id, role, mutation } = props
 
   dispatch(
     setDrawer({
@@ -149,7 +150,7 @@ export function onRoleDelete(dispatch, props) {
               dispatch(setDrawer(null))
             }
           }}>
-          <RoleView role={id} appearance={'clear'} />
+          <RoleCard role={role} appearance={'clear'} />
         </DeleteForm>
       )
     })

@@ -34,6 +34,10 @@ export const Wrap = styled(Row)`
       display: flex;
       flex-wrap: wrap;
       grid-gap: var(--default-gap);
+
+      & > span {
+        height: 128px;
+      }
     `}
 
   ${({ appearance }) =>

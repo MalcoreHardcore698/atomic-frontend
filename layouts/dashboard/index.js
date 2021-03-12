@@ -12,14 +12,14 @@ import Spinner from '../../atomic-ui/components/Spinner'
 import Column from '../../atomic-ui/components/Column'
 import Button from '../../atomic-ui/components/Button'
 import Image from '../../atomic-ui/components/Image'
-import Icon from '../../atomic-ui/components/Icon'
+import Search from '../../atomic-ui/components/Search'
 import Tooltip from '../../atomic-ui/components/Tooltip'
+import Icon from '../../atomic-ui/components/Icon'
 
 import { useHelper } from '../../hooks/useHelper'
 import MainLayout from '../main'
 import { FixedLoader } from '../../components/Styled'
 import BaseSideBar from '../../components/SideBar'
-import SearchBar from '../../components/SearchBar'
 import { onMenu } from '../../store/helpers'
 import { setUser } from '../../store/actions/user'
 import getLinks from './links'
@@ -185,7 +185,7 @@ export const DashboardLayout = ({ children, title = 'Панель админис
             </Logotype>
           </Tooltip>
         </LogoZone>
-        <SearchBar appearance={'ghost'} />
+        <Search appearance={'ghost'} />
       </Header>
 
       <Main>

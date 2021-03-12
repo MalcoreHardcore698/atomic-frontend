@@ -19,7 +19,6 @@ export const Role = ({ role, permissions, mutation, appearance, className, onSub
       label: getLabelPermission(permission)
     })) || null
   )
-  const [disabled, setDisabled] = useState(true)
 
   return (
     <Form
@@ -50,13 +49,6 @@ export const Role = ({ role, permissions, mutation, appearance, className, onSub
                 required: true,
                 pattern: /[A-Za-z]/
               })}
-              onChange={(e) => {
-                if (e.target.value === role?.name) {
-                  setDisabled(true)
-                } else {
-                  setDisabled(false)
-                }
-              }}
               defaultValue={role?.name || getValues('name')}
               placeholder={'Название'}
               appearance={'ghost'}
@@ -75,11 +67,6 @@ export const Role = ({ role, permissions, mutation, appearance, className, onSub
               onChange={(value) => {
                 setSelectedPermissions(value)
                 setPermissionsError(false)
-                if (value.value.length === role?.permissions?.length) {
-                  setDisabled(true)
-                } else {
-                  setDisabled(false)
-                }
               }}
               placeholder={'Выберите привелегии'}
               options={createSelectOptions(permissions).map((option) => ({
@@ -93,7 +80,7 @@ export const Role = ({ role, permissions, mutation, appearance, className, onSub
           </Column>
 
           <Row>
-            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={disabled || loading}>
+            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
               {role ? 'Сохранить' : 'Создать'}
             </Button>
           </Row>

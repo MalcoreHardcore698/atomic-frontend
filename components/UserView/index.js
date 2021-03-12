@@ -12,15 +12,14 @@ import Icon from '../../atomic-ui/components/Icon'
 import Alert from '../../atomic-ui/components/Alert'
 import Divider from '../../atomic-ui/components/Divider'
 import Difinition from '../../atomic-ui/components/Difinition'
-import Spinner from '../../atomic-ui/components/Spinner'
 import Button from '../../atomic-ui/components/Button'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
-import { More } from '../Styled'
-import { Loader } from '../Styled'
 import ProjectCard from '../ProjectCard'
+import Processed from '../Processed'
+import { More } from '../Styled'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
@@ -160,25 +159,30 @@ export const View = ({
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
-      {!loading && !loadingParticipatingUserProjects && data ? (
+      <Processed
+        data={data?.getUser}
+        loading={loading}
+        error={error}
+        errorMessage={'Упс! Не удалось загрузить информацию о пользователе'}
+        emptyMessage={'Кажется такого пользователя не существует'}>
         <React.Fragment>
           <Row>
-            <RoundedAvatar src={data.getUser.avatar?.path || '/images/avatar-default.png'} />
+            <RoundedAvatar src={data?.getUser?.avatar?.path || '/images/avatar-default.png'} />
 
             <Content>
-              {data.getUser.account && <Meta category={getLabelRole(data.getUser.account)} />}
-              {data.getUser.name && <Title tag={'h3'}>{data.getUser.name}</Title>}
+              {data?.getUser?.account && <Meta category={getLabelRole(data?.getUser?.account)} />}
+              {data?.getUser?.name && <Title tag={'h3'}>{data?.getUser?.name}</Title>}
 
               <Divider />
 
               <About>
-                {data.getUser?.about?.length > 255 ? (
+                {data?.getUser?.about?.length > 255 ? (
                   <React.Fragment>
-                    <Text>{data.getUser.about.slice(0, 255)}...</Text>
-                    <More onClick={() => onAboutMore(data.getUser)}>Подробнее</More>
+                    <Text>{data?.getUser?.about.slice(0, 255)}...</Text>
+                    <More onClick={() => onAboutMore(data?.getUser)}>Подробнее</More>
                   </React.Fragment>
                 ) : (
-                  <Text>{data.getUser.about || 'Информация о себе не заполнена'}</Text>
+                  <Text>{data?.getUser?.about || 'Информация о себе не заполнена'}</Text>
                 )}
               </About>
             </Content>
@@ -187,27 +191,27 @@ export const View = ({
           <Divider />
 
           <Difinitions>
-            {data.getUser.account === 'ENTITY' ? (
+            {data?.getUser?.account === 'ENTITY' ? (
               <Difinition
                 icon={'chart'}
                 label={'Участники'}
-                text={data.getUser.members || '-'}
-                onLink={data.getUser.members && onMembers}
+                text={data?.getUser?.members || '-'}
+                onLink={data?.getUser?.members && onMembers}
               />
             ) : (
               <Difinition
-                {...(data.getUser.company
+                {...(data?.getUser?.company
                   ? {
-                      img: data.getUser.company?.avatar?.path
+                      img: data?.getUser?.company?.avatar?.path
                     }
                   : {
                       icon: 'chart'
                     })}
                 label={'Компания'}
-                text={data.getUser.company?.name || '-'}
+                text={data?.getUser?.company?.name || '-'}
                 onLink={
-                  data.getUser.company &&
-                  (() => setQuery(data.getUser.company?.email, 'user', onCompanyLink))
+                  data?.getUser?.company &&
+                  (() => setQuery(data?.getUser?.company?.email, 'user', onCompanyLink))
                 }
               />
             )}
@@ -248,51 +252,42 @@ export const View = ({
 
           <Column>
             <Title tag={'h4'}>Реализованные проекты</Title>
-            {!loadingParticipatingUserProjects &&
-            dataParticipatingUserProjects &&
-            dataParticipatingUserProjects.getProjects.length > 0 ? (
+            <Processed
+              data={dataParticipatingUserProjects?.getProjects}
+              loading={loadingParticipatingUserProjects}
+              error={errorParticipatingUserProjects}
+              errorMessage={'Упс! Не удалось загрузить информацию о проектах'}
+              emptyMessage={'Пользователь не реализовал(-а) ни одного проекта'}>
               <Projects>
-                {dataParticipatingUserProjects.getProjects.map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    owned={owned}
-                    project={project}
-                    appearance={'clear'}
-                    onAdd={() => onProjectAdd(project)}
-                    onLink={() => onProjectLink(project)}
-                    onAboutMore={() => onAboutMore(project)}
-                    onCompanyLink={project.company && (() => onProjectCompanyLink(project.company))}
-                    onScreenshotClick={(_, key) =>
-                      onProjectScreenshotClick &&
-                      onProjectScreenshotClick(_, key, [project.preview, ...project.screenshots])
-                    }
-                  />
-                ))}
+                {dataParticipatingUserProjects?.getProjects?.length === 0 ? (
+                  <Alert style={{ width: '100%', textAlign: 'center' }}>
+                    Пользователь не реализовал(-а) ни одного проекта
+                  </Alert>
+                ) : (
+                  dataParticipatingUserProjects?.getProjects?.map((project) => (
+                    <ProjectCard
+                      key={project.id}
+                      owned={owned}
+                      project={project}
+                      appearance={'clear'}
+                      onAdd={() => onProjectAdd(project)}
+                      onLink={() => onProjectLink(project)}
+                      onAboutMore={() => onAboutMore(project)}
+                      onCompanyLink={
+                        project.company && (() => onProjectCompanyLink(project.company))
+                      }
+                      onScreenshotClick={(_, key) =>
+                        onProjectScreenshotClick &&
+                        onProjectScreenshotClick(_, key, [project.preview, ...project.screenshots])
+                      }
+                    />
+                  ))
+                )}
               </Projects>
-            ) : !loadingParticipatingUserProjects &&
-              dataParticipatingUserProjects &&
-              dataParticipatingUserProjects.getProjects.length === 0 ? (
-              <Alert style={{ width: '100%', textAlign: 'center' }}>
-                Пользователь не реализовал(-а) ни одного проекта
-              </Alert>
-            ) : errorParticipatingUserProjects ? (
-              <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-                Упс! Не удалось загрузить информацию о проектах
-              </Alert>
-            ) : (
-              <Spinner />
-            )}
+            </Processed>
           </Column>
         </React.Fragment>
-      ) : error ? (
-        <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-          Упс! Не удалось загрузить информацию о пользователе
-        </Alert>
-      ) : (
-        <Loader>
-          <Spinner />
-        </Loader>
-      )}
+      </Processed>
     </Wrap>
   )
 }
