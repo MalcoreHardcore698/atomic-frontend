@@ -40,11 +40,13 @@ export const Comments = ({ article, setValue }) => {
   const user = useSelector((state) => state.user)
   const [checkedAll, setCheckedAll] = useState(false)
 
-  const { data: dataComments, loading: loadingComments } = useQuery(queries.GET_COMMENTS, {
-    variables: {
-      id: article
-    }
-  })
+  const { data: dataComments, loading: loadingComments } = article
+    ? useQuery(queries.GET_COMMENTS, {
+        variables: {
+          id: article
+        }
+      })
+    : { data: [], loading: false }
 
   const handleCheckedComments = (e) => {
     setCheckedAll(e.target.checked)

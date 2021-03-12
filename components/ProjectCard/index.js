@@ -10,7 +10,6 @@ import Text from '../../atomic-ui/components/Text'
 import Icon from '../../atomic-ui/components/Icon'
 import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
-import Alert from '../../atomic-ui/components/Alert'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
 import Checkbox from '../../atomic-ui/components/Checkbox'
@@ -122,6 +121,12 @@ export const Content = styled(Row)`
   flex-grow: 1000;
   width: 100%;
 
+  ${({ clear }) =>
+    clear &&
+    css`
+      grid-template-columns: 1fr;
+    `}
+
   ${({ layout }) =>
     layout === 'column' &&
     css`
@@ -204,15 +209,6 @@ export const ScreenshotsCounter = styled(Text)`
     border-radius: var(--surface-border-radius);
     opacity: 0.65;
   }
-`
-
-export const CentralAlert = styled(Alert)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  text-align: center;
 `
 
 export const Header = styled(Row)`
@@ -315,41 +311,41 @@ export const Card = ({
 
   return (
     <Wrap className={className} style={style} appearance={appearance} layout={layout}>
-      <Content layout={layout}>
-        <Media layout={layout}>
-          {project.preview ? (
-            <Poster
-              src={project.preview?.path}
-              alt={project.title}
-              onClick={() =>
-                onScreenshotClick && onScreenshotClick(project.preview, project.preview?.id)
-              }
-            />
-          ) : (
-            <CentralAlert>Превью нет</CentralAlert>
-          )}
-          {project.screenshots && project.screenshots?.length > 0 && (
-            <Screenshots>
-              {screenshots.map((screenshot, index) => (
-                <Screenshot
-                  key={screenshot.id}
-                  onClick={() => onScreenshotClick && onScreenshotClick(screenshot, screenshot.id)}>
-                  <Image
-                    src={screenshot.path}
-                    alt={screenshot.name}
-                    bottomOffset={300}
-                    layout={'fill'}
-                  />
-                  {index === screenshots?.length - 1 && residue > 0 && (
-                    <ScreenshotsCounter>
-                      <span>+{residue}</span>
-                    </ScreenshotsCounter>
-                  )}
-                </Screenshot>
-              ))}
-            </Screenshots>
-          )}
-        </Media>
+      <Content layout={layout} clear={!project.preview}>
+        {project.preview && (
+          <Media layout={layout}>
+            {project.preview && (
+              <Poster
+                src={project.preview?.path}
+                alt={project.title}
+                onClick={() =>
+                  onScreenshotClick && onScreenshotClick(project.preview, project.preview?.id)
+                }
+              />
+            )}
+            {project.screenshots && project.screenshots?.length > 0 && (
+              <Screenshots>
+                {screenshots.map((screenshot, index) => (
+                  <Screenshot
+                    key={screenshot.id}
+                    onClick={() => onScreenshotClick && onScreenshotClick(screenshot, screenshot.id)}>
+                    <Image
+                      src={screenshot.path}
+                      alt={screenshot.name}
+                      bottomOffset={300}
+                      layout={'fill'}
+                    />
+                    {index === screenshots?.length - 1 && residue > 0 && (
+                      <ScreenshotsCounter>
+                        <span>+{residue}</span>
+                      </ScreenshotsCounter>
+                    )}
+                  </Screenshot>
+                ))}
+              </Screenshots>
+            )}
+          </Media>
+        )}
 
         <Column style={{ gridGap: 5 }}>
           <Header>

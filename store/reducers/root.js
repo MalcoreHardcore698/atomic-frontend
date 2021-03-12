@@ -4,6 +4,7 @@ import C from '../types/root'
 const initialState = {
   mutation: null,
   variables: null,
+  scrollTop: 0,
   callback: () => {},
   members: [],
   screenshots: [],
@@ -33,20 +34,10 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         files: action.payload.files || []
       }
-    case C.ADD_MEMBER:
-      return {
-        ...state,
-        members: [...state.members, action.payload.member]
-      }
     case C.SET_FOLDER:
       return {
         ...state,
         folder: action.payload.folder || []
-      }
-    case C.ADD_SCREENSHOT:
-      return {
-        ...state,
-        screenshots: [...state.screenshots, action.payload.screenshot]
       }
     case C.SET_CHAT:
       return {
@@ -57,6 +48,16 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         messages: action.payload.messages
+      }
+    case C.ADD_MEMBER:
+      return {
+        ...state,
+        members: [...state.members, action.payload.member]
+      }
+    case C.ADD_SCREENSHOT:
+      return {
+        ...state,
+        screenshots: [...state.screenshots, action.payload.screenshot]
       }
     case C.ADD_FILE:
       return {

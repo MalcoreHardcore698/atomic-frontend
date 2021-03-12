@@ -116,7 +116,7 @@ export function onCategoryEdit(dispatch, props) {
 }
 
 export function onCategoryDelete(dispatch, props) {
-  const { category, mutation } = props
+  const { id, mutation } = props
 
   dispatch(
     setDrawer({
@@ -131,7 +131,7 @@ export function onCategoryDelete(dispatch, props) {
           onSubmit={async (_, action) => {
             try {
               const categories = await action({
-                variables: { id: category.id }
+                variables: { id }
               })
               dispatch(setDocuments(categories.data.deleteCategory))
               dispatch(
@@ -151,7 +151,7 @@ export function onCategoryDelete(dispatch, props) {
               dispatch(setDrawer(null))
             }
           }}>
-          <CategoryView category={category} appearance={'clear'} />
+          <CategoryView category={id} appearance={'clear'} />
         </DeleteForm>
       )
     })

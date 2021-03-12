@@ -73,6 +73,80 @@ export const GET_META_PROJECTS = gql`
   ${CategoryFields}
 `
 
+export const GET_META_DASHBOARD_STATISTICS = gql`
+  query getDashboardStatistics {
+    getDashboardStatistics {
+      title
+      total
+      graph {
+        count
+        createdAt
+      }
+    }
+  }
+`
+
+export const GET_META_DASHBOARD_ACTIVITIES = gql`
+  query getDashboardActivities {
+    getDashboardActivities {
+      id
+      user {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      message
+      entityType
+      identityString
+      createdAt
+    }
+  }
+`
+
+export const GET_META_DASHBOARD_PREVIEW_ARTICLES = gql`
+  query getMetaDashboardPreviewArticles($offset: Int, $limit: Int) {
+    getArticles(offset: $offset, limit: $limit) {
+      id
+      author {
+        name
+        avatar {
+          path
+        }
+      }
+      title
+      body
+      category {
+        id
+        name
+      }
+    }
+  }
+`
+
+export const GET_META_DASHBOARD_PREVIEW_PROJECTS = gql`
+  query getMetaDashboardPreviewProjects($offset: Int, $limit: Int) {
+    getProjects(offset: $offset, limit: $limit) {
+      id
+      title
+      description
+      company {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      category {
+        id
+        name
+      }
+      status
+    }
+  }
+`
+
 export const GET_META_DASHBOARD_ARTICLES = gql`
   query getMetaDashboardArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
     getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {

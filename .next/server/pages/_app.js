@@ -180,6 +180,7 @@ var root = __webpack_require__("zSN1");
 const root_initialState = {
   mutation: null,
   variables: null,
+  scrollTop: 0,
   callback: () => {},
   members: [],
   screenshots: [],
@@ -208,19 +209,9 @@ const rootReducer = (state = root_initialState, action) => {
         files: action.payload.files || []
       };
 
-    case root["a" /* default */].ADD_MEMBER:
-      return { ...state,
-        members: [...state.members, action.payload.member]
-      };
-
     case root["a" /* default */].SET_FOLDER:
       return { ...state,
         folder: action.payload.folder || []
-      };
-
-    case root["a" /* default */].ADD_SCREENSHOT:
-      return { ...state,
-        screenshots: [...state.screenshots, action.payload.screenshot]
       };
 
     case root["a" /* default */].SET_CHAT:
@@ -231,6 +222,16 @@ const rootReducer = (state = root_initialState, action) => {
     case root["a" /* default */].SET_MESSAGES:
       return { ...state,
         messages: action.payload.messages
+      };
+
+    case root["a" /* default */].ADD_MEMBER:
+      return { ...state,
+        members: [...state.members, action.payload.member]
+      };
+
+    case root["a" /* default */].ADD_SCREENSHOT:
+      return { ...state,
+        screenshots: [...state.screenshots, action.payload.screenshot]
       };
 
     case root["a" /* default */].ADD_FILE:

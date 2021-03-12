@@ -114,7 +114,7 @@ export function onRoleEdit(dispatch, props) {
 }
 
 export function onRoleDelete(dispatch, props) {
-  const { role, mutation } = props
+  const { id, mutation } = props
 
   dispatch(
     setDrawer({
@@ -129,7 +129,7 @@ export function onRoleDelete(dispatch, props) {
           onSubmit={async (_, action) => {
             try {
               const roles = await action({
-                variables: { id: role.id }
+                variables: { id }
               })
               dispatch(setDocuments(roles.data.deleteRole))
               dispatch(
@@ -149,7 +149,7 @@ export function onRoleDelete(dispatch, props) {
               dispatch(setDrawer(null))
             }
           }}>
-          <RoleView role={role} appearance={'clear'} />
+          <RoleView role={id} appearance={'clear'} />
         </DeleteForm>
       )
     })

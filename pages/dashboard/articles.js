@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
+import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Grid from '../../atomic-ui/components/Grid'
@@ -14,7 +15,7 @@ import { useHelper } from '../../hooks/useHelper'
 import DashboardLayout from '../../layouts/dashboard'
 import HandleBar from '../../components/HandleBar'
 import FilterBar from '../../components/FilterBar'
-import ArticleCard from '../../components/ArticleCard'
+import ArticleCard, { Wrap } from '../../components/ArticleCard'
 import LazyLoad from '../../components/LazyLoad'
 import FadeLoad from '../../components/FadeLoad'
 import {
@@ -27,6 +28,12 @@ import { setDocuments } from '../../store/actions/documents'
 import queries from '../../graphql/queries'
 
 const TITLE = 'Статьи'
+
+const ArticlesGrid = styled(Grid)`
+  ${Wrap} {
+    height: 100%;
+  }
+`
 
 const Articles = ({ store, categories, statuses }) => {
   const recall = useHelper()
@@ -118,7 +125,7 @@ const Articles = ({ store, categories, statuses }) => {
       )}
 
       {displayMethod === 'grid' && (
-        <Grid>
+        <ArticlesGrid>
           {articles.map((article) => (
             <FadeLoad key={article.id}>
               <LazyLoad>
@@ -143,7 +150,7 @@ const Articles = ({ store, categories, statuses }) => {
               </LazyLoad>
             </FadeLoad>
           ))}
-        </Grid>
+        </ArticlesGrid>
       )}
     </DashboardLayout>
   )

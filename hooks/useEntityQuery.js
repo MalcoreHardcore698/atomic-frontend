@@ -108,7 +108,7 @@ export const useEntityQuery = () => {
         const id = b64DecodeUnicode(query.ticket)
         recall(onTicketLink, { id, auth: user?.email })()
       }
-    }, [user, router])
+    }, [router])
   }
 
   return { setQuery, useDetectQuery }

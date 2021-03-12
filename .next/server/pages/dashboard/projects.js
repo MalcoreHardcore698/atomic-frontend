@@ -173,74 +173,9 @@ var FormTicket = __webpack_require__("PYoj");
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
-var Row = __webpack_require__("nShV");
+// EXTERNAL MODULE: ./atomic-ui/components/Notice/index.js
+var Notice = __webpack_require__("Yi3Q");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Avatar/index.js
-var Avatar = __webpack_require__("ThpJ");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
-var Icon = __webpack_require__("feIE");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
-var Title = __webpack_require__("7sPp");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
-var Meta = __webpack_require__("aBfq");
-
-// CONCATENATED MODULE: ./atomic-ui/components/Notice/index.js
-var Notice_jsx = external_react_default.a.createElement;
-
-
-
-
-
-
-
-
-
-const Notice_Wrap = external_styled_components_default()(Row["b" /* default */])`
-  align-items: center;
-`;
-const CircleIcon = external_styled_components_default()(Icon["a" /* default */])`
-  width: var(--input-height-m);
-  height: var(--input-height-m);
-  min-width: var(--input-height-m);
-  min-height: var(--input-height-m);
-  background: var(--default-color-accent);
-  border-radius: 50%;
-`;
-const Content = external_styled_components_default()(Column["a" /* default */])`
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-  grid-gap: 0;
-`;
-const Header = external_styled_components_default()(Row["b" /* default */])`
-  justify-content: space-between;
-  width: 100%;
-
-  h4 {
-    font-size: var(--font-size-l);
-  }
-`;
-const Notice = ({
-  img,
-  icon,
-  title,
-  message,
-  date
-}) => Notice_jsx(Notice_Wrap, null, img && !icon && Notice_jsx(Avatar["b" /* default */], {
-  src: img
-}), !img && icon && Notice_jsx(CircleIcon, {
-  icon: icon,
-  stroke: 'white'
-}), Notice_jsx(Content, null, Notice_jsx(Header, null, Notice_jsx(Title["a" /* default */], {
-  tag: 'h4'
-}, title), Notice_jsx(Meta["a" /* default */], {
-  date: date
-})), Notice_jsx(Text["b" /* default */], null, message)));
-/* harmony default export */ var components_Notice = (Notice);
 // CONCATENATED MODULE: ./components/Notifications/index.js
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -259,7 +194,7 @@ const Notifications = ({
 }) => /*#__PURE__*/external_react_default.a.createElement(Notifications_Wrap, null, notifications && notifications.length > 0 ? notifications.map(notification => {
   var _notification$author;
 
-  return /*#__PURE__*/external_react_default.a.createElement(components_Notice, _extends({
+  return /*#__PURE__*/external_react_default.a.createElement(Notice["a" /* default */], _extends({
     key: notification.id
   }, notification.author ? {
     img: (_notification$author = notification.author) === null || _notification$author === void 0 ? void 0 : _notification$author.avatar.path
@@ -284,6 +219,9 @@ Notifications.defaultProps = {
 // EXTERNAL MODULE: external "@apollo/react-hooks"
 var react_hooks_ = __webpack_require__("mU8t");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
+var Row = __webpack_require__("nShV");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Member/index.js
 var Member = __webpack_require__("otXJ");
 
@@ -304,6 +242,9 @@ var Message = __webpack_require__("7ni8");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
 var Input = __webpack_require__("Gliw");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
+var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./components/MessengerChat/index.js
 function MessengerChat_extends() { MessengerChat_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return MessengerChat_extends.apply(this, arguments); }
@@ -1230,7 +1171,6 @@ module.exports = __webpack_require__("0RHc");
 /* unused harmony export Screenshots */
 /* unused harmony export Screenshot */
 /* unused harmony export ScreenshotsCounter */
-/* unused harmony export CentralAlert */
 /* unused harmony export Header */
 /* unused harmony export Actions */
 /* unused harmony export Name */
@@ -1251,14 +1191,12 @@ module.exports = __webpack_require__("0RHc");
 /* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("feIE");
 /* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("V0nP");
 /* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("aBfq");
-/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("ZwIX");
-/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("RKiZ");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("79b8");
-/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("8UhZ");
-/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("586Q");
+/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("RKiZ");
+/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("ZeZO");
+/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("79b8");
+/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("8UhZ");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("586Q");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 
 
 
@@ -1305,7 +1243,9 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui
 const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Content",
   componentId: "g3ik0u-3"
-})(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
+})(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " ", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
+  clear
+}) => clear && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["grid-template-columns:1fr;"]), ({
   layout
 }) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
 const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
@@ -1320,35 +1260,31 @@ const ScreenshotsCounter = styled_components__WEBPACK_IMPORTED_MODULE_1___defaul
   displayName: "ProjectCard__ScreenshotsCounter",
   componentId: "g3ik0u-6"
 })(["position:absolute;top:0;left:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;width:100%;height:100%;span{position:relative;z-index:var(--z-12);color:white;}&::before{content:'';position:absolute;top:0;left:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;width:100%;height:100%;background:var(--default-color-accent);border-radius:var(--surface-border-radius);opacity:0.65;}"]);
-const CentralAlert = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"]).withConfig({
-  displayName: "ProjectCard__CentralAlert",
-  componentId: "g3ik0u-7"
-})(["display:flex;justify-content:center;align-items:center;width:100%;height:100%;text-align:center;"]);
 const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Header",
-  componentId: "g3ik0u-8"
+  componentId: "g3ik0u-7"
 })(["justify-content:space-between;align-items:center;"]);
 const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Actions",
-  componentId: "g3ik0u-9"
+  componentId: "g3ik0u-8"
 })(["grid-gap:5px;"]);
 const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Name",
-  componentId: "g3ik0u-10"
+  componentId: "g3ik0u-9"
 })(["transition:opacity 150ms ease;", ""], ({
   onClick
 }) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["cursor:pointer;&:hover{opacity:0.45;}"]));
 const About = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "ProjectCard__About",
-  componentId: "g3ik0u-11"
+  componentId: "g3ik0u-10"
 })(["font-size:var(--font-size-m);"]);
 const Company = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Company",
-  componentId: "g3ik0u-12"
+  componentId: "g3ik0u-11"
 })(["h4{max-width:250px;white-space:nowrap;font-size:var(--font-size-m);font-weight:var(--font-weight-bold);text-overflow:ellipsis;line-height:1;overflow:hidden;}"]);
 const Footer = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Footer",
-  componentId: "g3ik0u-13"
+  componentId: "g3ik0u-12"
 })(["justify-content:space-between;align-items:center;grid-gap:var(--default-gap);flex-grow:1;@media only screen and (max-width:480px){flex-direction:column;", "{flex-grow:1;width:100%;}", "{flex-grow:1;width:100%;", "{flex-grow:1;button{width:100%;}}}}"], _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_3__[/* Wrap */ "a"], _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* Wrap */ "a"], _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* Wrap */ "a"]);
 const Card = ({
   layout,
@@ -1374,7 +1310,7 @@ const Card = ({
 
   const {
     setQuery
-  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__[/* useEntityQuery */ "b"])();
+  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__[/* useEntityQuery */ "b"])();
   const [isLiked, setLike] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(liked);
   const screenshots = (project === null || project === void 0 ? void 0 : (_project$screenshots = project.screenshots) === null || _project$screenshots === void 0 ? void 0 : _project$screenshots.slice(0, slicedFactor)) || [];
   const residue = ((project === null || project === void 0 ? void 0 : (_project$screenshots2 = project.screenshots) === null || _project$screenshots2 === void 0 ? void 0 : _project$screenshots2.length) || slicedFactor) - slicedFactor;
@@ -1390,10 +1326,11 @@ const Card = ({
     appearance: appearance,
     layout: layout
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, {
+    layout: layout,
+    clear: !project.preview
+  }, project.preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Media, {
     layout: layout
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Media, {
-    layout: layout
-  }, project.preview ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Poster, {
+  }, project.preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Poster, {
     src: (_project$preview = project.preview) === null || _project$preview === void 0 ? void 0 : _project$preview.path,
     alt: project.title,
     onClick: () => {
@@ -1401,7 +1338,7 @@ const Card = ({
 
       return onScreenshotClick && onScreenshotClick(project.preview, (_project$preview2 = project.preview) === null || _project$preview2 === void 0 ? void 0 : _project$preview2.id);
     }
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CentralAlert, null, "\u041F\u0440\u0435\u0432\u044C\u044E \u043D\u0435\u0442"), project.screenshots && ((_project$screenshots3 = project.screenshots) === null || _project$screenshots3 === void 0 ? void 0 : _project$screenshots3.length) > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Screenshots, null, screenshots.map((screenshot, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Screenshot, {
+  }), project.screenshots && ((_project$screenshots3 = project.screenshots) === null || _project$screenshots3 === void 0 ? void 0 : _project$screenshots3.length) > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Screenshots, null, screenshots.map((screenshot, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Screenshot, {
     key: screenshot.id,
     onClick: () => onScreenshotClick && onScreenshotClick(screenshot, screenshot.id)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
@@ -1421,7 +1358,7 @@ const Card = ({
     short: true
   })), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Удалить проект'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     kind: 'icon',
     size: 'xs',
     appearance: 'red',
@@ -1432,7 +1369,7 @@ const Card = ({
     stroke: 'white'
   }))), onEdit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Редактировать проект'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     kind: 'icon',
     size: 'xs',
     onClick: onEdit
@@ -1443,12 +1380,12 @@ const Card = ({
   }))), onChecked && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Отметить проект',
     self: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
     onClick: () => setQuery(project.id, 'project', onLink)
-  }, project.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, ((_project$description = project.description) === null || _project$description === void 0 ? void 0 : _project$description.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, (_project$description2 = project.description) === null || _project$description2 === void 0 ? void 0 : _project$description2.slice(0, 135), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_16__[/* More */ "e"], {
+  }, project.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, ((_project$description = project.description) === null || _project$description === void 0 ? void 0 : _project$description.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, (_project$description2 = project.description) === null || _project$description2 === void 0 ? void 0 : _project$description2.slice(0, 135), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
     onClick: onAboutMore
-  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, project.description || 'Описание не заполнено')))), !preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, project.description || 'Описание не заполнено')))), !preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
     clear: true
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Company, _extends({}, project.company ? {
     img: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : (_project$company$avat = _project$company.avatar) === null || _project$company$avat === void 0 ? void 0 : _project$company$avat.path
@@ -1465,7 +1402,7 @@ const Card = ({
     })
   })), !owned && (onLike || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, onLike && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Мне нравится'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     type: 'button',
     kind: 'icon',
     onClick: onClickLike,
@@ -1475,7 +1412,7 @@ const Card = ({
     stroke: isLiked ? 'white' : 'var(--default-color-accent)'
   }))), onAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Добавить проект к себе'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     type: 'button',
     kind: 'icon',
     onClick: onAdd,
@@ -3270,7 +3207,7 @@ const useEntityQuery = () => {
           auth: user === null || user === void 0 ? void 0 : user.email
         })();
       }
-    }, [user, router]);
+    }, [router]);
   };
 
   return {
@@ -3791,7 +3728,7 @@ function onRoleEdit(dispatch, props) {
 }
 function onRoleDelete(dispatch, props) {
   const {
-    role,
+    id,
     mutation
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
@@ -3806,7 +3743,7 @@ function onRoleDelete(dispatch, props) {
         try {
           const roles = await action({
             variables: {
-              id: role.id
+              id
             }
           });
           dispatch(Object(documents["a" /* setDocuments */])(roles.data.deleteRole));
@@ -3824,7 +3761,7 @@ function onRoleDelete(dispatch, props) {
         }
       }
     }, /*#__PURE__*/external_react_default.a.createElement(RoleView, {
-      role: role,
+      role: id,
       appearance: 'clear'
     }))
   }));
@@ -4587,7 +4524,7 @@ var Image = __webpack_require__("V0nP");
 // EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
 var Text = __webpack_require__("QUga");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./atomic-ui/components/Screenshot/index.js
@@ -5569,7 +5506,7 @@ var snacks = __webpack_require__("9Xo6");
 // EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
-// EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
+// EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
 
 // CONCATENATED MODULE: ./store/helpers/project.js
@@ -8409,7 +8346,10 @@ module.exports = require("next/dist/next-server/lib/router/utils/get-asset-path-
 
 "use strict";
 
-// UNUSED EXPORTS: Wrap, Poster, Header, Actions, Name, HTMLView, ShortText, Card
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ ArticleCard_Wrap; });
+
+// UNUSED EXPORTS: Poster, Header, Actions, Name, HTMLView, ShortText, Card
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
@@ -8440,7 +8380,7 @@ var Text = __webpack_require__("QUga");
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./atomic-ui/components/More/index.js
@@ -8631,7 +8571,7 @@ const Card = ({
 Card.defaultProps = {
   appearance: 'default'
 };
-/* harmony default export */ var ArticleCard = __webpack_exports__["a"] = (Card);
+/* harmony default export */ var ArticleCard = __webpack_exports__["b"] = (Card);
 
 /***/ }),
 
@@ -9190,7 +9130,7 @@ function onCategoryEdit(dispatch, props) {
 }
 function onCategoryDelete(dispatch, props) {
   const {
-    category,
+    id,
     mutation
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
@@ -9205,7 +9145,7 @@ function onCategoryDelete(dispatch, props) {
         try {
           const categories = await action({
             variables: {
-              id: category.id
+              id
             }
           });
           dispatch(Object(documents["a" /* setDocuments */])(categories.data.deleteCategory));
@@ -9223,7 +9163,7 @@ function onCategoryDelete(dispatch, props) {
         }
       }
     }, /*#__PURE__*/external_react_default.a.createElement(CategoryView, {
-      category: category,
+      category: id,
       appearance: 'clear'
     }))
   }));
@@ -9504,7 +9444,7 @@ const Scaffold = ({
 // EXTERNAL MODULE: ./atomic-ui/components/Avatar/index.js
 var Avatar = __webpack_require__("ThpJ");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
@@ -9790,7 +9730,7 @@ var actions_user = __webpack_require__("8ihE");
 // EXTERNAL MODULE: ./store/actions/drawer.js
 var drawer = __webpack_require__("Ztxg");
 
-// EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
+// EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
 
 // EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
@@ -10168,6 +10108,81 @@ function getRouteRegex(normalizedRoute) {
 
 /***/ }),
 
+/***/ "Yi3Q":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export CircleIcon */
+/* unused harmony export Content */
+/* unused harmony export Header */
+/* unused harmony export Notice */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
+/* harmony import */ var _Column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("8CDE");
+/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ThpJ");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("feIE");
+/* harmony import */ var _Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("7sPp");
+/* harmony import */ var _Text__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("QUga");
+/* harmony import */ var _Meta__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("aBfq");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+
+
+
+
+
+
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+  align-items: center;
+`;
+const CircleIcon = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])`
+  width: var(--input-height-m);
+  height: var(--input-height-m);
+  min-width: var(--input-height-m);
+  min-height: var(--input-height-m);
+  background: var(--default-color-accent);
+  border-radius: 50%;
+`;
+const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])`
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  grid-gap: 0;
+`;
+const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+  justify-content: space-between;
+  width: 100%;
+
+  h4 {
+    font-size: var(--font-size-l);
+  }
+`;
+const Notice = ({
+  img,
+  icon,
+  title,
+  message,
+  date
+}) => __jsx(Wrap, null, img && !icon && __jsx(_Avatar__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  src: img
+}), !img && icon && __jsx(CircleIcon, {
+  icon: icon,
+  stroke: 'white'
+}), __jsx(Content, null, __jsx(Header, null, __jsx(_Title__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+  tag: 'h4'
+}, title), __jsx(_Meta__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  date: date
+})), __jsx(_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, message)));
+/* harmony default export */ __webpack_exports__["a"] = (Notice);
+
+/***/ }),
+
 /***/ "ZbFR":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10226,7 +10241,7 @@ var Difinition = __webpack_require__("DTT8");
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
@@ -10553,7 +10568,7 @@ var snacks = __webpack_require__("9Xo6");
 // EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var user = __webpack_require__("rP4V");
 
-// EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
+// EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
 
 // CONCATENATED MODULE: ./store/helpers/ticket.js
@@ -13347,6 +13362,26 @@ function SvgArrowDownSquare(props) {
 }
 
 /* harmony default export */ var arrow_down_square = (SvgArrowDownSquare);
+// CONCATENATED MODULE: ./atomic-ui/assets/images/icons/arrow_down_carret.svg
+function arrow_down_carret_extends() { arrow_down_carret_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return arrow_down_carret_extends.apply(this, arguments); }
+
+
+
+var arrow_down_carret_ref = /*#__PURE__*/external_react_["createElement"]("path", {
+  d: "M5.286 6a1 1 0 01-1.572 0L.27 1.617A1 1 0 011.057 0h6.886a1 1 0 01.786 1.618L5.286 5.999z",
+  fill: "#200E32"
+});
+
+function SvgArrowDownCarret(props) {
+  return /*#__PURE__*/external_react_["createElement"]("svg", arrow_down_carret_extends({
+    width: 9,
+    height: 7,
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), arrow_down_carret_ref);
+}
+
+/* harmony default export */ var arrow_down_carret = (SvgArrowDownCarret);
 // CONCATENATED MODULE: ./atomic-ui/assets/images/icons/arrow_left.svg
 function arrow_left_extends() { arrow_left_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return arrow_left_extends.apply(this, arguments); }
 
@@ -13744,6 +13779,26 @@ function SvgArrowUpSquare(props) {
 }
 
 /* harmony default export */ var arrow_up_square = (SvgArrowUpSquare);
+// CONCATENATED MODULE: ./atomic-ui/assets/images/icons/arrow_up_carret.svg
+function arrow_up_carret_extends() { arrow_up_carret_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return arrow_up_carret_extends.apply(this, arguments); }
+
+
+
+var arrow_up_carret_ref = /*#__PURE__*/external_react_["createElement"]("path", {
+  d: "M3.714 1a1 1 0 011.572 0L8.73 5.383A1 1 0 017.943 7H1.057a1 1 0 01-.786-1.618l3.443-4.381z",
+  fill: "#200E32"
+});
+
+function SvgArrowUpCarret(props) {
+  return /*#__PURE__*/external_react_["createElement"]("svg", arrow_up_carret_extends({
+    width: 9,
+    height: 7,
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), arrow_up_carret_ref);
+}
+
+/* harmony default export */ var arrow_up_carret = (SvgArrowUpCarret);
 // CONCATENATED MODULE: ./atomic-ui/assets/images/icons/bag.svg
 function bag_extends() { bag_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return bag_extends.apply(this, arguments); }
 
@@ -16471,6 +16526,8 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
+
+
 const library = {
   add: add,
   attach: attach,
@@ -16481,6 +16538,7 @@ const library = {
   arrowDown3: arrow_down_3,
   arrowDownCircle: arrow_down_circle,
   arrowDownSquare: arrow_down_square,
+  arrowDownCarret: arrow_down_carret,
   arrowLeft: arrow_left,
   arrowLeft2: arrow_left_2,
   arrowLeft3: arrow_left_3,
@@ -16496,6 +16554,7 @@ const library = {
   arrowUp3: arrow_up_3,
   arrowUpCircle: arrow_up_circle,
   arrowUpSquare: arrow_up_square,
+  arrowUpCarret: arrow_up_carret,
   bag: bag,
   bag2: bag_2,
   bookmark: bookmark,
@@ -17764,7 +17823,7 @@ var Text = __webpack_require__("QUga");
 // EXTERNAL MODULE: ./atomic-ui/components/DateText/index.js
 var DateText = __webpack_require__("+nv6");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
@@ -18136,11 +18195,14 @@ const Comments = ({
   const {
     data: dataComments,
     loading: loadingComments
-  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_COMMENTS, {
+  } = article ? Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_COMMENTS, {
     variables: {
       id: article
     }
-  });
+  }) : {
+    data: [],
+    loading: false
+  };
 
   const handleCheckedComments = e => {
     setCheckedAll(e.target.checked);
@@ -18806,7 +18868,7 @@ function onArticleDelete(dispatch, props) {
           dispatch(Object(drawer["a" /* setDrawer */])(null));
         }
       }
-    }, /*#__PURE__*/external_react_default.a.createElement(ArticleCard["a" /* default */], {
+    }, /*#__PURE__*/external_react_default.a.createElement(ArticleCard["b" /* default */], {
       article: article,
       appearance: 'clear',
       onLink: () => onArticleLink(dispatch, {
@@ -18879,7 +18941,7 @@ var Button = __webpack_require__("ZeZO");
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
@@ -19025,7 +19087,7 @@ Side.defaultProps = {
 // EXTERNAL MODULE: ./components/SearchBar/index.js
 var SearchBar = __webpack_require__("EYtC");
 
-// EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
+// EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
 
 // EXTERNAL MODULE: ./store/actions/user.js
@@ -19602,7 +19664,7 @@ var Spinner = __webpack_require__("auMy");
 // EXTERNAL MODULE: ./atomic-ui/components/Switch/index.js
 var Switch = __webpack_require__("OXt0");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
@@ -21068,7 +21130,7 @@ var snacks = __webpack_require__("9Xo6");
 // EXTERNAL MODULE: ./store/helpers/project.js + 6 modules
 var helpers_project = __webpack_require__("IxyI");
 
-// EXTERNAL MODULE: ./store/helpers/index.js + 5 modules
+// EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
 
 // CONCATENATED MODULE: ./store/helpers/user.js
@@ -21773,6 +21835,10 @@ __webpack_require__.d(Meta_namespaceObject, "GET_META_INDEX", function() { retur
 __webpack_require__.d(Meta_namespaceObject, "GET_META_AUTHORS", function() { return GET_META_AUTHORS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_ARTICLES", function() { return GET_META_ARTICLES; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_PROJECTS", function() { return GET_META_PROJECTS; });
+__webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_STATISTICS", function() { return GET_META_DASHBOARD_STATISTICS; });
+__webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_ACTIVITIES", function() { return GET_META_DASHBOARD_ACTIVITIES; });
+__webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_PREVIEW_ARTICLES", function() { return GET_META_DASHBOARD_PREVIEW_ARTICLES; });
+__webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_PREVIEW_PROJECTS", function() { return GET_META_DASHBOARD_PREVIEW_PROJECTS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_ARTICLES", function() { return GET_META_DASHBOARD_ARTICLES; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_PROJECTS", function() { return GET_META_DASHBOARD_PROJECTS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_CATEGORIES", function() { return GET_META_DASHBOARD_CATEGORIES; });
@@ -22443,6 +22509,76 @@ const GET_META_PROJECTS = external_graphql_tag_default.a`
   }
   ${ProjectFields}
   ${CategoryFields}
+`;
+const GET_META_DASHBOARD_STATISTICS = external_graphql_tag_default.a`
+  query getDashboardStatistics {
+    getDashboardStatistics {
+      title
+      total
+      graph {
+        count
+        createdAt
+      }
+    }
+  }
+`;
+const GET_META_DASHBOARD_ACTIVITIES = external_graphql_tag_default.a`
+  query getDashboardActivities {
+    getDashboardActivities {
+      id
+      user {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      message
+      entityType
+      identityString
+      createdAt
+    }
+  }
+`;
+const GET_META_DASHBOARD_PREVIEW_ARTICLES = external_graphql_tag_default.a`
+  query getMetaDashboardPreviewArticles($offset: Int, $limit: Int) {
+    getArticles(offset: $offset, limit: $limit) {
+      id
+      author {
+        name
+        avatar {
+          path
+        }
+      }
+      title
+      body
+      category {
+        id
+        name
+      }
+    }
+  }
+`;
+const GET_META_DASHBOARD_PREVIEW_PROJECTS = external_graphql_tag_default.a`
+  query getMetaDashboardPreviewProjects($offset: Int, $limit: Int) {
+    getProjects(offset: $offset, limit: $limit) {
+      id
+      title
+      description
+      company {
+        name
+        email
+        avatar {
+          path
+        }
+      }
+      category {
+        id
+        name
+      }
+      status
+    }
+  }
 `;
 const GET_META_DASHBOARD_ARTICLES = external_graphql_tag_default.a`
   query getMetaDashboardArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
@@ -23306,7 +23442,7 @@ var Text = __webpack_require__("QUga");
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./atomic-ui/components/Snack/index.js
@@ -23473,6 +23609,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 
 
 
@@ -23675,6 +23812,15 @@ const Wrapper = external_styled_components_default.a.div`
     }
   }
 `;
+const Loader = external_styled_components_default.a.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+`;
 const Drawer = (_ref) => {
   let {
     children,
@@ -23705,7 +23851,7 @@ const Drawer = (_ref) => {
     size: 64,
     stroke: 'white'
   }), Drawer_jsx(external_react_custom_scrollbars_default.a, null, Drawer_jsx(Content, null, Drawer_jsx(external_react_["Suspense"], {
-    fallback: Drawer_jsx("div", null, "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...")
+    fallback: Drawer_jsx(Loader, null, Drawer_jsx(Spinner["a" /* default */], null))
   }, children))))));
 };
 /* harmony default export */ var components_Drawer = (Drawer);
@@ -24615,7 +24761,7 @@ const DateSheet = ({
   })));
 };
 /* harmony default export */ var components_DateSheet = (DateSheet);
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 107 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./atomic-ui/components/DatePicker/index.js
