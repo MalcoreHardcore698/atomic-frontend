@@ -7595,6 +7595,7 @@ Filter.defaultProps = {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return setMutate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return setSettings; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return setProjectMembers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return setProjectScreenshots; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return setProjectFiles; });
@@ -7619,6 +7620,14 @@ function setMutate(mutation, variables, callback) {
       mutation,
       variables,
       callback
+    }
+  };
+}
+function setSettings(settings) {
+  return {
+    type: _types_root__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].SET_SETTINGS,
+    payload: {
+      settings
     }
   };
 }
@@ -16377,6 +16386,10 @@ const Area = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
   align-items: center;
   width: 100%;
   height: 100%;
+
+  & > span {
+    height: 100%;
+  }
 `;
 const PreviewList = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Grid__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])`
   img {
@@ -18381,11 +18394,14 @@ const DashboardLayout = ({
   children,
   title = 'Панель администрирования'
 }) => {
-  var _user$avatar;
+  var _root$settings$genera, _user$avatar;
 
   const recall = Object(useHelper["b" /* useHelper */])();
   const router = Object(router_["useRouter"])();
-  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const {
+    root,
+    user
+  } = Object(external_react_redux_["useSelector"])(state => state);
   const [getUser, {
     data,
     loading
@@ -18417,7 +18433,7 @@ const DashboardLayout = ({
     content: "next,javascript,nextjs,react"
   }), /*#__PURE__*/external_react_default.a.createElement("meta", {
     name: "description",
-    content: "primar project description"
+    content: root.settings.meta.description
   }), /*#__PURE__*/external_react_default.a.createElement("title", null, title)), /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(MenuButton, {
     kind: 'icon',
     appearance: 'clear',
@@ -18431,7 +18447,7 @@ const DashboardLayout = ({
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'menu'
   })), /*#__PURE__*/external_react_default.a.createElement(LogoZone, null, /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
-    text: 'Атомик – портал для формирования новой сферы образования',
+    text: root.settings.meta.description,
     offset: {
       bottom: 5
     },
@@ -18441,7 +18457,7 @@ const DashboardLayout = ({
   }, /*#__PURE__*/external_react_default.a.createElement(Logotype, null, /*#__PURE__*/external_react_default.a.createElement(link_default.a, {
     href: '/'
   }, /*#__PURE__*/external_react_default.a.createElement("a", null, /*#__PURE__*/external_react_default.a.createElement(Image["a" /* default */], {
-    src: '/images/logo.png',
+    src: (_root$settings$genera = root.settings.general.logotype) === null || _root$settings$genera === void 0 ? void 0 : _root$settings$genera.path,
     alt: 'Logotype'
   })))))), /*#__PURE__*/external_react_default.a.createElement(Search["a" /* default */], {
     appearance: 'ghost'
@@ -20962,12 +20978,16 @@ __webpack_require__.d(User_namespaceObject, "GET_USER_CHATS", function() { retur
 // NAMESPACE OBJECT: ./graphql/queries/Meta/index.js
 var Meta_namespaceObject = {};
 __webpack_require__.r(Meta_namespaceObject);
+__webpack_require__.d(Meta_namespaceObject, "GET_META", function() { return GET_META; });
+__webpack_require__.d(Meta_namespaceObject, "GET_META_SCAFFOLD", function() { return GET_META_SCAFFOLD; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_INDEX", function() { return GET_META_INDEX; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_AUTHORS", function() { return GET_META_AUTHORS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_ARTICLES", function() { return GET_META_ARTICLES; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_PROJECTS", function() { return GET_META_PROJECTS; });
+__webpack_require__.d(Meta_namespaceObject, "GET_META_SETTINGS_PROJECTS", function() { return GET_META_SETTINGS_PROJECTS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_STATISTICS", function() { return GET_META_DASHBOARD_STATISTICS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_ACTIVITIES", function() { return GET_META_DASHBOARD_ACTIVITIES; });
+__webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_SETTINGS", function() { return GET_META_DASHBOARD_SETTINGS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_PREVIEW_ARTICLES", function() { return GET_META_DASHBOARD_PREVIEW_ARTICLES; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_PREVIEW_PROJECTS", function() { return GET_META_DASHBOARD_PREVIEW_PROJECTS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_ARTICLES", function() { return GET_META_DASHBOARD_ARTICLES; });
@@ -20976,6 +20996,7 @@ __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_CATEGORIES", fun
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_TICKETS", function() { return GET_META_DASHBOARD_TICKETS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_USERS", function() { return GET_META_DASHBOARD_USERS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_DASHBOARD_ROLES", function() { return GET_META_DASHBOARD_ROLES; });
+__webpack_require__.d(Meta_namespaceObject, "UPDATE_META_DASHBOARD_SETTINGS", function() { return UPDATE_META_DASHBOARD_SETTINGS; });
 
 // NAMESPACE OBJECT: ./graphql/queries/Chat/index.js
 var Chat_namespaceObject = {};
@@ -21342,6 +21363,35 @@ const CommentFields = external_graphql_tag_default.a`
     createdAt
   }
 `;
+const DashboardSettingsFields = external_graphql_tag_default.a`
+  fragment DashboardSettingsFields on DashboardSettings {
+    general {
+      logotype {
+        path
+        size
+      }
+    }
+    scaffold {
+      title
+      primary {
+        id
+        title
+      }
+      residues{
+        id
+        title
+      }
+      background {
+        path
+        size
+      }
+    }
+    meta {
+      title
+      description
+    }
+  }
+`;
 // CONCATENATED MODULE: ./graphql/queries/User/index.js
 
 
@@ -21580,6 +21630,43 @@ const GET_USER_CHATS = external_graphql_tag_default.a`
 // CONCATENATED MODULE: ./graphql/queries/Meta/index.js
 
 
+const GET_META = external_graphql_tag_default.a`
+  query getDashboardSettings {
+    getDashboardSettings {
+      general {
+        logotype {
+          path
+        }
+      }
+      meta {
+        title
+        description
+      }
+    }
+  }
+`;
+const GET_META_SCAFFOLD = external_graphql_tag_default.a`
+  query getDashboardSettings {
+    getDashboardSettings {
+      scaffold {
+        title
+        primary {
+          ...ProjectFields
+        }
+        residues {
+          ...ProjectFields
+        }
+        background {
+          id
+          filename
+          size
+          path
+        }
+      }
+    }
+  }
+  ${ProjectFields}
+`;
 const GET_META_INDEX = external_graphql_tag_default.a`
   query getMetaIndex($offset: Int, $limit: Int, $status: PostStatus) {
     getUsers {
@@ -21641,6 +21728,26 @@ const GET_META_PROJECTS = external_graphql_tag_default.a`
   ${ProjectFields}
   ${CategoryFields}
 `;
+const GET_META_SETTINGS_PROJECTS = external_graphql_tag_default.a`
+  query getProjects(
+    $offset: Int
+    $limit: Int
+    $search: String
+    $category: ID
+    $status: PostStatus
+  ) {
+    getProjects(
+      offset: $offset
+      limit: $limit
+      search: $search
+      category: $category
+      status: $status
+    ) {
+      id
+      title
+    }
+  }
+`;
 const GET_META_DASHBOARD_STATISTICS = external_graphql_tag_default.a`
   query getDashboardStatistics {
     getDashboardStatistics {
@@ -21670,6 +21777,14 @@ const GET_META_DASHBOARD_ACTIVITIES = external_graphql_tag_default.a`
       createdAt
     }
   }
+`;
+const GET_META_DASHBOARD_SETTINGS = external_graphql_tag_default.a`
+  query getDashboardSettings {
+    getDashboardSettings {
+      ...DashboardSettingsFields
+    }
+  }
+  ${DashboardSettingsFields}
 `;
 const GET_META_DASHBOARD_PREVIEW_ARTICLES = external_graphql_tag_default.a`
   query getMetaDashboardPreviewArticles($offset: Int, $limit: Int) {
@@ -21811,6 +21926,14 @@ const GET_META_DASHBOARD_ROLES = external_graphql_tag_default.a`
     getPermissions
   }
   ${RoleFields}
+`;
+const UPDATE_META_DASHBOARD_SETTINGS = external_graphql_tag_default.a`
+  mutation updateMetaDashboardSettings($input: DashboardSettingsInput!) {
+    updateDashboardSettings(input: $input) {
+      ...DashboardSettingsFields
+    }
+  }
+  ${DashboardSettingsFields}
 `;
 // CONCATENATED MODULE: ./graphql/queries/Chat/index.js
 
@@ -23274,6 +23397,9 @@ Modal.defaultProps = {
   closeByBackground: true
 };
 /* harmony default export */ var components_Modal = (Modal);
+// EXTERNAL MODULE: ./hooks/useEntityQuery.js + 1 modules
+var useEntityQuery = __webpack_require__("8UhZ");
+
 // EXTERNAL MODULE: ./components/Styled/index.js
 var Styled = __webpack_require__("586Q");
 
@@ -23297,9 +23423,6 @@ var queries = __webpack_require__("u2Cb");
 
 // EXTERNAL MODULE: ./config/index.js
 var config = __webpack_require__("rOcY");
-
-// EXTERNAL MODULE: ./hooks/useEntityQuery.js + 1 modules
-var useEntityQuery = __webpack_require__("8UhZ");
 
 // CONCATENATED MODULE: ./layouts/main.js
 
@@ -23395,6 +23518,8 @@ const Mutator = ({
 const MainLayout = ({
   children
 }) => {
+  var _root$settings$genera;
+
   const router = Object(router_["useRouter"])();
   const {
     useDetectQuery
@@ -23403,6 +23528,10 @@ const MainLayout = ({
     data,
     loading
   }] = Object(react_hooks_["useLazyQuery"])(queries["a" /* default */].GET_USER);
+  const {
+    data: dataMeta,
+    loading: loadingMeta
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_META);
   const {
     root,
     user,
@@ -23426,6 +23555,11 @@ const MainLayout = ({
     dispatch(Object(actions_modal["a" /* setModal */])(null));
   };
 
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingMeta && dataMeta !== null && dataMeta !== void 0 && dataMeta.getDashboardSettings) {
+      dispatch(Object(actions_root["o" /* setSettings */])(dataMeta === null || dataMeta === void 0 ? void 0 : dataMeta.getDashboardSettings));
+    }
+  }, [dataMeta, loadingMeta]);
   Object(external_react_["useEffect"])(() => {
     if ((snacks === null || snacks === void 0 ? void 0 : snacks.length) > 0) {
       setTimeout(() => dispatch(Object(actions_snacks["a" /* clearItems */])()), LIFETIME_OF_SNACK);
@@ -23453,7 +23587,10 @@ const MainLayout = ({
     }
   }, [user, dispatch]);
   useDetectQuery();
-  return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(head_default.a, null, /*#__PURE__*/external_react_default.a.createElement("title", null, "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430...")), loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["a" /* FixedLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : children, /*#__PURE__*/external_react_default.a.createElement(components_Drawer, {
+  return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(head_default.a, null, /*#__PURE__*/external_react_default.a.createElement("title", null, root.settings.meta.title), /*#__PURE__*/external_react_default.a.createElement("meta", {
+    name: 'description',
+    content: root.settings.meta.description
+  })), loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["a" /* FixedLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : children, /*#__PURE__*/external_react_default.a.createElement(components_Drawer, {
     key: drawer.history.length,
     side: drawer.side,
     half: drawer.half,
@@ -23463,7 +23600,7 @@ const MainLayout = ({
     appearance: 'clear',
     onClick: () => router.push('/')
   }, /*#__PURE__*/external_react_default.a.createElement(BrandLogo, {
-    src: '/images/logo.png',
+    src: (_root$settings$genera = root.settings.general.logotype) === null || _root$settings$genera === void 0 ? void 0 : _root$settings$genera.path,
     alt: 'Logotype'
   })) : /*#__PURE__*/external_react_default.a.createElement(main_BackButton, {
     size: 's',
@@ -24235,6 +24372,7 @@ Card.defaultProps = {
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
   SET_MUTATE: 'SET_MUTATE',
+  SET_SETTINGS: 'SET_SETTINGS',
   SET_MEMBERS: 'SET_MEMBERS',
   SET_SCREENSHOTS: 'SET_SCREENSHOTS',
   SET_CHAT: 'SET_CHAT',

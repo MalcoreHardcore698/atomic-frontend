@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { useLazyQuery, useMutation } from '@apollo/react-hooks'
+import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks'
 
 import Row from '../atomic-ui/components/Row'
 import Column from '../atomic-ui/components/Column'
@@ -17,15 +17,15 @@ import Divider from '../atomic-ui/components/Divider'
 import Modal from '../atomic-ui/components/Modal'
 import Text from '../atomic-ui/components/Text'
 
+import useEntityQuery from '../hooks/useEntityQuery'
 import { FixedLoader } from '../components/Styled'
 import { removeItem, clearItems } from '../store/actions/snacks'
 import { setUser } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
 import { setModal } from '../store/actions/modal'
-import { setMutate } from '../store/actions/root'
+import { setMutate, setSettings } from '../store/actions/root'
 import queries from '../graphql/queries'
 import config from '../config'
-import useEntityQuery from '../hooks/useEntityQuery'
 
 const LIFETIME_OF_SNACK = 3000
 
@@ -125,6 +125,7 @@ export const MainLayout = ({ children }) => {
   const router = useRouter()
   const { useDetectQuery } = useEntityQuery()
   const [getUser, { data, loading }] = useLazyQuery(queries.GET_USER)
+  const { data: dataMeta, loading: loadingMeta } = useQuery(queries.GET_META)
   const { root, user, drawer, snacks, modal } = useSelector((state) => state)
   const dispatch = useDispatch()
 
@@ -143,6 +144,12 @@ export const MainLayout = ({ children }) => {
   const onModalHide = () => {
     dispatch(setModal(null))
   }
+
+  useEffect(() => {
+    if (!loadingMeta && dataMeta?.getDashboardSettings) {
+      dispatch(setSettings(dataMeta?.getDashboardSettings))
+    }
+  }, [dataMeta, loadingMeta])
 
   useEffect(() => {
     if (snacks?.length > 0) {
@@ -182,7 +189,8 @@ export const MainLayout = ({ children }) => {
   return (
     <React.Fragment>
       <Head>
-        <title>Загрузка...</title>
+        <title>{root.settings.meta.title}</title>
+        <meta name={'description'} content={root.settings.meta.description} />
       </Head>
 
       {loading ? (
@@ -203,7 +211,7 @@ export const MainLayout = ({ children }) => {
           <Header>
             {drawer.side === 'left' && drawer.half ? (
               <Button appearance={'clear'} onClick={() => router.push('/')}>
-                <BrandLogo src={'/images/logo.png'} alt={'Logotype'} />
+                <BrandLogo src={root.settings.general.logotype?.path} alt={'Logotype'} />
               </Button>
             ) : (
               <BackButton size={'s'} kind={'icon'} onClick={onDrawerBack} revert>

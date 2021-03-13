@@ -275,3 +275,33 @@ export const CommentFields = gql`
     createdAt
   }
 `
+
+export const DashboardSettingsFields = gql`
+  fragment DashboardSettingsFields on DashboardSettings {
+    general {
+      logotype {
+        path
+        size
+      }
+    }
+    scaffold {
+      title
+      primary {
+        id
+        title
+      }
+      residues{
+        id
+        title
+      }
+      background {
+        path
+        size
+      }
+    }
+    meta {
+      title
+      description
+    }
+  }
+`

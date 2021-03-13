@@ -51,10 +51,10 @@ const Home = ({ store }) => {
 
   const scaffold = useMemo(
     () => ({
-      title: 'Создавай школу будущего с нами',
-      background: '/images/main-background.png',
-      primary: store.projects?.length > 0 && store.projects[0],
-      residue: store.projects?.length === 3 && store.projects.slice(1, 3),
+      title: store.scaffold.title,
+      background: store.scaffold.background.path,
+      primary: store.scaffold.primary,
+      residues: store.scaffold.residues,
       onLink: (project, owned) =>
         recall(onProjectLink, {
           id: project.id,
@@ -139,19 +139,13 @@ const Home = ({ store }) => {
 export async function getServerSideProps() {
   const client = initializeApollo()
 
-  let projects = []
+  let scaffold = null
 
   try {
-    const response = await client.query({
-      query: queries.GET_PROJECTS,
-      variables: {
-        offset: 0,
-        limit: 3
-      }
-    })
+    const response = await client.query({ query: queries.GET_META_SCAFFOLD })
 
     if (response && response.data) {
-      projects = response.data.getProjects
+      scaffold = response.data.getDashboardSettings?.scaffold
     }
   } catch (err) {
     console.log(err)
@@ -160,7 +154,7 @@ export async function getServerSideProps() {
   return {
     props: {
       store: {
-        projects
+        scaffold
       }
     }
   }

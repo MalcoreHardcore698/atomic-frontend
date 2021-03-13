@@ -115,7 +115,7 @@ const Content = styled(Container)`
 export const DashboardLayout = ({ children, title = 'Панель администрирования' }) => {
   const recall = useHelper()
   const router = useRouter()
-  const user = useSelector((state) => state.user)
+  const { root, user } = useSelector((state) => state)
   const [getUser, { data, loading }] = useLazyQuery(queries.GET_USER)
   const dispatch = useDispatch()
 
@@ -152,7 +152,7 @@ export const DashboardLayout = ({ children, title = 'Панель админис
     <MainLayout>
       <Head>
         <meta name="keywords" content="next,javascript,nextjs,react" />
-        <meta name="description" content="primar project description" />
+        <meta name="description" content={root.settings.meta.description} />
         <title>{title}</title>
       </Head>
 
@@ -171,7 +171,7 @@ export const DashboardLayout = ({ children, title = 'Панель админис
         </MenuButton>
         <LogoZone>
           <Tooltip
-            text={'Атомик – портал для формирования новой сферы образования'}
+            text={root.settings.meta.description}
             offset={{ bottom: 5 }}
             place={'bottom'}
             maxWidth={256}
@@ -179,7 +179,7 @@ export const DashboardLayout = ({ children, title = 'Панель админис
             <Logotype>
               <Link href={'/'}>
                 <a>
-                  <Image src={'/images/logo.png'} alt={'Logotype'} />
+                  <Image src={root.settings.general.logotype?.path} alt={'Logotype'} />
                 </a>
               </Link>
             </Logotype>

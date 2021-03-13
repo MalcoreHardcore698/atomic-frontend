@@ -94,9 +94,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
   const mutate = useMutate()
   const router = useRouter()
   const { data, loading } = useQuery(queries.GET_CATEGORIES)
-  const { user } = useSelector((state) => ({
-    user: state.user
-  }))
+  const { root, user } = useSelector((state) => state)
   const dispatch = useDispatch()
   const categories = useMemo(() => data?.getCategories || [], [data])
 
@@ -124,7 +122,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
       <Wrap>
         <AppBar
           user={user.authenticated ? user : null}
-          logotype={'/images/logo.png'}
+          logotype={root.settings.general.logotype?.path}
           link={({ children, href, ...props }) => (
             <Link {...props} href={href}>
               <Anchor active={router.pathname === href} link={children.type.target === 'span'}>

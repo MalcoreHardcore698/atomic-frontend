@@ -11,6 +11,15 @@ export function setMutate(mutation, variables, callback) {
   }
 }
 
+export function setSettings(settings) {
+  return {
+    type: C.SET_SETTINGS,
+    payload: {
+      settings
+    }
+  }
+}
+
 export function setProjectMembers(members) {
   return {
     type: C.SET_MEMBERS,

@@ -3,6 +3,15 @@ import C from '../types/root'
 
 const initialState = {
   mutation: null,
+  settings: {
+    general: {
+      logotype: '' // /images/logo.png
+    },
+    meta: {
+      title: '',
+      description: ''
+    }
+  },
   variables: null,
   scrollTop: 0,
   callback: () => {},
@@ -18,6 +27,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload
+      }
+    case C.SET_SETTINGS:
+      return {
+        ...state,
+        settings: action.payload.settings
       }
     case C.SET_MEMBERS:
       return {

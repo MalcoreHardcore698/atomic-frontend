@@ -108,12 +108,6 @@ export const PrimaryProject = styled(ProjectCard)`
 
   ${Poster} {
     height: 256px;
-
-    ${({ layout }) =>
-      layout === 'column' &&
-      css`
-        height: 100%;
-      `}
   }
 
   @media only screen and (max-width: 768px) {
@@ -159,7 +153,7 @@ export const Scaffold = ({
   image,
   background,
   primary,
-  residue,
+  residues,
   className,
   style,
   onLike,
@@ -198,12 +192,12 @@ export const Scaffold = ({
           <Search onSubmit={onSearch} />
         </Header>
 
-        {(primary || (residue && residue.length > 0)) && (
+        {(primary || (residues && residues.length > 0)) && (
           <Projects>
             {primary && <PrimaryProject {...getProjectProps(primary, 'column')} />}
-            {residue && residue.length > 0 && (
+            {residues && residues.length > 0 && (
               <Residues>
-                {residue.slice(0, 2).map((project, index) => (
+                {residues.slice(0, 2).map((project, index) => (
                   <Residue key={index} {...getProjectProps(project)} />
                 ))}
               </Residues>

@@ -179,6 +179,16 @@ var root = __webpack_require__("zSN1");
 
 const root_initialState = {
   mutation: null,
+  settings: {
+    general: {
+      logotype: '' // /images/logo.png
+
+    },
+    meta: {
+      title: '',
+      description: ''
+    }
+  },
   variables: null,
   scrollTop: 0,
   callback: () => {},
@@ -192,6 +202,11 @@ const rootReducer = (state = root_initialState, action) => {
     case root["a" /* default */].SET_MUTATE:
       return { ...state,
         ...action.payload
+      };
+
+    case root["a" /* default */].SET_SETTINGS:
+      return { ...state,
+        settings: action.payload.settings
       };
 
     case root["a" /* default */].SET_MEMBERS:
@@ -541,7 +556,7 @@ const App = ({
     store: store
   }, /*#__PURE__*/external_react_default.a.createElement(react_hooks_["ApolloProvider"], {
     client: client
-  }, /*#__PURE__*/external_react_default.a.createElement(head_default.a, null, /*#__PURE__*/external_react_default.a.createElement("title", null, "\u0410\u0442\u043E\u043C\u0438\u043A"), /*#__PURE__*/external_react_default.a.createElement("meta", {
+  }, /*#__PURE__*/external_react_default.a.createElement(head_default.a, null, /*#__PURE__*/external_react_default.a.createElement("meta", {
     charSet: 'utf-8'
   }), /*#__PURE__*/external_react_default.a.createElement("meta", {
     name: 'viewport',
@@ -549,9 +564,6 @@ const App = ({
   }), /*#__PURE__*/external_react_default.a.createElement("meta", {
     name: 'theme-color',
     content: '#000000'
-  }), /*#__PURE__*/external_react_default.a.createElement("meta", {
-    name: 'description',
-    content: 'Атомик – портал для формирования новой сферы образования'
   }), /*#__PURE__*/external_react_default.a.createElement("meta", {
     name: 'yandex-verification',
     content: 'bfd04b96d30382f5'
@@ -961,6 +973,7 @@ module.exports = require("next/head");
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ({
   SET_MUTATE: 'SET_MUTATE',
+  SET_SETTINGS: 'SET_SETTINGS',
   SET_MEMBERS: 'SET_MEMBERS',
   SET_SCREENSHOTS: 'SET_SCREENSHOTS',
   SET_CHAT: 'SET_CHAT',

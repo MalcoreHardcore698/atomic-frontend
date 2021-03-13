@@ -5,8 +5,48 @@ import {
   ProjectFields,
   TicketFields,
   UserFields,
-  RoleFields
+  RoleFields,
+  DashboardSettingsFields
 } from '../../fragments'
+
+export const GET_META = gql`
+  query getDashboardSettings {
+    getDashboardSettings {
+      general {
+        logotype {
+          path
+        }
+      }
+      meta {
+        title
+        description
+      }
+    }
+  }
+`
+
+export const GET_META_SCAFFOLD = gql`
+  query getDashboardSettings {
+    getDashboardSettings {
+      scaffold {
+        title
+        primary {
+          ...ProjectFields
+        }
+        residues {
+          ...ProjectFields
+        }
+        background {
+          id
+          filename
+          size
+          path
+        }
+      }
+    }
+  }
+  ${ProjectFields}
+`
 
 export const GET_META_INDEX = gql`
   query getMetaIndex($offset: Int, $limit: Int, $status: PostStatus) {
@@ -73,6 +113,27 @@ export const GET_META_PROJECTS = gql`
   ${CategoryFields}
 `
 
+export const GET_META_SETTINGS_PROJECTS = gql`
+  query getProjects(
+    $offset: Int
+    $limit: Int
+    $search: String
+    $category: ID
+    $status: PostStatus
+  ) {
+    getProjects(
+      offset: $offset
+      limit: $limit
+      search: $search
+      category: $category
+      status: $status
+    ) {
+      id
+      title
+    }
+  }
+`
+
 export const GET_META_DASHBOARD_STATISTICS = gql`
   query getDashboardStatistics {
     getDashboardStatistics {
@@ -103,6 +164,15 @@ export const GET_META_DASHBOARD_ACTIVITIES = gql`
       createdAt
     }
   }
+`
+
+export const GET_META_DASHBOARD_SETTINGS = gql`
+  query getDashboardSettings {
+    getDashboardSettings {
+      ...DashboardSettingsFields
+    }
+  }
+  ${DashboardSettingsFields}
 `
 
 export const GET_META_DASHBOARD_PREVIEW_ARTICLES = gql`
@@ -252,4 +322,13 @@ export const GET_META_DASHBOARD_ROLES = gql`
     getPermissions
   }
   ${RoleFields}
+`
+
+export const UPDATE_META_DASHBOARD_SETTINGS = gql`
+  mutation updateMetaDashboardSettings($input: DashboardSettingsInput!) {
+    updateDashboardSettings(input: $input) {
+      ...DashboardSettingsFields
+    }
+  }
+  ${DashboardSettingsFields}
 `
