@@ -7358,9 +7358,9 @@ const ContentLayout = ({
     isOpen: visibleFilter,
     filters: getFilters(),
     options: options
-  }), external_react_default.a.createElement(children, {
+  }), typeof children === 'function' ? external_react_default.a.createElement(children, {
     documents
-  }), search && !loadingBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }) : children, search && !loadingBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -7371,12 +7371,7 @@ const ContentLayout = ({
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (isFetching || !error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)), !search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-    style: {
-      width: '100%',
-      textAlign: 'center'
-    }
-  }, "\u0414\u0430\u043D\u043D\u044B\u0445 \u043D\u0435\u0442")));
+  }, "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435"), (isFetching || !error && loading || search && !errorBySearch && loadingBySearch) && /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null))));
 };
 
 /* harmony default export */ var content = __webpack_exports__["a"] = (ContentLayout);
@@ -9802,7 +9797,7 @@ const DefaultLayout = ({
   const dispatch = Object(external_react_redux_["useDispatch"])();
   const categories = Object(external_react_["useMemo"])(() => (data === null || data === void 0 ? void 0 : data.getCategories) || [], [data]);
   const isProjects = router.pathname.includes('projects');
-  const categoryId = router.query.category;
+  const categoryId = router.query.c;
 
   if (loading) {
     return /*#__PURE__*/external_react_default.a.createElement(Styled["a" /* FixedLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
@@ -9837,7 +9832,7 @@ const DefaultLayout = ({
           label: category.name,
           props: {
             active: categoryId === category.id,
-            onClick: () => router.push(`/projects?category=${category.id}`)
+            onClick: () => router.push(`/projects?c=${category.id}`)
           }
         }))
       },

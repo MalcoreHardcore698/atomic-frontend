@@ -1,19 +1,44 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useLazyQuery } from '@apollo/react-hooks'
 
+import Spinner from '../atomic-ui/components/Spinner'
 import { getLabelCategory } from '../atomic-ui/utils/functions'
 
-import { initializeApollo } from '../apollo'
 import ContentLayout from '../layouts/content'
-import { GridAside as Container } from '../components/Styled'
 import ProjectList from '../components/ProjectList'
+import { FixedLoader, GridAside as Container } from '../components/Styled'
 import queries from '../graphql/queries'
 
 const TITLE = 'Проекты'
 const START_OFFSET = 6
 
-const Projects = ({ store }) => {
+const Projects = () => {
   const router = useRouter()
+
+  const [load, { data, loading }] = useLazyQuery(queries.GET_META_PROJECTS)
+
+  useEffect(() => {
+    const category = router.query?.c
+    if (category) {
+      load({
+        variables: {
+          offset: 0,
+          limit: START_OFFSET,
+          status: 'PUBLISHED',
+          category
+        }
+      })
+    }
+  }, [router])
+
+  if (loading) {
+    return (
+      <FixedLoader>
+        <Spinner />
+      </FixedLoader>
+    )
+  }
 
   return (
     <ContentLayout
@@ -22,7 +47,7 @@ const Projects = ({ store }) => {
         { type: 'DATEPICKER' },
         {
           type: 'SELECT',
-          options: store?.categories.map((category) => ({
+          options: data?.getCategories.map((category) => ({
             value: category.id,
             label: getLabelCategory(category.name)
           }))
@@ -34,8 +59,8 @@ const Projects = ({ store }) => {
         { label: 'Дата публикации', value: 'createdAt' }
       ]}
       query={queries.GET_PROJECTS}
-      variables={{ category: router.query.category, status: 'PUBLISHED' }}
-      store={{ documents: store?.projects }}>
+      variables={{ category: router.query?.c, status: 'PUBLISHED' }}
+      store={{ documents: data?.getProjects }}>
       {({ documents }) => (
         <Container>
           <ProjectList initialList={documents} layout />
@@ -43,41 +68,6 @@ const Projects = ({ store }) => {
       )}
     </ContentLayout>
   )
-}
-
-export async function getServerSideProps({ query }) {
-  const client = initializeApollo()
-
-  let projects = []
-  let categories = []
-
-  try {
-    const response = await client.query({
-      query: queries.GET_META_PROJECTS,
-      variables: {
-        offset: 0,
-        limit: START_OFFSET,
-        status: 'PUBLISHED',
-        category: query.category
-      }
-    })
-
-    if (response && response.data) {
-      projects = response.data.getProjects
-      categories = response.data.getCategories
-    }
-  } catch (err) {
-    console.log(err)
-  }
-
-  return {
-    props: {
-      store: {
-        projects,
-        categories
-      }
-    }
-  }
 }
 
 export default Projects

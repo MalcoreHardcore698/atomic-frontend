@@ -9881,7 +9881,7 @@ const DefaultLayout = ({
   const dispatch = Object(external_react_redux_["useDispatch"])();
   const categories = Object(external_react_["useMemo"])(() => (data === null || data === void 0 ? void 0 : data.getCategories) || [], [data]);
   const isProjects = router.pathname.includes('projects');
-  const categoryId = router.query.category;
+  const categoryId = router.query.c;
 
   if (loading) {
     return /*#__PURE__*/external_react_default.a.createElement(Styled["a" /* FixedLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
@@ -9916,7 +9916,7 @@ const DefaultLayout = ({
           label: category.name,
           props: {
             active: categoryId === category.id,
-            onClick: () => router.push(`/projects?category=${category.id}`)
+            onClick: () => router.push(`/projects?c=${category.id}`)
           }
         }))
       },

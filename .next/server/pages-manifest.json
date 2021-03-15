@@ -19,6 +19,6 @@
   "/guide": "pages/guide.html",
   "/": "pages/index.js",
   "/profile": "pages/profile.js",
-  "/projects": "pages/projects.js",
+  "/projects": "pages/projects.html",
   "/_error": "pages/_error.js"
 }

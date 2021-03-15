@@ -99,7 +99,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
   const categories = useMemo(() => data?.getCategories || [], [data])
 
   const isProjects = router.pathname.includes('projects')
-  const categoryId = router.query.category
+  const categoryId = router.query.c
 
   if (loading) {
     return (
@@ -140,7 +140,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
                     label: category.name,
                     props: {
                       active: categoryId === category.id,
-                      onClick: () => router.push(`/projects?category=${category.id}`)
+                      onClick: () => router.push(`/projects?c=${category.id}`)
                     }
                   }))
               },

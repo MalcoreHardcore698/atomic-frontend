@@ -174,7 +174,7 @@ const ContentLayout = ({
           <FilterBar isOpen={visibleFilter} filters={getFilters()} options={options} />
         )}
 
-        {React.createElement(children, { documents })}
+        {typeof children === 'function' ? React.createElement(children, { documents }) : children}
 
         {search && !loadingBySearch && documents.length === 0 && (
           <Alert style={{ width: '100%', textAlign: 'center' }}>
@@ -192,10 +192,6 @@ const ContentLayout = ({
           <LowerLoader>
             <Spinner />
           </LowerLoader>
-        )}
-
-        {!search && !loading && !loadingBySearch && !errorBySearch && documents.length === 0 && (
-          <Alert style={{ width: '100%', textAlign: 'center' }}>Данных нет</Alert>
         )}
       </Wrap>
     </Layout>
