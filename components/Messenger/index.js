@@ -87,7 +87,7 @@ export const Chat = styled(Member)`
 
 export const getUnreadedMessages = (messages, sender) =>
   (messages || []).reduce(
-    (acc, item) => acc + (item.type === 'UNREADED' && item.user?.email !== sender.email ? 1 : 0),
+    (acc, item) => acc + (item.type === 'UNREADED' && item.user?.email !== sender ? 1 : 0),
     0
   )
 
@@ -95,13 +95,13 @@ export const getLastMessage = (messages, sender) => {
   const list = messages || []
   const message = list[list.length - 1]
   if (!message) return ''
-  return `${message.user?.email === sender.email ? 'Вы: ' : ''}${message.text}`
+  return `${message.user?.email === sender ? 'Вы: ' : ''}${message.text}`
 }
 
 export const getExtendMessages = (messages, sender) =>
   messages.map((message) => ({
     ...message,
-    side: sender.name === message.user.name ? 'owner' : 'observer'
+    side: sender === message.user.email ? 'owner' : 'observer'
   }))
 
 export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLink, ...props }) => {
@@ -147,7 +147,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
   useEffect(() => {
     if (recipient) {
       addUserChat({
-        variables: { recipient: recipient.email }
+        variables: { recipient }
       }).then(() => {
         getUserChats()
         getUserTickets()
@@ -158,7 +158,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
   useEffect(() => {
     if (recipient && !currentChat && !loadingUserChats && dataUserChats?.getUserChats) {
       const id = dataUserChats.getUserChats.find((userChat) =>
-        userChat.chat.members.find((member) => member.name === recipient.name)
+        userChat.chat.members.find((member) => member.email === recipient)
       )?.chat.id
 
       if (id) getChat({ variables: { id } })
@@ -226,12 +226,11 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
             <Chat
               key={chat.chat?.id || chat.id}
               name={
-                chat.chat?.members.filter((member) => member.name !== sender.name)[0].name ||
+                chat.chat?.members.filter((member) => member.email !== sender)[0].name ||
                 chat.counsellor?.name
               }
               avatar={
-                chat.chat?.members.filter((member) => member.name !== sender.name)[0].avatar
-                  ?.path ||
+                chat.chat?.members.filter((member) => member.email !== sender)[0].avatar?.path ||
                 chat.counsellor?.avatar?.path ||
                 '/images/avatar-default.png'
               }
@@ -282,7 +281,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
             ...currentChat,
             messages: currentChat.messages.map((message) => ({
               ...message,
-              side: sender.name === message.user.name ? 'owner' : 'observer'
+              side: sender === message.user.email ? 'owner' : 'observer'
             }))
           }
         }
@@ -308,11 +307,11 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
         onAttach={onAttach}
         onSubmit={(value) => {
           if (currentChat.members) {
-            const candidate = currentChat.members.find((member) => member.email !== sender.email)
+            const candidate = currentChat.members.find((member) => member.email !== sender)
             sendMessage({
               variables: {
-                sender: sender.email,
-                recipient: recipient?.email || candidate?.email,
+                sender,
+                recipient: recipient || candidate?.email,
                 text: value
               }
             })

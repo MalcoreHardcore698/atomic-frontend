@@ -44,8 +44,8 @@ export const UserList = ({ variables, initialList }) => {
             onChat={
               user.email &&
               recall(onChat, {
-                email: author.email,
-                auth: user?.email,
+                sender: user?.email,
+                recipient: author.email,
                 queries: {
                   userChats: queries.GET_USER_CHATS,
                   chat: queries.GET_CHAT

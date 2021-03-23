@@ -33,12 +33,11 @@ export const AddUserFolder = ({
             <Input
               type={'text'}
               name={'name'}
-              inputRef={register({ required: true })}
+              ref={register({ required: true })}
               placeholder={'Введите название папки'}
               appearance={'ghost'}
-              loading={loading.toString()}
+              disabled={loading}
               autoComplete={'off'}
-              required
             />
           </Column>
 
@@ -48,12 +47,12 @@ export const AddUserFolder = ({
                 style={{ flexGrow: 1 }}
                 type={'button'}
                 appearance={'ghost'}
-                loading={loading.toString()}
+                disabled={loading}
                 onClick={onCancel}>
                 Отмена
               </Button>
             )}
-            <Button style={{ flexGrow: 1 }} type={'submit'} loading={loading.toString()}>
+            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
               Создать
             </Button>
           </Row>

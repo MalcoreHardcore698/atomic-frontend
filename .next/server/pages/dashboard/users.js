@@ -397,7 +397,7 @@ const Chat = external_styled_components_default()(Member["a" /* default */]).wit
 const getUnreadedMessages = (messages, sender) => (messages || []).reduce((acc, item) => {
   var _item$user;
 
-  return acc + (item.type === 'UNREADED' && ((_item$user = item.user) === null || _item$user === void 0 ? void 0 : _item$user.email) !== sender.email ? 1 : 0);
+  return acc + (item.type === 'UNREADED' && ((_item$user = item.user) === null || _item$user === void 0 ? void 0 : _item$user.email) !== sender ? 1 : 0);
 }, 0);
 const getLastMessage = (messages, sender) => {
   var _message$user;
@@ -405,10 +405,10 @@ const getLastMessage = (messages, sender) => {
   const list = messages || [];
   const message = list[list.length - 1];
   if (!message) return '';
-  return `${((_message$user = message.user) === null || _message$user === void 0 ? void 0 : _message$user.email) === sender.email ? 'Вы: ' : ''}${message.text}`;
+  return `${((_message$user = message.user) === null || _message$user === void 0 ? void 0 : _message$user.email) === sender ? 'Вы: ' : ''}${message.text}`;
 };
 const getExtendMessages = (messages, sender) => messages.map(message => ({ ...message,
-  side: sender.name === message.user.name ? 'owner' : 'observer'
+  side: sender === message.user.email ? 'owner' : 'observer'
 }));
 const Messenger = ({
   appearance,
@@ -462,7 +462,7 @@ const Messenger = ({
     if (recipient) {
       addUserChat({
         variables: {
-          recipient: recipient.email
+          recipient
         }
       }).then(() => {
         getUserChats();
@@ -474,7 +474,7 @@ const Messenger = ({
     if (recipient && !currentChat && !loadingUserChats && dataUserChats !== null && dataUserChats !== void 0 && dataUserChats.getUserChats) {
       var _dataUserChats$getUse;
 
-      const id = (_dataUserChats$getUse = dataUserChats.getUserChats.find(userChat => userChat.chat.members.find(member => member.name === recipient.name))) === null || _dataUserChats$getUse === void 0 ? void 0 : _dataUserChats$getUse.chat.id;
+      const id = (_dataUserChats$getUse = dataUserChats.getUserChats.find(userChat => userChat.chat.members.find(member => member.email === recipient))) === null || _dataUserChats$getUse === void 0 ? void 0 : _dataUserChats$getUse.chat.id;
       if (id) getChat({
         variables: {
           id
@@ -528,8 +528,8 @@ const Messenger = ({
 
     return /*#__PURE__*/external_react_default.a.createElement(Chat, {
       key: ((_chat$chat = chat.chat) === null || _chat$chat === void 0 ? void 0 : _chat$chat.id) || chat.id,
-      name: ((_chat$chat2 = chat.chat) === null || _chat$chat2 === void 0 ? void 0 : _chat$chat2.members.filter(member => member.name !== sender.name)[0].name) || ((_chat$counsellor = chat.counsellor) === null || _chat$counsellor === void 0 ? void 0 : _chat$counsellor.name),
-      avatar: ((_chat$chat3 = chat.chat) === null || _chat$chat3 === void 0 ? void 0 : (_chat$chat3$members$f = _chat$chat3.members.filter(member => member.name !== sender.name)[0].avatar) === null || _chat$chat3$members$f === void 0 ? void 0 : _chat$chat3$members$f.path) || ((_chat$counsellor2 = chat.counsellor) === null || _chat$counsellor2 === void 0 ? void 0 : (_chat$counsellor2$ava = _chat$counsellor2.avatar) === null || _chat$counsellor2$ava === void 0 ? void 0 : _chat$counsellor2$ava.path) || '/images/avatar-default.png',
+      name: ((_chat$chat2 = chat.chat) === null || _chat$chat2 === void 0 ? void 0 : _chat$chat2.members.filter(member => member.email !== sender)[0].name) || ((_chat$counsellor = chat.counsellor) === null || _chat$counsellor === void 0 ? void 0 : _chat$counsellor.name),
+      avatar: ((_chat$chat3 = chat.chat) === null || _chat$chat3 === void 0 ? void 0 : (_chat$chat3$members$f = _chat$chat3.members.filter(member => member.email !== sender)[0].avatar) === null || _chat$chat3$members$f === void 0 ? void 0 : _chat$chat3$members$f.path) || ((_chat$counsellor2 = chat.counsellor) === null || _chat$counsellor2 === void 0 ? void 0 : (_chat$counsellor2$ava = _chat$counsellor2.avatar) === null || _chat$counsellor2$ava === void 0 ? void 0 : _chat$counsellor2$ava.path) || '/images/avatar-default.png',
       budge: ((_chat$chat4 = chat.chat) === null || _chat$chat4 === void 0 ? void 0 : _chat$chat4.messages) && getUnreadedMessages((_chat$chat5 = chat.chat) === null || _chat$chat5 === void 0 ? void 0 : _chat$chat5.messages, sender) || chat.messages && getUnreadedMessages(chat.messages, sender) || null,
       position: ((_chat$chat6 = chat.chat) === null || _chat$chat6 === void 0 ? void 0 : _chat$chat6.messages) && getLastMessage((_chat$chat7 = chat.chat) === null || _chat$chat7 === void 0 ? void 0 : _chat$chat7.messages, sender) || chat.messages && getLastMessage(chat.messages, sender) || null,
       onClick: async () => {
@@ -568,7 +568,7 @@ const Messenger = ({
   }, "\u0410\u043A\u0442\u0438\u0432\u043D\u044B\u0435 \u0447\u0430\u0442\u044B \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u044E\u0442")), /*#__PURE__*/external_react_default.a.createElement(components_MessengerChat, {
     chat: currentChat && { ...currentChat,
       messages: currentChat.messages.map(message => ({ ...message,
-        side: sender.name === message.user.name ? 'owner' : 'observer'
+        side: sender === message.user.email ? 'owner' : 'observer'
       }))
     },
     appearance: 'ghost',
@@ -578,11 +578,11 @@ const Messenger = ({
     onAttach: onAttach,
     onSubmit: value => {
       if (currentChat.members) {
-        const candidate = currentChat.members.find(member => member.email !== sender.email);
+        const candidate = currentChat.members.find(member => member.email !== sender);
         sendMessage({
           variables: {
-            sender: sender.email,
-            recipient: (recipient === null || recipient === void 0 ? void 0 : recipient.email) || (candidate === null || candidate === void 0 ? void 0 : candidate.email),
+            sender,
+            recipient: recipient || (candidate === null || candidate === void 0 ? void 0 : candidate.email),
             text: value
           }
         });
@@ -1068,6 +1068,7 @@ const Footer = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_
 const Card = ({
   layout,
   project,
+  eliminable,
   appearance,
   className,
   style,
@@ -1076,6 +1077,7 @@ const Card = ({
   liked,
   owned,
   onAdd,
+  onRemove,
   onLink,
   onLike,
   onAboutMore,
@@ -1099,6 +1101,9 @@ const Card = ({
     setLike(!isLiked);
   };
 
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    setLike(liked);
+  }, [liked]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
     className: className,
     style: style,
@@ -1179,7 +1184,7 @@ const Card = ({
 
       return setQuery((_project$company5 = project.company) === null || _project$company5 === void 0 ? void 0 : _project$company5.email, 'user', onCompanyLink);
     })
-  })), !owned && (onLike || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, onLike && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  })), !owned && (onLike || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, !eliminable && onLike && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Мне нравится'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     type: 'button',
@@ -1189,7 +1194,7 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     icon: 'heart',
     stroke: isLiked ? 'white' : 'var(--default-color-accent)'
-  }))), onAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  }))), !eliminable && onAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Добавить проект к себе'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     type: 'button',
@@ -1199,6 +1204,17 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     icon: 'add',
     stroke: 'var(--default-color-accent)'
+  }))), eliminable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+    text: 'Удалить проект из папки'
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+    type: 'button',
+    kind: 'icon',
+    appearance: 'red',
+    onClick: onRemove,
+    revert: true
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+    icon: 'delete',
+    stroke: 'var(--default-color-red)'
   })))))));
 };
 Card.defaultProps = {
@@ -2283,11 +2299,35 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
   margin: 0;
   transition: opacity 150ms ease;
 
+  & > span {
+    grid-area: avatar;
+    align-self: end;
+    justify-self: start;
+    cursor: pointer;
+    transition: opacity 150ms ease;
+  }
+
+  ${({
+  onClick
+}) => onClick && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      & > span {
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.65;
+        }
+      }
+    `}
+
   ${({
   side
 }) => side === 'owner' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
       grid-template-columns: 1fr 64px;
       grid-template-areas: 'opinion avatar';
+
+      & > span {
+        justify-self: end;
+      }
     `}
 
   ${({
@@ -3184,11 +3224,11 @@ const useEntityQuery = () => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return setUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return setLogout; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return setUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return setLogout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return updateUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return addUserFolder; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return removeUserFolder; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return setUserFolders; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return setUserFolder; });
 /* harmony import */ var _types_user__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("Ab4s");
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("rOcY");
 
@@ -3217,16 +3257,16 @@ function updateUser(user) {
     payload: user
   };
 }
-function addUserFolder(folders) {
+function setUserFolders(folders) {
   return {
-    type: _types_user__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].ADD_USER_FOLDER,
+    type: _types_user__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].SET_USER_FOLDERS,
     payload: folders
   };
 }
-function removeUserFolder(folders) {
+function setUserFolder(folder) {
   return {
-    type: _types_user__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].REMOVE_USER_FOLDER,
-    payload: folders
+    type: _types_user__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].SET_USER_FOLDER,
+    payload: folder
   };
 }
 
@@ -3273,9 +3313,9 @@ function clearItems() {
   SET_USER: 'SET_USER',
   SET_LOGOUT: 'SET_LOGOUT',
   SET_AUTH_USER: 'SET_AUTH_USER',
-  UPDATE_USER: 'UPDATE_USER',
-  ADD_USER_FOLDER: 'ADD_USER_FOLDER',
-  REMOVE_USER_FOLDER: 'REMOVE_USER_FOLDER'
+  SET_USER_FOLDERS: 'SET_USER_FOLDERS',
+  SET_USER_FOLDER: 'SET_USER_FOLDER',
+  UPDATE_USER: 'UPDATE_USER'
 });
 
 /***/ }),
@@ -3788,6 +3828,16 @@ const RoundedIcon = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Ic
 }) => color || 'accent'}-dim);
   border-radius: var(--surface-border-radius);
 
+  ${({
+  disabled
+}) => disabled && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      background: var(--ghost-color-background);
+
+      svg path {
+        stroke: var(--ghost-color-text);
+      }
+    `}
+
   @media only screen and (max-width: 480px) {
     width: var(--input-height-s);
     height: var(--input-height-s);
@@ -3809,6 +3859,12 @@ const Label = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Text__WE
   text-overflow: ellipsis;
 
   ${({
+  disabled
+}) => disabled && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      color: var(--ghost-color-text);
+    `}
+
+  ${({
   stretch
 }) => stretch && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
       width: auto;
@@ -3822,7 +3878,11 @@ const Value = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Title__W
     font-size: var(--font-size-l);
   }
 `;
-const getValue = (label, text) => {
+const getValue = (label, text, disabled) => {
+  const disabledStyle = disabled ? {
+    color: 'var(--ghost-color-text)'
+  } : {};
+
   if (Array.isArray(text)) {
     const slicedFactor = 3;
     return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, text.slice(0, slicedFactor).map(item => __jsx(_Chip__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
@@ -3846,10 +3906,13 @@ const getValue = (label, text) => {
 
   if (typeof _Text__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"] === 'funciton') {
     const Text = text;
-    return __jsx(Text, null);
+    return __jsx(Text, {
+      style: disabledStyle
+    });
   }
 
   return __jsx(Value, {
+    style: disabledStyle,
     tag: !label ? 'h2' : 'h4'
   }, text);
 };
@@ -3863,25 +3926,35 @@ const Difinition = ({
   className,
   style,
   stretch,
+  disabled,
+  revert,
   onLink
-}) => __jsx(Wrap, {
-  className: className,
-  style: style,
-  clickable: !!onLink,
-  onClick: () => onLink && onLink()
-}, img && !icon && __jsx(Image, {
-  src: img,
-  alt: 'Avatar'
-}), !img && icon && __jsx(RoundedIcon, {
-  icon: icon,
-  color: color,
-  stroke: `var(--default-color-${color || 'accent'})`
-}), __jsx(Content, null, label && __jsx(Label, {
-  stretch: stretch
-}, label), tooltip ? __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-  place: 'top',
-  text: tooltip
-}, __jsx(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, getValue(label, text))) : __jsx(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, getValue(label, text))));
+}) => {
+  const renderLabel = () => label && __jsx(Label, {
+    stretch: stretch,
+    disabled: disabled
+  }, label);
+
+  const renderText = () => tooltip ? __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
+    place: 'top',
+    text: tooltip
+  }, __jsx(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, getValue(label, text, disabled))) : __jsx(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, getValue(label, text, disabled));
+
+  return __jsx(Wrap, {
+    className: className,
+    style: style,
+    clickable: !disabled && !!onLink,
+    onClick: () => !disabled && onLink && onLink()
+  }, img && !icon && __jsx(Image, {
+    src: img,
+    alt: 'Avatar'
+  }), !img && icon && __jsx(RoundedIcon, {
+    icon: icon,
+    color: color,
+    disabled: disabled,
+    stroke: `var(--default-color-${color || 'accent'})`
+  }), __jsx(Content, null, !revert && renderLabel(), !revert && renderText(), revert && renderText(), revert && renderLabel()));
+};
 /* harmony default export */ __webpack_exports__["b"] = (Difinition);
 
 /***/ }),
@@ -4278,9 +4351,10 @@ const Search = ({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export Wrap */
+/* unused harmony export Container */
 /* unused harmony export FlexButton */
-/* unused harmony export AddFile */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Content; });
+/* unused harmony export SureDelete */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
@@ -4289,38 +4363,75 @@ const Search = ({
 /* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("nShV");
 /* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("QUga");
 /* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("ZeZO");
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("qoM+");
 
 
 
 
 
 
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]).withConfig({
-  displayName: "FormSureDelete__Wrap",
+
+const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"]).withConfig({
+  displayName: "FormSureDelete__Container",
   componentId: "agzc18-0"
-})(["padding:15px;"]);
+})(["", ""], ({
+  padding
+}) => padding && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:15px;"]));
 const FlexButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "FormSureDelete__FlexButton",
   componentId: "agzc18-1"
 })(["flex-grow:1;"]);
-const AddFile = ({
+const Content = ({
+  type,
   text,
-  className,
+  loading,
+  padding,
   onCancel,
   onSubmit
-}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
-  className: className
+}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, {
+  padding: padding
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
   style: {
     textAlign: 'center'
   }
 }, text), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FlexButton, {
-  onClick: onCancel
+  onClick: onCancel,
+  disabled: loading
 }, "\u041E\u0442\u043C\u0435\u043D\u0430"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(FlexButton, {
-  onClick: onSubmit,
-  appearance: 'red'
+  type: type,
+  appearance: 'red',
+  disabled: loading,
+  onClick: onSubmit
 }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C")));
-/* harmony default export */ __webpack_exports__["a"] = (AddFile);
+const SureDelete = ({
+  type,
+  text,
+  appearance,
+  mutation,
+  padding,
+  className,
+  onCancel,
+  onSubmit
+}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Form__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
+  appearance: appearance,
+  className: className,
+  mutation: mutation,
+  onSubmit: onSubmit
+}, ({
+  loading
+}) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, {
+  type: type,
+  text: text,
+  loading: loading,
+  padding: padding,
+  onCancel: onCancel,
+  onSubmit: onSubmit
+}));
+SureDelete.defaultProps = {
+  type: 'submit',
+  padding: true
+};
+/* harmony default export */ __webpack_exports__["b"] = (SureDelete);
 
 /***/ }),
 
@@ -4442,13 +4553,21 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ onProjectEdit; });
 __webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ onProjectDelete; });
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ onProjectAdd; });
-__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ onProjectScreenshot; });
+__webpack_require__.d(__webpack_exports__, "f", function() { return /* binding */ onProjectRemove; });
+__webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ onProjectScreenshot; });
 
 // UNUSED EXPORTS: onMemberAdd, onScreenshotAdd, onFileAdd, onSureDelete
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// EXTERNAL MODULE: ./atomic-ui/components/Grid/index.js
+var Grid = __webpack_require__("7BXr");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
 var Column = __webpack_require__("8CDE");
@@ -4458,10 +4577,6 @@ var Button = __webpack_require__("ZeZO");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
-
-// EXTERNAL MODULE: external "styled-components"
-var external_styled_components_ = __webpack_require__("Dtiu");
-var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
 
 // EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
 var Row = __webpack_require__("nShV");
@@ -4534,6 +4649,9 @@ const Screenshot = ({
   }))));
 };
 /* harmony default export */ var components_Screenshot = (Screenshot);
+// EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
+var Difinition = __webpack_require__("DTT8");
+
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__("h74D");
 
@@ -4638,9 +4756,6 @@ var external_react_hook_form_ = __webpack_require__("BTiB");
 // EXTERNAL MODULE: external "uuid"
 var external_uuid_ = __webpack_require__("kNaX");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Grid/index.js
-var Grid = __webpack_require__("7BXr");
-
 // EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
 var Title = __webpack_require__("7sPp");
 
@@ -4710,9 +4825,6 @@ const ActionRow = ({
   stroke: 'white'
 }))));
 /* harmony default export */ var components_ActionRow = (ActionRow);
-// EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
-var Difinition = __webpack_require__("DTT8");
-
 // EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
 var Spinner = __webpack_require__("auMy");
 
@@ -5487,6 +5599,14 @@ var helpers = __webpack_require__("+EEm");
 
 
 
+
+
+
+
+const CreateButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
+  displayName: "project__CreateButton",
+  componentId: "a72d83-0"
+})(["display:flex;justify-content:center;align-items:center;grid-gap:10px;span{white-space:nowrap;}"]);
 function onProjectLink(dispatch, props) {
   const {
     id,
@@ -5790,7 +5910,8 @@ function onProjectAdd(dispatch, props) {
   const {
     id,
     folders,
-    mutations
+    mutations,
+    callback
   } = props;
   dispatch(Object(modal["a" /* setModal */])([{
     path: '/',
@@ -5799,28 +5920,74 @@ function onProjectAdd(dispatch, props) {
       style: {
         padding: '15px'
       }
-    }, folders && folders.length > 0 ? folders.map(folder => /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-      key: folder.id,
-      onClick: () => {
-        dispatch(Object(root["k" /* setMutate */])(mutations.addProject, {
-          project: id,
-          folder: folder.id
-        }));
-        dispatch(Object(modal["a" /* setModal */])(null));
-      }
-    }, folder.name)) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    }, folders && folders.length > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
+      length: 'auto-fit',
+      percentage: 'minmax(225px, 1fr)'
+    }, folders.map(folder => {
+      const length = folder.projects.length;
+      const label = length === 1 ? 'проект' : length > 1 && length < 5 ? 'проекта' : 'проектов';
+      const disabled = folder.projects.find(item => item === id);
+      return /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
+        key: folder.id,
+        icon: 'paper',
+        text: folder.name,
+        label: `${length} ${label}${disabled ? ' (уже есть)' : ''}`,
+        disabled: disabled,
+        onLink: () => {
+          dispatch(Object(root["k" /* setMutate */])(mutations.addProject, {
+            project: id,
+            folder: folder.id
+          }));
+          dispatch(Object(modal["a" /* setModal */])(null));
+          if (callback) callback(folder);
+        },
+        revert: true
+      });
+    })) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
       style: {
         textAlign: 'center'
       },
       width: '100%'
-    }, "\u041F\u0430\u043F\u043E\u043A \u043D\u0435\u0442"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    }, "\u041F\u0430\u043F\u043E\u043A \u043D\u0435\u0442"), /*#__PURE__*/external_react_default.a.createElement(CreateButton, {
       onClick: () => Object(helpers_user["g" /* onUserFolderAdd */])(dispatch, {
         mutation: mutations.createFolder,
         onCancel: () => onProjectAdd(dispatch, props),
-        callback: () => onProjectAdd(dispatch, props)
-      }),
-      revert: true
-    }, "\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430"))
+        callback: items => onProjectAdd(dispatch, { ...props,
+          folders: items || folders
+        })
+      })
+    }, /*#__PURE__*/external_react_default.a.createElement("span", null, "\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430"), /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      icon: 'add',
+      stroke: 'white'
+    })))
+  }]));
+}
+function onProjectRemove(dispatch, props) {
+  const {
+    id,
+    folder,
+    mutation,
+    callback
+  } = props;
+  dispatch(Object(modal["a" /* setModal */])([{
+    path: '/',
+    title: 'Удаление проекта из папки',
+    component: () => /*#__PURE__*/external_react_default.a.createElement(FormSureDelete["b" /* default */], {
+      text: 'Вы действительно хотите удалить этот проект?',
+      mutation: mutation,
+      padding: false,
+      onCancel: () => dispatch(Object(modal["a" /* setModal */])(null)),
+      onSubmit: async (_, action) => {
+        await action({
+          variables: {
+            project: id,
+            folder: folder.id
+          }
+        });
+        dispatch(Object(modal["a" /* setModal */])(null));
+        if (callback) callback();
+      }
+    })
   }]));
 }
 function project_onMemberAdd(dispatch, props) {
@@ -5881,13 +6048,15 @@ function onSureDelete(dispatch, props) {
   dispatch(Object(modal["a" /* setModal */])([{
     path: '/',
     title: 'Удаление',
-    component: () => /*#__PURE__*/external_react_default.a.createElement(FormSureDelete["a" /* default */], {
+    component: () => /*#__PURE__*/external_react_default.a.createElement(FormSureDelete["a" /* Content */], {
       text: text,
+      type: 'button',
       onCancel: () => dispatch(Object(modal["a" /* setModal */])(null)),
       onSubmit: async () => {
         dispatch(removeAction(id));
         dispatch(Object(modal["a" /* setModal */])(null));
-      }
+      },
+      padding: true
     })
   }]));
 }
@@ -9345,7 +9514,7 @@ const Scaffold = ({
   onCompanyLink,
   onScreenshotClick
 }) => {
-  const getProjectProps = (project, layout) => {
+  const getProjectProps = Object(external_react_["useCallback"])((project, layout) => {
     var _user$folders;
 
     return {
@@ -9357,9 +9526,9 @@ const Scaffold = ({
       added: !!(user !== null && user !== void 0 && (_user$folders = user.folders) !== null && _user$folders !== void 0 && _user$folders.find(folder => {
         var _folder$projects;
 
-        return !!(folder !== null && folder !== void 0 && (_folder$projects = folder.projects) !== null && _folder$projects !== void 0 && _folder$projects.find(item => item.id === project.id));
+        return !!(folder !== null && folder !== void 0 && (_folder$projects = folder.projects) !== null && _folder$projects !== void 0 && _folder$projects.find(item => item === project.id));
       })),
-      liked: !!((user === null || user === void 0 ? void 0 : user.likedProjects) || []).find(item => item.id === project.id),
+      liked: !![...((project === null || project === void 0 ? void 0 : project.rating) || [])].find(item => item.email === user.email),
       onLike: onLike && (() => onLike(project)),
       onAdd: onAdd && (() => onAdd(project)),
       onLink: () => onLink(project, detectOwnedProject(user === null || user === void 0 ? void 0 : user.projects, project)),
@@ -9367,8 +9536,7 @@ const Scaffold = ({
       onCompanyLink: () => onCompanyLink(project),
       onScreenshotClick: (_, key) => onScreenshotClick(project, key)
     };
-  };
-
+  }, [user, image, onLike, onAdd, onAboutMore, onCompanyLink, onScreenshotClick]);
   return /*#__PURE__*/external_react_default.a.createElement(Wrap, {
     className: className,
     style: style
@@ -9377,7 +9545,7 @@ const Scaffold = ({
     alt: 'Background'
   }), /*#__PURE__*/external_react_default.a.createElement(Container, null, /*#__PURE__*/external_react_default.a.createElement(Header, null, title && /*#__PURE__*/external_react_default.a.createElement(MainTitle, null, title), /*#__PURE__*/external_react_default.a.createElement(Search["a" /* default */], {
     onSubmit: onSearch
-  })), (primary || residues && residues.length > 0) && /*#__PURE__*/external_react_default.a.createElement(Projects, null, primary && /*#__PURE__*/external_react_default.a.createElement(PrimaryProject, getProjectProps(primary, 'column')), residues && residues.length > 0 && /*#__PURE__*/external_react_default.a.createElement(Residues, null, residues.slice(0, 2).map((project, index) => /*#__PURE__*/external_react_default.a.createElement(Residue, _extends({
+  })), (primary || residues && residues.length > 0) && /*#__PURE__*/external_react_default.a.createElement(Projects, null, primary && /*#__PURE__*/external_react_default.a.createElement(PrimaryProject, getProjectProps(primary, 'column')), residues && residues.length > 0 && /*#__PURE__*/external_react_default.a.createElement(Residues, null, residues.map((project, index) => /*#__PURE__*/external_react_default.a.createElement(Residue, _extends({
     key: index
   }, getProjectProps(project))))))));
 };
@@ -9862,10 +10030,8 @@ const DefaultLayout = ({
     }),
     onProfile: () => router.push('/profile'),
     onLogin: () => router.push('/auth'),
-    onLogout: mutate(queries["a" /* default */].LOGOUT, {}, () => dispatch(Object(actions_user["c" /* setLogout */])()))
-  }), scaffold && /*#__PURE__*/external_react_default.a.createElement(components_Scaffold, default_extends({
-    user: user
-  }, scaffold)), /*#__PURE__*/external_react_default.a.createElement(Main, {
+    onLogout: mutate(queries["a" /* default */].LOGOUT, {}, () => dispatch(Object(actions_user["a" /* setLogout */])()))
+  }), scaffold && /*#__PURE__*/external_react_default.a.createElement(components_Scaffold, scaffold), /*#__PURE__*/external_react_default.a.createElement(Main, {
     id: 'main'
   }, children), /*#__PURE__*/external_react_default.a.createElement(components_Footer, {
     contacts: _mock_["b" /* contacts */],
@@ -19476,7 +19642,7 @@ const DashboardLayout = ({
       const isAccept = (_data$getUser$role = data.getUser.role) === null || _data$getUser$role === void 0 ? void 0 : _data$getUser$role.permissions.find(permission => permission === 'ACCESS_DASHBOARD');
 
       if (isAccept) {
-        dispatch(Object(actions_user["d" /* setUser */])(data.getUser));
+        dispatch(Object(actions_user["b" /* setUser */])(data.getUser));
       } else {
         router.push('/');
       }
@@ -20988,28 +21154,27 @@ const AddUserFolder = ({
   }, "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u043F\u0430\u043F\u043A\u0438")), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
     type: 'text',
     name: 'name',
-    inputRef: register({
+    ref: register({
       required: true
     }),
     placeholder: 'Введите название папки',
     appearance: 'ghost',
-    loading: loading.toString(),
-    autoComplete: 'off',
-    required: true
+    disabled: loading,
+    autoComplete: 'off'
   })), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, onCancel && /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     style: {
       flexGrow: 1
     },
     type: 'button',
     appearance: 'ghost',
-    loading: loading.toString(),
+    disabled: loading,
     onClick: onCancel
   }, "\u041E\u0442\u043C\u0435\u043D\u0430"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     style: {
       flexGrow: 1
     },
     type: 'submit',
-    loading: loading.toString()
+    disabled: loading
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C"))));
 };
 /* harmony default export */ var FormAddUserFolder = (AddUserFolder);
@@ -21376,8 +21541,8 @@ function onUserCheckin(dispatch, props) {
       onForgot: () => onUserForgotEmail(dispatch, props),
       onGoogleError: () => {},
       onFacebookError: () => {},
-      onGoogleFinally: user => dispatch(Object(actions_user["d" /* setUser */])(user)),
-      onFacebookFinally: user => dispatch(Object(actions_user["d" /* setUser */])(user)),
+      onGoogleFinally: user => dispatch(Object(actions_user["b" /* setUser */])(user)),
+      onFacebookFinally: user => dispatch(Object(actions_user["b" /* setUser */])(user)),
       onGoogleSubmit: async (response, action) => {
         const {
           accessToken
@@ -21452,7 +21617,7 @@ function onUserLogin(dispatch, props) {
             }
           });
           const user = response.data.login;
-          dispatch(Object(actions_user["d" /* setUser */])(user));
+          dispatch(Object(actions_user["b" /* setUser */])(user));
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
@@ -21491,7 +21656,7 @@ function onUserRegister(dispatch, props) {
             }
           });
           const user = response.data.register;
-          dispatch(Object(actions_user["d" /* setUser */])({ ...user,
+          dispatch(Object(actions_user["b" /* setUser */])({ ...user,
             register: true
           }));
         } catch (err) {
@@ -21627,7 +21792,7 @@ function onUserLink(dispatch, props) {
         auth,
         owned
       }),
-      onProjectScreenshotClick: (_, key, screenshots) => Object(helpers_project["f" /* onProjectScreenshot */])(dispatch, {
+      onProjectScreenshotClick: (_, key, screenshots) => Object(helpers_project["g" /* onProjectScreenshot */])(dispatch, {
         screenshots,
         key
       })
@@ -21901,9 +22066,10 @@ function onUserFolderAdd(dispatch, props) {
             name: form.name
           }
         });
-        dispatch(Object(actions_user["a" /* addUserFolder */])(response.data.addUserFolder));
+        const folders = response.data.addUserFolder;
+        dispatch(Object(actions_user["d" /* setUserFolders */])(folders));
         dispatch(Object(modal["a" /* setModal */])(null));
-        if (callback) callback();
+        if (callback) callback(folders);
       }
     })
   }]));
@@ -21911,13 +22077,15 @@ function onUserFolderAdd(dispatch, props) {
 function onUserFolderDelete(dispatch, props) {
   const {
     id,
-    mutation
+    mutation,
+    callback
   } = props;
   dispatch(Object(modal["a" /* setModal */])([{
     path: '/',
     title: 'Удаление папки',
-    component: () => /*#__PURE__*/external_react_default.a.createElement(FormSureDelete["a" /* default */], {
+    component: () => /*#__PURE__*/external_react_default.a.createElement(FormSureDelete["b" /* default */], {
       mutation: mutation,
+      appearance: 'clear',
       text: 'Вы действительно хотите удалить папку?',
       onCancel: () => dispatch(Object(modal["a" /* setModal */])(null)),
       onSubmit: async (_, action) => {
@@ -21926,8 +22094,9 @@ function onUserFolderDelete(dispatch, props) {
             id
           }
         });
-        dispatch(Object(actions_user["b" /* removeUserFolder */])(response.data.removeUserFolder));
+        dispatch(Object(actions_user["d" /* setUserFolders */])(response.data.deleteUserFolder));
         dispatch(Object(modal["a" /* setModal */])(null));
+        if (callback) callback();
       }
     })
   }]));
@@ -22030,6 +22199,7 @@ __webpack_require__.d(User_namespaceObject, "UPDATE_CLIENT_USER", function() { r
 __webpack_require__.d(User_namespaceObject, "UPDATE_USER", function() { return UPDATE_USER; });
 __webpack_require__.d(User_namespaceObject, "DELETE_USER", function() { return DELETE_USER; });
 __webpack_require__.d(User_namespaceObject, "ADD_USER_PROJECT", function() { return ADD_USER_PROJECT; });
+__webpack_require__.d(User_namespaceObject, "REMOVE_USER_PROJECT", function() { return REMOVE_USER_PROJECT; });
 __webpack_require__.d(User_namespaceObject, "ADD_USER_FOLDER", function() { return ADD_USER_FOLDER; });
 __webpack_require__.d(User_namespaceObject, "DELETE_USER_FOLDER", function() { return DELETE_USER_FOLDER; });
 __webpack_require__.d(User_namespaceObject, "GET_USER_CHATS", function() { return GET_USER_CHATS; });
@@ -22184,9 +22354,7 @@ const UserFields = external_graphql_tag_default.a`
     folders {
       id
       name
-      projects {
-        id
-      }
+      projects
     }
     token
     gender
@@ -22640,14 +22808,17 @@ const ADD_USER_PROJECT = external_graphql_tag_default.a`
     addUserProject(project: $project, folder: $folder)
   }
 `;
+const REMOVE_USER_PROJECT = external_graphql_tag_default.a`
+  mutation removeUserProject($project: ID!, $folder: ID!) {
+    removeUserProject(project: $project, folder: $folder)
+  }
+`;
 const ADD_USER_FOLDER = external_graphql_tag_default.a`
   mutation addUserFolder($name: String!) {
     addUserFolder(name: $name) {
       id
       name
-      projects {
-        id
-      }
+      projects
     }
   }
 `;
@@ -22656,9 +22827,7 @@ const DELETE_USER_FOLDER = external_graphql_tag_default.a`
     deleteUserFolder(id: $id) {
       id
       name
-      projects {
-        id
-      }
+      projects
     }
   }
 `;
@@ -23291,8 +23460,22 @@ const GET_PROJECT = external_graphql_tag_default.a`
   ${ProjectFields}
 `;
 const GET_PROJECTS = external_graphql_tag_default.a`
-  query getProjects($offset: Int, $limit: Int, $category: ID, $status: PostStatus) {
-    getProjects(offset: $offset, limit: $limit, category: $category, status: $status) {
+  query getProjects(
+    $offset: Int
+    $limit: Int
+    $category: ID
+    $rating: [String]
+    $author: String
+    $status: PostStatus
+  ) {
+    getProjects(
+      offset: $offset
+      limit: $limit
+      category: $category
+      rating: $rating
+      author: $author
+      status: $status
+    ) {
       id
       title
       description
@@ -23315,6 +23498,10 @@ const GET_PROJECTS = external_graphql_tag_default.a`
         id
         name
       }
+      rating {
+        email
+        phone
+      }
       status
     }
   }
@@ -23330,9 +23517,7 @@ const GET_PROJECTS_BY_IDS = external_graphql_tag_default.a`
 const LIKE_PROJECT = external_graphql_tag_default.a`
   mutation likeProject($id: ID!) {
     likeProject(id: $id) {
-      likedProjects {
-        ...ProjectFields
-      }
+      ...ProjectFields
     }
   }
   ${ProjectFields}
@@ -24629,7 +24814,7 @@ const MainLayout = ({
   }, []);
   Object(external_react_["useEffect"])(() => {
     if (data && data.getUser) {
-      dispatch(Object(actions_user["d" /* setUser */])(data.getUser));
+      dispatch(Object(actions_user["b" /* setUser */])(data.getUser));
     }
   }, [data, dispatch]);
   Object(external_react_["useEffect"])(() => {

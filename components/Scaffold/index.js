@@ -1,5 +1,5 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import React, { useCallback } from 'react'
+import styled from 'styled-components'
 
 import Column from '../../atomic-ui/components/Column'
 import Search from '../../atomic-ui/components/Search'
@@ -164,23 +164,26 @@ export const Scaffold = ({
   onCompanyLink,
   onScreenshotClick
 }) => {
-  const getProjectProps = (project, layout) => ({
-    image,
-    project,
-    layout,
-    slicedFactor: 5,
-    owned: detectOwnedProject(user?.projects, project),
-    added: !!user?.folders?.find(
-      (folder) => !!folder?.projects?.find((item) => item.id === project.id)
-    ),
-    liked: !!(user?.likedProjects || []).find((item) => item.id === project.id),
-    onLike: onLike && (() => onLike(project)),
-    onAdd: onAdd && (() => onAdd(project)),
-    onLink: () => onLink(project, detectOwnedProject(user?.projects, project)),
-    onAboutMore: () => onAboutMore(project),
-    onCompanyLink: () => onCompanyLink(project),
-    onScreenshotClick: (_, key) => onScreenshotClick(project, key)
-  })
+  const getProjectProps = useCallback(
+    (project, layout) => ({
+      image,
+      project,
+      layout,
+      slicedFactor: 5,
+      owned: detectOwnedProject(user?.projects, project),
+      added: !!user?.folders?.find(
+        (folder) => !!folder?.projects?.find((item) => item === project.id)
+      ),
+      liked: !![...(project?.rating || [])].find((item) => item.email === user.email),
+      onLike: onLike && (() => onLike(project)),
+      onAdd: onAdd && (() => onAdd(project)),
+      onLink: () => onLink(project, detectOwnedProject(user?.projects, project)),
+      onAboutMore: () => onAboutMore(project),
+      onCompanyLink: () => onCompanyLink(project),
+      onScreenshotClick: (_, key) => onScreenshotClick(project, key)
+    }),
+    [user, image, onLike, onAdd, onAboutMore, onCompanyLink, onScreenshotClick]
+  )
 
   return (
     <Wrap className={className} style={style}>
@@ -197,7 +200,7 @@ export const Scaffold = ({
             {primary && <PrimaryProject {...getProjectProps(primary, 'column')} />}
             {residues && residues.length > 0 && (
               <Residues>
-                {residues.slice(0, 2).map((project, index) => (
+                {residues.map((project, index) => (
                   <Residue key={index} {...getProjectProps(project)} />
                 ))}
               </Residues>

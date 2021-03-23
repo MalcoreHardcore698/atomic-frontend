@@ -1,15 +1,19 @@
 import React from 'react'
+import styled from 'styled-components'
 
+import Grid from '../../atomic-ui/components/Grid'
 import Column from '../../atomic-ui/components/Column'
 import Button from '../../atomic-ui/components/Button'
 import Alert from '../../atomic-ui/components/Alert'
 import Screenshot from '../../atomic-ui/components/Screenshot'
+import Difinition from '../../atomic-ui/components/Difinition'
+import Icon from '../../atomic-ui/components/Icon'
 
 import AddMemberForm from '../../components/FormAddMember'
 import AddFileForm from '../../components/FormAddFile'
 import ProjectForm from '../../components/FormProject'
 import DeleteForm from '../../components/FormDelete'
-import SureDeleteForm from '../../components/FormSureDelete'
+import SureDeleteForm, { Content as ContentSureDelete } from '../../components/FormSureDelete'
 import ProjectCard from '../../components/ProjectCard'
 import ProjectView from '../../components/ProjectView'
 import { setDocuments } from '../actions/documents'
@@ -30,6 +34,17 @@ import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
 import { onUserLink, onUserFolderAdd, onUserAboutMore } from './user'
 import { onFileLink } from '.'
+
+const CreateButton = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+
+  span {
+    white-space: nowrap;
+  }
+`
 
 export function onProjectLink(dispatch, props) {
   const { id, auth, liked, onAdd, onLike, owned } = props
@@ -314,7 +329,7 @@ export function onProjectDelete(dispatch, props) {
 }
 
 export function onProjectAdd(dispatch, props) {
-  const { id, folders, mutations } = props
+  const { id, folders, mutations, callback } = props
 
   dispatch(
     setModal([
@@ -324,33 +339,81 @@ export function onProjectAdd(dispatch, props) {
         component: () => (
           <Column style={{ padding: '15px' }}>
             {folders && folders.length > 0 ? (
-              folders.map((folder) => (
-                <Button
-                  key={folder.id}
-                  onClick={() => {
-                    dispatch(setMutate(mutations.addProject, { project: id, folder: folder.id }))
-                    dispatch(setModal(null))
-                  }}>
-                  {folder.name}
-                </Button>
-              ))
+              <Grid length={'auto-fit'} percentage={'minmax(225px, 1fr)'}>
+                {folders.map((folder) => {
+                  const length = folder.projects.length
+                  const label =
+                    length === 1 ? 'проект' : length > 1 && length < 5 ? 'проекта' : 'проектов'
+                  const disabled = folder.projects.find((item) => item === id)
+
+                  return (
+                    <Difinition
+                      key={folder.id}
+                      icon={'paper'}
+                      text={folder.name}
+                      label={`${length} ${label}${disabled ? ' (уже есть)' : ''}`}
+                      disabled={disabled}
+                      onLink={() => {
+                        dispatch(
+                          setMutate(mutations.addProject, { project: id, folder: folder.id })
+                        )
+                        dispatch(setModal(null))
+                        if (callback) callback(folder)
+                      }}
+                      revert
+                    />
+                  )
+                })}
+              </Grid>
             ) : (
               <Alert style={{ textAlign: 'center' }} width={'100%'}>
                 Папок нет
               </Alert>
             )}
-            <Button
+            <CreateButton
               onClick={() =>
                 onUserFolderAdd(dispatch, {
                   mutation: mutations.createFolder,
                   onCancel: () => onProjectAdd(dispatch, props),
-                  callback: () => onProjectAdd(dispatch, props)
+                  callback: (items) =>
+                    onProjectAdd(dispatch, { ...props, folders: items || folders })
                 })
-              }
-              revert>
-              Новая папка
-            </Button>
+              }>
+              <span>Новая папка</span>
+              <Icon icon={'add'} stroke={'white'} />
+            </CreateButton>
           </Column>
+        )
+      }
+    ])
+  )
+}
+
+export function onProjectRemove(dispatch, props) {
+  const { id, folder, mutation, callback } = props
+
+  dispatch(
+    setModal([
+      {
+        path: '/',
+        title: 'Удаление проекта из папки',
+        component: () => (
+          <SureDeleteForm
+            text={'Вы действительно хотите удалить этот проект?'}
+            mutation={mutation}
+            padding={false}
+            onCancel={() => dispatch(setModal(null))}
+            onSubmit={async (_, action) => {
+              await action({
+                variables: {
+                  project: id,
+                  folder: folder.id
+                }
+              })
+              dispatch(setModal(null))
+              if (callback) callback()
+            }}
+          />
         )
       }
     ])
@@ -435,13 +498,15 @@ export function onSureDelete(dispatch, props) {
         path: '/',
         title: 'Удаление',
         component: () => (
-          <SureDeleteForm
+          <ContentSureDelete
             text={text}
+            type={'button'}
             onCancel={() => dispatch(setModal(null))}
             onSubmit={async () => {
               dispatch(removeAction(id))
               dispatch(setModal(null))
             }}
+            padding
           />
         )
       }

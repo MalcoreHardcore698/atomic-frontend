@@ -20,7 +20,7 @@ import Text from '../../atomic-ui/components/Text'
 import { setStepper } from '../actions/stepper'
 import { setDrawer } from '../actions/drawer'
 import { setModal } from '../actions/modal'
-import { setUser, updateUser, addUserFolder, removeUserFolder } from '../actions/user'
+import { setUser, updateUser, setUserFolders } from '../actions/user'
 import { setDocuments } from '../actions/documents'
 import { setItem } from '../actions/snacks'
 import { onProjectLink, onProjectAdd, onProjectScreenshot } from './project'
@@ -586,9 +586,11 @@ export function onUserFolderAdd(dispatch, props) {
                   name: form.name
                 }
               })
-              dispatch(addUserFolder(response.data.addUserFolder))
+
+              const folders = response.data.addUserFolder
+              dispatch(setUserFolders(folders))
               dispatch(setModal(null))
-              if (callback) callback()
+              if (callback) callback(folders)
             }}
           />
         )
@@ -598,7 +600,7 @@ export function onUserFolderAdd(dispatch, props) {
 }
 
 export function onUserFolderDelete(dispatch, props) {
-  const { id, mutation } = props
+  const { id, mutation, callback } = props
 
   dispatch(
     setModal([
@@ -608,14 +610,16 @@ export function onUserFolderDelete(dispatch, props) {
         component: () => (
           <SureDeleteForm
             mutation={mutation}
+            appearance={'clear'}
             text={'Вы действительно хотите удалить папку?'}
             onCancel={() => dispatch(setModal(null))}
             onSubmit={async (_, action) => {
               const response = await action({
                 variables: { id }
               })
-              dispatch(removeUserFolder(response.data.removeUserFolder))
+              dispatch(setUserFolders(response.data.deleteUserFolder))
               dispatch(setModal(null))
+              if (callback) callback()
             }}
           />
         )

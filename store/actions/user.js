@@ -29,16 +29,16 @@ export function updateUser(user) {
   }
 }
 
-export function addUserFolder(folders) {
+export function setUserFolders(folders) {
   return {
-    type: C.ADD_USER_FOLDER,
+    type: C.SET_USER_FOLDERS,
     payload: folders
   }
 }
 
-export function removeUserFolder(folders) {
+export function setUserFolder(folder) {
   return {
-    type: C.REMOVE_USER_FOLDER,
-    payload: folders
+    type: C.SET_USER_FOLDER,
+    payload: folder
   }
 }

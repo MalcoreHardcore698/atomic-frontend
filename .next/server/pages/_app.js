@@ -329,19 +329,19 @@ const userReducer = (state = user_initialState, action) => {
         authenticated: false
       };
 
+    case user["a" /* default */].SET_USER_FOLDERS:
+      return { ...state,
+        folders: action.payload
+      };
+
+    case user["a" /* default */].SET_USER_FOLDER:
+      return { ...state,
+        folders: state.folders.map(folder => folder.id === action.payload.id ? action.payload : folder)
+      };
+
     case user["a" /* default */].UPDATE_USER:
       return { ...state,
         ...action.payload
-      };
-
-    case user["a" /* default */].ADD_USER_FOLDER:
-      return { ...state,
-        folders: action.payload
-      };
-
-    case user["a" /* default */].REMOVE_USER_FOLDER:
-      return { ...state,
-        folders: action.payload
       };
 
     default:
@@ -648,9 +648,9 @@ module.exports = require("next/router");
   SET_USER: 'SET_USER',
   SET_LOGOUT: 'SET_LOGOUT',
   SET_AUTH_USER: 'SET_AUTH_USER',
-  UPDATE_USER: 'UPDATE_USER',
-  ADD_USER_FOLDER: 'ADD_USER_FOLDER',
-  REMOVE_USER_FOLDER: 'REMOVE_USER_FOLDER'
+  SET_USER_FOLDERS: 'SET_USER_FOLDERS',
+  SET_USER_FOLDER: 'SET_USER_FOLDER',
+  UPDATE_USER: 'UPDATE_USER'
 });
 
 /***/ }),

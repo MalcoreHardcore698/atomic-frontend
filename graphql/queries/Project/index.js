@@ -11,8 +11,22 @@ export const GET_PROJECT = gql`
 `
 
 export const GET_PROJECTS = gql`
-  query getProjects($offset: Int, $limit: Int, $category: ID, $status: PostStatus) {
-    getProjects(offset: $offset, limit: $limit, category: $category, status: $status) {
+  query getProjects(
+    $offset: Int
+    $limit: Int
+    $category: ID
+    $rating: [String]
+    $author: String
+    $status: PostStatus
+  ) {
+    getProjects(
+      offset: $offset
+      limit: $limit
+      category: $category
+      rating: $rating
+      author: $author
+      status: $status
+    ) {
       id
       title
       description
@@ -35,6 +49,10 @@ export const GET_PROJECTS = gql`
         id
         name
       }
+      rating {
+        email
+        phone
+      }
       status
     }
   }
@@ -52,9 +70,7 @@ export const GET_PROJECTS_BY_IDS = gql`
 export const LIKE_PROJECT = gql`
   mutation likeProject($id: ID!) {
     likeProject(id: $id) {
-      likedProjects {
-        ...ProjectFields
-      }
+      ...ProjectFields
     }
   }
   ${ProjectFields}

@@ -205,14 +205,18 @@ export const ADD_USER_PROJECT = gql`
   }
 `
 
+export const REMOVE_USER_PROJECT = gql`
+  mutation removeUserProject($project: ID!, $folder: ID!) {
+    removeUserProject(project: $project, folder: $folder)
+  }
+`
+
 export const ADD_USER_FOLDER = gql`
   mutation addUserFolder($name: String!) {
     addUserFolder(name: $name) {
       id
       name
-      projects {
-        id
-      }
+      projects
     }
   }
 `
@@ -222,9 +226,7 @@ export const DELETE_USER_FOLDER = gql`
     deleteUserFolder(id: $id) {
       id
       name
-      projects {
-        id
-      }
+      projects
     }
   }
 `

@@ -10,7 +10,7 @@ import UserList from '../components/UserList'
 import { useHelper } from '../hooks/useHelper'
 import { useMutate } from '../hooks/useMutate'
 import ContentLayout from '../layouts/content'
-import { updateUser } from '../store/actions/user'
+import { setUserFolder, updateUser } from '../store/actions/user'
 import { onProjectLink, onProjectAdd, onProjectScreenshot } from '../store/helpers/project'
 import { onUserAboutMore, onUserLink } from '../store/helpers/user'
 import queries from '../graphql/queries'
@@ -18,7 +18,7 @@ import { initializeApollo } from '../apollo'
 
 const TITLE = 'Атомик'
 const START_OFFSET = 13
-const LIMIT = 5
+const LIMIT = 4
 
 const Container = styled.div`
   display: grid;
@@ -51,6 +51,7 @@ const Home = ({ store }) => {
 
   const scaffold = useMemo(
     () => ({
+      user,
       title: store.scaffold.title,
       background: store.scaffold.background.path,
       primary: store.scaffold.primary,
@@ -59,8 +60,10 @@ const Home = ({ store }) => {
         recall(onProjectLink, {
           id: project.id,
           auth: user?.email,
-          project,
-          liked: !!(user?.likedProjects || []).find((item) => item.id === project.id),
+          added: !!user?.folders?.find(
+            (folder) => !!folder?.projects.find((item) => item === project.id)
+          ),
+          liked: !!(project.rating || []).find((item) => item.email === user.email),
           onLike:
             user.email &&
             mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
@@ -70,11 +73,14 @@ const Home = ({ store }) => {
             user.email &&
             recall(onProjectAdd, {
               id: project.id,
-              project,
               folders: user?.folders,
               mutations: {
                 addProject: queries.ADD_USER_PROJECT,
                 createFolder: queries.ADD_USER_FOLDER
+              },
+              callback: (item) => {
+                const result = { ...item, projects: [...item.projects, project.id] }
+                dispatch(setUserFolder(result))
               }
             }),
           owned
@@ -90,11 +96,14 @@ const Home = ({ store }) => {
         ((project) =>
           recall(onProjectAdd, {
             id: project.id,
-            project,
             folders: user?.folders,
             mutations: {
               addProject: queries.ADD_USER_PROJECT,
               createFolder: queries.ADD_USER_FOLDER
+            },
+            callback: (item) => {
+              const result = { ...item, projects: [...item.projects, project.id] }
+              dispatch(setUserFolder(result))
             }
           })()),
       onSearch: (value) => setSearch(value),
@@ -106,7 +115,7 @@ const Home = ({ store }) => {
           key
         })()
     }),
-    []
+    [user, store, recall, mutate, dispatch, setSearch]
   )
 
   return (
@@ -125,10 +134,10 @@ const Home = ({ store }) => {
 
           <Aside>
             <Title tag={'h4'}>Авторы</Title>
-            <UserList variables={{ offset: 0, limit: 3 }} />
+            <UserList variables={{ offset: 0, limit: 1 }} />
 
             <Title tag={'h4'}>Новости</Title>
-            <ArticleList variables={{ offset: 0, limit: 2 }} />
+            <ArticleList variables={{ offset: 0, limit: 1 }} />
           </Aside>
         </Container>
       )}

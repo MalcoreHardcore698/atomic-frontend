@@ -17,10 +17,12 @@ import {
   onProjectEdit,
   onProjectDelete,
   onProjectLink,
+  onProjectAdd,
   onProjectScreenshot
 } from '../../store/helpers/project'
 import { setDocuments } from '../../store/actions/documents'
 import { getLabelCategory } from '../../atomic-ui/utils/functions'
+import { setUserFolder, updateUser } from '../../store/actions/user'
 import { onUserAboutMore } from '../../store/helpers/user'
 import queries from '../../graphql/queries'
 
@@ -124,7 +126,33 @@ const Projects = ({ store }) => {
                         key
                       })()
                     }
-                    onLink={recall(onProjectLink, { id: project.id, user })}
+                    onLink={recall(onProjectLink, {
+                      id: project.id,
+                      auth: user?.email,
+                      added: !!user?.folders?.find(
+                        (folder) => !!folder?.projects.find((item) => item === project.id)
+                      ),
+                      liked: !!(project.rating || []).find((item) => item.email === user?.email),
+                      onLike:
+                        user.email &&
+                        mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
+                          dispatch(updateUser(response.data.likeProject))
+                        ),
+                      onAdd:
+                        user.email &&
+                        recall(onProjectAdd, {
+                          id: project.id,
+                          folders: user?.folders,
+                          mutations: {
+                            addProject: queries.ADD_USER_PROJECT,
+                            createFolder: queries.ADD_USER_FOLDER
+                          },
+                          callback: (item) => {
+                            const result = { ...item, projects: [...item.projects, project.id] }
+                            dispatch(setUserFolder(result))
+                          }
+                        })
+                    })}
                     onAboutMore={recall(onUserAboutMore, { user: project })}
                     onDelete={recall(onProjectDelete, {
                       id: project.id,

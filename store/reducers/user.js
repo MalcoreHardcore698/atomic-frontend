@@ -31,20 +31,22 @@ export const userReducer = (state = initialState, action) => {
       return {
         authenticated: false
       }
+    case C.SET_USER_FOLDERS:
+      return {
+        ...state,
+        folders: action.payload
+      }
+    case C.SET_USER_FOLDER:
+      return {
+        ...state,
+        folders: state.folders.map((folder) =>
+          folder.id === action.payload.id ? action.payload : folder
+        )
+      }
     case C.UPDATE_USER:
       return {
         ...state,
         ...action.payload
-      }
-    case C.ADD_USER_FOLDER:
-      return {
-        ...state,
-        folders: action.payload
-      }
-    case C.REMOVE_USER_FOLDER:
-      return {
-        ...state,
-        folders: action.payload
       }
     default:
       return state

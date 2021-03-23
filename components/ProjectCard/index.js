@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 
 import Row, { Wrap as WrapRow } from '../../atomic-ui/components/Row'
@@ -282,6 +282,7 @@ export const Footer = styled(Row)`
 export const Card = ({
   layout,
   project,
+  eliminable,
   appearance,
   className,
   style,
@@ -290,6 +291,7 @@ export const Card = ({
   liked,
   owned,
   onAdd,
+  onRemove,
   onLink,
   onLike,
   onAboutMore,
@@ -308,6 +310,10 @@ export const Card = ({
     if (onLike) onLike()
     setLike(!isLiked)
   }
+
+  useEffect(() => {
+    setLike(liked)
+  }, [liked])
 
   return (
     <Wrap className={className} style={style} appearance={appearance} layout={layout}>
@@ -328,7 +334,9 @@ export const Card = ({
                 {screenshots.map((screenshot, index) => (
                   <Screenshot
                     key={screenshot.id}
-                    onClick={() => onScreenshotClick && onScreenshotClick(screenshot, screenshot.id)}>
+                    onClick={() =>
+                      onScreenshotClick && onScreenshotClick(screenshot, screenshot.id)
+                    }>
                     <Image
                       src={screenshot.path}
                       alt={screenshot.name}
@@ -419,7 +427,7 @@ export const Card = ({
             />
             {!owned && (onLike || onAdd) && (
               <Row>
-                {onLike && (
+                {!eliminable && onLike && (
                   <Tooltip text={'Мне нравится'}>
                     <Button type={'button'} kind={'icon'} onClick={onClickLike} revert={!isLiked}>
                       <Icon
@@ -429,10 +437,22 @@ export const Card = ({
                     </Button>
                   </Tooltip>
                 )}
-                {onAdd && (
+                {!eliminable && onAdd && (
                   <Tooltip text={'Добавить проект к себе'}>
                     <Button type={'button'} kind={'icon'} onClick={onAdd} revert>
                       <Icon icon={'add'} stroke={'var(--default-color-accent)'} />
+                    </Button>
+                  </Tooltip>
+                )}
+                {eliminable && (
+                  <Tooltip text={'Удалить проект из папки'}>
+                    <Button
+                      type={'button'}
+                      kind={'icon'}
+                      appearance={'red'}
+                      onClick={onRemove}
+                      revert>
+                      <Icon icon={'delete'} stroke={'var(--default-color-red)'} />
                     </Button>
                   </Tooltip>
                 )}

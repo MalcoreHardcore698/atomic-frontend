@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,9 +11,14 @@ import LazyLoad from '../LazyLoad'
 import ProjectCard from '../ProjectCard'
 import { useHelper } from '../../hooks/useHelper'
 import { useMutate } from '../../hooks/useMutate'
-import { updateUser } from '../../store/actions/user'
+import { setUserFolder, updateUser } from '../../store/actions/user'
 import { onUserAboutMore, onUserLink } from '../../store/helpers/user'
-import { onProjectAdd, onProjectLink, onProjectScreenshot } from '../../store/helpers/project'
+import {
+  onProjectAdd,
+  onProjectRemove,
+  onProjectLink,
+  onProjectScreenshot
+} from '../../store/helpers/project'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled.div`
@@ -27,16 +32,56 @@ export const Wrap = styled.div`
   }
 `
 
-export const ProjectList = ({ variables, layout, initialList }) => {
+export const ProjectList = ({
+  variables,
+  layout,
+  eliminable,
+  initialList,
+  initialRefetch,
+  emptyMessage
+}) => {
   const recall = useHelper()
   const mutate = useMutate()
-  const user = useSelector((state) => state.user)
+  const { user, folder } = useSelector((state) => ({
+    user: state.user,
+    folder: state.root.folder
+  }))
   const [projects, setProjects] = useState(initialList || [])
   const dispatch = useDispatch()
 
   const { data, loading, error } = initialList
     ? { data: null, loading: false, error: false }
     : useQuery(queries.GET_PROJECTS, { variables })
+
+  const onAdd = useCallback(
+    (project) =>
+      recall(onProjectAdd, {
+        id: project.id,
+        folders: user?.folders,
+        mutations: {
+          addProject: queries.ADD_USER_PROJECT,
+          createFolder: queries.ADD_USER_FOLDER
+        },
+        callback: (item) => {
+          const result = { ...item, projects: [...item.projects, project.id] }
+          dispatch(setUserFolder(result))
+        }
+      })(),
+    [user]
+  )
+
+  const onRemove = useCallback(
+    (project) =>
+      recall(onProjectRemove, {
+        id: project.id,
+        folder,
+        mutation: queries.REMOVE_USER_PROJECT,
+        callback: () =>
+          initialRefetch &&
+          initialRefetch(projects.filter((pr) => pr.id !== project.id).map((pr) => pr.id))
+      })(),
+    [user]
+  )
 
   useEffect(() => {
     if (!loading && data) {
@@ -45,12 +90,12 @@ export const ProjectList = ({ variables, layout, initialList }) => {
   }, [data, loading])
 
   useEffect(() => {
-    if (initialList?.length > 0) setProjects(initialList)
-  }, [initialList])
+    if (!loading && initialList?.length > 0) setProjects(initialList)
+  }, [loading, initialList])
 
   return (
     <Wrap>
-      {(!loading && data) || projects.length > 0 ? (
+      {projects.length > 0 ? (
         projects.map((project) => {
           const owned = user?.projects?.find((candidate) => candidate.id === project.id)
 
@@ -58,18 +103,22 @@ export const ProjectList = ({ variables, layout, initialList }) => {
             <LazyLoad key={project.id}>
               <ProjectCard
                 project={project}
+                eliminable={eliminable}
                 layout={layout || 'column'}
                 owned={owned}
                 added={
                   !!user?.folders?.find(
-                    (folder) => !!folder?.projects.find((item) => item.id === project.id)
+                    (folder) => !!folder?.projects.find((item) => item === project.id)
                   )
                 }
-                liked={!!(user?.likedProjects || []).find((item) => item.id === project.id)}
+                liked={!!(project.rating || []).find((item) => item.email === user.email)}
                 onLink={recall(onProjectLink, {
                   id: project.id,
                   auth: user?.email,
-                  liked: !!(user?.likedProjects || []).find((item) => item.id === project.id),
+                  added: !!user?.folders?.find(
+                    (folder) => !!folder?.projects.find((item) => item === project.id)
+                  ),
+                  liked: !!(project.rating || []).find((item) => item.email === user.email),
                   onLike:
                     user.email &&
                     mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
@@ -83,6 +132,10 @@ export const ProjectList = ({ variables, layout, initialList }) => {
                       mutations: {
                         addProject: queries.ADD_USER_PROJECT,
                         createFolder: queries.ADD_USER_FOLDER
+                      },
+                      callback: (item) => {
+                        const result = { ...item, projects: [...item.projects, project.id] }
+                        dispatch(setUserFolder(result))
                       }
                     }),
                   owned
@@ -93,17 +146,8 @@ export const ProjectList = ({ variables, layout, initialList }) => {
                     dispatch(updateUser(response.data.likeProject))
                   )
                 }
-                onAdd={
-                  user.email &&
-                  recall(onProjectAdd, {
-                    id: project.id,
-                    folders: user?.folders,
-                    mutations: {
-                      addProject: queries.ADD_USER_PROJECT,
-                      createFolder: queries.ADD_USER_FOLDER
-                    }
-                  })
-                }
+                onAdd={user.email && (() => onAdd(project))}
+                onRemove={user.email && (() => onRemove(project))}
                 onAboutMore={recall(onUserAboutMore, { user: project })}
                 onCompanyLink={recall(onUserLink, {
                   id: project.company?.email,
@@ -131,10 +175,14 @@ export const ProjectList = ({ variables, layout, initialList }) => {
           <Spinner />
         </Loader>
       ) : (
-        <Alert style={{ width: '100%', textAlign: 'center' }}>Проектов нет</Alert>
+        <Alert style={{ width: '100%', textAlign: 'center' }}>{emptyMessage}</Alert>
       )}
     </Wrap>
   )
+}
+
+ProjectList.defaultProps = {
+  emptyMessage: 'Проектов нет'
 }
 
 export default ProjectList

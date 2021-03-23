@@ -26,9 +26,7 @@ export const UserFields = gql`
     folders {
       id
       name
-      projects {
-        id
-      }
+      projects
     }
     token
     gender
