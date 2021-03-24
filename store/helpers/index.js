@@ -12,8 +12,8 @@ import Notifications from '../../components/Notifications'
 import Messenger from '../../components/Messenger'
 import { setDrawer } from '../actions/drawer'
 import { setModal } from '../actions/modal'
-import { onUserLink } from './user'
 import { setItem } from '../actions/snacks'
+import { onUserLink } from './user'
 
 export const Presentation = styled(YouTube)`
   display: flex;

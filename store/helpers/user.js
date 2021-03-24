@@ -1,5 +1,8 @@
 import React from 'react'
 
+import Column from '../../atomic-ui/components/Column'
+import Text from '../../atomic-ui/components/Text'
+
 import UserForm from '../../components/FormUser'
 import CheckinForm from '../../components/FormCheckin'
 import LoginForm from '../../components/FormLogin'
@@ -13,10 +16,6 @@ import DeleteForm from '../../components/FormDelete'
 import UserCard from '../../components/UserCard'
 import UserView from '../../components/UserView'
 import Members from '../../components/Members'
-
-import Column from '../../atomic-ui/components/Column'
-import Text from '../../atomic-ui/components/Text'
-
 import { setStepper } from '../actions/stepper'
 import { setDrawer } from '../actions/drawer'
 import { setModal } from '../actions/modal'

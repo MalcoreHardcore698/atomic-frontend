@@ -9,8 +9,9 @@ import Button from '../../atomic-ui/components/Button'
 import Icon from '../../atomic-ui/components/Icon'
 import Text from '../../atomic-ui/components/Text'
 import Spinner from '../../atomic-ui/components/Spinner'
-import { Loader } from '../Styled'
 import Alert from '../../atomic-ui/components/Alert'
+
+import { Loader } from '../Styled'
 
 export const Wrap = styled(Column)`
   width: 100%;

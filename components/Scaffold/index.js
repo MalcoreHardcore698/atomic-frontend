@@ -5,7 +5,7 @@ import Column from '../../atomic-ui/components/Column'
 import Search from '../../atomic-ui/components/Search'
 import Title from '../../atomic-ui/components/Title'
 
-import ProjectCard, { Poster, Media } from '../../components/ProjectCard'
+import ProjectCard, { Poster, Media } from '../ProjectCard'
 
 export const Wrap = styled(Column)`
   position: relative;

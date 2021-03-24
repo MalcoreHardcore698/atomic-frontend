@@ -7,7 +7,7 @@ import ArticleView from '../../components/ArticleView'
 import { setDocuments } from '../actions/documents'
 import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
-import { onUserLink } from '../helpers/user'
+import { onUserLink } from './user'
 
 export function onArticleLink(dispatch, props) {
   const { id, auth } = props

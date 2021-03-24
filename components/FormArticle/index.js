@@ -16,13 +16,13 @@ import Alert from '../../atomic-ui/components/Alert'
 import Comment from '../../atomic-ui/components/Comment'
 import Divider from '../../atomic-ui/components/Divider'
 import Spinner from '../../atomic-ui/components/Spinner'
+import Checkbox from '../../atomic-ui/components/Checkbox'
 import { getLabelStatus, getLabelCategory } from '../../atomic-ui/utils/functions'
 
 import Form from '../Form'
 import { Loader } from '../Styled'
 import queries from '../../graphql/queries'
 import config from '../../config'
-import Checkbox from '../../atomic-ui/components/Checkbox'
 
 export const Header = styled(Row)`
   justify-content: space-between;

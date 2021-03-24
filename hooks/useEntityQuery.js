@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { b64DecodeUnicode, b64EncodeUnicode } from '../../atomic-ui/utils/functions'
+import { b64DecodeUnicode, b64EncodeUnicode } from '../atomic-ui/utils/functions'
 
 import { useHelper } from './useHelper'
 import { useMutate } from './useMutate'

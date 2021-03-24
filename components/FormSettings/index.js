@@ -10,11 +10,11 @@ import Text from '../../atomic-ui/components/Text'
 import Button from '../../atomic-ui/components/Button'
 import Dropzone from '../../atomic-ui/components/Dropzone'
 import Divider from '../../atomic-ui/components/Divider'
+import Select from '../../atomic-ui/components/Select'
+import Column from '../../atomic-ui/components/Column'
 import Input from '../../atomic-ui/components/Input'
 
 import Form from '../Form'
-import Select from '../../atomic-ui/components/Select'
-import Column from '../../atomic-ui/components/Column'
 import queries from '../../graphql/queries'
 
 const logotypeSize = {
