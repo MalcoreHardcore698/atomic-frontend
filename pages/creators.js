@@ -38,7 +38,7 @@ const Creators = ({ store }) => (
   </ContentLayout>
 )
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ query }) {
   const client = initializeApollo()
 
   let users = []
@@ -48,8 +48,9 @@ export async function getServerSideProps() {
     const response = await client.query({
       query: queries.GET_META_AUTHORS,
       variables: {
-        offset: 0,
-        limit: START_OFFSET
+        offset: query.page ? query.page * START_OFFSET : 0,
+        limit: START_OFFSET,
+        role: 'USER'
       }
     })
 

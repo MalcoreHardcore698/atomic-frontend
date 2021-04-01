@@ -19,11 +19,12 @@ const Projects = () => {
   const [load, { data, loading }] = useLazyQuery(queries.GET_META_PROJECTS)
 
   useEffect(() => {
+    const page = router.query?.page
     const category = router.query?.c
     if (category) {
       load({
         variables: {
-          offset: 0,
+          offset: page ? page * START_OFFSET : 0,
           limit: START_OFFSET,
           status: 'PUBLISHED',
           category

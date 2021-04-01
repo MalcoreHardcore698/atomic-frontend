@@ -39,7 +39,7 @@ const Articles = ({ store }) => (
   </ContentLayout>
 )
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ query }) {
   const client = initializeApollo()
 
   let articles = []
@@ -49,7 +49,7 @@ export async function getServerSideProps() {
     const response = await client.query({
       query: queries.GET_META_ARTICLES,
       variables: {
-        offset: 0,
+        offset: query.page ? query.page * START_OFFSET : 0,
         limit: START_OFFSET,
         status: 'PUBLISHED'
       }

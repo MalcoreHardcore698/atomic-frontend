@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useRouter } from 'next/router'
 import styled, { css } from 'styled-components'
 import { useLazyQuery } from '@apollo/react-hooks'
+import InfiniteScroll from 'react-infinite-scroller'
 import { v4 } from 'uuid'
 
 import Column from '../atomic-ui/components/Column'
-import Alert from '../atomic-ui/components/Alert'
 import DatePicker from '../atomic-ui/components/DatePicker'
 import Spinner from '../atomic-ui/components/Spinner'
 import Select from '../atomic-ui/components/Select'
 
-import { useInfiniteScroll } from '../hooks/useInfiniteScroll'
 import DefaultLayout from '../layouts/default'
 import DashboardLayout from './dashboard'
 import FilterBar from '../components/FilterBar'
@@ -48,21 +48,23 @@ const ContentLayout = ({
   initialize,
   children
 }) => {
+  const router = useRouter()
   const Layout = dashboard ? DashboardLayout : DefaultLayout
   const [date, onChangeDate] = useState()
   const [select, onChangeSelect] = useState()
   const [search, setSearch] = useState(null)
-  const [isFetching, setFetching] = useState(false)
   const [visibleFilter, setVisibleFilter] = useState(false)
-  const [offset, setOffset] = useState(startOffset)
+  const [offset, setOffset] = useState(startOffset + 1)
   const [documents, setDocuments] = useState(store?.documents || [])
+  const [isEnd, setIsEnd] = useState(false)
+  const pageStart = useMemo(() => Number(router.query?.page) || 1, [router])
 
   const [
     loadDocumentsBySearch,
-    { data: dataBySearch, loading: loadingBySearch, error: errorBySearch, refetch: refetchBySearch }
+    { data: dataBySearch, loading: loadingBySearch, refetch: refetchBySearch }
   ] = useLazyQuery(query)
 
-  const [loadDocuments, { data, loading, error, refetch }] = useLazyQuery(query)
+  const [loadDocuments, { data, loading, refetch }] = useLazyQuery(query)
 
   const getFilters = () => {
     return filters.map((filter) => {
@@ -98,7 +100,7 @@ const ContentLayout = ({
     if (value) {
       setSearch(value)
       loadDocumentsBySearch({
-        variables: { ...variables, search: value, offset: 0, limit: startOffset }
+        variables: { ...variables, search: value, offset: 0, limit: startOffset * pageStart }
       })
     } else {
       const result = { ...variables, offset: 0, limit }
@@ -111,31 +113,22 @@ const ContentLayout = ({
     setOffset(0)
   }
 
-  useInfiniteScroll({
-    callbackOnBottom: async () => {
-      const updateOffset = () => setOffset((prev) => prev + limit)
+  const loadMore = async (page) => {
+    const updateOffset = () => setOffset(limit * page + startOffset + 1)
 
-      if (!loading && !isFetching) {
-        setFetching(true)
+    const result = { ...variables, offset, limit }
 
-        const result = { ...variables, offset, limit }
-
-        if (search) {
-          await refetchBySearch(variables)
-        } else {
-          if (refetch) {
-            await refetch(result)
-            updateOffset()
-          } else {
-            await loadDocuments({ variables: result })
-          }
-        }
-
-        setFetching(false)
+    if (search) {
+      await refetchBySearch(variables)
+    } else {
+      if (refetch) {
+        await refetch(result)
+        updateOffset()
+      } else {
+        await loadDocuments({ variables: result })
       }
-    },
-    offset: 850
-  })
+    }
+  }
 
   useEffect(() => {
     if (initialize) loadDocuments({ variables: { offset, limit } })
@@ -146,11 +139,15 @@ const ContentLayout = ({
   }, [research])
 
   useEffect(() => {
-    const isCommon = !search && !loading && data
-    const isSearch = search && !loadingBySearch && dataBySearch
-    const result = isCommon || isSearch
-    if (result) setDocuments((prev) => [...prev, ...result[Object.keys(result)[0]]])
-  }, [search, loading, loadingBySearch, data, dataBySearch])
+    const commonList = !search && !loading && data
+    const searchList = search && !loadingBySearch && dataBySearch
+    const resultList = commonList || searchList
+    if (resultList) {
+      const list = resultList[Object.keys(resultList)[0]]
+      if (list.length > 0) setDocuments((prev) => [...prev, ...list])
+      if (list.length === 0) setIsEnd(true)
+    }
+  }, [search, loading, loadingBySearch, data, dataBySearch, setIsEnd])
 
   return (
     <Layout title={title} scaffold={scaffold}>
@@ -174,25 +171,17 @@ const ContentLayout = ({
           <FilterBar isOpen={visibleFilter} filters={getFilters()} options={options} />
         )}
 
-        {typeof children === 'function' ? React.createElement(children, { documents }) : children}
-
-        {search && !loadingBySearch && documents.length === 0 && (
-          <Alert style={{ width: '100%', textAlign: 'center' }}>
-            По вашему запросу ничего не найдено
-          </Alert>
-        )}
-
-        {((search && errorBySearch) || (!search && error)) && (
-          <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-            Не удалось загрузить данные
-          </Alert>
-        )}
-
-        {(isFetching || (!error && loading) || (search && !errorBySearch && loadingBySearch)) && (
-          <LowerLoader>
-            <Spinner />
-          </LowerLoader>
-        )}
+        <InfiniteScroll
+          pageStart={pageStart || 0}
+          loadMore={loadMore}
+          hasMore={!isEnd}
+          loader={
+            <LowerLoader key={'loader'}>
+              <Spinner />
+            </LowerLoader>
+          }>
+          {typeof children === 'function' ? React.createElement(children, { documents }) : children}
+        </InfiniteScroll>
       </Wrap>
     </Layout>
   )

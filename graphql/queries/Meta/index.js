@@ -50,7 +50,7 @@ export const GET_META_SCAFFOLD = gql`
 
 export const GET_META_INDEX = gql`
   query getMetaIndex($offset: Int, $limit: Int, $status: PostStatus) {
-    getUsers {
+    getUsers(limit: 3, role: "USER") {
       ...UserFields
     }
     getArticles(status: $status) {
@@ -66,8 +66,8 @@ export const GET_META_INDEX = gql`
 `
 
 export const GET_META_AUTHORS = gql`
-  query getMetaAuthors($offset: Int, $limit: Int, $search: String) {
-    getUsers(offset: $offset, limit: $limit, search: $search) {
+  query getMetaAuthors($offset: Int, $limit: Int, $search: String, $role: String) {
+    getUsers(offset: $offset, limit: $limit, search: $search, role: $role) {
       ...UserFields
     }
   }
@@ -239,6 +239,7 @@ export const GET_META_DASHBOARD_PROJECTS = gql`
     $category: ID
     $status: PostStatus
     $account: [AccountType]
+    $role: String
   ) {
     getProjects(
       offset: $offset
@@ -249,7 +250,7 @@ export const GET_META_DASHBOARD_PROJECTS = gql`
     ) {
       ...ProjectFields
     }
-    getUsers(account: $account) {
+    getUsers(account: $account, role: $role) {
       ...UserFields
     }
     getCategories {
@@ -282,8 +283,8 @@ export const GET_META_DASHBOARD_TICKETS = gql`
 `
 
 export const GET_META_DASHBOARD_USERS = gql`
-  query getMetaDashboardUsers($offset: Int, $limit: Int) {
-    getUsers(offset: $offset, limit: $limit) {
+  query getMetaDashboardUsers($offset: Int, $limit: Int, $role: String) {
+    getUsers(offset: $offset, limit: $limit, role: $role) {
       name
       email
       phone
