@@ -65,11 +65,38 @@ export function setCurrentChat(chat) {
   }
 }
 
+export function setSearch(search) {
+  return {
+    type: C.SET_SEARCH,
+    payload: {
+      search
+    }
+  }
+}
+
 export function setMessages(messages) {
   return {
     type: C.SET_MESSAGES,
     payload: {
       messages
+    }
+  }
+}
+
+export function setDisplayMethod(displayMethod) {
+  return {
+    type: C.SET_DISPLAY_METHOD,
+    payload: {
+      displayMethod
+    }
+  }
+}
+
+export function setVisibleFilters(visibleFilters) {
+  return {
+    type: C.SET_VISIBLE_FILTERS,
+    payload: {
+      visibleFilters
     }
   }
 }

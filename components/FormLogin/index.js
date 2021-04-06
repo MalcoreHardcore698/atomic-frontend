@@ -26,7 +26,7 @@ export const Login = ({
   appearance,
   className,
   onBack,
-  onForgot,
+  // onForgot,
   onSubmit
 }) => (
   <Form className={className} appearance={appearance} mutation={mutation} onSubmit={onSubmit}>
@@ -55,13 +55,13 @@ export const Login = ({
             appearance={'ghost'}
             disabled={loading}
           />
-          <Button
-            type={'button'}
-            appearance={'link'}
-            loading={loading.toString()}
-            onClick={onForgot}>
-            Забыли пароль?
-          </Button>
+          {/*<Button*/}
+          {/*  type={'button'}*/}
+          {/*  appearance={'link'}*/}
+          {/*  loading={loading.toString()}*/}
+          {/*  onClick={onForgot}>*/}
+          {/*  Забыли пароль?*/}
+          {/*</Button>*/}
         </Column>
 
         <Row>

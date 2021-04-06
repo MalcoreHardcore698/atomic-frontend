@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react'
+import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
@@ -73,7 +73,29 @@ export const Footer = styled(Row)`
   }
 `
 
-const displayMethods = [
+export const DeleteButton = styled(Button)`
+  color: var(--default-color-red);
+  background: none;
+  border: none;
+
+  &:hover {
+    background: none;
+    border: none;
+    color: var(--default-color-red);
+  }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      color: var(--ghost-color-text);
+
+      &:hover {
+        color: var(--ghost-color-text);
+      }
+    `}
+`
+
+export const displayMethods = [
   { label: <Icon icon={'menu'} />, value: 'list', tooltip: 'Отображение списком' },
   { label: <Icon icon={'category'} />, value: 'grid', tooltip: 'Отображение сеткой' }
 ]
@@ -82,13 +104,23 @@ export const Handle = ({
   icon,
   title,
   buttonCreateText,
+  buttonDeleteDisabled,
+  defaultDisplayMethod,
+  defaultVisibleFilters,
+  withoutFooter,
+  withFilters,
+  checked,
   onCreate,
-  onDeleteChecked,
-  onChangeVisibleFilter,
-  onChangeDisplayMethod
+  onChecked,
+  onDeleteAll,
+  onChangeDisplayMethod,
+  onChangeVisibleFilter
 }) => {
-  const [visibleFilter, setVisibleFilter] = useState(false)
-  const [displayMethod, setDisplayMethod] = useState(null)
+  const [isChecked, setChecked] = useState(checked)
+  const [visibleFilter, setVisibleFilter] = useState(defaultVisibleFilters)
+  const [displayMethod, setDisplayMethod] = useState(
+    displayMethods.find((item) => item.value === defaultDisplayMethod)
+  )
 
   const onVisibleFilter = () => {
     setVisibleFilter(!visibleFilter)
@@ -99,6 +131,16 @@ export const Handle = ({
     setDisplayMethod(item)
     if (onChangeDisplayMethod) onChangeDisplayMethod(item)
   }
+
+  const onChangeChecked = (e) => {
+    const value = e.target.checked
+    setChecked(value)
+    if (onChecked) onChecked(value)
+  }
+
+  useEffect(() => {
+    setChecked(checked)
+  }, [checked])
 
   return (
     <Wrap>
@@ -113,14 +155,20 @@ export const Handle = ({
             </CreateButton>
           )}
 
-          <Tooltip text={'Отображение фильтров'}>
-            <Button type={'button'} kind={'icon'} onClick={onVisibleFilter} revert={!visibleFilter}>
-              <Icon
-                icon={'filter2'}
-                stroke={!visibleFilter ? 'var(--default-color-accent)' : 'white'}
-              />
-            </Button>
-          </Tooltip>
+          {withFilters && (
+            <Tooltip text={'Отображение фильтров'}>
+              <Button
+                type={'button'}
+                kind={'icon'}
+                onClick={onVisibleFilter}
+                revert={!visibleFilter}>
+                <Icon
+                  icon={'filter2'}
+                  stroke={!visibleFilter ? 'var(--default-color-accent)' : 'white'}
+                />
+              </Button>
+            </Tooltip>
+          )}
 
           <Switch
             defaultValue={displayMethod || displayMethods[1]}
@@ -132,17 +180,21 @@ export const Handle = ({
 
       <Divider clear />
 
-      <Footer>
-        <Checkbox label={'Выделить все'} />
-        <Button
-          style={{ color: 'var(--default-color-red)' }}
-          appearance={'clear'}
-          onClick={onDeleteChecked}>
-          Удалить выделенное
-        </Button>
-      </Footer>
+      {!withoutFooter && (
+        <Footer>
+          <Checkbox label={'Выделить все'} checked={isChecked} onChange={onChangeChecked} />
+          <DeleteButton appearance={'clear'} disabled={buttonDeleteDisabled} onClick={onDeleteAll}>
+            Удалить выделенное
+          </DeleteButton>
+        </Footer>
+      )}
     </Wrap>
   )
+}
+
+Handle.defaultProps = {
+  buttonCreateText: 'Добавить',
+  buttonDeleteDisabled: true
 }
 
 export default Handle

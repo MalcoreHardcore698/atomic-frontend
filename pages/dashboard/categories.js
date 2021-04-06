@@ -1,158 +1,65 @@
-import React, { useState, useMemo, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
-import Grid from '../../atomic-ui/components/Grid'
-import Alert from '../../atomic-ui/components/Alert'
-import DatePicker from '../../atomic-ui/components/DatePicker'
-import Table from '../../atomic-ui/components/Table'
-import templates from '../../atomic-ui/components/Table/templates'
+import template from '../../atomic-ui/components/Table/templates/category'
 
 import { initializeApollo } from '../../apollo'
 import { useHelper } from '../../hooks/useHelper'
-import DashboardLayout from '../../layouts/dashboard'
-import HandleBar from '../../components/HandleBar'
-import FilterBar from '../../components/FilterBar'
+import { onCategoryCreate, onCategoryEdit, onCategoryLink } from '../../store/helpers/category'
 import CategoryCard from '../../components/CategoryCard'
-import LazyLoad from '../../components/LazyLoad'
-import FadeLoad from '../../components/FadeLoad'
-import {
-  onCategoryCreate,
-  onCategoryEdit,
-  onCategoryDelete,
-  onCategoryLink
-} from '../../store/helpers/category'
+import ContentLayout from '../../layouts/dashboard/content'
 import { setDocuments } from '../../store/actions/documents'
 import queries from '../../graphql/queries'
 
 const TITLE = 'Категории'
 
-const Categories = ({ store, types }) => {
+const Categories = ({ types }) => {
   const recall = useHelper()
-  const documents = useSelector((state) => state.documents)
   const dispatch = useDispatch()
-  const [datePublish, onChangeDatePublish] = useState()
-  const [dateCreate, onChangeDateCreate] = useState()
-  const [visibleFilter, setVisibleFilter] = useState(false)
-  const [displayMethod, onChangeDisplayMethod] = useState('grid')
-
-  const categories = useMemo(() => documents || store.categories, [documents, store])
 
   useEffect(() => {
     dispatch(setDocuments(null))
   }, [])
 
   return (
-    <DashboardLayout title={TITLE}>
-      <HandleBar
-        icon={'folder'}
-        title={TITLE}
-        buttonCreateText={'Создать категорию'}
-        onCreate={recall(onCategoryCreate, { types, mutation: queries.CREATE_CATEGORY })}
-        onChangeVisibleFilter={() => setVisibleFilter(!visibleFilter)}
-        onChangeDisplayMethod={(item) => onChangeDisplayMethod(item.value)}
-      />
-
-      <FilterBar
-        isOpen={visibleFilter}
-        filters={[
-          <DatePicker
-            key={0}
-            value={datePublish}
-            placeholder={'Дата публикации'}
-            onChange={onChangeDatePublish}
-            withNavigate
-          />,
-          <DatePicker
-            key={0}
-            value={dateCreate}
-            placeholder={'Дата создания'}
-            onChange={onChangeDateCreate}
-            withNavigate
-          />
-        ]}
-        options={
-          displayMethod === 'list'
-            ? []
-            : templates.category.map((item, index) => ({
-                label: item.header,
-                value: index
-              }))
-        }
-      />
-
-      {categories.length === 0 && (
-        <Alert style={{ width: '100%', textAlign: 'center' }}>Категорий нет</Alert>
-      )}
-
-      {displayMethod === 'list' && (
-        <Table
-          data={categories}
-          template={templates.category}
-          onChecked={() => {}}
-          onClick={(category) => recall(onCategoryLink, { id: category.id, category })()}
-          onDelete={(category) =>
-            recall(onCategoryDelete, {
-              id: category.id,
-              category,
-              mutation: queries.DELETE_CATEGORY
-            })()
-          }
-          onEdit={(category) =>
-            recall(onCategoryEdit, {
-              id: category.id,
-              category,
-              types,
-              mutation: queries.UPDATE_CATEGORY
-            })()
-          }
-          style={{ overflowX: 'auto', width: 'calc(100vw - 290px)' }}
-        />
-      )}
-
-      {displayMethod === 'grid' && (
-        <Grid>
-          {categories.map((category) => (
-            <FadeLoad key={category.id}>
-              <LazyLoad>
-                <CategoryCard
-                  category={category}
-                  onChecked={() => {}}
-                  onLink={recall(onCategoryLink, { id: category.id, category })}
-                  onDelete={recall(onCategoryDelete, {
-                    id: category.id,
-                    category,
-                    mutation: queries.DELETE_CATEGORY
-                  })}
-                  onEdit={recall(onCategoryEdit, {
-                    id: category.id,
-                    category,
-                    types,
-                    mutation: queries.UPDATE_CATEGORY
-                  })}
-                />
-              </LazyLoad>
-            </FadeLoad>
-          ))}
-        </Grid>
-      )}
-    </DashboardLayout>
+    <ContentLayout
+      title={TITLE}
+      icon={'folder'}
+      template={template}
+      emptyMessage={'Категорий нет'}
+      buttonCreateText={'Создать категорию'}
+      getType={'getCategories'}
+      getQuery={queries.GET_CATEGORIES}
+      deleteQuery={queries.DELETE_CATEGORY}
+      deleteEntityMultiText={'категории'}
+      deleteEntitySingleText={'категорию'}
+      onLink={(category) => recall(onCategoryLink, { id: category.id, category })}
+      onEdit={(category) =>
+        recall(onCategoryEdit, {
+          id: category.id,
+          category,
+          types,
+          mutation: queries.UPDATE_CATEGORY
+        })()
+      }
+      onCreate={recall(onCategoryCreate, { types, mutation: queries.CREATE_CATEGORY })}
+      render={(document) => <CategoryCard category={document} />}
+    />
   )
 }
 
 export async function getServerSideProps() {
   const client = initializeApollo()
 
-  let categories = []
   let types = []
 
   try {
     const response = await client.query({
-      query: queries.GET_META_DASHBOARD_CATEGORIES
+      query: queries.GET_CATEGORIES
     })
 
     if (response && response.data) {
-      categories = response.data.getCategories
-      types = response.data.getCategoryTypes
+      types = response.data.getCategories
     }
   } catch (err) {
     console.log(err)
@@ -160,7 +67,6 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      store: { categories },
       types
     }
   }

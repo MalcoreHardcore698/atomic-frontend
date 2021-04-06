@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 import Column from '../../atomic-ui/components/Column'
 import Search from '../../atomic-ui/components/Search'
@@ -46,6 +47,22 @@ export const Background = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`
+
+export const GlobalSearch = styled(Search)`
+  min-width: 815px;
+
+  @media only screen and (max-width: 996px) {
+    min-width: 480px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    min-width: 320px;
+  }
+
+  @media only screen and (max-width: 480px) {
+    min-width: 285px;
+  }
 `
 
 export const Header = styled(Column)`
@@ -148,7 +165,6 @@ export const detectOwnedProject = (projects, project) =>
   projects?.find((candidate) => candidate.id === project.id)
 
 export const Scaffold = ({
-  user,
   title,
   image,
   background,
@@ -164,6 +180,10 @@ export const Scaffold = ({
   onCompanyLink,
   onScreenshotClick
 }) => {
+  const { user, search } = useSelector((state) => ({
+    user: state.user,
+    search: state.root.search
+  }))
   const getProjectProps = useCallback(
     (project, layout) => ({
       image,
@@ -191,11 +211,11 @@ export const Scaffold = ({
 
       <Container>
         <Header>
-          {title && <MainTitle>{title}</MainTitle>}
-          <Search onSubmit={onSearch} />
+          {!search && title && <MainTitle>{title}</MainTitle>}
+          <GlobalSearch onSubmit={onSearch} />
         </Header>
 
-        {(primary || (residues && residues.length > 0)) && (
+        {!search && (primary || (residues && residues.length > 0)) && (
           <Projects>
             {primary && <PrimaryProject {...getProjectProps(primary, 'column')} />}
             {residues && residues.length > 0 && (

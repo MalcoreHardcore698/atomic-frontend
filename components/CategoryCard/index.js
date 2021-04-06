@@ -7,16 +7,21 @@ import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
 import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
-import Button from '../../atomic-ui/components/Button'
-import Icon from '../../atomic-ui/components/Icon'
-import Checkbox from '../../atomic-ui/components/Checkbox'
-import Tooltip from '../../atomic-ui/components/Tooltip'
 import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
+import CardActions from '../CardActions'
 
 export const Wrap = styled(Column)`
+  position: relative;
   height: 100%;
+  min-height: 100px;
+
+  ${({ checked }) =>
+    checked &&
+    css`
+      opacity: 0.45;
+    `}
 
   ${({ appearance }) =>
     appearance === 'default' &&
@@ -61,11 +66,6 @@ export const Header = styled(Row)`
   align-items: center;
 `
 
-export const Actions = styled(Row)`
-  grid-gap: 5px;
-  height: 100%;
-`
-
 export const Content = styled(Column)`
   grid-gap: 0;
 `
@@ -86,6 +86,7 @@ export const Name = styled(Title)`
 
 export const Card = ({
   category,
+  checked,
   appearance,
   className,
   style,
@@ -97,28 +98,18 @@ export const Card = ({
   const { setQuery } = useEntityQuery()
 
   return (
-    <Wrap className={className} style={style} appearance={appearance}>
+    <Wrap className={className} style={style} checked={checked} appearance={appearance}>
       <Content>
         <Header>
           <Meta date={category.createdAt} category={getLabelCategory(category.type)} />
 
-          {onChecked && onEdit && onDelete && (
-            <Actions>
-              <Tooltip text={'Удалить категорию'}>
-                <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
-                  <Icon icon={'delete'} size={'xs'} stroke={'white'} />
-                </Button>
-              </Tooltip>
-              <Tooltip text={'Редактировать категорию'}>
-                <Button kind={'icon'} size={'xs'} onClick={onEdit}>
-                  <Icon icon={'edit'} size={'xs'} stroke={'white'} />
-                </Button>
-              </Tooltip>
-              <Tooltip text={'Отметить категорию'} self>
-                <Checkbox />
-              </Tooltip>
-            </Actions>
-          )}
+          <CardActions
+            typeText={'категорию'}
+            checked={checked}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onChecked={onChecked}
+          />
         </Header>
 
         <Name tag={'h4'} onClick={() => setQuery(category.id, 'category', onLink)}>

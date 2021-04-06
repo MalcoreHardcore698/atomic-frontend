@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from 'react'
-import styled from 'styled-components'
+import React, { useMemo } from 'react'
+import { useRouter } from 'next/router'
+import styled, { css } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Title from '../atomic-ui/components/Title'
@@ -17,7 +18,7 @@ import queries from '../graphql/queries'
 import { initializeApollo } from '../apollo'
 
 const TITLE = 'Атомик'
-const START_OFFSET = 13
+const START_OFFSET = 0
 const LIMIT = 4
 
 const Container = styled.div`
@@ -25,6 +26,12 @@ const Container = styled.div`
   grid-template-columns: 1fr min-content;
   grid-gap: var(--default-gap);
   margin-bottom: 80px;
+
+  ${({ isSearch }) =>
+    isSearch &&
+    css`
+      grid-template-columns: 1fr;
+    `}
 
   @media only screen and (max-width: 1196px) {
     grid-template-columns: 1fr;
@@ -43,15 +50,17 @@ const Aside = styled.aside`
 `
 
 const Home = ({ store }) => {
+  const router = useRouter()
   const recall = useHelper()
   const mutate = useMutate()
-  const [search, setSearch] = useState(null)
-  const user = useSelector((state) => state.user)
+  const { user, search } = useSelector((state) => ({
+    user: state.user,
+    search: state.root.search
+  }))
   const dispatch = useDispatch()
 
   const scaffold = useMemo(
     () => ({
-      user,
       title: store.scaffold.title,
       background: store.scaffold.background.path,
       primary: store.scaffold.primary,
@@ -106,7 +115,17 @@ const Home = ({ store }) => {
               dispatch(setUserFolder(result))
             }
           })()),
-      onSearch: (value) => setSearch(value),
+      onSearch: (value) =>
+        router.push(
+          {
+            pathname: router.pathname,
+            query: {
+              search: value
+            }
+          },
+          undefined,
+          { shallow: true }
+        ),
       onAboutMore: (project) => recall(onUserAboutMore, { user: project }),
       onCompanyLink: (project) => recall(onUserLink, { id: project.company?.email, auth: user })(),
       onScreenshotClick: (project, key) =>
@@ -115,30 +134,31 @@ const Home = ({ store }) => {
           key
         })()
     }),
-    [user, store, recall, mutate, dispatch, setSearch]
+    [user, store, recall, mutate, dispatch]
   )
 
   return (
     <ContentLayout
       title={TITLE}
       limit={LIMIT}
-      research={search}
       scaffold={scaffold}
       startOffset={START_OFFSET}
       query={queries.GET_PROJECTS}
       variables={{ status: 'PUBLISHED' }}
       initialize>
       {({ documents }) => (
-        <Container>
+        <Container isSearch={search}>
           <ProjectList initialList={documents} layout />
 
-          <Aside>
-            <Title tag={'h4'}>Авторы</Title>
-            <UserList variables={{ offset: 0, limit: 1 }} />
+          {!search && (
+            <Aside>
+              <Title tag={'h4'}>Авторы</Title>
+              <UserList variables={{ offset: 0, limit: 1 }} />
 
-            <Title tag={'h4'}>Новости</Title>
-            <ArticleList variables={{ offset: 0, limit: 1 }} />
-          </Aside>
+              <Title tag={'h4'}>Новости</Title>
+              <ArticleList variables={{ offset: 0, limit: 1 }} />
+            </Aside>
+          )}
         </Container>
       )}
     </ContentLayout>

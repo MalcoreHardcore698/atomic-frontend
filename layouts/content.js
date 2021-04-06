@@ -16,6 +16,7 @@ import FilterBar from '../components/FilterBar'
 import SearchBar from '../components/SearchBar'
 import HandleBar from '../components/HandleBar'
 import { LowerLoader } from '../components/Styled'
+import { useSelector } from 'react-redux'
 
 const Wrap = styled(Column)`
   margin-top: 120px;
@@ -39,7 +40,6 @@ const ContentLayout = ({
   handle,
   filters,
   options,
-  research,
   scaffold,
   dashboard,
   variables = {},
@@ -49,6 +49,7 @@ const ContentLayout = ({
   children
 }) => {
   const router = useRouter()
+  const research = useSelector((state) => state.root.search)
   const Layout = dashboard ? DashboardLayout : DefaultLayout
   const [date, onChangeDate] = useState()
   const [select, onChangeSelect] = useState()
@@ -118,7 +119,7 @@ const ContentLayout = ({
 
     const result = { ...variables, offset, limit }
 
-    if (search) {
+    if (search && refetchBySearch) {
       await refetchBySearch(variables)
     } else {
       if (refetch) {
