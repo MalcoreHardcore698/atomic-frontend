@@ -12,12 +12,15 @@ const initialState = {
       description: ''
     }
   },
+  displayMethod: 'grid',
+  visibleFilters: false,
   variables: null,
   scrollTop: 0,
   callback: () => {},
   members: [],
   screenshots: [],
   messages: [],
+  search: '',
   files: []
 }
 
@@ -48,6 +51,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         files: action.payload.files || []
       }
+    case C.SET_SEARCH:
+      return {
+        ...state,
+        search: action.payload.search || ''
+      }
     case C.SET_FOLDER:
       return {
         ...state,
@@ -62,6 +70,16 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         messages: action.payload.messages
+      }
+    case C.SET_DISPLAY_METHOD:
+      return {
+        ...state,
+        displayMethod: action.payload.displayMethod
+      }
+    case C.SET_VISIBLE_FILTERS:
+      return {
+        ...state,
+        visibleFilters: action.payload.visibleFilters
       }
     case C.ADD_MEMBER:
       return {

@@ -23,7 +23,7 @@ import { removeItem, clearItems } from '../store/actions/snacks'
 import { setUser } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
 import { setModal } from '../store/actions/modal'
-import { setMutate, setSettings } from '../store/actions/root'
+import { setMutate, setSearch, setSettings } from '../store/actions/root'
 import queries from '../graphql/queries'
 import config from '../config'
 
@@ -183,6 +183,10 @@ export const MainLayout = ({ children }) => {
       )
     }
   }, [user, dispatch])
+
+  useEffect(() => {
+    dispatch(setSearch(router.query.search))
+  }, [router, dispatch])
 
   useDetectQuery()
 
