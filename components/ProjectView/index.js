@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
-import YouTube from 'react-youtube'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
@@ -22,6 +21,7 @@ import { useEntityQuery } from '../../hooks/useEntityQuery'
 import HTMLView from '../HTMLView'
 import Processed from '../Processed'
 import queries from '../../graphql/queries'
+import VideoPresentation from '../../atomic-ui/components/VideoPresentation'
 
 export const Wrap = styled(Column)`
   flex-grow: 1;
@@ -203,7 +203,7 @@ export const Difinitions = styled(Row)`
   }
 `
 
-export const Presentation = styled(YouTube)`
+export const Presentation = styled(VideoPresentation)`
   display: flex;
   flex-grow: 1;
   width: 100%;
@@ -257,11 +257,25 @@ export const View = ({
 
   const [screenshots, setScreenshots] = useState([])
   const [residue, setResidue] = useState(0)
-  const [videoId, setVideoId] = useState(null)
+  const [videoPresentationObject, setVideoPresentationObject] = useState(null)
 
   const onClickLike = () => {
     if (onLike) onLike()
     setLike(!isLiked)
+  }
+
+  const parseUrl = (url) => {
+    const regExpYouTube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
+    const regExpVimeo = /https:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/
+    const matchYouTube = url.match(regExpYouTube)
+    const matchVimeo = url.match(regExpVimeo)
+    if (matchYouTube && matchYouTube[7].length == 11) {
+      return { type: 'youtube', videoId: matchYouTube[7] }
+    }
+    if (matchVimeo) {
+      return { type: 'vimeo', videoId: matchVimeo[2] }
+    }
+    return false
   }
 
   useEffect(() => {
@@ -270,9 +284,9 @@ export const View = ({
       const images = [response.preview, ...response.screenshots]
       const slicedImages = images.slice(0, slicedFactor)
       const url = response.presentation && new URL(response.presentation)
-
+      const videoPresentationObject = parseUrl(url)
       setResidue((images.length || slicedFactor) - slicedFactor)
-      setVideoId(url?.searchParams?.get('v'))
+      setVideoPresentationObject(videoPresentationObject.videoId)
       setScreenshots(slicedImages)
     }
   }, [loading, data, slicedFactor])
@@ -388,7 +402,12 @@ export const View = ({
 
           <Divider clear />
 
-          {data?.getProject?.presentation && videoId && <Presentation videoId={videoId} />}
+          {data?.getProject?.presentation && videoPresentationObject && (
+            <Presentation
+              type={videoPresentationObject.type}
+              videoId={videoPresentationObject.videoId}
+            />
+          )}
 
           <Title tag={'h4'}>Участники проекта</Title>
           {data?.getProject?.members && data?.getProject?.members?.length > 0 && (
