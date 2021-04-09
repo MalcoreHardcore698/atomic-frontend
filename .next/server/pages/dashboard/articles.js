@@ -967,6 +967,7 @@ exports.default = _default;
 /* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("79b8");
 /* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("8UhZ");
 /* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("586Q");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("rOcY");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
@@ -985,6 +986,8 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
+
+const HOST_URL = _config__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"].get('host-url');
 const Media = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Media",
   componentId: "g3ik0u-0"
@@ -1077,7 +1080,8 @@ const Card = ({
   onCompanyLink,
   onChecked,
   onEdit,
-  onDelete
+  onDelete,
+  withSocials
 }) => {
   var _project$screenshots, _project$screenshots2, _project$preview, _project$screenshots3, _project$category, _project$category2, _project$description, _project$description2, _project$company, _project$company$avat, _project$company2, _project$company3, _project$company4;
 
@@ -1130,6 +1134,8 @@ const Card = ({
     place: 'top',
     text: (_project$category = project.category) === null || _project$category === void 0 ? void 0 : _project$category.name
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+    shareTitle: withSocials && (project === null || project === void 0 ? void 0 : project.title),
+    shareUrl:  false ? undefined : HOST_URL,
     category: (_project$category2 = project.category) === null || _project$category2 === void 0 ? void 0 : _project$category2.name,
     short: true
   })), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
@@ -1834,6 +1840,13 @@ const category = [{
   width: '15%'
 }];
 /* harmony default export */ __webpack_exports__["a"] = (category);
+
+/***/ }),
+
+/***/ "5+fn":
+/***/ (function(module, exports) {
+
+module.exports = require("react-share");
 
 /***/ }),
 
@@ -3384,7 +3397,7 @@ var react_hooks_ = __webpack_require__("mU8t");
 // EXTERNAL MODULE: external "uuid"
 var external_uuid_ = __webpack_require__("kNaX");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
 var Meta = __webpack_require__("aBfq");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
@@ -4610,7 +4623,8 @@ const Articles = ({
       statuses,
       canEditStatus,
       mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_20__[/* default */ "a"].UPDATE_ARTICLE
-    })
+    }),
+    withSocials: true
   }))))));
 };
 
@@ -5389,13 +5403,58 @@ var FormSureDelete = __webpack_require__("FHIK");
 // EXTERNAL MODULE: ./components/ProjectCard/index.js
 var ProjectCard = __webpack_require__("1zqG");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
+var Meta = __webpack_require__("aBfq");
+
 // EXTERNAL MODULE: external "react-youtube"
 var external_react_youtube_ = __webpack_require__("oLQh");
 var external_react_youtube_default = /*#__PURE__*/__webpack_require__.n(external_react_youtube_);
 
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
-var Meta = __webpack_require__("aBfq");
+// EXTERNAL MODULE: external "react-vimeo"
+var external_react_vimeo_ = __webpack_require__("KNxo");
+var external_react_vimeo_default = /*#__PURE__*/__webpack_require__.n(external_react_vimeo_);
 
+// CONCATENATED MODULE: ./atomic-ui/components/VideoPresentation/index.js
+var VideoPresentation_jsx = external_react_default.a.createElement;
+
+
+
+const parseUrl = url => {
+  if (url instanceof URL) {
+    const href = url.href;
+
+    if (href.includes('youtube')) {
+      const videoId = new URLSearchParams(url.search).get('v');
+      return {
+        type: 'youtube',
+        videoId
+      };
+    }
+
+    if (href.includes('vimeo')) {
+      const regExpVimeo = /https:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/;
+      const matchVimeo = url.href.match(regExpVimeo);
+      return {
+        type: 'vimeo',
+        videoId: matchVimeo[2]
+      };
+    }
+  }
+
+  return false;
+};
+const VideoPresentation = ({
+  type,
+  videoId
+}) => {
+  return VideoPresentation_jsx("div", null, type === 'youtube' ? VideoPresentation_jsx(external_react_youtube_default.a, {
+    videoId: videoId
+  }) : VideoPresentation_jsx(external_react_vimeo_default.a, {
+    videoId: videoId,
+    autoplay: true
+  }));
+};
+/* harmony default export */ var components_VideoPresentation = (VideoPresentation);
 // EXTERNAL MODULE: ./hooks/useEntityQuery.js
 var useEntityQuery = __webpack_require__("8UhZ");
 
@@ -5430,10 +5489,12 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
+
+const HOST_URL = config["a" /* default */].get('host-url');
 const ProjectView_Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "ProjectView__Wrap",
   componentId: "sc-1fg5jgh-0"
-})(["flex-grow:1;", " ", " ", ""], ({
+})(["flex-grow:1;iframe{width:100%;}", " ", " ", ""], ({
   appearance
 }) => appearance === 'default' && Object(external_styled_components_["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
   appearance
@@ -5473,17 +5534,17 @@ const CentralAlert = external_styled_components_default()(Alert["a" /* default *
 const Poster = external_styled_components_default()(Image["a" /* default */]).withConfig({
   displayName: "ProjectView__Poster",
   componentId: "sc-1fg5jgh-8"
-})(["width:100%;height:100%;object-fit:cover;border-radius:var(--surface-border-radius);flex-grow:1;transition:opacity 150ms ease;", ""], ({
+})(["width:100%;height:100%;max-height:285px;object-fit:cover;border-radius:var(--surface-border-radius);flex-grow:1;transition:opacity 150ms ease;", ""], ({
   onClick
 }) => onClick && Object(external_styled_components_["css"])(["cursor:pointer;&:hover{opacity:0.65;}"]));
 const Difinitions = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "ProjectView__Difinitions",
   componentId: "sc-1fg5jgh-9"
 })(["flex-grow:100;justify-content:space-between;grid-gap:var(--default-gap);@media only screen and (max-width:480px){flex-direction:column;}"]);
-const Presentation = external_styled_components_default()(external_react_youtube_default.a).withConfig({
+const Presentation = external_styled_components_default()(components_VideoPresentation).withConfig({
   displayName: "ProjectView__Presentation",
   componentId: "sc-1fg5jgh-10"
-})(["display:flex;flex-grow:1;width:100%;border-radius:var(--surface-border-radius);overflow:hidden;iframe{width:100%;}"]);
+})(["display:flex;flex-grow:1;width:100%;border-radius:var(--surface-border-radius);overflow:hidden;"]);
 const Actions = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "ProjectView__Actions",
   componentId: "sc-1fg5jgh-11"
@@ -5511,7 +5572,7 @@ const View = ({
   onMemberLink,
   onCompanyLink
 }) => {
-  var _data$getProject, _data$getProject2, _data$getProject2$pre, _data$getProject7, _data$getProject8, _data$getProject8$scr, _data$getProject11, _data$getProject11$ca, _data$getProject12, _data$getProject13, _data$getProject14, _data$getProject15, _data$getProject15$co, _data$getProject15$co2, _data$getProject16, _data$getProject16$co, _data$getProject18, _data$getProject19, _data$getProject20, _data$getProject21, _data$getProject22, _data$getProject22$me, _data$getProject23, _data$getProject24, _data$getProject25, _data$getProject25$me, _data$getProject26, _data$getProject27, _data$getProject27$fi, _data$getProject28, _data$getProject29, _data$getProject30, _data$getProject30$fi;
+  var _data$getProject, _data$getProject2, _data$getProject2$pre, _data$getProject7, _data$getProject8, _data$getProject8$scr, _data$getProject11, _data$getProject12, _data$getProject12$ca, _data$getProject13, _data$getProject14, _data$getProject15, _data$getProject16, _data$getProject16$co, _data$getProject16$co2, _data$getProject17, _data$getProject17$co, _data$getProject19, _data$getProject20, _data$getProject21, _data$getProject22, _data$getProject23, _data$getProject23$me, _data$getProject24, _data$getProject25, _data$getProject26, _data$getProject26$me, _data$getProject27, _data$getProject28, _data$getProject28$fi, _data$getProject29, _data$getProject30, _data$getProject31, _data$getProject31$fi;
 
   const {
     setQuery
@@ -5528,7 +5589,7 @@ const View = ({
   const [isLiked, setLike] = Object(external_react_["useState"])(liked);
   const [screenshots, setScreenshots] = Object(external_react_["useState"])([]);
   const [residue, setResidue] = Object(external_react_["useState"])(0);
-  const [videoId, setVideoId] = Object(external_react_["useState"])(null);
+  const [videoPresentationObject, setVideoPresentationObject] = Object(external_react_["useState"])(null);
 
   const onClickLike = () => {
     if (onLike) onLike();
@@ -5537,14 +5598,13 @@ const View = ({
 
   Object(external_react_["useEffect"])(() => {
     if (!loading && data.getProject) {
-      var _url$searchParams;
-
       const response = data.getProject;
       const images = [response.preview, ...response.screenshots];
       const slicedImages = images.slice(0, slicedFactor);
-      const url = response.presentation && new URL(response.presentation);
+      const url = URL && response.presentation && new URL(response.presentation);
+      const videoPresentationObject = parseUrl(url);
       setResidue((images.length || slicedFactor) - slicedFactor);
-      setVideoId(url === null || url === void 0 ? void 0 : (_url$searchParams = url.searchParams) === null || _url$searchParams === void 0 ? void 0 : _url$searchParams.get('v'));
+      setVideoPresentationObject(videoPresentationObject);
       setScreenshots(slicedImages);
     }
   }, [loading, data, slicedFactor]);
@@ -5576,26 +5636,28 @@ const View = ({
     src: screenshot.path,
     alt: screenshot.name
   }), index === (screenshots === null || screenshots === void 0 ? void 0 : screenshots.length) - 1 && residue > 0 && /*#__PURE__*/external_react_default.a.createElement(ScreenshotsCounter, null, /*#__PURE__*/external_react_default.a.createElement("span", null, "+", residue)))))), /*#__PURE__*/external_react_default.a.createElement(ProjectView_Content, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
-    category: data === null || data === void 0 ? void 0 : (_data$getProject11 = data.getProject) === null || _data$getProject11 === void 0 ? void 0 : (_data$getProject11$ca = _data$getProject11.category) === null || _data$getProject11$ca === void 0 ? void 0 : _data$getProject11$ca.name
+    shareTitle: data === null || data === void 0 ? void 0 : (_data$getProject11 = data.getProject) === null || _data$getProject11 === void 0 ? void 0 : _data$getProject11.title,
+    shareUrl: false ? undefined : HOST_URL,
+    category: data === null || data === void 0 ? void 0 : (_data$getProject12 = data.getProject) === null || _data$getProject12 === void 0 ? void 0 : (_data$getProject12$ca = _data$getProject12.category) === null || _data$getProject12$ca === void 0 ? void 0 : _data$getProject12$ca.name
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h3',
     style: {
       marginTop: -5,
       marginBottom: 5
     }
-  }, data === null || data === void 0 ? void 0 : (_data$getProject12 = data.getProject) === null || _data$getProject12 === void 0 ? void 0 : _data$getProject12.title), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data === null || data === void 0 ? void 0 : (_data$getProject13 = data.getProject) === null || _data$getProject13 === void 0 ? void 0 : _data$getProject13.description)), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+  }, data === null || data === void 0 ? void 0 : (_data$getProject13 = data.getProject) === null || _data$getProject13 === void 0 ? void 0 : _data$getProject13.title), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data === null || data === void 0 ? void 0 : (_data$getProject14 = data.getProject) === null || _data$getProject14 === void 0 ? void 0 : _data$getProject14.description)), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], _extends({}, data !== null && data !== void 0 && (_data$getProject14 = data.getProject) !== null && _data$getProject14 !== void 0 && _data$getProject14.company ? {
-    img: data === null || data === void 0 ? void 0 : (_data$getProject15 = data.getProject) === null || _data$getProject15 === void 0 ? void 0 : (_data$getProject15$co = _data$getProject15.company) === null || _data$getProject15$co === void 0 ? void 0 : (_data$getProject15$co2 = _data$getProject15$co.avatar) === null || _data$getProject15$co2 === void 0 ? void 0 : _data$getProject15$co2.path
+  }), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], _extends({}, data !== null && data !== void 0 && (_data$getProject15 = data.getProject) !== null && _data$getProject15 !== void 0 && _data$getProject15.company ? {
+    img: data === null || data === void 0 ? void 0 : (_data$getProject16 = data.getProject) === null || _data$getProject16 === void 0 ? void 0 : (_data$getProject16$co = _data$getProject16.company) === null || _data$getProject16$co === void 0 ? void 0 : (_data$getProject16$co2 = _data$getProject16$co.avatar) === null || _data$getProject16$co2 === void 0 ? void 0 : _data$getProject16$co2.path
   } : {
     icon: 'work'
   }, {
     label: 'Компания',
-    text: (data === null || data === void 0 ? void 0 : (_data$getProject16 = data.getProject) === null || _data$getProject16 === void 0 ? void 0 : (_data$getProject16$co = _data$getProject16.company) === null || _data$getProject16$co === void 0 ? void 0 : _data$getProject16$co.name) || '-',
+    text: (data === null || data === void 0 ? void 0 : (_data$getProject17 = data.getProject) === null || _data$getProject17 === void 0 ? void 0 : (_data$getProject17$co = _data$getProject17.company) === null || _data$getProject17$co === void 0 ? void 0 : _data$getProject17$co.name) || '-',
     onLink: () => {
-      var _data$getProject17, _data$getProject17$co;
+      var _data$getProject18, _data$getProject18$co;
 
-      return setQuery(data === null || data === void 0 ? void 0 : (_data$getProject17 = data.getProject) === null || _data$getProject17 === void 0 ? void 0 : (_data$getProject17$co = _data$getProject17.company) === null || _data$getProject17$co === void 0 ? void 0 : _data$getProject17$co.email, 'user', onCompanyLink);
+      return setQuery(data === null || data === void 0 ? void 0 : (_data$getProject18 = data.getProject) === null || _data$getProject18 === void 0 ? void 0 : (_data$getProject18$co = _data$getProject18.company) === null || _data$getProject18$co === void 0 ? void 0 : _data$getProject18$co.email, 'user', onCompanyLink);
     }
   })), !owned && (onLike || onAdd) && /*#__PURE__*/external_react_default.a.createElement(Actions, null, onLike && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
     text: 'Мне нравится'
@@ -5619,17 +5681,18 @@ const View = ({
     stroke: 'var(--default-color-accent)'
   })))))))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), (data === null || data === void 0 ? void 0 : (_data$getProject18 = data.getProject) === null || _data$getProject18 === void 0 ? void 0 : _data$getProject18.body) && /*#__PURE__*/external_react_default.a.createElement(HTMLView["a" /* default */], {
-    content: data === null || data === void 0 ? void 0 : (_data$getProject19 = data.getProject) === null || _data$getProject19 === void 0 ? void 0 : _data$getProject19.body
+  }), (data === null || data === void 0 ? void 0 : (_data$getProject19 = data.getProject) === null || _data$getProject19 === void 0 ? void 0 : _data$getProject19.body) && /*#__PURE__*/external_react_default.a.createElement(HTMLView["a" /* default */], {
+    content: data === null || data === void 0 ? void 0 : (_data$getProject20 = data.getProject) === null || _data$getProject20 === void 0 ? void 0 : _data$getProject20.body
   }), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), (data === null || data === void 0 ? void 0 : (_data$getProject20 = data.getProject) === null || _data$getProject20 === void 0 ? void 0 : _data$getProject20.presentation) && videoId && /*#__PURE__*/external_react_default.a.createElement(Presentation, {
-    videoId: videoId
+  }), (data === null || data === void 0 ? void 0 : (_data$getProject21 = data.getProject) === null || _data$getProject21 === void 0 ? void 0 : _data$getProject21.presentation) && videoPresentationObject && /*#__PURE__*/external_react_default.a.createElement(Presentation, {
+    type: videoPresentationObject.type,
+    videoId: videoPresentationObject.videoId
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
-  }, "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"), (data === null || data === void 0 ? void 0 : (_data$getProject21 = data.getProject) === null || _data$getProject21 === void 0 ? void 0 : _data$getProject21.members) && (data === null || data === void 0 ? void 0 : (_data$getProject22 = data.getProject) === null || _data$getProject22 === void 0 ? void 0 : (_data$getProject22$me = _data$getProject22.members) === null || _data$getProject22$me === void 0 ? void 0 : _data$getProject22$me.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Members, {
+  }, "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"), (data === null || data === void 0 ? void 0 : (_data$getProject22 = data.getProject) === null || _data$getProject22 === void 0 ? void 0 : _data$getProject22.members) && (data === null || data === void 0 ? void 0 : (_data$getProject23 = data.getProject) === null || _data$getProject23 === void 0 ? void 0 : (_data$getProject23$me = _data$getProject23.members) === null || _data$getProject23$me === void 0 ? void 0 : _data$getProject23$me.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Members, {
     percentage: 'minmax(320px, 1fr)'
-  }, data === null || data === void 0 ? void 0 : (_data$getProject23 = data.getProject) === null || _data$getProject23 === void 0 ? void 0 : _data$getProject23.members.map(member => {
+  }, data === null || data === void 0 ? void 0 : (_data$getProject24 = data.getProject) === null || _data$getProject24 === void 0 ? void 0 : _data$getProject24.members.map(member => {
     var _member$avatar;
 
     return /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
@@ -5639,7 +5702,7 @@ const View = ({
       text: member === null || member === void 0 ? void 0 : member.name,
       onLink: onMemberLink && (() => setQuery(member === null || member === void 0 ? void 0 : member.email, 'user', onMemberLink))
     });
-  })), (!(data !== null && data !== void 0 && (_data$getProject24 = data.getProject) !== null && _data$getProject24 !== void 0 && _data$getProject24.members) || (data === null || data === void 0 ? void 0 : (_data$getProject25 = data.getProject) === null || _data$getProject25 === void 0 ? void 0 : (_data$getProject25$me = _data$getProject25.members) === null || _data$getProject25$me === void 0 ? void 0 : _data$getProject25$me.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  })), (!(data !== null && data !== void 0 && (_data$getProject25 = data.getProject) !== null && _data$getProject25 !== void 0 && _data$getProject25.members) || (data === null || data === void 0 ? void 0 : (_data$getProject26 = data.getProject) === null || _data$getProject26 === void 0 ? void 0 : (_data$getProject26$me = _data$getProject26.members) === null || _data$getProject26$me === void 0 ? void 0 : _data$getProject26$me.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -5648,15 +5711,15 @@ const View = ({
     clear: true
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
-  }, "\u0424\u0430\u0439\u043B\u044B"), (data === null || data === void 0 ? void 0 : (_data$getProject26 = data.getProject) === null || _data$getProject26 === void 0 ? void 0 : _data$getProject26.files) && (data === null || data === void 0 ? void 0 : (_data$getProject27 = data.getProject) === null || _data$getProject27 === void 0 ? void 0 : (_data$getProject27$fi = _data$getProject27.files) === null || _data$getProject27$fi === void 0 ? void 0 : _data$getProject27$fi.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Files, {
+  }, "\u0424\u0430\u0439\u043B\u044B"), (data === null || data === void 0 ? void 0 : (_data$getProject27 = data.getProject) === null || _data$getProject27 === void 0 ? void 0 : _data$getProject27.files) && (data === null || data === void 0 ? void 0 : (_data$getProject28 = data.getProject) === null || _data$getProject28 === void 0 ? void 0 : (_data$getProject28$fi = _data$getProject28.files) === null || _data$getProject28$fi === void 0 ? void 0 : _data$getProject28$fi.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Files, {
     percentage: 'minmax(256px, 1fr)'
-  }, data === null || data === void 0 ? void 0 : (_data$getProject28 = data.getProject) === null || _data$getProject28 === void 0 ? void 0 : _data$getProject28.files.map(file => /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
+  }, data === null || data === void 0 ? void 0 : (_data$getProject29 = data.getProject) === null || _data$getProject29 === void 0 ? void 0 : _data$getProject29.files.map(file => /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* default */], {
     key: file.id,
     icon: 'paper',
     label: file.filename,
     text: Object(functions["d" /* getFileSize */])(file.size),
     onLink: () => onFileLink && onFileLink(file)
-  }))), (!(data !== null && data !== void 0 && (_data$getProject29 = data.getProject) !== null && _data$getProject29 !== void 0 && _data$getProject29.files) || (data === null || data === void 0 ? void 0 : (_data$getProject30 = data.getProject) === null || _data$getProject30 === void 0 ? void 0 : (_data$getProject30$fi = _data$getProject30.files) === null || _data$getProject30$fi === void 0 ? void 0 : _data$getProject30$fi.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }))), (!(data !== null && data !== void 0 && (_data$getProject30 = data.getProject) !== null && _data$getProject30 !== void 0 && _data$getProject30.files) || (data === null || data === void 0 ? void 0 : (_data$getProject31 = data.getProject) === null || _data$getProject31 === void 0 ? void 0 : (_data$getProject31$fi = _data$getProject31.files) === null || _data$getProject31$fi === void 0 ? void 0 : _data$getProject31$fi.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -6347,6 +6410,13 @@ Chip.defaultProps = {
   appearance: 'default'
 };
 /* harmony default export */ __webpack_exports__["a"] = (Chip);
+
+/***/ }),
+
+/***/ "KNxo":
+/***/ (function(module, exports) {
+
+module.exports = require("react-vimeo");
 
 /***/ }),
 
@@ -8001,6 +8071,7 @@ module.exports = _interopRequireDefault;
 /* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("NWnW");
 /* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("8UhZ");
 /* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("586Q");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("rOcY");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
@@ -8020,6 +8091,8 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
+
+const HOST_URL = _config__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].get('host-url');
 const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Wrap",
   componentId: "bx733i-0"
@@ -8082,7 +8155,8 @@ const Card = ({
   onCompanyLink,
   onChecked,
   onEdit,
-  onDelete
+  onDelete,
+  withSocials
 }) => {
   var _user$avatar, _user$about, _user$projects, _user$company, _user$company$avatar, _user$company2;
 
@@ -8110,6 +8184,8 @@ const Card = ({
       gridGap: 5
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+    shareTitle: withSocials && (user === null || user === void 0 ? void 0 : user.name),
+    shareUrl:  false ? undefined : HOST_URL,
     category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "g"])(user.account)
   }), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
     text: 'Удалить пользователя'
@@ -8324,7 +8400,7 @@ module.exports = require("next/dist/next-server/lib/router/utils/get-asset-path-
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ ArticleCard_Wrap; });
 
-// UNUSED EXPORTS: Poster, Header, Actions, Name, HTMLView, ShortText, Card
+// UNUSED EXPORTS: Poster, Header, Actions, Name, MoreButton, HTMLView, ShortText, Card
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
@@ -8346,7 +8422,7 @@ var Column = __webpack_require__("8CDE");
 // EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
 var Title = __webpack_require__("7sPp");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
 var Meta = __webpack_require__("aBfq");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
@@ -8375,8 +8451,12 @@ const More = ({
   text,
   withText,
   withButton,
+  className,
+  style,
   onClick
 }) => __jsx(Wrap, {
+  className: className,
+  style: style,
   onClick: onClick
 }, withText && __jsx(Text["b" /* default */], {
   style: {
@@ -8405,6 +8485,9 @@ var Tooltip = __webpack_require__("VWQm");
 // EXTERNAL MODULE: ./atomic-ui/utils/functions.js
 var functions = __webpack_require__("NWnW");
 
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
 // CONCATENATED MODULE: ./components/ArticleCard/index.js
 
 
@@ -8420,10 +8503,12 @@ var functions = __webpack_require__("NWnW");
 
 
 
+
+const HOST_URL = config["a" /* default */].get('host-url');
 const ArticleCard_Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "ArticleCard__Wrap",
   componentId: "sc-17tznl7-0"
-})(["display:grid;grid-template-columns:1fr 2fr;padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);height:min-content;& > span{display:flex;}", " ", " ", " ", " @media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"], ({
+})(["display:grid;grid-template-columns:1fr 2fr;padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);height:inherit;& > span{display:flex;}", " ", " ", " ", " @media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"], ({
   layout
 }) => layout === 'column' && Object(external_styled_components_["css"])(["display:flex;flex-wrap:wrap;grid-gap:var(--default-gap);& > span{height:128px;}"]), ({
   appearance
@@ -8452,6 +8537,10 @@ const Name = external_styled_components_default()(Title["a" /* default */]).with
 })(["transition:opacity 150ms ease;", ""], ({
   onClick
 }) => onClick && Object(external_styled_components_["css"])(["cursor:pointer;&:hover{opacity:0.45;}"]));
+const MoreButton = external_styled_components_default()(components_More).withConfig({
+  displayName: "ArticleCard__MoreButton",
+  componentId: "sc-17tznl7-5"
+})(["align-items:flex-end;flex-grow:100;"]);
 const HTMLView = ({
   content,
   className
@@ -8463,7 +8552,7 @@ const HTMLView = ({
 });
 const ShortText = external_styled_components_default()(HTMLView).withConfig({
   displayName: "ArticleCard__ShortText",
-  componentId: "sc-17tznl7-5"
+  componentId: "sc-17tznl7-6"
 })(["display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;p{font-size:var(--font-size-m);font-weight:var(--font-weight-regular);color:var(--default-color-text);strong,b,i{font-style:normal;font-weight:inherit;}}"]);
 const Card = ({
   layout,
@@ -8473,7 +8562,8 @@ const Card = ({
   onLink,
   onChecked,
   onEdit,
-  onDelete
+  onDelete,
+  withSocials
 }) => {
   var _article$preview, _article$category;
 
@@ -8506,8 +8596,10 @@ const Card = ({
       gridColumn: !article.preview && '1 / 3'
     }
   }, /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
-    date: article === null || article === void 0 ? void 0 : article.createdAt,
+    shareTitle: withSocials && (article === null || article === void 0 ? void 0 : article.title),
+    shareUrl:  false ? undefined : HOST_URL,
     category: article === null || article === void 0 ? void 0 : (_article$category = article.category) === null || _article$category === void 0 ? void 0 : _article$category.name,
+    date: article === null || article === void 0 ? void 0 : article.createdAt,
     short: true
   }), (onChecked || onEdit || onDelete) && /*#__PURE__*/external_react_default.a.createElement(Actions, null, onDelete && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
     text: 'Удалить статью'
@@ -8538,7 +8630,7 @@ const Card = ({
     onClick: handleClick
   }, article.title), article.body && /*#__PURE__*/external_react_default.a.createElement(ShortText, {
     content: article.body
-  }), !preview && /*#__PURE__*/external_react_default.a.createElement(components_More, {
+  }), !preview && /*#__PURE__*/external_react_default.a.createElement(MoreButton, {
     onClick: onLink,
     withButton: true
   })));
@@ -8890,7 +8982,7 @@ var Text = __webpack_require__("QUga");
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
 var Meta = __webpack_require__("aBfq");
 
 // EXTERNAL MODULE: ./components/Processed/index.js
@@ -10354,23 +10446,82 @@ Alert.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* unused harmony export Wrap */
-/* unused harmony export DateRow */
-/* unused harmony export DateIcon */
-/* unused harmony export Category */
-/* unused harmony export Assessment */
-/* unused harmony export Meta */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("feIE");
-/* harmony import */ var _DateText__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("+nv6");
-/* harmony import */ var _Chip__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("JyfY");
-/* harmony import */ var _Rating__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("fLIS");
-/* harmony import */ var _Tooltip__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("VWQm");
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+// UNUSED EXPORTS: Wrap, DateRow, DateIcon, Category, Assessment, Meta
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
+var Row = __webpack_require__("nShV");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
+var Icon = __webpack_require__("feIE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Chip/index.js
+var Chip = __webpack_require__("JyfY");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Rating/index.js
+var Rating = __webpack_require__("fLIS");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
+var Tooltip = __webpack_require__("VWQm");
+
+// EXTERNAL MODULE: ./atomic-ui/components/DateText/index.js
+var DateText = __webpack_require__("+nv6");
+
+// EXTERNAL MODULE: external "react-share"
+var external_react_share_ = __webpack_require__("5+fn");
+
+// CONCATENATED MODULE: ./atomic-ui/components/ShareInSocial/index.js
+var __jsx = external_react_default.a.createElement;
+
+
+
+
+const Wrap = external_styled_components_default()(Row["b" /* default */])`
+  grid-gap: 5px;
+`;
+const ShareInSocial = ({
+  title,
+  url
+}) => {
+  return __jsx(Wrap, null, __jsx(external_react_share_["FacebookShareButton"], {
+    title: title,
+    url: url
+  }, __jsx(external_react_share_["FacebookIcon"], {
+    size: '1.125rem',
+    round: true
+  })), __jsx(external_react_share_["VKShareButton"], {
+    title: title,
+    url: url,
+    windowWidth: 660,
+    windowHeight: 460
+  }, __jsx(external_react_share_["VKIcon"], {
+    size: '1.125rem',
+    round: true
+  })), __jsx(external_react_share_["OKShareButton"], {
+    title: title,
+    url: url
+  }, __jsx(external_react_share_["OKIcon"], {
+    size: '1.125rem',
+    round: true
+  })), __jsx(external_react_share_["TelegramShareButton"], {
+    title: title,
+    url: url
+  }, __jsx(external_react_share_["TelegramIcon"], {
+    size: '1.125rem',
+    round: true
+  })));
+};
+/* harmony default export */ var components_ShareInSocial = (ShareInSocial);
+// CONCATENATED MODULE: ./atomic-ui/components/Meta/index.js
+var Meta_jsx = external_react_default.a.createElement;
 
 
 
@@ -10379,23 +10530,25 @@ var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
 
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+
+const Meta_Wrap = external_styled_components_default()(Row["b" /* default */])`
+  grid-gap: var(--default-gap);
   flex-wrap: wrap;
 `;
-const DateRow = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
+const DateRow = external_styled_components_default()(Row["b" /* default */])`
   position: relative;
   top: -2px;
   align-items: center;
   grid-gap: var(--gap-xs);
   color: var(--ghost-color-text);
 `;
-const DateIcon = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Icon__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])`
+const DateIcon = external_styled_components_default()(Icon["a" /* default */])`
   margin-left: -4px;
 `;
-const Category = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Chip__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])`
+const Category = external_styled_components_default()(Chip["a" /* default */])`
   ${({
   short
-}) => short && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+}) => short && external_styled_components_["css"]`
       display: -webkit-box;
       -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
@@ -10405,7 +10558,7 @@ const Category = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Chip_
       width: auto;
     `}
 `;
-const Assessment = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
+const Assessment = external_styled_components_default.a.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -10416,33 +10569,38 @@ const Meta = ({
   category,
   rating,
   short,
+  shareTitle,
+  shareUrl,
   onChangeRating
-}) => __jsx(Wrap, null, date && __jsx(DateRow, null, __jsx(DateIcon, {
+}) => Meta_jsx(Meta_Wrap, null, date && Meta_jsx(DateRow, null, Meta_jsx(DateIcon, {
   icon: 'calendar',
   size: 'xs',
   stroke: 'var(--ghost-color-text)'
-}), __jsx(_DateText__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+}), Meta_jsx(DateText["a" /* default */], {
   text: date,
   options: {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit'
   }
-})), category && __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], {
+})), category && Meta_jsx(Tooltip["b" /* default */], {
   place: 'top',
   text: category
-}, __jsx(Category, {
+}, Meta_jsx(Category, {
   short: short && category.length > 25,
   color: 'ghost',
   appearance: 'outlined',
   size: 'xs'
-}, category)), (rating || rating === 0) && __jsx(Assessment, null, __jsx(_Rating__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+}, category)), shareTitle && Meta_jsx(components_ShareInSocial, {
+  title: shareTitle,
+  url: shareUrl
+}), (rating || rating === 0) && Meta_jsx(Assessment, null, Meta_jsx(Rating["a" /* default */], {
   defaultValue: rating,
   onChange: onChangeRating,
   size: 'xs',
   readOnly: true
 })));
-/* harmony default export */ __webpack_exports__["a"] = (Meta);
+/* harmony default export */ var components_Meta = __webpack_exports__["a"] = (Meta);
 
 /***/ }),
 
@@ -16479,7 +16637,7 @@ function setDocuments(documents) {
 const HTMLContent = styled_components__WEBPACK_IMPORTED_MODULE_0___default.a.div.withConfig({
   displayName: "HTMLView__HTMLContent",
   componentId: "sc-1ik0rfa-0"
-})(["display:flex;flex-direction:column;grid-gap:var(--default-gap);table,th,td{border:1px solid rgba(0,0,0,0.125);}table td{padding:10px;}img{border-radius:var(--surface-border-radius);}"]);
+})(["display:flex;flex-direction:column;grid-gap:var(--default-gap);table,iframe{width:100%;}table,th,td{border:1px solid rgba(0,0,0,0.125);}table td{padding:10px;}img{border-radius:var(--surface-border-radius);}"]);
 const HTMLView = ({
   content
 }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(HTMLContent, {
@@ -17934,7 +18092,7 @@ var ArticleCard = __webpack_require__("UwjQ");
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
 var components_Meta = __webpack_require__("aBfq");
 
 // EXTERNAL MODULE: ./components/HTMLView/index.js
@@ -18043,6 +18201,8 @@ var Processed = __webpack_require__("2qQv");
 
 
 
+
+const HOST_URL = config["a" /* default */].get('host-url');
 const ArticleView_Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "ArticleView__Wrap",
   componentId: "sc-12lysue-0"
@@ -18070,7 +18230,7 @@ const View = ({
   onCommentLink,
   onCommentReply
 }) => {
-  var _data$getArticle, _data$getArticle2, _data$getArticle2$pre, _data$getArticle3, _data$getArticle4, _data$getArticle4$cat, _data$getArticle5, _data$getArticle6, _data$getArticle7;
+  var _data$getArticle, _data$getArticle2, _data$getArticle2$pre, _data$getArticle3, _data$getArticle4, _data$getArticle4$cat, _data$getArticle5, _data$getArticle6, _data$getArticle7, _data$getArticle8;
 
   const [comments, setComments] = Object(external_react_["useState"])([]);
   const {
@@ -18120,8 +18280,10 @@ const View = ({
   }, /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, (data === null || data === void 0 ? void 0 : (_data$getArticle = data.getArticle) === null || _data$getArticle === void 0 ? void 0 : _data$getArticle.preview) && /*#__PURE__*/external_react_default.a.createElement(Poster, {
     src: data === null || data === void 0 ? void 0 : (_data$getArticle2 = data.getArticle) === null || _data$getArticle2 === void 0 ? void 0 : (_data$getArticle2$pre = _data$getArticle2.preview) === null || _data$getArticle2$pre === void 0 ? void 0 : _data$getArticle2$pre.path
   }), /*#__PURE__*/external_react_default.a.createElement(ArticleView_Content, null, /*#__PURE__*/external_react_default.a.createElement(components_Meta["a" /* default */], {
-    date: data === null || data === void 0 ? void 0 : (_data$getArticle3 = data.getArticle) === null || _data$getArticle3 === void 0 ? void 0 : _data$getArticle3.createdAt,
-    category: data === null || data === void 0 ? void 0 : (_data$getArticle4 = data.getArticle) === null || _data$getArticle4 === void 0 ? void 0 : (_data$getArticle4$cat = _data$getArticle4.category) === null || _data$getArticle4$cat === void 0 ? void 0 : _data$getArticle4$cat.name
+    shareTitle: data === null || data === void 0 ? void 0 : (_data$getArticle3 = data.getArticle) === null || _data$getArticle3 === void 0 ? void 0 : _data$getArticle3.title,
+    shareUrl: false ? undefined : HOST_URL,
+    category: data === null || data === void 0 ? void 0 : (_data$getArticle4 = data.getArticle) === null || _data$getArticle4 === void 0 ? void 0 : (_data$getArticle4$cat = _data$getArticle4.category) === null || _data$getArticle4$cat === void 0 ? void 0 : _data$getArticle4$cat.name,
+    date: data === null || data === void 0 ? void 0 : (_data$getArticle5 = data.getArticle) === null || _data$getArticle5 === void 0 ? void 0 : _data$getArticle5.createdAt
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h3',
     onClick: onLink,
@@ -18129,8 +18291,8 @@ const View = ({
       marginTop: -5,
       marginBottom: 5
     }
-  }, data === null || data === void 0 ? void 0 : (_data$getArticle5 = data.getArticle) === null || _data$getArticle5 === void 0 ? void 0 : _data$getArticle5.title), (data === null || data === void 0 ? void 0 : (_data$getArticle6 = data.getArticle) === null || _data$getArticle6 === void 0 ? void 0 : _data$getArticle6.body) && /*#__PURE__*/external_react_default.a.createElement(HTMLView["a" /* default */], {
-    content: data === null || data === void 0 ? void 0 : (_data$getArticle7 = data.getArticle) === null || _data$getArticle7 === void 0 ? void 0 : _data$getArticle7.body
+  }, data === null || data === void 0 ? void 0 : (_data$getArticle6 = data.getArticle) === null || _data$getArticle6 === void 0 ? void 0 : _data$getArticle6.title), (data === null || data === void 0 ? void 0 : (_data$getArticle7 = data.getArticle) === null || _data$getArticle7 === void 0 ? void 0 : _data$getArticle7.body) && /*#__PURE__*/external_react_default.a.createElement(HTMLView["a" /* default */], {
+    content: data === null || data === void 0 ? void 0 : (_data$getArticle8 = data.getArticle) === null || _data$getArticle8 === void 0 ? void 0 : _data$getArticle8.body
   })), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
@@ -20288,7 +20450,7 @@ var UserCard = __webpack_require__("TsNn");
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
 var Meta = __webpack_require__("aBfq");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js
@@ -20596,7 +20758,7 @@ var documents = __webpack_require__("j8/+");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/project.js + 6 modules
+// EXTERNAL MODULE: ./store/helpers/project.js + 7 modules
 var helpers_project = __webpack_require__("IxyI");
 
 // EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
@@ -24624,7 +24786,7 @@ var Text = __webpack_require__("QUga");
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
 var Meta = __webpack_require__("aBfq");
 
 // EXTERNAL MODULE: ./atomic-ui/utils/functions.js

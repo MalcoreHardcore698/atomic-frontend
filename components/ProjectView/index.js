@@ -14,6 +14,7 @@ import Icon from '../../atomic-ui/components/Icon'
 import Alert from '../../atomic-ui/components/Alert'
 import Divider from '../../atomic-ui/components/Divider'
 import Difinition from '../../atomic-ui/components/Difinition'
+import VideoPresentation, { parseUrl } from '../../atomic-ui/components/VideoPresentation'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import { getFileSize, getLabelRole } from '../../atomic-ui/utils/functions'
 
@@ -21,10 +22,16 @@ import { useEntityQuery } from '../../hooks/useEntityQuery'
 import HTMLView from '../HTMLView'
 import Processed from '../Processed'
 import queries from '../../graphql/queries'
-import VideoPresentation from '../../atomic-ui/components/VideoPresentation'
+import config from '../../config'
+
+const HOST_URL = config.get('host-url')
 
 export const Wrap = styled(Column)`
   flex-grow: 1;
+
+  iframe {
+    width: 100%;
+  }
 
   ${({ appearance }) =>
     appearance === 'default' &&
@@ -177,6 +184,7 @@ export const CentralAlert = styled(Alert)`
 export const Poster = styled(Image)`
   width: 100%;
   height: 100%;
+  max-height: 285px;
   object-fit: cover;
   border-radius: var(--surface-border-radius);
   flex-grow: 1;
@@ -209,10 +217,6 @@ export const Presentation = styled(VideoPresentation)`
   width: 100%;
   border-radius: var(--surface-border-radius);
   overflow: hidden;
-
-  iframe {
-    width: 100%;
-  }
 `
 
 export const Actions = styled(Row)`
@@ -264,29 +268,15 @@ export const View = ({
     setLike(!isLiked)
   }
 
-  const parseUrl = (url) => {
-    const regExpYouTube = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
-    const regExpVimeo = /https:\/\/(www\.)?vimeo.com\/(\d+)($|\/)/
-    const matchYouTube = url.match(regExpYouTube)
-    const matchVimeo = url.match(regExpVimeo)
-    if (matchYouTube && matchYouTube[7].length == 11) {
-      return { type: 'youtube', videoId: matchYouTube[7] }
-    }
-    if (matchVimeo) {
-      return { type: 'vimeo', videoId: matchVimeo[2] }
-    }
-    return false
-  }
-
   useEffect(() => {
     if (!loading && data.getProject) {
       const response = data.getProject
       const images = [response.preview, ...response.screenshots]
       const slicedImages = images.slice(0, slicedFactor)
-      const url = response.presentation && new URL(response.presentation)
+      const url = URL && response.presentation && new URL(response.presentation)
       const videoPresentationObject = parseUrl(url)
       setResidue((images.length || slicedFactor) - slicedFactor)
-      setVideoPresentationObject(videoPresentationObject.videoId)
+      setVideoPresentationObject(videoPresentationObject)
       setScreenshots(slicedImages)
     }
   }, [loading, data, slicedFactor])
@@ -342,7 +332,11 @@ export const View = ({
 
             <Content>
               <Column>
-                <Meta category={data?.getProject?.category?.name} />
+                <Meta
+                  shareTitle={data?.getProject?.title}
+                  shareUrl={typeof window !== 'undefined' ? location.href : HOST_URL}
+                  category={data?.getProject?.category?.name}
+                />
                 <Title tag={'h3'} style={{ marginTop: -5, marginBottom: 5 }}>
                   {data?.getProject?.title}
                 </Title>

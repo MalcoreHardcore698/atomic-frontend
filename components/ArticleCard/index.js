@@ -14,6 +14,10 @@ import Checkbox from '../../atomic-ui/components/Checkbox'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 import { b64EncodeUnicode } from '../../atomic-ui/utils/functions'
 
+import config from '../../config'
+
+const HOST_URL = config.get('host-url')
+
 export const Wrap = styled(Row)`
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -22,7 +26,7 @@ export const Wrap = styled(Row)`
   border: var(--surface-border);
   border-radius: var(--surface-border-radius);
   box-shadow: var(--surface-shadow);
-  height: min-content;
+  height: inherit;
 
   & > span {
     display: flex;
@@ -115,6 +119,11 @@ export const Name = styled(Title)`
     `}
 `
 
+export const MoreButton = styled(More)`
+  align-items: flex-end;
+  flex-grow: 100;
+`
+
 export const HTMLView = ({ content, className }) => (
   <div className={className} dangerouslySetInnerHTML={{ __html: content }} />
 )
@@ -148,7 +157,8 @@ export const Card = ({
   onLink,
   onChecked,
   onEdit,
-  onDelete
+  onDelete,
+  withSocials
 }) => {
   const router = useRouter()
 
@@ -183,7 +193,13 @@ export const Card = ({
           gridColumn: !article.preview && '1 / 3'
         }}>
         <Header>
-          <Meta date={article?.createdAt} category={article?.category?.name} short />
+          <Meta
+            shareTitle={withSocials && article?.title}
+            shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
+            category={article?.category?.name}
+            date={article?.createdAt}
+            short
+          />
 
           {(onChecked || onEdit || onDelete) && (
             <Actions>
@@ -215,7 +231,7 @@ export const Card = ({
         </Name>
 
         {article.body && <ShortText content={article.body} />}
-        {!preview && <More onClick={onLink} withButton />}
+        {!preview && <MoreButton onClick={onLink} withButton />}
       </Column>
     </Wrap>
   )

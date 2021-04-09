@@ -18,6 +18,10 @@ import { getLabelRole } from '../../atomic-ui/utils/functions'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { More } from '../Styled'
 
+import config from '../../config'
+
+const HOST_URL = config.get('host-url')
+
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);
 
@@ -154,7 +158,8 @@ export const Card = ({
   onCompanyLink,
   onChecked,
   onEdit,
-  onDelete
+  onDelete,
+  withSocials
 }) => {
   const { setQuery } = useEntityQuery()
   const [isAdded, setAdded] = useState(added)
@@ -175,7 +180,11 @@ export const Card = ({
         />
         <Column style={{ gridGap: 5 }}>
           <Header>
-            <Meta category={getLabelRole(user.account)} />
+            <Meta
+              shareTitle={withSocials && user?.name}
+              shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
+              category={getLabelRole(user.account)}
+            />
 
             {(onChecked || onEdit || onDelete) && (
               <Actions>

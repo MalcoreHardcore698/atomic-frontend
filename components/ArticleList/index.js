@@ -39,6 +39,7 @@ export const ArticleList = ({ variables, layout, initialList }) => {
           layout={layout || 'column'}
           owned={user?.articles?.find((candidate) => candidate.id === article.id)}
           onLink={recall(onArticleLink, { id: article.id, auth: user?.email })}
+          withSocials
         />
       </LazyLoad>
     ))

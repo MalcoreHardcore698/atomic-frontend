@@ -16,6 +16,9 @@ import Checkbox from '../../atomic-ui/components/Checkbox'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { More } from '../Styled'
+import config from '../../config'
+
+const HOST_URL = config.get('host-url')
 
 export const Media = styled(Column)`
   grid-gap: 5px;
@@ -299,7 +302,8 @@ export const Card = ({
   onCompanyLink,
   onChecked,
   onEdit,
-  onDelete
+  onDelete,
+  withSocials
 }) => {
   const { setQuery } = useEntityQuery()
   const [isLiked, setLike] = useState(liked)
@@ -358,7 +362,12 @@ export const Card = ({
         <Column style={{ gridGap: 5 }}>
           <Header>
             <Tooltip place={'top'} text={project.category?.name}>
-              <Meta category={project.category?.name} short />
+              <Meta
+                shareTitle={withSocials && project?.title}
+                shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
+                category={project.category?.name}
+                short
+              />
             </Tooltip>
 
             {(onChecked || onEdit || onDelete) && (

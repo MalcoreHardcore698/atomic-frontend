@@ -200,7 +200,8 @@ export const Scaffold = ({
       onLink: () => onLink(project, detectOwnedProject(user?.projects, project)),
       onAboutMore: () => onAboutMore(project),
       onCompanyLink: () => onCompanyLink(project),
-      onScreenshotClick: (_, key) => onScreenshotClick(project, key)
+      onScreenshotClick: (_, key) => onScreenshotClick(project, key),
+      withSocials: true
     }),
     [user, image, onLike, onAdd, onAboutMore, onCompanyLink, onScreenshotClick]
   )

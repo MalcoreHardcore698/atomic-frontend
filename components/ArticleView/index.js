@@ -12,6 +12,9 @@ import HTMLView from '../HTMLView'
 import Comments from '../Comments'
 import Processed from '../Processed'
 import queries from '../../graphql/queries'
+import config from '../../config'
+
+const HOST_URL = config.get('host-url')
 
 export const Wrap = styled(Column)`
   flex-grow: 1;
@@ -119,7 +122,12 @@ export const View = ({
           {data?.getArticle?.preview && <Poster src={data?.getArticle?.preview?.path} />}
 
           <Content>
-            <Meta date={data?.getArticle?.createdAt} category={data?.getArticle?.category?.name} />
+            <Meta
+              shareTitle={data?.getArticle?.title}
+              shareUrl={typeof window !== 'undefined' ? location.href : HOST_URL}
+              category={data?.getArticle?.category?.name}
+              date={data?.getArticle?.createdAt}
+            />
             <Title tag={'h3'} onClick={onLink} style={{ marginTop: -5, marginBottom: 5 }}>
               {data?.getArticle?.title}
             </Title>
