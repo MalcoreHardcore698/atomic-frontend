@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
-import YouTube from 'react-youtube'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
@@ -15,6 +14,7 @@ import Icon from '../../atomic-ui/components/Icon'
 import Alert from '../../atomic-ui/components/Alert'
 import Divider from '../../atomic-ui/components/Divider'
 import Difinition from '../../atomic-ui/components/Difinition'
+import VideoPresentation, { parseUrl } from '../../atomic-ui/components/VideoPresentation'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import { getFileSize, getLabelRole } from '../../atomic-ui/utils/functions'
 
@@ -22,9 +22,16 @@ import { useEntityQuery } from '../../hooks/useEntityQuery'
 import HTMLView from '../HTMLView'
 import Processed from '../Processed'
 import queries from '../../graphql/queries'
+import config from '../../config'
+
+const HOST_URL = config.get('host-url')
 
 export const Wrap = styled(Column)`
   flex-grow: 1;
+
+  iframe {
+    width: 100%;
+  }
 
   ${({ appearance }) =>
     appearance === 'default' &&
@@ -177,6 +184,7 @@ export const CentralAlert = styled(Alert)`
 export const Poster = styled(Image)`
   width: 100%;
   height: 100%;
+  max-height: 285px;
   object-fit: cover;
   border-radius: var(--surface-border-radius);
   flex-grow: 1;
@@ -203,16 +211,12 @@ export const Difinitions = styled(Row)`
   }
 `
 
-export const Presentation = styled(YouTube)`
+export const Presentation = styled(VideoPresentation)`
   display: flex;
   flex-grow: 1;
   width: 100%;
   border-radius: var(--surface-border-radius);
   overflow: hidden;
-
-  iframe {
-    width: 100%;
-  }
 `
 
 export const Actions = styled(Row)`
@@ -257,7 +261,7 @@ export const View = ({
 
   const [screenshots, setScreenshots] = useState([])
   const [residue, setResidue] = useState(0)
-  const [videoId, setVideoId] = useState(null)
+  const [videoPresentationObject, setVideoPresentationObject] = useState(null)
 
   const onClickLike = () => {
     if (onLike) onLike()
@@ -269,10 +273,10 @@ export const View = ({
       const response = data.getProject
       const images = [response.preview, ...response.screenshots]
       const slicedImages = images.slice(0, slicedFactor)
-      const url = response.presentation && new URL(response.presentation)
-
+      const url = URL && response.presentation && new URL(response.presentation)
+      const videoPresentationObject = parseUrl(url)
       setResidue((images.length || slicedFactor) - slicedFactor)
-      setVideoId(url?.searchParams?.get('v'))
+      setVideoPresentationObject(videoPresentationObject)
       setScreenshots(slicedImages)
     }
   }, [loading, data, slicedFactor])
@@ -328,7 +332,11 @@ export const View = ({
 
             <Content>
               <Column>
-                <Meta category={data?.getProject?.category?.name} />
+                <Meta
+                  shareTitle={data?.getProject?.title}
+                  shareUrl={typeof window !== 'undefined' ? location.href : HOST_URL}
+                  category={data?.getProject?.category?.name}
+                />
                 <Title tag={'h3'} style={{ marginTop: -5, marginBottom: 5 }}>
                   {data?.getProject?.title}
                 </Title>
@@ -388,7 +396,12 @@ export const View = ({
 
           <Divider clear />
 
-          {data?.getProject?.presentation && videoId && <Presentation videoId={videoId} />}
+          {data?.getProject?.presentation && videoPresentationObject && (
+            <Presentation
+              type={videoPresentationObject.type}
+              videoId={videoPresentationObject.videoId}
+            />
+          )}
 
           <Title tag={'h4'}>Участники проекта</Title>
           {data?.getProject?.members && data?.getProject?.members?.length > 0 && (

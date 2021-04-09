@@ -170,6 +170,7 @@ const Projects = ({ store }) => {
                       query: queries.GET_USERS,
                       onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' })
                     })}
+                    withSocials
                     preview
                   />
                 </LazyLoad>

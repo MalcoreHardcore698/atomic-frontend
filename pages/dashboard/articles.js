@@ -146,6 +146,7 @@ const Articles = ({ store, categories, statuses }) => {
                     canEditStatus,
                     mutation: queries.UPDATE_ARTICLE
                   })}
+                  withSocials
                 />
               </LazyLoad>
             </FadeLoad>

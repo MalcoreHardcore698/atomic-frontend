@@ -162,6 +162,7 @@ export const ProjectList = ({
                     key
                   })()
                 }
+                withSocials
               />
             </LazyLoad>
           )

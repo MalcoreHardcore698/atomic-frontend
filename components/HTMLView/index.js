@@ -7,6 +7,11 @@ export const HTMLContent = styled.div`
   grid-gap: var(--default-gap);
 
   table,
+  iframe {
+    width: 100%;
+  }
+
+  table,
   th,
   td {
     border: 1px solid rgba(0, 0, 0, 0.125);
