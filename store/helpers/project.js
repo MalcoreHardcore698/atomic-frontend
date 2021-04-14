@@ -34,6 +34,7 @@ import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
 import { onUserLink, onUserFolderAdd, onUserAboutMore } from './user'
 import { onFileLink } from '.'
+import ArticleForm from '../../components/FormArticle'
 
 const CreateButton = styled(Button)`
   display: flex;
@@ -85,7 +86,8 @@ export function onProjectCreate(dispatch, props) {
     canEditStatus,
     mutation,
     query,
-    onCompanyInputChange
+    onCompanyInputChange,
+    isPurpose
   } = props
 
   dispatch(clearProjectMembers())
@@ -95,7 +97,7 @@ export function onProjectCreate(dispatch, props) {
   dispatch(
     setDrawer({
       icon: 'work',
-      title: 'Создание проекта',
+      title: `${isPurpose ? 'Предложение' : 'Создание'} проекта`,
       content: (
         <ProjectForm
           mutation={mutation}
@@ -172,6 +174,7 @@ export function onProjectCreate(dispatch, props) {
               dispatch(clearProjectFiles())
             }
           }}
+          isPurpose={isPurpose}
         />
       )
     })

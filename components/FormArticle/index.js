@@ -157,7 +157,8 @@ export const Article = ({
   appearance,
   className,
   canEditStatus,
-  onSubmit
+  onSubmit,
+  isPurpose
 }) => {
   const { data, loading: loadingArticle, error: errorArticle } = article
     ? useQuery(queries.GET_ARTICLE, {
@@ -301,7 +302,7 @@ export const Article = ({
 
             <Row>
               <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-                {article ? 'Сохранить' : 'Создать'}
+                {isPurpose ? 'Предложить' : article ? 'Сохранить' : 'Создать'}
               </Button>
             </Row>
           </React.Fragment>

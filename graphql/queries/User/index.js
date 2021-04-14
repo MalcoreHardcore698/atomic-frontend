@@ -139,6 +139,11 @@ export const GET_USER_MEMBERS = gql`
         id
         path
       }
+      role {
+        id
+        name
+        permissions
+      }
       account
       email
     }

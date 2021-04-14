@@ -56,6 +56,33 @@ export function setFolder(folder) {
   }
 }
 
+export function setCompanies(companies) {
+  return {
+    type: C.SET_COMPANIES,
+    payload: {
+      companies
+    }
+  }
+}
+
+export function setCategories(categories) {
+  return {
+    type: C.SET_CATEGORIES,
+    payload: {
+      categories
+    }
+  }
+}
+
+export function setStatuses(statuses) {
+  return {
+    type: C.SET_STATUSES,
+    payload: {
+      statuses
+    }
+  }
+}
+
 export function setCurrentChat(chat) {
   return {
     type: C.SET_CHAT,

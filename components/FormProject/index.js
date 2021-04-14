@@ -96,7 +96,8 @@ export const Project = ({
   onMemberRemove,
   onScreenshotRemove,
   onFileRemove,
-  onSubmit
+  onSubmit,
+  isPurpose
 }) => {
   const { data, loading: loadingData, error } = project
     ? useQuery(queries.GET_PROJECT, {
@@ -461,7 +462,7 @@ export const Project = ({
 
             <Row>
               <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-                {project ? 'Сохранить' : 'Создать'}
+                {isPurpose ? 'Предложить' : project ? 'Сохранить' : 'Создать'}
               </Button>
             </Row>
           </React.Fragment>

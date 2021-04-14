@@ -60,7 +60,6 @@ export const About = styled.div`
 
 export const Difinitions = styled(Row)`
   flex-wrap: wrap;
-  justify-content: space-between;
   grid-gap: var(--default-gap);
 
   @media only screen and (max-width: 568px) {
@@ -79,7 +78,7 @@ export const EditButton = styled(Button)`
   }
 `
 
-export const User = ({ user, onEdit, onAboutMore }) => (
+export const User = ({ user, onEdit, onAboutMore, onCompanyLink, onMembers }) => (
   <Wrap>
     <RoundedAvatar src={user?.avatar?.path || '/images/avatar-default.png'} />
 
@@ -114,9 +113,29 @@ export const User = ({ user, onEdit, onAboutMore }) => (
       </About>
 
       <Difinitions>
-        <Difinition icon={'chart'} label={'Компания'} text={user?.company || 0} />
+        {user.account === 'ENTITY' ? (
+          <Difinition
+            icon={'user2'}
+            label={'Участники'}
+            text={user.members}
+            onLink={onMembers}
+          />
+        ) : (
+          <Difinition
+            {...(user.company
+              ? {
+                  img: user.company?.avatar?.path
+                }
+              : {
+                  icon: 'work'
+                })}
+            label={'Компания'}
+            text={user.company?.name || '-'}
+            onLink={onCompanyLink}
+          />
+        )}
         <Difinition icon={'work'} label={'Проекты'} text={user?.projects?.length || 0} />
-        <Difinition icon={'user2'} label={'Подписчики'} text={user?.followers || 0} />
+        {/* <Difinition icon={'user2'} label={'Подписчики'} text={user?.followers || 0} /> */}
       </Difinitions>
     </Content>
   </Wrap>

@@ -24,16 +24,23 @@ import UserBar from '../components/UserBar'
 import FilterBar from '../components/FilterBar'
 import SearchBar from '../components/SearchBar'
 import ProjectList from '../components/ProjectList'
+import ArticleList from '../components/ArticleList'
 import Difinition from '../atomic-ui/components/Difinition'
+import { hasAccess } from '../atomic-ui/utils/functions'
 import { Loader } from '../components/Styled'
+
 import { setUserFolder } from '../store/actions/user'
-import { setFolder } from '../store/actions/root'
+import { setFolder, setCompanies, setCategories, setStatuses } from '../store/actions/root'
 import {
   onUserClientEdit,
   onUserAboutMore,
   onUserFolderAdd,
-  onUserFolderDelete
+  onUserFolderDelete,
+  onUserMembers,
+  onUserLink
 } from '../store/helpers/user'
+import { onProjectCreate } from '../store/helpers/project'
+import { onArticleCreate } from '../store/helpers/article'
 import queries from '../graphql/queries'
 import { profilePages } from '../__mock__'
 
@@ -144,6 +151,8 @@ const Projects = ({ variables, projects }) => (
   <ProjectList variables={variables} initialList={projects} layout />
 )
 
+const Articles = ({ variables }) => <ArticleList variables={variables} layout />
+
 const InProgress = () => {
   const recall = useHelper()
   const { user, folder } = useSelector((state) => ({
@@ -251,15 +260,78 @@ const InProgress = () => {
   )
 }
 
-const Profile = ({ categories }) => {
+const Profile = () => {
   const recall = useHelper()
   const router = useRouter()
-  const user = useSelector((state) => state.user)
+  const { user, companies, categories, statuses } = useSelector((state) => ({
+    user: state.user,
+    companies: state.root.companies,
+    categories: state.root.categories,
+    statuses: state.root.statuses
+  }))
+  const dispatch = useDispatch()
   const [date, onChangeDate] = useState()
   const [select, onChangeSelect] = useState()
   const [currentPage, setCurrentPage] = useState(profilePages[0])
   const [visibleFilter, setVisibleFilter] = useState(false)
   const isAdmin = useMemo(() => user?.account === 'ADMIN', [user])
+
+  const [loadCompanies] = useLazyQuery(queries.GET_USERS)
+  const [loadCategories] = useLazyQuery(queries.GET_CATEGORIES)
+  const [loadStatuses] = useLazyQuery(queries.GET_POST_STATUSES)
+
+  const isProjects = useMemo(() => currentPage.value === '/projects', [currentPage])
+  const isArticles = useMemo(() => currentPage.value === '/articles', [currentPage])
+
+  const addProject = async () => {
+    const companiesResponse =
+      companies?.length === 0 &&
+      loadCompanies &&
+      (await loadCompanies({ variables: { account: ['ENTITY'] } }))
+    const categoriesResponse =
+      categories?.length === 0 &&
+      loadCategories &&
+      (await loadCategories({ variables: { type: 'DIVISION' } }))
+    const statusesResponse = statuses?.length === 0 && loadStatuses && (await loadStatuses())
+
+    const companiesResult = companiesResponse?.data?.getUsers
+    const categoriesResult = categoriesResponse?.data?.getCategories
+    const statusesResult = statusesResponse?.data?.getPostStatus
+
+    if (companiesResult) dispatch(setCompanies(companiesResult))
+    if (categoriesResult) dispatch(setCategories(categoriesResult))
+    if (statusesResult) dispatch(setStatuses(statusesResult))
+
+    recall(onProjectCreate, {
+      companies: companiesResult || companies,
+      categories: categoriesResult || categories,
+      statuses: statusesResult || statuses,
+      mutation: queries.CREATE_PROJECT,
+      query: queries.GET_USERS,
+      isPurpose: true
+    })()
+  }
+
+  const addArticle = async () => {
+    const categoriesResponse =
+      categories?.length === 0 &&
+      loadCategories &&
+      (await loadCategories({ variables: { type: 'DIVISION' } }))
+    const statusesResponse = statuses?.length === 0 && loadStatuses && (await loadStatuses())
+
+    const categoriesResult = categoriesResponse?.data?.getCategories
+    const statusesResult = statusesResponse?.data?.getPostStatus
+
+    if (categoriesResult) dispatch(setCategories(categoriesResult))
+    if (statusesResult) dispatch(setStatuses(statusesResult))
+
+    recall(onArticleCreate, {
+      categories: categoriesResult || categories,
+      statuses: statusesResult || statuses,
+      mutation: queries.CREATE_ARTICLE,
+      isPurpose: true
+    })()
+  }
 
   const renderContentPage = useCallback(() => {
     if (!user) return null
@@ -268,6 +340,8 @@ const Profile = ({ categories }) => {
         return <Projects variables={{ author: user.email }} projects={user.projects} />
       case '/liked':
         return <Projects variables={{ rating: user.email }} projects={user.likedProjects} />
+      case '/articles':
+        return <Articles variables={{ author: user.email }} />
       default:
         return <InProgress />
     }
@@ -302,6 +376,22 @@ const Profile = ({ categories }) => {
             }
           })}
           onAboutMore={recall(onUserAboutMore, { user })}
+          onCompanyLink={
+            user?.company &&
+            recall(onUserLink, {
+              id: user?.company?.email,
+              auth: user?.email,
+              queries: {
+                userChats: queries.GET_USER_CHATS,
+                chat: queries.GET_CHAT
+              },
+              mutations: {
+                addUserChat: queries.ADD_USER_CHAT,
+                sendMessage: queries.SEND_MESSAGE
+              }
+            })
+          }
+          onMembers={recall(onUserMembers, { id: user?.email, auth: user?.email })}
         />
 
         <Switch
@@ -311,7 +401,16 @@ const Profile = ({ categories }) => {
           stretch
         />
 
-        <SearchBar onChangeFilter={() => setVisibleFilter(!visibleFilter)} />
+        <SearchBar
+          buttonCreateText={
+            isProjects ? 'Предложить проект' : isArticles ? 'Предложить статью' : ''
+          }
+          onCreate={
+            (isProjects && hasAccess(user, 'PURPOSE_PROJECT') && addProject) ||
+            (isArticles && hasAccess(user, 'PURPOSE_ARTICLE') && addArticle)
+          }
+          onChangeFilter={() => setVisibleFilter(!visibleFilter)}
+        />
 
         <FilterBar
           isOpen={visibleFilter}
@@ -325,7 +424,7 @@ const Profile = ({ categories }) => {
             />,
             <Select
               key={'categories'}
-              options={categories.map((category) => ({
+              options={[].map((category) => ({
                 value: category.id,
                 label: category.name
               }))}

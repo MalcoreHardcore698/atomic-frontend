@@ -9,6 +9,12 @@ import {
   DashboardSettingsFields
 } from '../../fragments'
 
+export const GET_POST_STATUSES = gql`
+  query getMetaDashboardProjects {
+    getPostStatus
+  }
+`
+
 export const GET_META = gql`
   query getDashboardSettings {
     getDashboardSettings {

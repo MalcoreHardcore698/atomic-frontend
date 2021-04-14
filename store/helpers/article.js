@@ -28,12 +28,12 @@ export function onArticleLink(dispatch, props) {
 }
 
 export function onArticleCreate(dispatch, props) {
-  const { categories, statuses, canEditStatus, mutation } = props
+  const { categories, statuses, canEditStatus, mutation, isPurpose } = props
 
   dispatch(
     setDrawer({
       icon: 'document',
-      title: 'Создание статьи',
+      title: `${isPurpose ? 'Предложение' : 'Создание'} статьи`,
       content: (
         <ArticleForm
           mutation={mutation}
@@ -73,6 +73,7 @@ export function onArticleCreate(dispatch, props) {
               )
             }
           }}
+          isPurpose={isPurpose}
         />
       )
     })

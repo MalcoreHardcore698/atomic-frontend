@@ -11,8 +11,14 @@ export const GET_ARTICLE = gql`
 `
 
 export const GET_ARTICLES = gql`
-  query getArticles($offset: Int, $limit: Int, $search: String, $status: PostStatus) {
-    getArticles(offset: $offset, limit: $limit, search: $search, status: $status) {
+  query getArticles(
+    $offset: Int
+    $limit: Int
+    $search: String
+    $author: String
+    $status: PostStatus
+  ) {
+    getArticles(offset: $offset, limit: $limit, search: $search, author: $author, status: $status) {
       id
       author {
         name

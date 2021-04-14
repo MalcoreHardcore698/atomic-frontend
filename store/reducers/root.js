@@ -18,6 +18,9 @@ const initialState = {
   scrollTop: 0,
   callback: () => {},
   members: [],
+  companies: [],
+  categories: [],
+  statuses: [],
   screenshots: [],
   messages: [],
   search: '',
@@ -60,6 +63,21 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         folder: action.payload.folder || []
+      }
+    case C.SET_COMPANIES:
+      return {
+        ...state,
+        companies: action.payload.companies || []
+      }
+    case C.SET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload.categories || []
+      }
+    case C.SET_STATUSES:
+      return {
+        ...state,
+        statuses: action.payload.statuses || []
       }
     case C.SET_CHAT:
       return {
