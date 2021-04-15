@@ -11,13 +11,14 @@ import Meta from '../../atomic-ui/components/Meta'
 import Image from '../../atomic-ui/components/Image'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
-import Difinition from '../../atomic-ui/components/Difinition'
+import Difinition, { MarkedText } from '../../atomic-ui/components/Difinition'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { More } from '../Styled'
 
+import { ResponsibleMark, hasResponsibleMember } from '../Members'
 import config from '../../config'
 
 const HOST_URL = config.get('host-url')
@@ -180,11 +181,14 @@ export const Card = ({
         />
         <Column style={{ gridGap: 5 }}>
           <Header>
-            <Meta
-              shareTitle={withSocials && user?.name}
-              shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
-              category={getLabelRole(user.account)}
-            />
+            <MarkedText>
+              <Meta
+                shareTitle={withSocials && user?.name}
+                shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
+                category={getLabelRole(user.account)}
+              />
+              {hasResponsibleMember(user) && <ResponsibleMark />}
+            </MarkedText>
 
             {(onChecked || onEdit || onDelete) && (
               <Actions>

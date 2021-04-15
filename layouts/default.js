@@ -22,7 +22,7 @@ import { setDrawer } from '../store/actions/drawer'
 import { onMenu, onHelp, onNotification, onChat } from '../store/helpers'
 import { onUserClientEdit } from '../store/helpers/user'
 import queries from '../graphql/queries'
-import { supportLinks, socials, contacts } from '../__mock__'
+import { getSupportLinks, socials, contacts } from '../__mock__'
 
 const Wrap = styled.div`
   position: relative;
@@ -100,6 +100,10 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
 
   const isProjects = router.pathname.includes('projects')
   const categoryId = router.query.c
+
+  const onSupport = recall(onHelp, {
+    mutation: queries.CREATE_USER_TICKET
+  })
 
   if (loading) {
     return (
@@ -182,9 +186,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
               }
             ]
           })}
-          onHelp={recall(onHelp, {
-            mutation: queries.CREATE_USER_TICKET
-          })}
+          onHelp={onSupport}
           onChat={recall(onChat, {
             sender: user,
             queries: {
@@ -204,7 +206,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
               changePassword: queries.UPDATE_CLIENT_USER
             }
           })}
-          onNotification={recall(onNotification, { notifications: user.notifications })}
+          onNotification={recall(onNotification, { user: user.email })}
           onProfile={() => router.push('/profile')}
           onLogin={() => router.push('/auth')}
           onLogout={mutate(queries.LOGOUT, {}, () => dispatch(setLogout()))}
@@ -229,11 +231,17 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
           }}
           support={{
             title: 'О компании',
-            links: supportLinks.map((link) => (
-              <Link key={v4()} href={link.path}>
-                <a>{link.label}</a>
-              </Link>
-            ))
+            links: getSupportLinks(onSupport).map((link) => ({
+              ...link,
+              render: () =>
+                link.path ? (
+                  <Link key={v4()} href={link.path}>
+                    <a>{link.label}</a>
+                  </Link>
+                ) : (
+                  link.label
+                )
+            }))
           }}
         />
       </Wrap>

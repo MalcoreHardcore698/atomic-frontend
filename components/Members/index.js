@@ -1,22 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useQuery } from '@apollo/react-hooks'
 
 import Row from '../../atomic-ui/components/Row'
 import Grid from '../../atomic-ui/components/Grid'
 import Column from '../../atomic-ui/components/Column'
-import Difinition, { MarkedText } from '../../atomic-ui/components/Difinition'
+import Tooltip from '../../atomic-ui/components/Tooltip'
 import Spinner from '../../atomic-ui/components/Spinner'
 import Button from '../../atomic-ui/components/Button'
-import Tooltip from '../../atomic-ui/components/Tooltip'
+import Input from '../../atomic-ui/components/Input'
 import Alert from '../../atomic-ui/components/Alert'
 import Icon from '../../atomic-ui/components/Icon'
+import Difinition, { MarkedText } from '../../atomic-ui/components/Difinition'
 import { getLabelRole, hasAccess } from '../../atomic-ui/utils/functions'
 
+import { useMutationEffect } from '../../hooks/useMutationEffect'
+import { useUpdateEffect } from '../../hooks/useUpdateEffect'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
+import { setModal } from '../../store/actions/modal'
 import queries from '../../graphql/queries'
 import { Loader } from '../Styled'
+import Form from '../Form'
 
 export const Wrap = styled(Column)`
   grid-gap: 0;
@@ -53,67 +58,150 @@ export const Wrap = styled(Column)`
     `}
 `
 
-const hasResponsibleMember = (member) =>
-  hasAccess(member, 'PURPOSE_PROJECT') && hasAccess(member, 'PURPOSE_ARTICLE')
+export const hasResponsibleMember = (member) => {
+  const hasPurposeProject = hasAccess(member, 'PURPOSE_PROJECT')
+  const hasPurposeArticle = hasAccess(member, 'PURPOSE_ARTICLE')
+  return hasPurposeProject && hasPurposeArticle
+}
 
-export const Members = ({
-  user,
-  style,
-  appearance,
-  className,
-  onMemberLink,
-  onMembersInvite,
-  onMemberAppoint,
-  onMemberDismiss,
-  onMemberExclude
-}) => {
+export const ResponsibleMark = () => (
+  <React.Fragment>
+    <span> | </span>
+    <Tooltip text={'Ответственный'}>
+      <Icon icon={'shieldDone'} size={'xs'} stroke={'var(--ghost-color-text)'} />
+    </Tooltip>
+  </React.Fragment>
+)
+
+export const Invite = () => {
+  const dispatch = useDispatch()
+
+  const hideModal = () => dispatch(setModal(null))
+
+  const onSubmit = (form, action) => {
+    action({
+      variables: {
+        email: form.email
+      }
+    })
+    hideModal()
+  }
+
+  return (
+    <Form
+      appearance={'clear'}
+      style={{ padding: 'var(--default-gap)' }}
+      mutation={queries.INVITE_USER_MEMBER}
+      onSubmit={onSubmit}>
+      {({ register, loading }) => (
+        <React.Fragment>
+          <Column>
+            <Input
+              type={'text'}
+              name={'email'}
+              ref={register({ required: true })}
+              placeholder={'Введите Эл. почту'}
+              appearance={'ghost'}
+              disabled={loading}
+              autoComplete={'off'}
+            />
+          </Column>
+
+          <Row>
+            <Button
+              style={{ flexGrow: 1 }}
+              type={'button'}
+              appearance={'ghost'}
+              disabled={loading}
+              onClick={hideModal}>
+              Отмена
+            </Button>
+            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
+              Пригласить
+            </Button>
+          </Row>
+        </React.Fragment>
+      )}
+    </Form>
+  )
+}
+
+export const Members = ({ user, style, appearance, className, onMemberLink }) => {
   const authUser = useSelector((state) => state.user)
+  const dispatch = useDispatch()
   const { setQuery } = useEntityQuery()
+  const [members, setMembers] = useState([])
+
   const { data, loading, error } = useQuery(queries.GET_USER_MEMBERS, {
     variables: {
       email: user
     }
   })
 
-  const getExclude = (member) => ({
+  const [exclude, { loading: loadingExclude, error: errorExclude }] = useMutationEffect(
+    queries.EXCLUDE_USER_MEMBER,
+    'excludeUserMember',
+    setMembers
+  )
+
+  const [appoint, { loading: loadingAppoint, error: errorAppoint }] = useMutationEffect(
+    queries.APPOINT_USER_MEMBER,
+    'appointUserMember',
+    setMembers
+  )
+
+  const [dismiss, { loading: loadingDismiss, error: errorDismiss }] = useMutationEffect(
+    queries.DISMISS_USER_MEMBER,
+    'dismissUserMember',
+    setMembers
+  )
+
+  const getDismiss = (member) => ({
     text: 'Исключить',
     color: 'red',
-    onClick: () => onMemberExclude && onMemberExclude(member)
+    onClick: () => dismiss({ variables: { email: member.email } })
   })
 
   const getDefaultActions = (member) => [
-    { text: 'Назначить ответственным', onClick: () => onMemberAppoint && onMemberAppoint() },
-    getExclude(member)
+    {
+      text: 'Назначить ответственным',
+      onClick: () => appoint({ variables: { email: member.email } })
+    },
+    getDismiss(member)
   ]
 
   const getResponsibleActions = (member) => [
-    { text: 'Снять полномочия', onClick: () => onMemberDismiss && onMemberDismiss() },
-    getExclude(member)
+    { text: 'Снять полномочия', onClick: () => exclude({ variables: { email: member.email } }) },
+    getDismiss(member)
   ]
+
+  const onMemberInvite = () => {
+    dispatch(
+      setModal([
+        {
+          path: '/',
+          title: 'Пригласить участника',
+          component: () => <Invite />
+        }
+      ])
+    )
+  }
+
+  useUpdateEffect(data, loading, 'getUserMembers', setMembers)
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
-      {!loading && data ? (
-        <React.Fragment>
+      {!loading && !loadingExclude && !loadingAppoint && !loadingDismiss && data ? (
+        <Column>
           <Grid percentage={'minmax(320px, 1fr)'}>
-            {data.getUserMembers.map((member) => (
+            {members.map((member) => (
               <Difinition
                 key={member.email}
                 img={member.avatar?.path || '/images/avatar-default.png'}
                 label={
                   <MarkedText>
-                    <span>{getLabelRole(member.role?.name)}</span>
-                    {hasResponsibleMember(member)
-                      ? ` | ${(
-                          <Tooltip text={'Ответственный'}>
-                            <Icon
-                              icon={'shieldDone'}
-                              size={'xs'}
-                              stroke={'var(--ghost-color-text)'}
-                            />
-                          </Tooltip>
-                        )}`
-                      : ''}
+                    <span>{getLabelRole(member.account)}</span>
+                    {hasResponsibleMember(member) && <ResponsibleMark />}
                   </MarkedText>
                 }
                 text={member.name}
@@ -128,15 +216,16 @@ export const Members = ({
               />
             ))}
           </Grid>
-          {onMembersInvite && (
+
+          {authUser.email === user && (
             <Row>
-              <Button style={{ flexGrow: 1 }} type={'button'} onClick={onMembersInvite}>
-                Пригласить участников
+              <Button style={{ flexGrow: 1 }} type={'button'} onClick={onMemberInvite}>
+                Пригласить участника
               </Button>
             </Row>
           )}
-        </React.Fragment>
-      ) : error ? (
+        </Column>
+      ) : error || errorExclude || errorAppoint || errorDismiss ? (
         <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
           Упс! Не удалось загрузить информацию о участниках
         </Alert>

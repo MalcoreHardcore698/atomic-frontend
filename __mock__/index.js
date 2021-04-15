@@ -1,7 +1,7 @@
-export const supportLinks = [
+export const getSupportLinks = (onSupport) => [
   { label: 'О ресурсе', path: '/about' },
   { label: 'Люди ресурса', path: '/creators' },
-  { label: 'Поддержка', path: '/support' },
+  { label: 'Поддержка', onClick: onSupport },
   { label: 'Справочник', path: '/guide' }
 ]
 

@@ -93,13 +93,13 @@ export function onHelp(dispatch, props) {
 }
 
 export function onNotification(dispatch, props) {
-  const { notifications } = props
+  const { user } = props
 
   dispatch(
     setDrawer({
       icon: 'notification',
       title: 'Уведомления',
-      content: <Notifications notifications={notifications} appearance={'clear'} />
+      content: <Notifications user={user} appearance={'clear'} />
     })
   )
 }

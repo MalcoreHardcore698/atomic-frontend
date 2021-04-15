@@ -11,12 +11,13 @@ import Meta from '../../atomic-ui/components/Meta'
 import Icon from '../../atomic-ui/components/Icon'
 import Alert from '../../atomic-ui/components/Alert'
 import Divider from '../../atomic-ui/components/Divider'
-import Difinition from '../../atomic-ui/components/Difinition'
-import Button from '../../atomic-ui/components/Button'
+import Difinition, { MarkedText } from '../../atomic-ui/components/Difinition'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
+import Button from '../../atomic-ui/components/Button'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
+import { hasResponsibleMember, ResponsibleMark } from '../Members'
 import ProjectCard from '../ProjectCard'
 import Processed from '../Processed'
 import { More } from '../Styled'
@@ -170,7 +171,10 @@ export const View = ({
             <RoundedAvatar src={data?.getUser?.avatar?.path || '/images/avatar-default.png'} />
 
             <Content>
-              {data?.getUser?.account && <Meta category={getLabelRole(data?.getUser?.account)} />}
+              <MarkedText>
+                {data?.getUser?.account && <Meta category={getLabelRole(data?.getUser?.account)} />}
+                {data?.getUser && hasResponsibleMember(data?.getUser) && <ResponsibleMark />}
+              </MarkedText>
               {data?.getUser?.name && <Title tag={'h3'}>{data?.getUser?.name}</Title>}
 
               <Divider />

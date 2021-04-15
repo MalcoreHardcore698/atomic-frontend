@@ -12,6 +12,7 @@ import * as Article from './Article'
 import * as Project from './Project'
 import * as Category from './Category'
 import * as Comment from './Comment'
+import * as Notice from './Notice'
 
 export default {
   ...User,
@@ -27,5 +28,6 @@ export default {
   ...Article,
   ...Project,
   ...Category,
-  ...Comment
+  ...Comment,
+  ...Notice
 }

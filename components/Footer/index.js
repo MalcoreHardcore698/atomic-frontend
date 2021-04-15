@@ -138,6 +138,12 @@ export const Link = styled.li`
   opacity: 0.35;
   transition: all 150ms ease;
 
+  ${({ onClick }) =>
+    onClick &&
+    css`
+      cursor: pointer;
+    `}
+
   &:hover {
     color: var(--default-color-accent);
     opacity: 1;
@@ -184,7 +190,9 @@ export const Footer = ({ contacts, socials, catalog, support, style, className }
           <Title>{support.title}</Title>
           <Links>
             {support.links.map((link) => (
-              <Link key={v4()}>{link}</Link>
+              <Link key={v4()} onClick={link.onClick || (() => {})}>
+                {link.render()}
+              </Link>
             ))}
           </Links>
         </Support>

@@ -55,7 +55,7 @@ export const MessengerChat = ({
           chat.messages.map((item) => (
             <Message
               key={item.id}
-              avatar={item.user?.avatar?.path}
+              avatar={item.user?.avatar?.path || '/images/avatar-default.png'}
               side={item.side}
               name={item.name}
               text={item.text}

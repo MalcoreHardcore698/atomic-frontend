@@ -1,5 +1,11 @@
 import gql from 'graphql-tag'
-import { UserFields, MessageFields, ProjectFields } from '../../fragments'
+import {
+  UserFields,
+  UserMemberFields,
+  MessageFields,
+  ProjectFields,
+  NoticeFields
+} from '../../fragments'
 
 export const GOOGLE_AUTH = gql`
   mutation googleAuth($accessToken: String!) {
@@ -133,21 +139,10 @@ export const GET_USERS_FOR_TICKET = gql`
 export const GET_USER_MEMBERS = gql`
   query getUserMembers($email: String!) {
     getUserMembers(email: $email) {
-      name
-      about
-      avatar {
-        id
-        path
-      }
-      role {
-        id
-        name
-        permissions
-      }
-      account
-      email
+      ...UserMemberFields
     }
   }
+  ${UserMemberFields}
 `
 
 export const GET_USER_PARTICIPANT_PROJECTS = gql`
@@ -202,6 +197,57 @@ export const DELETE_USER = gql`
     }
   }
   ${UserFields}
+`
+
+export const INVITE_USER_MEMBER = gql`
+  mutation inviteUserMember($email: String!) {
+    inviteUserMember(email: $email)
+  }
+`
+
+export const APPLY_INVITE_USER_MEMBER = gql`
+  mutation applyInviteUserMember($id: ID!, $email: String!) {
+    applyInviteUserMember(id: $id, email: $email) {
+      ...NoticeFields
+    }
+  }
+  ${NoticeFields}
+`
+
+export const REJECT_INVITE_USER_MEMBER = gql`
+  mutation rejectInviteUserMember($id: ID!, $email: String!) {
+    rejectInviteUserMember(id: $id, email: $email) {
+      ...NoticeFields
+    }
+  }
+  ${NoticeFields}
+`
+
+export const APPOINT_USER_MEMBER = gql`
+  mutation appointUserMember($email: String!) {
+    appointUserMember(email: $email) {
+      ...UserMemberFields
+    }
+  }
+  ${UserMemberFields}
+`
+
+export const EXCLUDE_USER_MEMBER = gql`
+  mutation excludeUserMember($email: String!) {
+    excludeUserMember(email: $email) {
+      ...UserMemberFields
+    }
+  }
+  ${UserMemberFields}
+`
+
+export const DISMISS_USER_MEMBER = gql`
+  mutation dismissUserMember($email: String!) {
+    dismissUserMember(email: $email) {
+      ...UserMemberFields
+    }
+  }
+  ${UserMemberFields}
 `
 
 export const ADD_USER_PROJECT = gql`

@@ -38,6 +38,40 @@ export const UserFields = gql`
   }
 `
 
+export const UserMemberFields = gql`
+  fragment UserMemberFields on User {
+    name
+    about
+    avatar {
+      id
+      path
+    }
+    role {
+      id
+      name
+      permissions
+    }
+    account
+    email
+  }
+`
+
+export const NoticeFields = gql`
+  fragment NoticeFields on Notice {
+    id
+    type
+    author {
+      email
+      avatar {
+        path
+      }
+    }
+    title
+    message
+    createdAt
+  }
+`
+
 export const ProjectFields = gql`
   fragment ProjectFields on Project {
     id

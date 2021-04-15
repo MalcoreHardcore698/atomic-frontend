@@ -10,9 +10,10 @@ import Text from '../../atomic-ui/components/Text'
 import Image from '../../atomic-ui/components/Image'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 import Button from '../../atomic-ui/components/Button'
-import Difinition from '../../atomic-ui/components/Difinition'
+import Difinition, { MarkedText } from '../../atomic-ui/components/Difinition'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
+import { ResponsibleMark, hasResponsibleMember } from '../Members'
 import { More } from '../Styled'
 
 export const Wrap = styled(Row)`
@@ -83,7 +84,10 @@ export const User = ({ user, onEdit, onAboutMore, onCompanyLink, onMembers }) =>
     <RoundedAvatar src={user?.avatar?.path || '/images/avatar-default.png'} />
 
     <Content>
-      <Meta category={getLabelRole(user.account)} />
+      <MarkedText>
+        <Meta category={getLabelRole(user.account)} />
+        {hasResponsibleMember(user) && <ResponsibleMark />}
+      </MarkedText>
 
       <Row style={{ gridGap: '0 10px' }}>
         <Title tag={'h3'}>{user.name}</Title>
@@ -114,12 +118,7 @@ export const User = ({ user, onEdit, onAboutMore, onCompanyLink, onMembers }) =>
 
       <Difinitions>
         {user.account === 'ENTITY' ? (
-          <Difinition
-            icon={'user2'}
-            label={'Участники'}
-            text={user.members}
-            onLink={onMembers}
-          />
+          <Difinition icon={'user2'} label={'Участники'} text={user.members} onLink={onMembers} />
         ) : (
           <Difinition
             {...(user.company
@@ -135,7 +134,6 @@ export const User = ({ user, onEdit, onAboutMore, onCompanyLink, onMembers }) =>
           />
         )}
         <Difinition icon={'work'} label={'Проекты'} text={user?.projects?.length || 0} />
-        {/* <Difinition icon={'user2'} label={'Подписчики'} text={user?.followers || 0} /> */}
       </Difinitions>
     </Content>
   </Wrap>

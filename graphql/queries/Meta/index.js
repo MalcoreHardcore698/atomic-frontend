@@ -9,8 +9,14 @@ import {
   DashboardSettingsFields
 } from '../../fragments'
 
+export const GET_NOTICE_TYPES = gql`
+  query getNoticeTypes {
+    getNoticeTypes
+  }
+`
+
 export const GET_POST_STATUSES = gql`
-  query getMetaDashboardProjects {
+  query getPostStatus {
     getPostStatus
   }
 `

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { useEffect } from 'react';\nexport const useUpdateEffect = (data, loading, key, setList) => {\n  useEffect(() => {\n    if (!loading && data && key) {\n      const result = data[key];\n      if (result) setList(result);\n    }\n  }, [loading, data, key]);\n};\nexport default useUpdateEffect;","map":null,"metadata":{},"sourceType":"module"}

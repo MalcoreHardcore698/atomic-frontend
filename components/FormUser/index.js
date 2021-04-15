@@ -46,6 +46,10 @@ export const AdaptiveDropzone = styled(Dropzone)`
   width: 196px;
   height: 276px;
 
+  span {
+    width: 100%;
+  }
+
   @media only screen and (max-width: 575px) {
     width: 100% !important;
     height: 256px;
