@@ -35,9 +35,10 @@ export const Notifications = ({ user, appearance }) => {
     setNotifications
   )
 
-  const onApply = (notice) => apply({ variables: { id: notice.id, email: notice.author.email } })
+  const onApply = (notice) => apply({ variables: { id: notice.id, email: notice.company?.email } })
 
-  const onReject = (notice) => reject({ variables: { id: notice.id, email: notice.author.email } })
+  const onReject = (notice) =>
+    reject({ variables: { id: notice.id, email: notice.company?.email } })
 
   useUpdateEffect(data, loading, 'getNotifications', setNotifications)
 

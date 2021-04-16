@@ -8,14 +8,16 @@ import Row from '../atomic-ui/components/Row'
 import Column from '../atomic-ui/components/Column'
 import Switch from '../atomic-ui/components/Switch'
 import Alert from '../atomic-ui/components/Alert'
+import Icon from '../atomic-ui/components/Icon'
+import Difinition from '../atomic-ui/components/Difinition'
 import DatePicker from '../atomic-ui/components/DatePicker'
 import Select from '../atomic-ui/components/Select'
 import Button from '../atomic-ui/components/Button'
 import Spinner from '../atomic-ui/components/Spinner'
 import Tooltip from '../atomic-ui/components/Tooltip'
 import { Wrap as WrapText } from '../atomic-ui/components/Text'
-import Icon from '../atomic-ui/components/Icon'
 import templates from '../atomic-ui/components/Table/templates'
+import { hasAccess } from '../atomic-ui/utils/functions'
 
 import { initializeApollo } from '../apollo'
 import { useHelper } from '../hooks/useHelper'
@@ -25,8 +27,7 @@ import FilterBar from '../components/FilterBar'
 import SearchBar from '../components/SearchBar'
 import ProjectList from '../components/ProjectList'
 import ArticleList from '../components/ArticleList'
-import Difinition from '../atomic-ui/components/Difinition'
-import { hasAccess } from '../atomic-ui/utils/functions'
+import { hasResponsibleMember } from '../components/Members'
 import { Loader } from '../components/Styled'
 
 import { setUserFolder } from '../store/actions/user'
@@ -396,7 +397,9 @@ const Profile = () => {
 
         <Switch
           defaultValue={currentPage}
-          options={profilePages}
+          options={profilePages.filter((page) =>
+            !hasResponsibleMember(user) ? page.value !== '/articles' : true
+          )}
           onChange={(item) => setCurrentPage(item)}
           stretch
         />

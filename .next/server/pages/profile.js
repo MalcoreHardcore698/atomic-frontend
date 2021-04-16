@@ -235,19 +235,27 @@ const Notifications = ({
     error: errorReject
   }] = Object(useMutationEffect["a" /* useMutationEffect */])(queries["a" /* default */].REJECT_INVITE_USER_MEMBER, 'rejectInviteUserMember', setNotifications);
 
-  const onApply = notice => apply({
-    variables: {
-      id: notice.id,
-      email: notice.author.email
-    }
-  });
+  const onApply = notice => {
+    var _notice$company;
 
-  const onReject = notice => reject({
-    variables: {
-      id: notice.id,
-      email: notice.author.email
-    }
-  });
+    return apply({
+      variables: {
+        id: notice.id,
+        email: (_notice$company = notice.company) === null || _notice$company === void 0 ? void 0 : _notice$company.email
+      }
+    });
+  };
+
+  const onReject = notice => {
+    var _notice$company2;
+
+    return reject({
+      variables: {
+        id: notice.id,
+        email: (_notice$company2 = notice.company) === null || _notice$company2 === void 0 ? void 0 : _notice$company2.email
+      }
+    });
+  };
 
   Object(useUpdateEffect["a" /* useUpdateEffect */])(data, loading, 'getNotifications', setNotifications);
   return /*#__PURE__*/external_react_default.a.createElement(Notifications_Wrap, null, notifications && notifications.length > 0 ? notifications.map(notice => {
@@ -10262,6 +10270,12 @@ var Switch = __webpack_require__("OXt0");
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
+var Icon = __webpack_require__("feIE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js + 1 modules
+var Difinition = __webpack_require__("DTT8");
+
 // EXTERNAL MODULE: ./atomic-ui/components/DatePicker/index.js + 5 modules
 var DatePicker = __webpack_require__("wZgm");
 
@@ -10280,11 +10294,11 @@ var Tooltip = __webpack_require__("VWQm");
 // EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
 var Text = __webpack_require__("QUga");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
-var Icon = __webpack_require__("feIE");
-
 // EXTERNAL MODULE: ./atomic-ui/components/Table/templates/index.js + 5 modules
 var templates = __webpack_require__("e3uv");
+
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
 
 // EXTERNAL MODULE: ./apollo/index.js + 1 modules
 var apollo = __webpack_require__("pyQH");
@@ -10306,12 +10320,6 @@ var Title = __webpack_require__("7sPp");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js + 1 modules
-var Difinition = __webpack_require__("DTT8");
-
-// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
-var functions = __webpack_require__("NWnW");
 
 // EXTERNAL MODULE: ./components/Members/index.js
 var Members = __webpack_require__("nh0P");
@@ -10449,6 +10457,7 @@ var queries = __webpack_require__("u2Cb");
 var _mock_ = __webpack_require__("wha1");
 
 // CONCATENATED MODULE: ./pages/profile.js
+
 
 
 
@@ -10789,7 +10798,7 @@ const Profile = () => {
     })
   }), /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
     defaultValue: currentPage,
-    options: _mock_["d" /* profilePages */],
+    options: _mock_["d" /* profilePages */].filter(page => !Object(Members["c" /* hasResponsibleMember */])(user) ? page.value !== '/articles' : true),
     onChange: item => setCurrentPage(item),
     stretch: true
   }), /*#__PURE__*/external_react_default.a.createElement(SearchBar["a" /* default */], {
@@ -23196,6 +23205,12 @@ const NoticeFields = external_graphql_tag_default.a`
     }
     title
     message
+    company {
+      email
+      avatar {
+        path
+      }
+    }
     createdAt
   }
 `;

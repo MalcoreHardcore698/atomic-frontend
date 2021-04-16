@@ -235,19 +235,27 @@ const Notifications = ({
     error: errorReject
   }] = Object(useMutationEffect["a" /* useMutationEffect */])(queries["a" /* default */].REJECT_INVITE_USER_MEMBER, 'rejectInviteUserMember', setNotifications);
 
-  const onApply = notice => apply({
-    variables: {
-      id: notice.id,
-      email: notice.author.email
-    }
-  });
+  const onApply = notice => {
+    var _notice$company;
 
-  const onReject = notice => reject({
-    variables: {
-      id: notice.id,
-      email: notice.author.email
-    }
-  });
+    return apply({
+      variables: {
+        id: notice.id,
+        email: (_notice$company = notice.company) === null || _notice$company === void 0 ? void 0 : _notice$company.email
+      }
+    });
+  };
+
+  const onReject = notice => {
+    var _notice$company2;
+
+    return reject({
+      variables: {
+        id: notice.id,
+        email: (_notice$company2 = notice.company) === null || _notice$company2 === void 0 ? void 0 : _notice$company2.email
+      }
+    });
+  };
 
   Object(useUpdateEffect["a" /* useUpdateEffect */])(data, loading, 'getNotifications', setNotifications);
   return /*#__PURE__*/external_react_default.a.createElement(Notifications_Wrap, null, notifications && notifications.length > 0 ? notifications.map(notice => {
@@ -22427,6 +22435,12 @@ const NoticeFields = external_graphql_tag_default.a`
     }
     title
     message
+    company {
+      email
+      avatar {
+        path
+      }
+    }
     createdAt
   }
 `;

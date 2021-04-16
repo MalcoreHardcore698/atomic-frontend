@@ -68,6 +68,12 @@ export const NoticeFields = gql`
     }
     title
     message
+    company {
+      email
+      avatar {
+        path
+      }
+    }
     createdAt
   }
 `
