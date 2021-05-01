@@ -10,7 +10,10 @@ import Meta from '../../atomic-ui/components/Meta'
 import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
+import { onCategoryEdit, onCategoryDelete } from '../../store/helpers/category'
+import { useHelper } from '../../hooks/useHelper'
 import CardActions from '../CardActions'
+import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
   position: relative;
@@ -95,7 +98,26 @@ export const Card = ({
   onDelete,
   onEdit
 }) => {
+  const recall = useHelper()
   const { setQuery } = useEntityQuery()
+
+  const handleEdit = () => {
+    recall(onCategoryEdit, {
+      id: category.id,
+      category,
+      mutation: queries.UPDATE_CATEGORY
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onCategoryDelete, {
+      id: category.id,
+      category,
+      mutation: queries.DELETE_CATEGORY
+    })()
+    if (onDelete) onDelete()
+  }
 
   return (
     <Wrap className={className} style={style} checked={checked} appearance={appearance}>
@@ -106,8 +128,8 @@ export const Card = ({
           <CardActions
             typeText={'категорию'}
             checked={checked}
-            onEdit={onEdit}
-            onDelete={onDelete}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
             onChecked={onChecked}
           />
         </Header>

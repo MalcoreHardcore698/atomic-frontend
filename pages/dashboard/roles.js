@@ -23,7 +23,7 @@ import queries from '../../graphql/queries'
 
 const TITLE = 'Роли'
 
-const Roles = ({ store, permissions }) => {
+const Roles = ({ store }) => {
   const recall = useHelper()
   const documents = useSelector((state) => state.documents)
   const dispatch = useDispatch()
@@ -44,7 +44,7 @@ const Roles = ({ store, permissions }) => {
         icon={'lock'}
         title={TITLE}
         buttonCreateText={'Создать роль'}
-        onCreate={recall(onRoleCreate, { permissions, mutation: queries.CREATE_ROLE })}
+        onCreate={recall(onRoleCreate, { mutation: queries.CREATE_ROLE })}
         onChangeVisibleFilter={() => setVisibleFilter(!visibleFilter)}
         onChangeDisplayMethod={(item) => onChangeDisplayMethod(item.value)}
       />
@@ -91,7 +91,7 @@ const Roles = ({ store, permissions }) => {
             recall(onRoleDelete, { id: role.id, role, mutation: queries.DELETE_ROLE })()
           }
           onEdit={(role) =>
-            recall(onRoleEdit, { id: role.id, role, permissions, mutation: queries.UPDATE_ROLE })()
+            recall(onRoleEdit, { id: role.id, role, mutation: queries.UPDATE_ROLE })()
           }
           style={{ overflowX: 'auto', width: 'calc(100vw - 290px)' }}
         />
@@ -114,7 +114,6 @@ const Roles = ({ store, permissions }) => {
                   onEdit={recall(onRoleEdit, {
                     id: role.id,
                     role,
-                    permissions,
                     mutation: queries.UPDATE_ROLE
                   })}
                 />

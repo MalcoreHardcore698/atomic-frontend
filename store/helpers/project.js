@@ -8,6 +8,7 @@ import Alert from '../../atomic-ui/components/Alert'
 import Screenshot from '../../atomic-ui/components/Screenshot'
 import Difinition from '../../atomic-ui/components/Difinition'
 import Icon from '../../atomic-ui/components/Icon'
+import { omit } from '../../atomic-ui/utils/functions'
 
 import AddMemberForm from '../../components/FormAddMember'
 import AddFileForm from '../../components/FormAddFile'
@@ -34,7 +35,6 @@ import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
 import { onUserLink, onUserFolderAdd, onUserAboutMore } from './user'
 import { onFileLink } from '.'
-import ArticleForm from '../../components/FormArticle'
 
 const CreateButton = styled(Button)`
   display: flex;
@@ -138,6 +138,9 @@ export function onProjectCreate(dispatch, props) {
                   input: {
                     title: form.title,
                     body: form.body,
+                    characteristics: (form.characteristics || []).map((characteristic) =>
+                      omit(characteristic, ['id'])
+                    ),
                     description: form.description,
                     preview: form.preview?.file,
                     company: form.company?.value?.email,

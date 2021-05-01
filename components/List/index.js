@@ -47,7 +47,7 @@ export const List = ({
     variables: {
       ...variables,
       offset: 0,
-      limit: limit
+      limit
     }
   })
 

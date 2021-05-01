@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row, { Wrap as WrapRow } from '../../atomic-ui/components/Row'
@@ -19,6 +20,9 @@ import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { More } from '../Styled'
 
 import { ResponsibleMark, hasResponsibleMember } from '../Members'
+import { onUserDelete, onUserEdit } from '../../store/helpers/user'
+import { useHelper } from '../../hooks/useHelper'
+import queries from '../../graphql/queries'
 import config from '../../config'
 
 const HOST_URL = config.get('host-url')
@@ -162,12 +166,39 @@ export const Card = ({
   onDelete,
   withSocials
 }) => {
+  const recall = useHelper()
   const { setQuery } = useEntityQuery()
+  const auth = useSelector((state) => state.user)
   const [isAdded, setAdded] = useState(added)
+  const canEditRole = useMemo(() => auth && auth.role.name === 'ADMIN', [auth])
 
   const onClickAdd = () => {
     if (onAdd) onAdd()
     setAdded(!isAdded)
+  }
+
+  const handleEdit = () => {
+    recall(onUserEdit, {
+      user: user.email,
+      auth: auth?.email,
+      canEditRole,
+      mutations: {
+        update: queries.UPDATE_USER,
+        del: queries.DELETE_USER,
+        changePassword: queries.UPDATE_USER
+      }
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onUserDelete, {
+      id: user.email,
+      user,
+      auth: auth?.email,
+      mutation: queries.DELETE_USER
+    })()
+    if (onDelete) onDelete()
   }
 
   return (
@@ -194,14 +225,14 @@ export const Card = ({
               <Actions>
                 {onDelete && (
                   <Tooltip text={'Удалить пользователя'}>
-                    <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
+                    <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={handleDelete}>
                       <Icon icon={'delete'} size={'xs'} stroke={'white'} />
                     </Button>
                   </Tooltip>
                 )}
                 {onEdit && (
                   <Tooltip text={'Редактировать пользователя'}>
-                    <Button kind={'icon'} size={'xs'} onClick={onEdit}>
+                    <Button kind={'icon'} size={'xs'} onClick={handleEdit}>
                       <Icon icon={'edit'} size={'xs'} stroke={'white'} />
                     </Button>
                   </Tooltip>

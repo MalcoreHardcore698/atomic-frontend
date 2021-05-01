@@ -36,7 +36,14 @@ export const WrapButton = styled(Button)`
     `}
 `
 
-export const Search = ({ appearance, buttonCreateText, onCreate, onChangeFilter, onSubmit }) => {
+export const Search = ({
+  appearance,
+  buttonCreateText,
+  defaultValue,
+  onCreate,
+  onChangeFilter,
+  onSubmit
+}) => {
   const [visibleFilter, setVisibleFilter] = useState(false)
 
   const onClick = () => {
@@ -46,7 +53,12 @@ export const Search = ({ appearance, buttonCreateText, onCreate, onChangeFilter,
 
   return (
     <Wrap>
-      <WrapSearchField appearance={appearance} placeholder={'Поиск'} onSubmit={onSubmit} />
+      <WrapSearchField
+        appearance={appearance}
+        placeholder={'Поиск'}
+        defaultValue={defaultValue}
+        onSubmit={onSubmit}
+      />
       <WrapButton type={'button'} kind={'icon'} onClick={onClick} visibleFilter={visibleFilter}>
         <Icon icon={'filter2'} stroke={visibleFilter ? 'white' : 'var(--default-color-accent)'} />
       </WrapButton>

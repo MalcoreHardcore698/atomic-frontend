@@ -984,23 +984,31 @@ module.exports = __webpack_require__("RNiq");
 /* unused harmony export Card */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
-/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("DTT8");
-/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("VWQm");
-/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("7sPp");
-/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("QUga");
-/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("feIE");
-/* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("V0nP");
-/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("aBfq");
-/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("RKiZ");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("79b8");
-/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("8UhZ");
-/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("586Q");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("rOcY");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("4Q3z");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("nShV");
+/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("DTT8");
+/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("VWQm");
+/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("8CDE");
+/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("7sPp");
+/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("QUga");
+/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("feIE");
+/* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("V0nP");
+/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("aBfq");
+/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("RKiZ");
+/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("ZeZO");
+/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("79b8");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("586Q");
+/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("8UhZ");
+/* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("IxyI");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("ApjV");
+/* harmony import */ var _hooks_useMutate__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("lphG");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__("u2Cb");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__("rOcY");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
@@ -1020,79 +1028,85 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
-const HOST_URL = _config__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"].get('host-url');
-const Media = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
+
+
+
+
+
+
+const HOST_URL = _config__WEBPACK_IMPORTED_MODULE_22__[/* default */ "a"].get('host-url');
+const Media = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Media",
   componentId: "g3ik0u-0"
 })(["grid-gap:5px;& > span{display:flex !important;justify-content:center;align-items:center;height:100%;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);", "}& > figure{max-height:225px;min-height:170px;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);}"], ({
   layout
-}) => layout !== 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["max-height:220px;"]));
-const Poster = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]).withConfig({
+}) => layout !== 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["max-height:220px;"]));
+const Poster = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Poster",
   componentId: "g3ik0u-1"
 })(["position:relative;width:100%;height:100%;border-radius:var(--surface-border-radius);overflow:hidden;object-fit:cover;transition:opacity 150ms ease;", " ", " @media only screen and (max-width:480px){min-height:128px;}"], ({
   layout
-}) => layout !== 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["min-height:128px;"]), ({
+}) => layout !== 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["min-height:128px;"]), ({
   onClick
-}) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["cursor:pointer;&:hover{opacity:0.65;}"]));
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
+}) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["cursor:pointer;&:hover{opacity:0.65;}"]));
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Wrap",
   componentId: "g3ik0u-2"
 })(["grid-gap:var(--default-gap);height:100%;", " ", " ", " ", ""], ({
   layout
-}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-wrap:wrap;"]), ({
+}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["display:flex;flex-wrap:wrap;"]), ({
   appearance
-}) => appearance === 'default' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
+}) => appearance === 'default' && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
   appearance
-}) => appearance === 'ghost' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
+}) => appearance === 'ghost' && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
   appearance
-}) => appearance === 'clear' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
-const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+}) => appearance === 'clear' && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
+const Content = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Content",
   componentId: "g3ik0u-3"
 })(["display:grid;grid-template-columns:1fr 2fr;flex-grow:1000;width:100%;", " ", " @media only screen and (max-width:480px){grid-template-columns:1fr;grid-gap:var(--default-gap);width:100%;}"], ({
   clear
-}) => clear && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["grid-template-columns:1fr;"]), ({
+}) => clear && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["grid-template-columns:1fr;"]), ({
   layout
-}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
-const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["display:flex;flex-direction:column;grid-gap:var(--default-gap);"]));
+const Screenshots = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Screenshots",
   componentId: "g3ik0u-4"
 })(["justify-content:space-between;grid-gap:5px;"]);
-const Screenshot = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+const Screenshot = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.div.withConfig({
   displayName: "ProjectCard__Screenshot",
   componentId: "g3ik0u-5"
 })(["position:relative;z-index:var(--z-12);width:auto;height:var(--input-height-s);min-width:var(--input-height-s);min-height:var(--input-height-s);border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);flex-grow:1;transition:opacity 150ms ease;span,span > img{display:flex;justify-content:center;align-items:center;flex-grow:1;width:100%;height:100%;}img{width:100%;height:100%;object-fit:cover;}"]);
-const ScreenshotsCounter = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"]).withConfig({
+const ScreenshotsCounter = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__ScreenshotsCounter",
   componentId: "g3ik0u-6"
 })(["position:absolute;top:0;left:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;width:100%;height:100%;span{position:relative;z-index:var(--z-12);color:white;}&::before{content:'';position:absolute;top:0;left:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;width:100%;height:100%;background:var(--default-color-accent);border-radius:var(--surface-border-radius);opacity:0.65;}"]);
-const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const Header = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Header",
   componentId: "g3ik0u-7"
 })(["justify-content:space-between;align-items:center;"]);
-const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const Actions = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Actions",
   componentId: "g3ik0u-8"
 })(["grid-gap:5px;"]);
-const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]).withConfig({
+const Name = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"]).withConfig({
   displayName: "ProjectCard__Name",
   componentId: "g3ik0u-9"
 })(["transition:opacity 150ms ease;", ""], ({
   onClick
-}) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["cursor:pointer;&:hover{opacity:0.45;}"]));
-const About = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+}) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_3__["css"])(["cursor:pointer;&:hover{opacity:0.45;}"]));
+const About = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.div.withConfig({
   displayName: "ProjectCard__About",
   componentId: "g3ik0u-10"
 })(["font-size:var(--font-size-m);"]);
-const Company = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_3__[/* default */ "c"]).withConfig({
+const Company = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_5__[/* default */ "d"]).withConfig({
   displayName: "ProjectCard__Company",
   componentId: "g3ik0u-11"
 })(["h4{max-width:250px;white-space:nowrap;font-size:var(--font-size-m);font-weight:var(--font-weight-bold);text-overflow:ellipsis;line-height:1;overflow:hidden;}"]);
-const Footer = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const Footer = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Footer",
   componentId: "g3ik0u-12"
-})(["justify-content:space-between;align-items:center;grid-gap:var(--default-gap);flex-grow:1;@media only screen and (max-width:480px){flex-direction:column;", "{flex-grow:1;width:100%;}", "{flex-grow:1;width:100%;", "{flex-grow:1;button{width:100%;}}}}"], _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_3__[/* Wrap */ "b"], _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* Wrap */ "a"], _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* Wrap */ "a"]);
+})(["justify-content:space-between;align-items:center;grid-gap:var(--default-gap);flex-grow:1;@media only screen and (max-width:480px){flex-direction:column;", "{flex-grow:1;width:100%;}", "{flex-grow:1;width:100%;", "{flex-grow:1;button{width:100%;}}}}"], _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_5__[/* Wrap */ "c"], _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* Wrap */ "a"], _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* Wrap */ "a"]);
 const Card = ({
   layout,
   project,
@@ -1118,16 +1132,44 @@ const Card = ({
 }) => {
   var _project$screenshots, _project$screenshots2, _project$preview, _project$screenshots3, _project$category, _project$category2, _project$description, _project$description2, _project$company, _project$company$avat, _project$company2, _project$company3, _project$company4;
 
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_19__[/* useHelper */ "b"])();
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_1__["useRouter"])();
+  const mutate = Object(_hooks_useMutate__WEBPACK_IMPORTED_MODULE_20__[/* useMutate */ "a"])();
   const {
     setQuery
-  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__[/* useEntityQuery */ "b"])();
+  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_17__[/* useEntityQuery */ "b"])();
   const [isLiked, setLike] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(liked);
+  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
   const screenshots = (project === null || project === void 0 ? void 0 : (_project$screenshots = project.screenshots) === null || _project$screenshots === void 0 ? void 0 : _project$screenshots.slice(0, slicedFactor)) || [];
   const residue = ((project === null || project === void 0 ? void 0 : (_project$screenshots2 = project.screenshots) === null || _project$screenshots2 === void 0 ? void 0 : _project$screenshots2.length) || slicedFactor) - slicedFactor;
+  const canEditStatus = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => user && user.role.name === 'ADMIN', [user]);
 
   const onClickLike = () => {
     if (onLike) onLike();
     setLike(!isLiked);
+  };
+
+  const handleEdit = () => {
+    recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_18__[/* onProjectEdit */ "d"], {
+      id: project.id,
+      canEditStatus,
+      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].UPDATE_PROJECT,
+      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].GET_USERS,
+      onCompanyInputChange: mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].GET_USERS, {
+        account: 'ENTITY'
+      })
+    })();
+    if (onEdit) onEdit();
+  };
+
+  const handleDelete = () => {
+    recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_18__[/* onProjectDelete */ "c"], {
+      id: project.id,
+      project,
+      auth: user,
+      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].DELETE_PROJECT
+    })();
+    if (onDelete) onDelete();
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
@@ -1154,53 +1196,58 @@ const Card = ({
   }), project.screenshots && ((_project$screenshots3 = project.screenshots) === null || _project$screenshots3 === void 0 ? void 0 : _project$screenshots3.length) > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Screenshots, null, screenshots.map((screenshot, index) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Screenshot, {
     key: screenshot.id,
     onClick: () => onScreenshotClick && onScreenshotClick(screenshot, screenshot.id)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
     src: screenshot.path,
     alt: screenshot.name,
     bottomOffset: 300,
     layout: 'fill'
-  }), index === (screenshots === null || screenshots === void 0 ? void 0 : screenshots.length) - 1 && residue > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ScreenshotsCounter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "+", residue)))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+  }), index === (screenshots === null || screenshots === void 0 ? void 0 : screenshots.length) - 1 && residue > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ScreenshotsCounter, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "+", residue)))))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
     style: {
       gridGap: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
     place: 'top',
     text: (_project$category = project.category) === null || _project$category === void 0 ? void 0 : _project$category.name
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+    category: (_project$category2 = project.category) === null || _project$category2 === void 0 ? void 0 : _project$category2.name,
     shareTitle: withSocials && (project === null || project === void 0 ? void 0 : project.title),
     shareUrl:  false ? undefined : HOST_URL,
-    category: (_project$category2 = project.category) === null || _project$category2 === void 0 ? void 0 : _project$category2.name,
+    onClickByCategory: () => {
+      var _project$category3;
+
+      return router.push(`/projects?c=${(_project$category3 = project.category) === null || _project$category3 === void 0 ? void 0 : _project$category3.id}`);
+    },
     short: true
-  })), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  })), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
     text: 'Удалить проект'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
     kind: 'icon',
     size: 'xs',
     appearance: 'red',
-    onClick: onDelete
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+    onClick: handleDelete
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     icon: 'delete',
     size: 'xs',
     stroke: 'white'
-  }))), onEdit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  }))), onEdit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
     text: 'Редактировать проект'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
     kind: 'icon',
     size: 'xs',
-    onClick: onEdit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+    onClick: handleEdit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     icon: 'edit',
     size: 'xs',
     stroke: 'white'
-  }))), onChecked && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  }))), onChecked && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
     text: 'Отметить проект',
     self: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
     onClick: () => setQuery(project.id, 'project', onLink)
-  }, project.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, ((_project$description = project.description) === null || _project$description === void 0 ? void 0 : _project$description.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, (_project$description2 = project.description) === null || _project$description2 === void 0 ? void 0 : _project$description2.slice(0, 135), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
+  }, project.title), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, ((_project$description = project.description) === null || _project$description === void 0 ? void 0 : _project$description.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], null, (_project$description2 = project.description) === null || _project$description2 === void 0 ? void 0 : _project$description2.slice(0, 135), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_16__[/* More */ "e"], {
     onClick: onAboutMore
-  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, project.description || 'Описание не заполнено')))), !preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], null, project.description || 'Описание не заполнено')))), !preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
     clear: true
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Company, _extends({}, project.company ? {
     img: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : (_project$company$avat = _project$company.avatar) === null || _project$company$avat === void 0 ? void 0 : _project$company$avat.path
@@ -1215,35 +1262,35 @@ const Card = ({
 
       return setQuery((_project$company5 = project.company) === null || _project$company5 === void 0 ? void 0 : _project$company5.email, 'user', onCompanyLink);
     })
-  })), !owned && (onLike || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, !eliminable && onLike && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  })), !owned && (onLike || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], null, !eliminable && onLike && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
     text: 'Мне нравится'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
     type: 'button',
     kind: 'icon',
     onClick: onClickLike,
     revert: !isLiked
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     icon: 'heart',
     stroke: isLiked ? 'white' : 'var(--default-color-accent)'
-  }))), !eliminable && onAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  }))), !eliminable && onAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
     text: 'Добавить проект к себе'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
     type: 'button',
     kind: 'icon',
     onClick: onAdd,
     revert: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     icon: 'add',
     stroke: 'var(--default-color-accent)'
-  }))), eliminable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
+  }))), eliminable && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
     text: 'Удалить проект из папки'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
     type: 'button',
     kind: 'icon',
     appearance: 'red',
     onClick: onRemove,
     revert: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     icon: 'delete',
     stroke: 'var(--default-color-red)'
   })))))));
@@ -1701,6 +1748,12 @@ const useUpdateEffect = (data, loading, key, setList) => {
 /* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("VWQm");
 /* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("NWnW");
 /* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("8UhZ");
+/* harmony import */ var _store_helpers_role__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("DF00");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("ApjV");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("u2Cb");
+
+
+
 
 
 
@@ -1755,11 +1808,32 @@ const Card = ({
   onEdit,
   onDelete
 }) => {
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_16__[/* useHelper */ "b"])();
   const {
     setQuery
   } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__[/* useEntityQuery */ "b"])();
   const permissions = role.permissions.slice(0, limitPermissions);
   const residue = role.permissions.length - limitPermissions;
+
+  const handleEdit = () => {
+    recall(_store_helpers_role__WEBPACK_IMPORTED_MODULE_15__[/* onRoleEdit */ "c"], {
+      id: role.id,
+      role,
+      permissions,
+      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].UPDATE_ROLE
+    })();
+    if (onEdit) onEdit();
+  };
+
+  const handleDelete = () => {
+    recall(_store_helpers_role__WEBPACK_IMPORTED_MODULE_15__[/* onRoleDelete */ "b"], {
+      id: role.id,
+      role,
+      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"].DELETE_ROLE
+    })();
+    if (onDelete) onDelete();
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
     className: className,
     style: style,
@@ -1776,7 +1850,7 @@ const Card = ({
     kind: 'icon',
     size: 'xs',
     appearance: 'red',
-    onClick: onDelete
+    onClick: handleDelete
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
     icon: 'delete',
     size: 'xs',
@@ -1786,7 +1860,7 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     kind: 'icon',
     size: 'xs',
-    onClick: onEdit
+    onClick: handleEdit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
     icon: 'edit',
     size: 'xs',
@@ -1849,7 +1923,13 @@ module.exports = require("next/router");
 /* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("DTT8");
 /* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("79b8");
 /* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("VWQm");
-/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("8UhZ");
+/* harmony import */ var _store_helpers_ticket__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("ZbFR");
+/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("8UhZ");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("ApjV");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("u2Cb");
+
+
+
 
 
 
@@ -1911,9 +1991,27 @@ const Card = ({
 }) => {
   var _ticket$category, _ticket$author, _ticket$author$avatar, _ticket$author2, _ticket$messages;
 
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_15__[/* useHelper */ "b"])();
   const {
     setQuery
-  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_13__[/* useEntityQuery */ "b"])();
+  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_14__[/* useEntityQuery */ "b"])();
+
+  const handleEdit = () => {
+    recall(_store_helpers_ticket__WEBPACK_IMPORTED_MODULE_13__[/* onTicketEdit */ "c"], {
+      id: ticket.id,
+      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"].UPDATE_TICKET
+    })();
+    if (onEdit) onEdit();
+  };
+
+  const handleDelete = () => {
+    recall(_store_helpers_ticket__WEBPACK_IMPORTED_MODULE_13__[/* onTicketDelete */ "b"], {
+      ticket,
+      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"].DELETE_TICKET
+    })();
+    if (onDelete) onDelete();
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
     className: className,
     style: style,
@@ -1931,7 +2029,7 @@ const Card = ({
     kind: 'icon',
     size: 'xs',
     appearance: 'red',
-    onClick: onDelete
+    onClick: handleDelete
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
     icon: 'delete',
     size: 'xs',
@@ -1941,7 +2039,7 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
     kind: 'icon',
     size: 'xs',
-    onClick: onEdit
+    onClick: handleEdit
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
     icon: 'edit',
     size: 'xs',
@@ -1960,7 +2058,7 @@ const Card = ({
     status: ticket.status
   }, ticket.status))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     clear: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_10__[/* default */ "c"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_10__[/* default */ "d"], {
     label: 'Автор',
     img: (_ticket$author = ticket.author) === null || _ticket$author === void 0 ? void 0 : (_ticket$author$avatar = _ticket$author.avatar) === null || _ticket$author$avatar === void 0 ? void 0 : _ticket$author$avatar.path,
     text: (_ticket$author2 = ticket.author) === null || _ticket$author2 === void 0 ? void 0 : _ticket$author2.name,
@@ -1969,7 +2067,7 @@ const Card = ({
 
       return onAuthorLink((_ticket$author3 = ticket.author) === null || _ticket$author3 === void 0 ? void 0 : _ticket$author3.email);
     })
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_10__[/* default */ "c"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_10__[/* default */ "d"], {
     icon: 'chat',
     label: 'Сообщений',
     text: (_ticket$messages = ticket.messages) === null || _ticket$messages === void 0 ? void 0 : _ticket$messages.length
@@ -2169,11 +2267,11 @@ function formatUrl(urlObj) {
 
 "use strict";
 /* unused harmony export Box */
-/* unused harmony export Container */
+/* unused harmony export Wrap */
 /* unused harmony export Check */
 /* unused harmony export Label */
 /* unused harmony export Input */
-/* unused harmony export Wrap */
+/* unused harmony export Container */
 /* unused harmony export CheckBox */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -2211,7 +2309,7 @@ const Box = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.span`
       border-radius: 6px;
     `}
 `;
-const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.label`
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.label`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -2219,6 +2317,7 @@ const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.label
   line-height: 1;
   cursor: pointer;
   user-select: none;
+  grid-gap: 12px;
 
   ${({
   disabled
@@ -2230,6 +2329,18 @@ const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.label
   &:hover ${Box} {
     color: #fff;
   }
+
+  ${({
+  size
+}) => size === 'xs' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      grid-gap: 8px;
+    `}
+
+  ${({
+  size
+}) => size === 'm' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      grid-gap: 15px;
+    `}
 `;
 const Check = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Icon__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])`
   position: absolute;
@@ -2242,24 +2353,11 @@ const Label = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.span`
   display: inline-flex;
   padding-top: 2px;
   color: rgba(0, 0, 0, 75%);
-  margin-left: 12px;
 
   ${({
   size
 }) => size && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
       font-size: var(--font-size-${size});
-    `}
-
-  ${({
-  size
-}) => size === 'xs' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-      margin-left: 8px;
-    `}
-
-  ${({
-  size
-}) => size === 'm' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-      margin-left: 15px;
     `}
 `;
 const Input = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.input`
@@ -2301,7 +2399,7 @@ const Input = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.input`
     border-color: gray;
   }
 `;
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.span`
+const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.span`
   position: relative;
 
   display: inline-flex;
@@ -2342,17 +2440,18 @@ const CheckBox = (_ref) => {
     inputStyle,
     label,
     size,
-    disabled
+    disabled,
+    rtl
   } = _ref,
-      props = _objectWithoutProperties(_ref, ["children", "className", "style", "inputStyle", "label", "size", "disabled"]);
+      props = _objectWithoutProperties(_ref, ["children", "className", "style", "inputStyle", "label", "size", "disabled", "rtl"]);
 
   const id = Object(uuid__WEBPACK_IMPORTED_MODULE_2__["v4"])();
-  return __jsx(Container, {
-    htmlFor: `checkbox-${id}`,
-    className: className,
-    style: style,
-    disabled: disabled
-  }, __jsx(Wrap, {
+
+  const renderLabel = () => __jsx(Label, {
+    size: size
+  }, label);
+
+  const renderCheckbox = () => __jsx(Container, {
     size: size,
     style: inputStyle
   }, __jsx(Input, _extends({
@@ -2364,9 +2463,15 @@ const CheckBox = (_ref) => {
   }), __jsx(Check, {
     icon: 'check',
     size: size
-  })), label && __jsx(Label, {
-    size: size
-  }, label), children);
+  }));
+
+  return __jsx(Wrap, {
+    size: size,
+    style: style,
+    htmlFor: `checkbox-${id}`,
+    className: className,
+    disabled: disabled
+  }, rtl && label && renderLabel(), !rtl && renderCheckbox(), rtl && renderCheckbox(), !rtl && label && renderLabel(), children);
 };
 CheckBox.defaultProps = {
   size: 'm'
@@ -3099,6 +3204,9 @@ Arrower.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export getProjectLinkProps */
+/* unused harmony export getUserLinkProps */
+/* unused harmony export invokeRecall */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return useEntityQuery; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -3131,7 +3239,6 @@ Arrower.defaultProps = {
 
 
 
-
 const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall) => ({
   id,
   auth: user === null || user === void 0 ? void 0 : user.email,
@@ -3149,7 +3256,6 @@ const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall) => ({
   }),
   owned
 });
-
 const getUserLinkProps = (id, user, owned) => ({
   id,
   auth: user === null || user === void 0 ? void 0 : user.email,
@@ -3163,7 +3269,50 @@ const getUserLinkProps = (id, user, owned) => ({
     sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"].SEND_MESSAGE
   }
 });
+const invokeRecall = (recall, mutate, user, dispatch, query) => {
+  if (query.article) {
+    const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.article);
+    recall(_store_helpers_article__WEBPACK_IMPORTED_MODULE_6__[/* onArticleLink */ "d"], {
+      id
+    })();
+  }
 
+  if (query.category) {
+    const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.category);
+    recall(_store_helpers_category__WEBPACK_IMPORTED_MODULE_7__[/* onCategoryLink */ "d"], {
+      id
+    })();
+  }
+
+  if (query.project) {
+    var _user$projects;
+
+    const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.project);
+    const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === id);
+    recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_8__[/* onProjectLink */ "e"], getProjectLinkProps(id, user, owned, dispatch, mutate, recall))();
+  }
+
+  if (query.role) {
+    const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.role);
+    recall(_store_helpers_role__WEBPACK_IMPORTED_MODULE_9__[/* onRoleLink */ "d"], {
+      id
+    })();
+  }
+
+  if (query.user) {
+    const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.user);
+    const owned = id === (user === null || user === void 0 ? void 0 : user.name);
+    recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserLink */ "i"], getUserLinkProps(id, user, owned))();
+  }
+
+  if (query.ticket) {
+    const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.ticket);
+    recall(_store_helpers_ticket__WEBPACK_IMPORTED_MODULE_11__[/* onTicketLink */ "d"], {
+      id,
+      auth: user === null || user === void 0 ? void 0 : user.email
+    })();
+  }
+};
 const useEntityQuery = () => {
   const recall = Object(_useHelper__WEBPACK_IMPORTED_MODULE_4__[/* useHelper */ "b"])();
   const mutate = Object(_useMutate__WEBPACK_IMPORTED_MODULE_5__[/* useMutate */ "a"])();
@@ -3186,49 +3335,7 @@ const useEntityQuery = () => {
   const useDetectQuery = () => {
     Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
       const query = router.query;
-
-      if (query.article) {
-        const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.article);
-        recall(_store_helpers_article__WEBPACK_IMPORTED_MODULE_6__[/* onArticleLink */ "d"], {
-          id
-        })();
-      }
-
-      if (query.category) {
-        const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.category);
-        recall(_store_helpers_category__WEBPACK_IMPORTED_MODULE_7__[/* onCategoryLink */ "c"], {
-          id
-        })();
-      }
-
-      if (query.project) {
-        var _user$projects;
-
-        const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.project);
-        const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === id);
-        recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_8__[/* onProjectLink */ "e"], getProjectLinkProps(id, user, owned, dispatch, mutate, recall))();
-      }
-
-      if (query.role) {
-        const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.role);
-        recall(_store_helpers_role__WEBPACK_IMPORTED_MODULE_9__[/* onRoleLink */ "d"], {
-          id
-        })();
-      }
-
-      if (query.user) {
-        const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.user);
-        const owned = id === (user === null || user === void 0 ? void 0 : user.name);
-        recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_10__[/* onUserLink */ "i"], getUserLinkProps(id, user, owned))();
-      }
-
-      if (query.ticket) {
-        const id = Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_3__[/* b64DecodeUnicode */ "a"])(query.ticket);
-        recall(_store_helpers_ticket__WEBPACK_IMPORTED_MODULE_11__[/* onTicketLink */ "d"], {
-          id,
-          auth: user === null || user === void 0 ? void 0 : user.email
-        })();
-      }
+      invokeRecall(recall, mutate, user, dispatch, query);
     }, [router]);
   };
 
@@ -3424,7 +3531,15 @@ var functions = __webpack_require__("NWnW");
 // EXTERNAL MODULE: ./components/Form/index.js
 var Form = __webpack_require__("qoM+");
 
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
+var queries = __webpack_require__("u2Cb");
+
 // CONCATENATED MODULE: ./components/FormRole/index.js
+
+
 
 
 
@@ -3437,7 +3552,6 @@ var Form = __webpack_require__("qoM+");
 
 const Role = ({
   role,
-  permissions,
   mutation,
   appearance,
   className,
@@ -3450,6 +3564,16 @@ const Role = ({
     value: permission,
     label: Object(functions["f" /* getLabelPermission */])(permission)
   }))) || null);
+  const {
+    data: dataPermissions,
+    loading: loadingPermissions
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_PERMISSIONS);
+  const [permissions, setPermissions] = Object(external_react_["useState"])([]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingPermissions && dataPermissions) {
+      setPermissions(dataPermissions.getPermissions);
+    }
+  }, [loadingPermissions, dataPermissions]);
   return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
     className: className,
     appearance: appearance,
@@ -3503,7 +3627,7 @@ const Role = ({
     options: Object(functions["c" /* createSelectOptions */])(permissions).map(option => ({ ...option,
       label: Object(functions["f" /* getLabelPermission */])(option.label)
     })),
-    isLoading: loading,
+    isLoading: loading || loadingPermissions,
     isClearable: true,
     isMulti: true
   })), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
@@ -3522,9 +3646,6 @@ var FormDelete = __webpack_require__("xAqQ");
 var external_styled_components_ = __webpack_require__("Dtiu");
 var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
 
-// EXTERNAL MODULE: external "@apollo/react-hooks"
-var react_hooks_ = __webpack_require__("mU8t");
-
 // EXTERNAL MODULE: external "uuid"
 var external_uuid_ = __webpack_require__("kNaX");
 
@@ -3539,9 +3660,6 @@ var Chip = __webpack_require__("JyfY");
 
 // EXTERNAL MODULE: ./components/Processed/index.js
 var Processed = __webpack_require__("2qQv");
-
-// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
-var queries = __webpack_require__("u2Cb");
 
 // CONCATENATED MODULE: ./components/RoleView/index.js
 
@@ -3784,10 +3902,11 @@ function onRoleDelete(dispatch, props) {
 "use strict";
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ Difinition_Wrap; });
-__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ MarkedText; });
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ Difinition_Wrap; });
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ Label; });
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ MarkedText; });
 
-// UNUSED EXPORTS: ActionTooltip, Content, Image, RoundedIcon, Label, Value, getValue, Difinition
+// UNUSED EXPORTS: ActionTooltip, Content, Image, RoundedIcon, Value, getValue, Difinition
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
@@ -3996,8 +4115,8 @@ const Label = external_styled_components_default()(Text["b" /* default */])`
   color: var(--ghost-color-text);
   font-size: var(--font-size-s);
   white-space: nowrap;
-  width: 128px;
-  max-width: 400px;
+  min-width: 128px;
+  max-width: 435px;
   overflow: hidden;
   text-overflow: ellipsis;
 
@@ -4134,7 +4253,7 @@ const Difinition = ({
     size: 's'
   })))));
 };
-/* harmony default export */ var components_Difinition = __webpack_exports__["c"] = (Difinition);
+/* harmony default export */ var components_Difinition = __webpack_exports__["d"] = (Difinition);
 
 /***/ }),
 
@@ -4149,6 +4268,410 @@ module.exports = require("styled-components");
 /***/ (function(module, exports) {
 
 module.exports = require("react-tooltip");
+
+/***/ }),
+
+/***/ "EJJs":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export Manage */
+/* unused harmony export Headers */
+/* unused harmony export Header */
+/* unused harmony export Track */
+/* unused harmony export Content */
+/* unused harmony export Container */
+/* unused harmony export Actions */
+/* unused harmony export FieldsPopper */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Cell; });
+/* unused harmony export HeaderList */
+/* unused harmony export CheckboxTooltip */
+/* unused harmony export getIsAdmin */
+/* unused harmony export Table */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("kNaX");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("nShV");
+/* harmony import */ var _Column__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("8CDE");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("feIE");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("ZeZO");
+/* harmony import */ var _Switch__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("OXt0");
+/* harmony import */ var _Difinition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("DTT8");
+/* harmony import */ var _Checkbox__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("79b8");
+/* harmony import */ var _Tooltip__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("VWQm");
+/* harmony import */ var _Popper__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("vJvq");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])``;
+const Manage = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"])`
+  display: grid;
+  grid-template-columns: 36px 1fr 70px;
+`;
+const Headers = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Switch__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"])`
+  ${({
+  width
+}) => width && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      span {
+        width: ${width};
+      }
+    `}
+
+  ${({
+  first,
+  width
+}) => first && width && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      span:first-child {
+        width: calc(${width} + 45px);
+      }
+    `}
+`;
+const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"])`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  color: #959595;
+
+  &:last-child {
+    justify-content: flex-end;
+  }
+`;
+const Track = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"])`
+  transition: opacity 150ms ease;
+
+  ${({
+  checked
+}) => checked && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      opacity: 0.45;
+    `}
+`;
+const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"])`
+  padding: 5px 15px;
+  width: calc(100% - 85px);
+
+  ${({
+  appearance
+}) => appearance === 'default' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      border: 1px solid var(--surface-border);
+      background: var(--surface-background);
+      box-shadow: 1px solid var(--surface-shadow);
+      border-radius: var(--surface-border-radius);
+    `}
+
+  ${({
+  appearance
+}) => appearance === 'clear' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      border: none;
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+    `}
+
+  & > label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: calc(var(--input-height-m) - 15px);
+    margin-left: 5px;
+
+    & > span {
+      margin: 0;
+    }
+  }
+`;
+const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"])`
+  width: 100%;
+
+  ${({
+  onClick
+}) => onClick && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      cursor: pointer;
+    `}
+`;
+const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])`
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  padding: 5px;
+  grid-gap: 5px;
+
+  button {
+    width: 100%;
+    flex-grow: 1;
+  }
+
+  ${_Tooltip__WEBPACK_IMPORTED_MODULE_10__[/* Wrap */ "a"]} {
+    width: 100%;
+  }
+
+  ${({
+  horizontal
+}) => horizontal && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      flex-direction: row;
+    `}
+
+  ${({
+  appearance
+}) => appearance === 'default' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      border: 1px solid var(--surface-border);
+      background: var(--surface-background);
+      box-shadow: 1px solid var(--surface-shadow);
+      border-radius: var(--surface-border-radius);
+    `}
+
+  ${({
+  appearance
+}) => appearance === 'clear' && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      border: none;
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+    `}
+`;
+const FieldsPopper = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Popper__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"])`
+  display: flex;
+  align-items: center;
+
+  & > div {
+    display: flex;
+  }
+`;
+const Cell = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Difinition__WEBPACK_IMPORTED_MODULE_8__[/* default */ "d"])`
+  align-items: center;
+  flex-grow: 1;
+
+  width: ${({
+  width
+}) => width};
+  overflow: hidden;
+
+  & > div {
+    width: 100%;
+  }
+
+  h4 {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-bold);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+const HeaderList = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])`
+  border: 1px solid var(--surface-border);
+  background: var(--surface-background);
+  box-shadow: var(--surface-shadow);
+  border-radius: var(--surface-border-radius);
+  padding: 10px;
+  grid-gap: 10px;
+`;
+const CheckboxTooltip = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Tooltip__WEBPACK_IMPORTED_MODULE_10__[/* default */ "b"])`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+const getIsAdmin = document => {
+  var _document$name;
+
+  return ((_document$name = document.name) === null || _document$name === void 0 ? void 0 : _document$name.toUpperCase()) === 'ADMIN';
+};
+const Table = ({
+  data,
+  template,
+  className,
+  style,
+  appearance,
+  onClick,
+  onChecked,
+  onDelete,
+  onEdit
+}) => {
+  const {
+    0: isAllChecked,
+    1: setIsAllChecked
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
+  const {
+    0: documents,
+    1: setDocuments
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])((data || []).map(item => _objectSpread(_objectSpread({}, item), {}, {
+    id: item.id || Object(uuid__WEBPACK_IMPORTED_MODULE_2__["v4"])(),
+    checked: false
+  })));
+  const buttonDeleteDisabled = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => !documents.find(item => item.checked), [documents]);
+  const defaultWidth = `${Math.floor(100 / template.length)}%`;
+  const headers = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => (template || []).map(item => ({
+    value: Object(uuid__WEBPACK_IMPORTED_MODULE_2__["v4"])(),
+    label: item.header,
+    tooltip: item.tooltip || `Сортировка по «${item.header}»`,
+    visible: !item.hidden
+  })), []);
+
+  const handleChecked = document => {
+    setDocuments(prev => {
+      const isExists = item => item.id === document.id;
+
+      const candidate = prev.find(isExists);
+
+      if (candidate) {
+        return prev.map(item => isExists(item) ? _objectSpread(_objectSpread({}, document), {}, {
+          checked: !item.checked
+        }) : _objectSpread(_objectSpread({}, item), {}, {
+          checked: isAllChecked || item.checked
+        }));
+      } else {
+        return [...prev, _objectSpread(_objectSpread({}, document), {}, {
+          checked: true
+        })];
+      }
+    });
+    setIsAllChecked(false);
+  };
+
+  const handleAllChecked = () => {
+    const value = !isAllChecked;
+    setDocuments(prev => prev.map(item => _objectSpread(_objectSpread({}, item), {}, {
+      checked: !getIsAdmin(item) ? value : false
+    })));
+    setIsAllChecked(value);
+  };
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    const countChecked = documents.reduce((acc, curr) => acc + (curr.checked ? 1 : 0), 0);
+
+    if (documents.length > 0 && countChecked === documents.length) {
+      setIsAllChecked(true);
+    }
+  }, [documents]);
+  return __jsx(Wrap, {
+    className: className,
+    style: style
+  }, __jsx(Manage, null, __jsx(CheckboxTooltip, {
+    text: 'Отметить все',
+    self: true
+  }, onChecked && __jsx(_Checkbox__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    size: 's',
+    checked: isAllChecked,
+    onChange: handleAllChecked
+  })), __jsx(Headers, {
+    defaultValue: headers[0],
+    options: headers.filter(h => h.visible),
+    first: onChecked,
+    stretch: true
+  }), __jsx(Actions, {
+    appearance: appearance,
+    horizontal: true
+  }, __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_10__[/* default */ "b"], {
+    text: 'Удаление выделенного',
+    place: 'left'
+  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    size: 'xs',
+    kind: 'icon',
+    appearance: buttonDeleteDisabled ? 'ghost' : 'red',
+    disabled: buttonDeleteDisabled,
+    onClick: () => onDelete(documents.filter(document => document.checked))
+  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    icon: 'delete',
+    size: 'xs',
+    stroke: buttonDeleteDisabled ? 'var(--ghost-color-text)' : 'white'
+  }))), __jsx(FieldsPopper, {
+    place: 'left',
+    offset: {
+      bottom: 80
+    },
+    body: __jsx(HeaderList, null, headers.map((header, index) => __jsx(_Checkbox__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+      key: index,
+      size: 's',
+      label: header.label,
+      checked: header.visible
+    }))),
+    appearance: 'clear'
+  }, __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_10__[/* default */ "b"], {
+    text: 'Отображение полей',
+    place: 'left'
+  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    size: 'xs',
+    kind: 'icon'
+  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    icon: 'show',
+    size: 'xs',
+    stroke: 'white'
+  })))))), documents.map((document, index) => __jsx(Track, {
+    key: index,
+    checked: document.checked
+  }, __jsx(Content, {
+    appearance: appearance
+  }, __jsx(CheckboxTooltip, {
+    text: 'Отметить документ',
+    self: true
+  }, onChecked && __jsx(_Checkbox__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    size: 's',
+    checked: !getIsAdmin(document) && (isAllChecked || document.checked),
+    onChange: !getIsAdmin(document) && (() => handleChecked(document))
+  })), __jsx(Container, {
+    onClick: () => onClick(document)
+  }, template.map((cell, index) => headers[index].visible ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.cloneElement(cell.content(document), {
+    key: index,
+    label: cell.header,
+    width: (cell === null || cell === void 0 ? void 0 : cell.width) || defaultWidth
+  }) : null))), (onEdit || onDelete) && __jsx(Actions, {
+    appearance: appearance
+  }, onEdit && __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_10__[/* default */ "b"], {
+    text: 'Редактирование',
+    place: 'left'
+  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    size: 'xs',
+    kind: 'icon',
+    disabled: getIsAdmin(document) || document.checked,
+    onClick: () => onEdit(document)
+  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    icon: 'edit',
+    size: 'xs',
+    stroke: 'white',
+    fill: getIsAdmin(document) || document.checked ? 'var(--ghost-color-text)' : 'var(--default-color-accent)'
+  }))), onDelete && __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_10__[/* default */ "b"], {
+    text: 'Удаление',
+    place: 'left'
+  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    size: 'xs',
+    kind: 'icon',
+    appearance: 'red',
+    disabled: getIsAdmin(document) || document.checked,
+    onClick: () => onDelete(document)
+  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    icon: 'delete',
+    size: 'xs',
+    stroke: 'white',
+    fill: getIsAdmin(document) || document.checked ? 'var(--ghost-color-text)' : 'var(--default-color-red)'
+  })))))));
+};
+Table.defaultProps = {
+  appearance: 'default'
+};
+/* harmony default export */ __webpack_exports__["b"] = (Table);
 
 /***/ }),
 
@@ -4193,6 +4716,7 @@ const WrapButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_ato
 const Search = ({
   appearance,
   buttonCreateText,
+  defaultValue,
   onCreate,
   onChangeFilter,
   onSubmit
@@ -4207,6 +4731,7 @@ const Search = ({
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrapSearchField, {
     appearance: appearance,
     placeholder: 'Поиск',
+    defaultValue: defaultValue,
     onSubmit: onSubmit
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrapButton, {
     type: 'button',
@@ -4337,359 +4862,38 @@ function resolveRewrites() {}
 
 /***/ }),
 
-/***/ "GZJE":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Wrap */
-/* unused harmony export MiniAvatar */
-/* unused harmony export Name */
-/* unused harmony export MessageTextArea */
-/* unused harmony export MessageText */
-/* unused harmony export Content */
-/* unused harmony export Meta */
-/* unused harmony export Line */
-/* unused harmony export Actions */
-/* unused harmony export DispatchUpdatedDate */
-/* unused harmony export DispatchTime */
-/* unused harmony export ReplyButton */
-/* unused harmony export Likes */
-/* unused harmony export LikesButton */
-/* unused harmony export LikeButton */
-/* unused harmony export Comment */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
-/* harmony import */ var _Column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("8CDE");
-/* harmony import */ var _Avatar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ThpJ");
-/* harmony import */ var _Text__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("QUga");
-/* harmony import */ var _DateText__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("+nv6");
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("ZeZO");
-/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("feIE");
-/* harmony import */ var _Tooltip__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("VWQm");
-/* harmony import */ var _Checkbox__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("79b8");
-/* harmony import */ var _TextArea__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("3jgA");
-var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
-
-
-
-
-
-
-
-
-
-
-
-
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
-  position: relative;
-  margin: 0;
-  padding: 0;
-
-  ${({
-  checked
-}) => checked && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-      opacity: 0.45;
-    `}
-`;
-const MiniAvatar = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Avatar__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"])`
-  width: var(--input-height-xs);
-  height: var(--input-height-xs);
-  min-width: var(--input-height-xs);
-  min-height: var(--input-height-xs);
-  border-radius: var(--surface-border-radius);
-`;
-const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Text__WEBPACK_IMPORTED_MODULE_5__[/* default */ "b"])`
-  font-weight: var(--font-weight-medium);
-  color: var(--default-color-accent);
-  transition: opacity 150ms ease;
-
-  ${({
-  compact
-}) => compact && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-      display: flex;
-      align-items: center;
-      grid-gap: 10px;
-      margin-bottom: 5px;
-    `}
-
-  ${({
-  onClick
-}) => onClick && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
-      cursor: pointer;
-
-      &:hover {
-        opacity: 0.65;
-      }
-    `}
-`;
-const MessageTextArea = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_TextArea__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"])`
-  height: 128px;
-`;
-const MessageText = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Text__WEBPACK_IMPORTED_MODULE_5__[/* default */ "b"])`
-  color: black;
-`;
-const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])`
-  grid-gap: 0;
-  width: 100%;
-`;
-const Meta = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
-  grid-gap: 5px;
-`;
-const Line = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
-  justify-content: space-between;
-  align-items: center;
-`;
-const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
-  position: absolute;
-  top: 0;
-  right: 0;
-  grid-gap: 10px;
-`;
-const DispatchUpdatedDate = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_DateText__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])`
-  font-size: var(--font-size-s);
-  color: var(--default-color-text);
-`;
-const DispatchTime = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_DateText__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"])`
-  font-size: var(--font-size-s);
-  color: var(--default-color-text);
-`;
-const ReplyButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])`
-  color: var(--default-color-accent);
-  font-size: var(--font-size-s);
-  font-weight: var(--font-weight-regular);
-`;
-const Likes = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
-  align-items: center;
-  grid-gap: 0;
-`;
-const LikesButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])`
-  span {
-    color: var(--default-color-text);
-    transition: color 150ms ease;
-  }
-
-  &:hover {
-    span {
-      color: var(--default-color-accent);
-    }
-  }
-`;
-const LikeButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"])`
-  &:hover {
-    svg {
-      path,
-      circle {
-        stroke: var(--default-color-accent);
-      }
-    }
-  }
-`;
-const Comment = ({
-  user,
-  message,
-  likes,
-  time,
-  className,
-  style,
-  compact,
-  isLiked: initialLiked,
-  isUpdated,
-  isChecked,
-  onLink,
-  onReply,
-  onChecked,
-  onShowLikes,
-  onDelete,
-  onEdit,
-  onLike
-}) => {
-  var _user$avatar$path, _user$avatar, _user$avatar$path2, _user$avatar2;
-
-  const {
-    0: updatedAt,
-    1: setUpdatedAt
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(isUpdated ? time : null);
-  const {
-    0: checked,
-    1: setChecked
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(isChecked);
-  const {
-    0: count,
-    1: setCount
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(likes);
-  const {
-    0: isEdit,
-    1: setEdit
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  const {
-    0: isLiked,
-    1: setLiked
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(initialLiked);
-  const color = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => isLiked ? 'var(--default-color-accent)' : 'var(--default-color-text)', [isLiked]);
-  const textLikes = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => count === 1 ? 'человеку' : 'людям', [count]);
-  const {
-    0: comment,
-    1: setComment
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(message);
-  const commentRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
-
-  const onClick = () => {
-    const value = !isLiked;
-    if (onLike) onLike(value);
-    setCount(prev => prev + (value ? 1 : -1));
-    setLiked(value);
-  };
-
-  const handleToggleEdit = () => setEdit(prev => !prev);
-
-  const handleChecked = e => {
-    const value = e.target.checked;
-    if (onChecked) onChecked(value);
-    setChecked(value);
-  };
-
-  const handleApplyChanges = () => {
-    var _commentRef$current;
-
-    const value = commentRef === null || commentRef === void 0 ? void 0 : (_commentRef$current = commentRef.current) === null || _commentRef$current === void 0 ? void 0 : _commentRef$current.value;
-
-    if (value) {
-      if (onEdit) onEdit(value);
-      setUpdatedAt(new Date());
-      setComment(value);
-    }
-
-    handleToggleEdit();
-  };
-
-  return __jsx(Wrap, {
-    checked: checked,
-    style: style,
-    className: className
-  }, !compact && __jsx(_Avatar__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
-    src: (_user$avatar$path = user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) !== null && _user$avatar$path !== void 0 ? _user$avatar$path : ''
-  }), __jsx(Content, null, __jsx(Name, {
-    compact: compact,
-    onClick: onLink
-  }, compact && __jsx(MiniAvatar, {
-    src: (_user$avatar$path2 = user === null || user === void 0 ? void 0 : (_user$avatar2 = user.avatar) === null || _user$avatar2 === void 0 ? void 0 : _user$avatar2.path) !== null && _user$avatar$path2 !== void 0 ? _user$avatar$path2 : ''
-  }), user.name), isEdit ? __jsx(MessageTextArea, {
-    ref: commentRef,
-    defaultValue: comment,
-    appearance: 'ghost'
-  }) : __jsx(MessageText, null, comment), compact && onEdit && onDelete && __jsx(Actions, null, !isEdit ? __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    text: 'Удалить комментарий'
-  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-    kind: 'icon',
-    size: 'xs',
-    disabled: checked,
-    appearance: 'red',
-    onClick: onDelete
-  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    icon: 'delete',
-    size: 'xs',
-    stroke: 'white'
-  }))), __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    text: 'Редактировать комментарий'
-  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-    kind: 'icon',
-    size: 'xs',
-    disabled: checked,
-    onClick: handleToggleEdit
-  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    icon: 'edit',
-    size: 'xs',
-    stroke: 'white'
-  }))), __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    text: 'Отметить комментарий',
-    self: true
-  }, __jsx(_Checkbox__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
-    checked: checked,
-    onChange: handleChecked
-  }))) : __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    text: 'Применить изменения',
-    self: true
-  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-    kind: 'icon',
-    size: 'xs',
-    disabled: checked,
-    appearance: 'green',
-    onClick: handleApplyChanges
-  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    icon: 'check',
-    size: 'xs',
-    stroke: 'white'
-  }))), __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    text: 'Отменить изменения',
-    self: true
-  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-    kind: 'icon',
-    size: 'xs',
-    disabled: checked,
-    appearance: 'red',
-    onClick: handleToggleEdit
-  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    icon: 'closeSquare',
-    size: 'xs',
-    stroke: 'white'
-  }))))), __jsx(Line, null, __jsx(Meta, null, updatedAt ? __jsx(DispatchUpdatedDate, null, "\u041E\u0442\u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E", ' ', new Date(updatedAt).toLocaleString('ru-RU', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  })) : __jsx(DispatchTime, {
-    text: time
-  }), onReply && __jsx(ReplyButton, {
-    appearance: 'clear',
-    onClick: onReply
-  }, "\u041E\u0442\u0432\u0435\u0442\u0438\u0442\u044C")), __jsx(Likes, null, count > 0 && __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    text: `${count} ${textLikes} это нравится`
-  }, __jsx(LikesButton, {
-    type: 'button',
-    onClick: onShowLikes,
-    appearance: 'clear',
-    size: 'xs'
-  }, __jsx("span", {
-    style: {
-      color
-    }
-  }, count))), __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_9__[/* default */ "b"], {
-    text: 'Мне нравится'
-  }, __jsx(LikeButton, {
-    type: 'button',
-    onClick: onClick,
-    appearance: 'clear',
-    size: 'xs'
-  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-    icon: 'heart',
-    size: 'xs',
-    stroke: color,
-    fill: isLiked ? 'var(--default-color-accent)' : 'none'
-  })))))));
-};
-/* harmony default export */ __webpack_exports__["a"] = (Comment);
-
-/***/ }),
-
 /***/ "Gliw":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export InputContainer */
 /* unused harmony export Wrap */
 /* unused harmony export Input */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _CharacteristicEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("bh4N");
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 
+
+
+const InputContainer = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.label`
+  display: flex;
+  flex-direction: column;
+  border: none;
+  background: none;
+  max-width: 100%;
+  flex-grow: 1;
+  grid-gap: 5px;
+`;
 const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.input`
   font-family: var(--default-font-family);
   font-size: 0.875rem;
@@ -4751,9 +4955,16 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.input`
       display: none;
     `}
 `;
-const Input = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.forwardRef((props, ref) => __jsx(Wrap, _extends({}, props, {
-  ref: ref
-})));
+const Input = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.forwardRef((_ref, ref) => {
+  let {
+    label
+  } = _ref,
+      props = _objectWithoutProperties(_ref, ["label"]);
+
+  return __jsx(InputContainer, null, label && __jsx(_CharacteristicEditor__WEBPACK_IMPORTED_MODULE_2__[/* InputLabel */ "a"], null, label), __jsx(Wrap, _extends({}, props, {
+    ref: ref
+  })));
+});
 Input.defaultProps = {
   appearance: 'default'
 };
@@ -4871,6 +5082,9 @@ const Screenshot = ({
 // EXTERNAL MODULE: ./atomic-ui/components/Difinition/index.js + 1 modules
 var Difinition = __webpack_require__("DTT8");
 
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
+
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__("h74D");
 
@@ -4987,6 +5201,9 @@ var TextArea = __webpack_require__("3jgA");
 // EXTERNAL MODULE: ./atomic-ui/components/TextEditor/index.js
 var TextEditor = __webpack_require__("QWIf");
 
+// EXTERNAL MODULE: ./atomic-ui/components/CharacteristicEditor/index.js
+var CharacteristicEditor = __webpack_require__("bh4N");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
 var Tooltip = __webpack_require__("VWQm");
 
@@ -5044,14 +5261,14 @@ const ActionRow = ({
   stroke: 'white'
 }))));
 /* harmony default export */ var components_ActionRow = (ActionRow);
+// EXTERNAL MODULE: ./atomic-ui/components/Checkbox/index.js
+var Checkbox = __webpack_require__("79b8");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
 var Spinner = __webpack_require__("auMy");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
 var Divider = __webpack_require__("RKiZ");
-
-// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
-var functions = __webpack_require__("NWnW");
 
 // EXTERNAL MODULE: ./components/Form/index.js
 var Form = __webpack_require__("qoM+");
@@ -5069,6 +5286,8 @@ var queries = __webpack_require__("u2Cb");
 var config = __webpack_require__("rOcY");
 
 // CONCATENATED MODULE: ./components/FormProject/index.js
+
+
 
 
 
@@ -5122,11 +5341,48 @@ const AlignmentRow = external_styled_components_default()(Row["b" /* default */]
   displayName: "FormProject__AlignmentRow",
   componentId: "sc-1t0r6a3-5"
 })(["position:relative;justify-content:space-between;align-items:center;&:hover{", "{display:flex;}}"], RemoveTooltip);
+const Characteristics = ({
+  project,
+  watch,
+  control,
+  getValues
+}) => {
+  var _getValues, _project$characterist, _getValues2, _project$characterist2;
+
+  const [isPreviewCharacteristics, setIsPreviewCharacteristics] = Object(external_react_["useState"])(((_getValues = getValues('characteristics')) === null || _getValues === void 0 ? void 0 : _getValues.length) > 0 || (project === null || project === void 0 ? void 0 : (_project$characterist = project.characteristics) === null || _project$characterist === void 0 ? void 0 : _project$characterist.length) > 0);
+  watch('characteristics');
+  return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, {
+    style: {
+      justifyContent: 'space-between'
+    }
+  }, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    tag: 'h4'
+  }, "\u0425\u0430\u0440\u0430\u043A\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043A\u0438"), /*#__PURE__*/external_react_default.a.createElement(Checkbox["a" /* default */], {
+    label: 'Превью',
+    disabled: ((_getValues2 = getValues('characteristics')) === null || _getValues2 === void 0 ? void 0 : _getValues2.length) === 0 || (project === null || project === void 0 ? void 0 : (_project$characterist2 = project.characteristics) === null || _project$characterist2 === void 0 ? void 0 : _project$characterist2.length) === 0,
+    defaultChecked: isPreviewCharacteristics,
+    onChange: e => setIsPreviewCharacteristics(e.target.checked),
+    rtl: true
+  })), isPreviewCharacteristics && /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["b" /* default */], {
+    appearance: 'ghost',
+    defaultValue: getValues('characteristics') || (project === null || project === void 0 ? void 0 : project.characteristics) || null,
+    readOnly: true
+  }), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+    name: 'characteristics',
+    control: control,
+    defaultValue: getValues('characteristics') || (project === null || project === void 0 ? void 0 : project.characteristics) || null,
+    render: ({
+      value,
+      onChange
+    }) => /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["b" /* default */], {
+      appearance: 'ghost',
+      defaultValue: value,
+      onChange: onChange
+    })
+  }));
+};
 const Project = ({
   project,
-  companies,
-  categories,
-  statuses,
   mutation,
   appearance,
   className,
@@ -5156,6 +5412,25 @@ const Project = ({
     error: false
   };
   const {
+    data: dataCompanies,
+    loading: loadingCompanies
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_USERS, {
+    variables: {
+      account: ['ENTITY']
+    }
+  });
+  const {
+    data: dataCategories,
+    loading: loadingCategories
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_CATEGORIES);
+  const {
+    data: dataStatuses,
+    loading: loadingStatuses
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_POST_STATUSES);
+  const [companies, setCompanies] = Object(external_react_["useState"])([]);
+  const [categories, setCategories] = Object(external_react_["useState"])([]);
+  const [statuses, setStatuses] = Object(external_react_["useState"])([]);
+  const {
     members,
     screenshots,
     files
@@ -5182,16 +5457,32 @@ const Project = ({
       }
     }
   }, [loadingData, data]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingCompanies && dataCompanies) {
+      setCompanies(dataCompanies.getUsers);
+    }
+  }, [loadingCompanies, dataCompanies]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingCategories && dataCategories) {
+      setCategories(dataCategories.getCategories);
+    }
+  }, [loadingCategories, dataCategories]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingStatuses && dataStatuses) {
+      setStatuses(dataStatuses.getPostStatus);
+    }
+  }, [loadingStatuses, dataStatuses]);
   return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
     className: className,
     appearance: appearance,
     mutation: mutation,
     onSubmit: (form, action) => onSubmit({ ...form,
-      members,
       screenshots,
+      members,
       files
     }, action)
   }, ({
+    watch,
     register,
     loading,
     errors,
@@ -5200,14 +5491,19 @@ const Project = ({
   }) => {
     var _data$getProject4, _data$getProject5, _data$getProject6, _data$getProject7, _data$getProject8, _data$getProject9, _data$getProject10, _data$getProject11;
 
-    return !loading && !loadingData && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
-      tag: 'h4'
-    }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, errors && errors.preview && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    return !loading && !loadingData && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, errors && errors.preview && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
       style: {
         width: '100%'
       },
       appearance: 'error'
-    }, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F \u043F\u0440\u0435\u0432\u044C\u044E"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+    }, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F \u043F\u0440\u0435\u0432\u044C\u044E"), errors && errors.title && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
       name: 'preview',
       control: control,
       rules: {
@@ -5224,12 +5520,7 @@ const Project = ({
         placeholder: 'Перетащите сюда изображение для превью',
         tooltip: 'Разрешение: 700x600px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
       })
-    }), /*#__PURE__*/external_react_default.a.createElement(General, null, errors && errors.title && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-      style: {
-        width: '100%'
-      },
-      appearance: 'error'
-    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    }), /*#__PURE__*/external_react_default.a.createElement(General, null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
       type: 'text',
       name: 'title',
       ref: register({
@@ -5258,7 +5549,7 @@ const Project = ({
         defaultValue: value,
         placeholder: 'Выберите компанию',
         onChange: onChange,
-        isLoading: loading,
+        isLoading: loading || loadingCompanies,
         isSearchable: true
       })
     }), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
@@ -5280,7 +5571,7 @@ const Project = ({
         })),
         onChange: onChange,
         defaultValue: value,
-        isLoading: loading,
+        isLoading: loading || loadingCategories,
         isClearable: true
       })
     }), errors && errors.description && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
@@ -5297,7 +5588,16 @@ const Project = ({
       disabled: loading
     }))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
       clear: true
-    }), errors && errors.body && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    }), /*#__PURE__*/external_react_default.a.createElement(Characteristics, {
+      project: data.getProject,
+      watch: watch,
+      control: control,
+      getValues: getValues
+    }), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u0421\u043E\u0434\u0435\u0440\u0436\u0430\u043D\u0438\u0435"), errors && errors.body && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
       style: {
         width: '100%'
       },
@@ -5335,7 +5635,7 @@ const Project = ({
 
       return /*#__PURE__*/external_react_default.a.createElement(AlignmentRow, {
         key: Object(external_uuid_["v4"])()
-      }, /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+      }, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
         key: ((_member$value = member.value) === null || _member$value === void 0 ? void 0 : _member$value.email) || (member === null || member === void 0 ? void 0 : member.email),
         img: ((_member$value2 = member.value) === null || _member$value2 === void 0 ? void 0 : (_member$value2$avatar = _member$value2.avatar) === null || _member$value2$avatar === void 0 ? void 0 : _member$value2$avatar.path) || ((_member$avatar = member.avatar) === null || _member$avatar === void 0 ? void 0 : _member$avatar.path) || '/images/avatar-default.png',
         label: Object(functions["g" /* getLabelRole */])((member === null || member === void 0 ? void 0 : (_member$value3 = member.value) === null || _member$value3 === void 0 ? void 0 : _member$value3.account) || (member === null || member === void 0 ? void 0 : member.account)),
@@ -5376,7 +5676,7 @@ const Project = ({
 
       return /*#__PURE__*/external_react_default.a.createElement(AlignmentRow, {
         key: Object(external_uuid_["v4"])()
-      }, /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+      }, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
         key: screenshot.id,
         img: screenshot.blob || ((_screenshot$file = screenshot.file) === null || _screenshot$file === void 0 ? void 0 : _screenshot$file.path) || screenshot.path,
         label: (((_screenshot$file2 = screenshot.file) === null || _screenshot$file2 === void 0 ? void 0 : _screenshot$file2.name) || ((_screenshot$file3 = screenshot.file) === null || _screenshot$file3 === void 0 ? void 0 : _screenshot$file3.path) || (screenshot === null || screenshot === void 0 ? void 0 : screenshot.name) || (screenshot === null || screenshot === void 0 ? void 0 : screenshot.path)).split('/').slice(-1)[0],
@@ -5413,7 +5713,7 @@ const Project = ({
 
       return /*#__PURE__*/external_react_default.a.createElement(AlignmentRow, {
         key: Object(external_uuid_["v4"])()
-      }, /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+      }, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
         key: file.id,
         icon: 'document',
         label: (((_file$file = file.file) === null || _file$file === void 0 ? void 0 : _file$file.name) || ((_file$file2 = file.file) === null || _file$file2 === void 0 ? void 0 : _file$file2.path) || (file === null || file === void 0 ? void 0 : file.name) || (file === null || file === void 0 ? void 0 : file.path)).split('/').slice(-1)[0],
@@ -5449,6 +5749,7 @@ const Project = ({
       name: 'presentation',
       defaultValue: getValues('presentation') || ((_data$getProject10 = data.getProject) === null || _data$getProject10 === void 0 ? void 0 : _data$getProject10.presentation),
       placeholder: 'Вставьте ссылку на видео',
+      label: 'Видео-презентация',
       appearance: 'ghost',
       disabled: loading
     }), canEditStatus && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
@@ -5473,7 +5774,7 @@ const Project = ({
         onChange: onChange,
         defaultValue: value,
         menuPlacement: 'top',
-        isLoading: loading,
+        isLoading: loading || loadingStatuses,
         isClearable: true
       })
     }), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
@@ -5590,6 +5891,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
+
 const HOST_URL = config["a" /* default */].get('host-url');
 const ProjectView_Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "ProjectView__Wrap",
@@ -5672,7 +5974,7 @@ const View = ({
   onMemberLink,
   onCompanyLink
 }) => {
-  var _data$getProject, _data$getProject2, _data$getProject2$pre, _data$getProject7, _data$getProject8, _data$getProject8$scr, _data$getProject11, _data$getProject12, _data$getProject12$ca, _data$getProject13, _data$getProject14, _data$getProject15, _data$getProject16, _data$getProject16$co, _data$getProject16$co2, _data$getProject17, _data$getProject17$co, _data$getProject19, _data$getProject20, _data$getProject21, _data$getProject22, _data$getProject23, _data$getProject23$me, _data$getProject24, _data$getProject25, _data$getProject26, _data$getProject26$me, _data$getProject27, _data$getProject28, _data$getProject28$fi, _data$getProject29, _data$getProject30, _data$getProject31, _data$getProject31$fi;
+  var _data$getProject, _data$getProject2, _data$getProject2$pre, _data$getProject7, _data$getProject8, _data$getProject8$scr, _data$getProject11, _data$getProject12, _data$getProject12$ca, _data$getProject13, _data$getProject14, _data$getProject15, _data$getProject16, _data$getProject16$co, _data$getProject16$co2, _data$getProject17, _data$getProject17$co, _data$getProject19, _data$getProject19$ch, _data$getProject20, _data$getProject21, _data$getProject22, _data$getProject23, _data$getProject24, _data$getProject25, _data$getProject25$me, _data$getProject26, _data$getProject27, _data$getProject28, _data$getProject28$me, _data$getProject29, _data$getProject30, _data$getProject30$fi, _data$getProject31, _data$getProject32, _data$getProject33, _data$getProject33$fi;
 
   const {
     setQuery
@@ -5747,7 +6049,7 @@ const View = ({
     }
   }, data === null || data === void 0 ? void 0 : (_data$getProject13 = data.getProject) === null || _data$getProject13 === void 0 ? void 0 : _data$getProject13.title), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data === null || data === void 0 ? void 0 : (_data$getProject14 = data.getProject) === null || _data$getProject14 === void 0 ? void 0 : _data$getProject14.description)), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], _extends({}, data !== null && data !== void 0 && (_data$getProject15 = data.getProject) !== null && _data$getProject15 !== void 0 && _data$getProject15.company ? {
+  }), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], _extends({}, data !== null && data !== void 0 && (_data$getProject15 = data.getProject) !== null && _data$getProject15 !== void 0 && _data$getProject15.company ? {
     img: data === null || data === void 0 ? void 0 : (_data$getProject16 = data.getProject) === null || _data$getProject16 === void 0 ? void 0 : (_data$getProject16$co = _data$getProject16.company) === null || _data$getProject16$co === void 0 ? void 0 : (_data$getProject16$co2 = _data$getProject16$co.avatar) === null || _data$getProject16$co2 === void 0 ? void 0 : _data$getProject16$co2.path
   } : {
     icon: 'work'
@@ -5779,30 +6081,36 @@ const View = ({
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'add',
     stroke: 'var(--default-color-accent)'
-  })))))))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+  })))))))), (data === null || data === void 0 ? void 0 : (_data$getProject19 = data.getProject) === null || _data$getProject19 === void 0 ? void 0 : (_data$getProject19$ch = _data$getProject19.characteristics) === null || _data$getProject19$ch === void 0 ? void 0 : _data$getProject19$ch.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), (data === null || data === void 0 ? void 0 : (_data$getProject19 = data.getProject) === null || _data$getProject19 === void 0 ? void 0 : _data$getProject19.body) && /*#__PURE__*/external_react_default.a.createElement(HTMLView["a" /* default */], {
-    content: data === null || data === void 0 ? void 0 : (_data$getProject20 = data.getProject) === null || _data$getProject20 === void 0 ? void 0 : _data$getProject20.body
+  }), /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["b" /* default */], {
+    appearance: 'ghost',
+    defaultValue: data === null || data === void 0 ? void 0 : (_data$getProject20 = data.getProject) === null || _data$getProject20 === void 0 ? void 0 : _data$getProject20.characteristics,
+    readOnly: true
+  })), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    clear: true
+  }), (data === null || data === void 0 ? void 0 : (_data$getProject21 = data.getProject) === null || _data$getProject21 === void 0 ? void 0 : _data$getProject21.body) && /*#__PURE__*/external_react_default.a.createElement(HTMLView["a" /* default */], {
+    content: data === null || data === void 0 ? void 0 : (_data$getProject22 = data.getProject) === null || _data$getProject22 === void 0 ? void 0 : _data$getProject22.body
   }), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), (data === null || data === void 0 ? void 0 : (_data$getProject21 = data.getProject) === null || _data$getProject21 === void 0 ? void 0 : _data$getProject21.presentation) && videoPresentationObject && /*#__PURE__*/external_react_default.a.createElement(Presentation, {
+  }), (data === null || data === void 0 ? void 0 : (_data$getProject23 = data.getProject) === null || _data$getProject23 === void 0 ? void 0 : _data$getProject23.presentation) && videoPresentationObject && /*#__PURE__*/external_react_default.a.createElement(Presentation, {
     type: videoPresentationObject.type,
     videoId: videoPresentationObject.videoId
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
-  }, "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"), (data === null || data === void 0 ? void 0 : (_data$getProject22 = data.getProject) === null || _data$getProject22 === void 0 ? void 0 : _data$getProject22.members) && (data === null || data === void 0 ? void 0 : (_data$getProject23 = data.getProject) === null || _data$getProject23 === void 0 ? void 0 : (_data$getProject23$me = _data$getProject23.members) === null || _data$getProject23$me === void 0 ? void 0 : _data$getProject23$me.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Members, {
+  }, "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"), (data === null || data === void 0 ? void 0 : (_data$getProject24 = data.getProject) === null || _data$getProject24 === void 0 ? void 0 : _data$getProject24.members) && (data === null || data === void 0 ? void 0 : (_data$getProject25 = data.getProject) === null || _data$getProject25 === void 0 ? void 0 : (_data$getProject25$me = _data$getProject25.members) === null || _data$getProject25$me === void 0 ? void 0 : _data$getProject25$me.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Members, {
     percentage: 'minmax(320px, 1fr)'
-  }, data === null || data === void 0 ? void 0 : (_data$getProject24 = data.getProject) === null || _data$getProject24 === void 0 ? void 0 : _data$getProject24.members.map(member => {
+  }, data === null || data === void 0 ? void 0 : (_data$getProject26 = data.getProject) === null || _data$getProject26 === void 0 ? void 0 : _data$getProject26.members.map(member => {
     var _member$avatar;
 
-    return /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+    return /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
       key: member === null || member === void 0 ? void 0 : member.email,
       img: (member === null || member === void 0 ? void 0 : (_member$avatar = member.avatar) === null || _member$avatar === void 0 ? void 0 : _member$avatar.path) || '/images/avatar-default.png',
       label: Object(functions["g" /* getLabelRole */])(member === null || member === void 0 ? void 0 : member.account),
       text: member === null || member === void 0 ? void 0 : member.name,
       onLink: onMemberLink && (() => setQuery(member === null || member === void 0 ? void 0 : member.email, 'user', onMemberLink))
     });
-  })), (!(data !== null && data !== void 0 && (_data$getProject25 = data.getProject) !== null && _data$getProject25 !== void 0 && _data$getProject25.members) || (data === null || data === void 0 ? void 0 : (_data$getProject26 = data.getProject) === null || _data$getProject26 === void 0 ? void 0 : (_data$getProject26$me = _data$getProject26.members) === null || _data$getProject26$me === void 0 ? void 0 : _data$getProject26$me.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  })), (!(data !== null && data !== void 0 && (_data$getProject27 = data.getProject) !== null && _data$getProject27 !== void 0 && _data$getProject27.members) || (data === null || data === void 0 ? void 0 : (_data$getProject28 = data.getProject) === null || _data$getProject28 === void 0 ? void 0 : (_data$getProject28$me = _data$getProject28.members) === null || _data$getProject28$me === void 0 ? void 0 : _data$getProject28$me.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -5811,15 +6119,15 @@ const View = ({
     clear: true
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
-  }, "\u0424\u0430\u0439\u043B\u044B"), (data === null || data === void 0 ? void 0 : (_data$getProject27 = data.getProject) === null || _data$getProject27 === void 0 ? void 0 : _data$getProject27.files) && (data === null || data === void 0 ? void 0 : (_data$getProject28 = data.getProject) === null || _data$getProject28 === void 0 ? void 0 : (_data$getProject28$fi = _data$getProject28.files) === null || _data$getProject28$fi === void 0 ? void 0 : _data$getProject28$fi.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Files, {
+  }, "\u0424\u0430\u0439\u043B\u044B"), (data === null || data === void 0 ? void 0 : (_data$getProject29 = data.getProject) === null || _data$getProject29 === void 0 ? void 0 : _data$getProject29.files) && (data === null || data === void 0 ? void 0 : (_data$getProject30 = data.getProject) === null || _data$getProject30 === void 0 ? void 0 : (_data$getProject30$fi = _data$getProject30.files) === null || _data$getProject30$fi === void 0 ? void 0 : _data$getProject30$fi.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Files, {
     percentage: 'minmax(256px, 1fr)'
-  }, data === null || data === void 0 ? void 0 : (_data$getProject29 = data.getProject) === null || _data$getProject29 === void 0 ? void 0 : _data$getProject29.files.map(file => /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+  }, data === null || data === void 0 ? void 0 : (_data$getProject31 = data.getProject) === null || _data$getProject31 === void 0 ? void 0 : _data$getProject31.files.map(file => /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
     key: file.id,
     icon: 'paper',
     label: file.filename,
     text: Object(functions["d" /* getFileSize */])(file.size),
     onLink: () => onFileLink && onFileLink(file)
-  }))), (!(data !== null && data !== void 0 && (_data$getProject30 = data.getProject) !== null && _data$getProject30 !== void 0 && _data$getProject30.files) || (data === null || data === void 0 ? void 0 : (_data$getProject31 = data.getProject) === null || _data$getProject31 === void 0 ? void 0 : (_data$getProject31$fi = _data$getProject31.files) === null || _data$getProject31$fi === void 0 ? void 0 : _data$getProject31$fi.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }))), (!(data !== null && data !== void 0 && (_data$getProject32 = data.getProject) !== null && _data$getProject32 !== void 0 && _data$getProject32.files) || (data === null || data === void 0 ? void 0 : (_data$getProject33 = data.getProject) === null || _data$getProject33 === void 0 ? void 0 : (_data$getProject33$fi = _data$getProject33.files) === null || _data$getProject33$fi === void 0 ? void 0 : _data$getProject33$fi.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -5847,9 +6155,6 @@ var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
-
-// EXTERNAL MODULE: ./components/FormArticle/index.js
-var FormArticle = __webpack_require__("O2T+");
 
 // CONCATENATED MODULE: ./store/helpers/project.js
 
@@ -5977,6 +6282,7 @@ function onProjectCreate(dispatch, props) {
               input: {
                 title: form.title,
                 body: form.body,
+                characteristics: (form.characteristics || []).map(characteristic => Object(functions["j" /* omit */])(characteristic, ['id'])),
                 description: form.description,
                 preview: (_form$preview = form.preview) === null || _form$preview === void 0 ? void 0 : _form$preview.file,
                 company: (_form$company = form.company) === null || _form$company === void 0 ? void 0 : (_form$company$value = _form$company.value) === null || _form$company$value === void 0 ? void 0 : _form$company$value.email,
@@ -6202,7 +6508,7 @@ function onProjectAdd(dispatch, props) {
       const length = folder.projects.length;
       const label = length === 1 ? 'проект' : length > 1 && length < 5 ? 'проекта' : 'проектов';
       const disabled = folder.projects.find(item => item === id);
-      return /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+      return /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
         key: folder.id,
         icon: 'paper',
         text: folder.name,
@@ -6581,6 +6887,7 @@ const Container = (_ref) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return omit; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return hasAccess; });
 /* unused harmony export createSelectOption */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createSelectOptions; });
@@ -6591,6 +6898,9 @@ const Container = (_ref) => {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getFileSize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return b64EncodeUnicode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return b64DecodeUnicode; });
+function omit(obj, arr) {
+  return Object.fromEntries(Object.entries(obj).filter(([key]) => !arr.includes(key)));
+}
 function hasAccess(user, permission) {
   var _user$role;
 
@@ -7077,339 +7387,6 @@ function SvgArrowRightCircle(props) {
 
 /***/ }),
 
-/***/ "O2T+":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* unused harmony export Header */
-/* unused harmony export Comments */
-/* unused harmony export Article */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("BTiB");
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_hook_form__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("h74D");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("mU8t");
-/* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("nShV");
-/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("7sPp");
-/* harmony import */ var _atomic_ui_components_Input__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("Gliw");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("QclZ");
-/* harmony import */ var _atomic_ui_components_TextEditor__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("QWIf");
-/* harmony import */ var _atomic_ui_components_Dropzone__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("kJLk");
-/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("ZwIX");
-/* harmony import */ var _atomic_ui_components_Comment__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("GZJE");
-/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("RKiZ");
-/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("auMy");
-/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("79b8");
-/* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("NWnW");
-/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("qoM+");
-/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("586Q");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__("u2Cb");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__("rOcY");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_5__[/* default */ "b"]).withConfig({
-  displayName: "FormArticle__Header",
-  componentId: "sc-1ftxonu-0"
-})(["justify-content:space-between;@media only screen and (max-width:480px){flex-direction:column;align-items:end;grid-gap:var(--default-gap);}"]);
-const Comments = ({
-  article,
-  setValue
-}) => {
-  const [comments, setComments] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]);
-  const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["useSelector"])(state => state.user);
-  const [checkedAll, setCheckedAll] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
-  const {
-    data: dataComments,
-    loading: loadingComments
-  } = article ? Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].GET_COMMENTS, {
-    variables: {
-      id: article
-    }
-  }) : {
-    data: [],
-    loading: false
-  };
-
-  const handleCheckedComments = e => {
-    setCheckedAll(e.target.checked);
-    setComments(prev => prev.map(item => ({ ...item,
-      checked: !item.checked
-    })));
-  };
-
-  const handleCheckedComment = (message, value) => {
-    setComments(prev => prev.map(item => item.id === message.id ? { ...item,
-      checked: value
-    } : item));
-  };
-
-  const handleDeleteChecked = () => {
-    setComments(prev => prev.filter(message => !message.checked));
-  };
-
-  const handleCommentEdit = (message, text) => {
-    setComments(prev => prev.map(item => item.id === message.id ? { ...item,
-      updatedAt: new Date(),
-      text
-    } : item));
-  };
-
-  const handleCommentDelete = message => {
-    setComments(prev => prev.filter(item => item.id !== message.id));
-  };
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    if (article && !loadingComments && dataComments) {
-      setComments(dataComments.getComments.map(comment => ({ ...comment,
-        checked: false
-      })));
-    }
-  }, [article, dataComments, loadingComments]);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
-    setValue('comments', comments);
-  }, [comments]);
-
-  if (!article || comments.length === 0) {
-    return null;
-  }
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], {
-    clear: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-    tag: 'h4'
-  }, "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_17__[/* default */ "a"], {
-    label: 'Выделить все',
-    checked: checkedAll,
-    onChange: handleCheckedComments
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
-    style: {
-      color: 'var(--default-color-red)'
-    },
-    appearance: 'clear',
-    onClick: handleDeleteChecked
-  }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0432\u044B\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0435")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
-    style: {
-      gridGap: 5
-    }
-  }, comments.map(comment => {
-    var _comment$likes;
-
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Comment__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
-      key: `${comment.id}_${comment.checked}`,
-      user: comment.author,
-      message: comment.text,
-      likes: (_comment$likes = comment.likes) === null || _comment$likes === void 0 ? void 0 : _comment$likes.length,
-      time: comment.createdAt !== comment.updatedAt ? comment.updatedAt : comment.createdAt,
-      isLiked: comment.likes.find(likedUser => likedUser.email === user.email),
-      isChecked: comment.checked,
-      isUpdated: comment.createdAt !== comment.updatedAt,
-      onChecked: value => handleCheckedComment(comment, value),
-      onEdit: text => handleCommentEdit(comment, text),
-      onDelete: () => handleCommentDelete(comment),
-      compact: true
-    });
-  })));
-};
-const Article = ({
-  article,
-  categories,
-  statuses,
-  mutation,
-  appearance,
-  className,
-  canEditStatus,
-  onSubmit,
-  isPurpose
-}) => {
-  const {
-    data,
-    loading: loadingArticle,
-    error: errorArticle
-  } = article ? Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_4__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].GET_ARTICLE, {
-    variables: {
-      id: article
-    }
-  }) : {
-    data: {
-      getArticle: {}
-    },
-    loading: false,
-    error: false
-  };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Form__WEBPACK_IMPORTED_MODULE_19__[/* default */ "b"], {
-    className: className,
-    appearance: appearance,
-    mutation: mutation,
-    onSubmit: onSubmit
-  }, ({
-    register,
-    loading,
-    errors,
-    control,
-    getValues,
-    setValue
-  }) => {
-    var _data$getArticle, _data$getArticle2, _data$getArticle3, _data$getArticle4, _data$getArticle5;
-
-    return !loadingArticle && data ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
-      tag: 'h4'
-    }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
-      style: {
-        width: '100%'
-      },
-      appearance: 'error'
-    }, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F \u043F\u0440\u0435\u0432\u044C\u044E"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_2__["Controller"], {
-      name: 'preview',
-      control: control,
-      rules: {
-        required: true
-      },
-      defaultValue: ((_data$getArticle = data.getArticle) === null || _data$getArticle === void 0 ? void 0 : _data$getArticle.preview) || null,
-      render: ({
-        value,
-        onChange
-      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Dropzone__WEBPACK_IMPORTED_MODULE_12__[/* default */ "b"], {
-        accept: 'image/*',
-        defaultValue: value,
-        onChange: onChange,
-        placeholder: 'Перетащите сюда изображение для превью',
-        tooltip: 'Разрешение: 960x480px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
-      })
-    }), errors && errors.title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
-      style: {
-        width: '100%'
-      },
-      appearance: 'error'
-    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0441\u0442\u0430\u0442\u044C\u0438"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Input__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
-      type: 'text',
-      name: 'title',
-      ref: register({
-        required: true
-      }),
-      defaultValue: getValues('title') || ((_data$getArticle2 = data.getArticle) === null || _data$getArticle2 === void 0 ? void 0 : _data$getArticle2.title),
-      placeholder: 'Название',
-      appearance: 'ghost',
-      disabled: loading
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_2__["Controller"], {
-      name: 'category',
-      control: control,
-      defaultValue: (_data$getArticle3 = data.getArticle) !== null && _data$getArticle3 !== void 0 && _data$getArticle3.category ? {
-        value: data.getArticle.category.id,
-        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_18__[/* getLabelCategory */ "e"])(data.getArticle.category.name)
-      } : null,
-      render: ({
-        value,
-        onChange
-      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
-        appearance: 'ghost',
-        placeholder: 'Выберите раздел',
-        options: categories.filter(item => item.type === 'DIVISION').map(item => ({
-          value: item.id,
-          label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_18__[/* getLabelCategory */ "e"])(item.name)
-        })),
-        onChange: onChange,
-        defaultValue: value,
-        isLoading: loading,
-        isClearable: true
-      })
-    }), errors && errors.body && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
-      style: {
-        width: '100%'
-      },
-      appearance: 'error'
-    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u043D\u0438\u0435 \u0441\u0442\u0430\u0442\u044C\u0438"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_2__["Controller"], {
-      name: 'body',
-      control: control,
-      defaultValue: getValues('body') || ((_data$getArticle4 = data.getArticle) === null || _data$getArticle4 === void 0 ? void 0 : _data$getArticle4.body) || null,
-      rules: {
-        required: true
-      },
-      render: ({
-        value,
-        onChange
-      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_TextEditor__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
-        apiKey: _config__WEBPACK_IMPORTED_MODULE_22__[/* default */ "a"].get('tiny-key'),
-        appearance: 'ghost',
-        defaultValue: value,
-        onChange: onChange
-      })
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Comments, {
-      article: article,
-      setValue: setValue
-    }), canEditStatus && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], {
-      clear: true
-    }), canEditStatus && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_2__["Controller"], {
-      name: 'status',
-      control: control,
-      defaultValue: (_data$getArticle5 = data.getArticle) !== null && _data$getArticle5 !== void 0 && _data$getArticle5.status ? {
-        value: data.getArticle.status,
-        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_18__[/* getLabelStatus */ "h"])(data.getArticle.status)
-      } : null,
-      render: ({
-        value,
-        onChange
-      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
-        appearance: 'ghost',
-        placeholder: 'Выберите статус',
-        options: statuses.map(item => ({
-          value: item,
-          label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_18__[/* getLabelStatus */ "h"])(item)
-        })),
-        onChange: onChange,
-        defaultValue: value,
-        menuPlacement: 'top',
-        isLoading: loading,
-        isClearable: true
-      })
-    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], {
-      clear: true
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_5__[/* default */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
-      style: {
-        flexGrow: 1
-      },
-      type: 'submit',
-      disabled: loading
-    }, isPurpose ? 'Предложить' : article ? 'Сохранить' : 'Создать'))) : errorArticle ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
-      appearance: 'error',
-      style: {
-        width: '100%',
-        textAlign: 'center'
-      }
-    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u0441\u0442\u0430\u0442\u044C\u0435") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_20__[/* Loader */ "c"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"], null));
-  });
-};
-/* harmony default export */ __webpack_exports__["a"] = (Article);
-
-/***/ }),
-
 /***/ "OXt0":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -7678,6 +7655,424 @@ const ArticleList = ({
   }, "\u041D\u043E\u0432\u043E\u0441\u0442\u0435\u0439 \u043D\u0435\u0442");
 };
 /* harmony default export */ __webpack_exports__["a"] = (ArticleList);
+
+/***/ }),
+
+/***/ "OqOz":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ Card; });
+
+// EXTERNAL MODULE: external "react"
+var external_react_ = __webpack_require__("cDcd");
+var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
+// EXTERNAL MODULE: external "uuid"
+var external_uuid_ = __webpack_require__("kNaX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
+var Column = __webpack_require__("8CDE");
+
+// EXTERNAL MODULE: ./layouts/dashboard/index.js + 6 modules
+var dashboard = __webpack_require__("p9yE");
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
+
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Table/index.js
+var Table = __webpack_require__("EJJs");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
+var Alert = __webpack_require__("ZwIX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
+
+// EXTERNAL MODULE: ./components/LazyLoad/index.js
+var LazyLoad = __webpack_require__("VP1n");
+
+// EXTERNAL MODULE: external "react-infinite-scroller"
+var external_react_infinite_scroller_ = __webpack_require__("WLqv");
+var external_react_infinite_scroller_default = /*#__PURE__*/__webpack_require__.n(external_react_infinite_scroller_);
+
+// EXTERNAL MODULE: external "next/router"
+var router_ = __webpack_require__("4Q3z");
+
+// CONCATENATED MODULE: ./components/List/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
+  displayName: "List__Wrap",
+  componentId: "sc-1jo6mxw-0"
+})([""]);
+const CenterAlert = external_styled_components_default()(Alert["a" /* default */]).withConfig({
+  displayName: "List__CenterAlert",
+  componentId: "sc-1jo6mxw-1"
+})(["width:100%;text-align:center;"]);
+const List = ({
+  type,
+  query,
+  template,
+  variables,
+  component,
+  limit = 6,
+  startOffset = 6,
+  setCheckedList,
+  onChecked,
+  onClick,
+  onEdit,
+  onDelete
+}) => {
+  const router = Object(router_["useRouter"])();
+  const displayMethod = Object(external_react_redux_["useSelector"])(state => state.root.displayMethod);
+  const pageStart = Object(external_react_["useMemo"])(() => {
+    var _router$query;
+
+    return Number((_router$query = router.query) === null || _router$query === void 0 ? void 0 : _router$query.page) || 1;
+  }, [router]);
+  const [offset, setOffset] = Object(external_react_["useState"])(startOffset + 1);
+  const [items, setItems] = Object(external_react_["useState"])([]);
+  const [isEnd, setIsEnd] = Object(external_react_["useState"])(false);
+  const {
+    data,
+    loading,
+    refetch
+  } = Object(react_hooks_["useQuery"])(query, {
+    variables: { ...variables,
+      offset: 0,
+      limit
+    }
+  });
+
+  const loadMore = async () => {
+    const updateOffset = () => setOffset(prev => prev + limit);
+
+    const result = { ...variables,
+      offset,
+      limit
+    };
+
+    if (refetch) {
+      const response = await refetch(result);
+      const list = response.data[type];
+      if (list.length === 0) setIsEnd(true);
+      updateOffset();
+    }
+  };
+
+  const renderContent = Object(external_react_["useCallback"])(() => {
+    if (displayMethod === 'grid') {
+      return /*#__PURE__*/external_react_default.a.createElement(Styled["b" /* GridAside */], null, (items || []).map(item => /*#__PURE__*/external_react_default.a.createElement(LazyLoad["a" /* default */], {
+        key: item.id || item.email
+      }, component(item))));
+    }
+
+    return /*#__PURE__*/external_react_default.a.createElement(Table["b" /* default */], {
+      data: items,
+      template: template,
+      onChecked: onChecked,
+      onClick: onClick,
+      onEdit: onEdit,
+      onDelete: onDelete
+    });
+  }, [items, displayMethod, onChecked, onClick, onEdit, onDelete]);
+
+  const renderLoader = () => /*#__PURE__*/external_react_default.a.createElement(Styled["d" /* LowerLoader */], {
+    key: 'loader'
+  }, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
+
+  Object(external_react_["useEffect"])(() => {
+    if (!loading && data) {
+      const list = data[type];
+      if (list.length > 0) setItems(prev => [...prev, ...list]);
+      if (list.length === 0) setIsEnd(true);
+    }
+  }, [data, loading, setIsEnd]);
+  Object(external_react_["useEffect"])(() => {
+    if ((items === null || items === void 0 ? void 0 : items.length) > 0 && setCheckedList) {
+      setCheckedList(items);
+    }
+  }, [items, setCheckedList]);
+  return /*#__PURE__*/external_react_default.a.createElement(external_react_infinite_scroller_default.a, {
+    pageStart: pageStart || 0,
+    loadMore: loadMore,
+    hasMore: !isEnd,
+    loader: renderLoader()
+  }, renderContent());
+};
+/* harmony default export */ var components_List = (List);
+// EXTERNAL MODULE: ./components/FilterBar/index.js
+var FilterBar = __webpack_require__("RoTl");
+
+// EXTERNAL MODULE: ./components/HandleBar/index.js
+var HandleBar = __webpack_require__("coMr");
+
+// EXTERNAL MODULE: ./components/FormDelete/index.js
+var FormDelete = __webpack_require__("xAqQ");
+
+// EXTERNAL MODULE: ./store/actions/root.js
+var root = __webpack_require__("Sza6");
+
+// EXTERNAL MODULE: ./store/actions/drawer.js
+var drawer = __webpack_require__("Ztxg");
+
+// EXTERNAL MODULE: ./store/actions/snacks.js
+var snacks = __webpack_require__("9Xo6");
+
+// CONCATENATED MODULE: ./layouts/dashboard/content.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+const getIsAdmin = document => {
+  var _document$name;
+
+  return (document === null || document === void 0 ? void 0 : (_document$name = document.name) === null || _document$name === void 0 ? void 0 : _document$name.toUpperCase()) !== 'ADMIN';
+};
+
+const Delete = ({
+  item,
+  query,
+  component,
+  entityMultiText,
+  entitySingleText,
+  onSubmit
+}) => {
+  const isArray = Object(external_react_["useMemo"])(() => Array.isArray(item), [item]);
+  const dispatch = Object(external_react_redux_["useDispatch"])();
+  const Component = component;
+  return /*#__PURE__*/external_react_default.a.createElement(FormDelete["a" /* default */], {
+    mutation: query,
+    appearance: 'clear',
+    onCancel: () => dispatch(Object(drawer["a" /* setDrawer */])(null)),
+    onSubmit: async (_, action) => {
+      try {
+        await action({
+          variables: {
+            id: isArray ? item.map(doc => doc.id) : [item.id]
+          }
+        });
+        dispatch(Object(snacks["c" /* setItem */])({
+          type: 'success',
+          message: isArray ? `${entityMultiText} успешно удалены` : `${entitySingleText} успешно удален`
+        }));
+      } catch (err) {
+        if (err) {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Что-то пошло не так'
+          }));
+        }
+      } finally {
+        dispatch(Object(drawer["a" /* setDrawer */])(null));
+        if (onSubmit) onSubmit();
+      }
+    }
+  }, isArray ? /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, item.map(document => /*#__PURE__*/external_react_default.a.createElement(Component, {
+    key: document.id,
+    item: document
+  }))) : /*#__PURE__*/external_react_default.a.createElement(Component, {
+    item: item
+  }));
+};
+
+const Card = ({
+  item,
+  checked,
+  appearance,
+  component,
+  withoutChecked,
+  onChecked,
+  onLink,
+  onEdit,
+  onDelete
+}) => external_react_default.a.cloneElement(component, {
+  checked,
+  appearance,
+  onChecked: !withoutChecked && (checked => onChecked({ ...item,
+    checked
+  })),
+  onLink: onLink && (() => onLink(item)),
+  onEdit: onEdit && (() => onEdit(item)),
+  onDelete: onDelete && (() => onDelete(item))
+});
+
+const ContentLayout = ({
+  render,
+  title,
+  icon,
+  field,
+  filters,
+  options,
+  template,
+  limit = 6,
+  startOffset = 6,
+  buttonCreateText,
+  getType,
+  getQuery,
+  deleteQuery,
+  deleteEntityMultiText,
+  deleteEntitySingleText,
+  onLink,
+  onEdit,
+  onCreate,
+  emptyMessage,
+  withoutChecked
+}) => {
+  const {
+    displayMethod,
+    visibleFilters
+  } = Object(external_react_redux_["useSelector"])(state => ({
+    displayMethod: state.root.displayMethod,
+    visibleFilters: state.root.visibleFilters
+  }));
+  const dispatch = Object(external_react_redux_["useDispatch"])();
+  const [isAllChecked, setIsAllChecked] = Object(external_react_["useState"])(false);
+  const [checkedList, setCheckedList] = Object(external_react_["useState"])([]);
+  const [updated, setUpdated] = Object(external_react_["useState"])('list');
+  const getIsAnyChecked = Object(external_react_["useCallback"])(item => {
+    var _checkedList$find;
+
+    return (_checkedList$find = checkedList.find(document => document[field] === item[field])) === null || _checkedList$find === void 0 ? void 0 : _checkedList$find.checked;
+  }, [checkedList]);
+
+  const onChecked = document => {
+    setCheckedList(prev => {
+      const isExists = item => item[field] === document[field];
+
+      const candidate = prev.find(isExists);
+
+      if (candidate) {
+        return prev.map(item => isExists(item) ? { ...document,
+          checked: !item.checked
+        } : { ...item,
+          checked: isAllChecked || item.checked
+        });
+      } else {
+        return [...prev, { ...document,
+          checked: true
+        }];
+      }
+    });
+    setIsAllChecked(false);
+  };
+
+  const onAllChecked = () => {
+    const value = !isAllChecked;
+    setCheckedList(prev => prev.map(item => ({ ...item,
+      checked: getIsAdmin(item) ? value : false
+    })));
+    setIsAllChecked(value);
+  };
+
+  const onDelete = item => dispatch(Object(drawer["a" /* setDrawer */])({
+    icon: 'delete',
+    color: 'red',
+    title: 'Удаление',
+    content: /*#__PURE__*/external_react_default.a.createElement(Delete, {
+      item: item,
+      query: deleteQuery,
+      component: props => external_react_default.a.cloneElement(render(props.item), {
+        appearance: 'clear'
+      }),
+      entityMultiText: deleteEntityMultiText,
+      entitySingleText: deleteEntitySingleText,
+      onSubmit: () => setUpdated(Object(external_uuid_["v4"])())
+    })
+  }));
+
+  const onDeleteAll = () => onDelete(checkedList.filter(document => document.checked));
+
+  Object(external_react_["useEffect"])(() => {
+    const countChecked = checkedList.reduce((acc, curr) => acc + (curr.checked ? 1 : 0), 0);
+
+    if (checkedList.length > 0 && countChecked === checkedList.length) {
+      setIsAllChecked(true);
+    }
+  }, [checkedList]);
+  return /*#__PURE__*/external_react_default.a.createElement(dashboard["a" /* default */], {
+    title: title
+  }, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(HandleBar["b" /* default */], {
+    title: title,
+    icon: icon,
+    checked: isAllChecked,
+    defaultDisplayMethod: displayMethod,
+    defaultVisibleFilters: visibleFilters,
+    buttonDeleteDisabled: !checkedList.find(item => item.checked),
+    buttonCreateText: buttonCreateText,
+    onCreate: onCreate,
+    onChecked: () => displayMethod === 'grid' && onAllChecked && onAllChecked(),
+    onChangeVisibleFilter: () => dispatch(Object(root["u" /* setVisibleFilters */])(!visibleFilters)),
+    onChangeDisplayMethod: item => dispatch(Object(root["l" /* setDisplayMethod */])(item.value)),
+    onDeleteAll: onDeleteAll,
+    withoutFooter: displayMethod === 'list',
+    withFilters: filters && options
+  }), (filters || options) && /*#__PURE__*/external_react_default.a.createElement(FilterBar["a" /* default */], {
+    isOpen: visibleFilters,
+    filters: filters,
+    options: options
+  }), /*#__PURE__*/external_react_default.a.createElement(components_List, {
+    key: updated,
+    limit: limit,
+    type: getType,
+    query: getQuery,
+    template: template,
+    startOffset: startOffset,
+    setCheckedList: setCheckedList,
+    component: item => /*#__PURE__*/external_react_default.a.createElement(Card, {
+      item: item,
+      component: render(item),
+      checked: getIsAdmin(item) && (isAllChecked || getIsAnyChecked(item)),
+      onChecked: onChecked,
+      onLink: item => onLink(item),
+      onEdit: item => onEdit(item),
+      onDelete: onDelete,
+      withoutChecked: withoutChecked
+    }),
+    emptyMessage: emptyMessage,
+    onChecked: onChecked,
+    onClick: item => onLink(item),
+    onEdit: item => onEdit(item),
+    onDelete: onDelete
+  })));
+};
+
+ContentLayout.defaultProps = {
+  field: 'id'
+};
+/* harmony default export */ var content = __webpack_exports__["b"] = (ContentLayout);
 
 /***/ }),
 
@@ -8318,6 +8713,7 @@ const ContentLayout = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
     clear: scaffold || dashboard
   }, !scaffold && !dashboard && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_SearchBar__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
+    defaultValue: research || search,
     onChangeFilter: () => setVisibleFilter(!visibleFilter),
     onSubmit: onSearch
   }), dashboard && handle && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_HandleBar__WEBPACK_IMPORTED_MODULE_14__[/* default */ "b"], {
@@ -8331,7 +8727,9 @@ const ContentLayout = ({
     isOpen: visibleFilter,
     filters: getFilters(),
     options: options
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_infinite_scroller__WEBPACK_IMPORTED_MODULE_4___default.a, {
+  }), search ? typeof children === 'function' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(children, {
+    documents
+  }) : children : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_infinite_scroller__WEBPACK_IMPORTED_MODULE_4___default.a, {
     pageStart: pageStart || 0,
     loadMore: loadMore,
     hasMore: !isEnd,
@@ -9072,25 +9470,30 @@ module.exports = _interopRequireDefault;
 /* unused harmony export Card */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
-/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("VWQm");
-/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("7sPp");
-/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("QUga");
-/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("feIE");
-/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("aBfq");
-/* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("V0nP");
-/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("RKiZ");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("DTT8");
-/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("79b8");
-/* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("NWnW");
-/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("8UhZ");
-/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("586Q");
-/* harmony import */ var _Members__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("nh0P");
-/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("rOcY");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("nShV");
+/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("VWQm");
+/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("8CDE");
+/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("7sPp");
+/* harmony import */ var _atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("QUga");
+/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("feIE");
+/* harmony import */ var _atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("aBfq");
+/* harmony import */ var _atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("V0nP");
+/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("RKiZ");
+/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("ZeZO");
+/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("DTT8");
+/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("79b8");
+/* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("NWnW");
+/* harmony import */ var _hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("8UhZ");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("586Q");
+/* harmony import */ var _Members__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("nh0P");
+/* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("rP4V");
+/* harmony import */ var _hooks_useHelper__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("ApjV");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__("u2Cb");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__("rOcY");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 
@@ -9112,53 +9515,57 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 
 
-const HOST_URL = _config__WEBPACK_IMPORTED_MODULE_18__[/* default */ "a"].get('host-url');
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).withConfig({
+
+
+
+
+const HOST_URL = _config__WEBPACK_IMPORTED_MODULE_22__[/* default */ "a"].get('host-url');
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Wrap",
   componentId: "bx733i-0"
 })(["grid-gap:var(--default-gap);", " ", " ", " ", ""], ({
   layout
-}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["display:flex;flex-wrap:wrap;"]), ({
+}) => layout === 'column' && Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["css"])(["display:flex;flex-wrap:wrap;"]), ({
   appearance
-}) => appearance === 'default' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
+}) => appearance === 'default' && Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["css"])(["padding:var(--default-gap);background:var(--surface-background);border:var(--surface-border);border-radius:var(--surface-border-radius);box-shadow:var(--surface-shadow);"]), ({
   appearance
-}) => appearance === 'ghost' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
+}) => appearance === 'ghost' && Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]), ({
   appearance
-}) => appearance === 'clear' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
-const Content = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+}) => appearance === 'clear' && Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["css"])(["padding:0;border:none;background:none;border-radius:0;box-shadow:none;"]));
+const Content = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Content",
   componentId: "bx733i-1"
 })(["display:grid;grid-template-columns:120px 1fr;grid-template-rows:175px;@media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);}"]);
-const Avatar = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]).withConfig({
+const Avatar = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Image__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Avatar",
   componentId: "bx733i-2"
 })(["position:relative;width:100%;height:100%;border-radius:var(--surface-border-radius);border:1px solid var(--ghost-color-background);overflow:hidden;object-fit:cover;"]);
-const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const Header = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Header",
   componentId: "bx733i-3"
 })(["justify-content:space-between;align-items:center;"]);
-const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const Actions = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Actions",
   componentId: "bx733i-4"
 })(["grid-gap:5px;height:100%;"]);
-const Name = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
+const Name = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]).withConfig({
   displayName: "UserCard__Name",
   componentId: "bx733i-5"
 })(["transition:opacity 150ms ease;", ""], ({
   onClick
-}) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["cursor:pointer;&:hover{opacity:0.45;}"]));
-const About = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
+}) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["css"])(["cursor:pointer;&:hover{opacity:0.45;}"]));
+const About = styled_components__WEBPACK_IMPORTED_MODULE_2___default.a.div.withConfig({
   displayName: "UserCard__About",
   componentId: "bx733i-6"
 })(["font-size:var(--font-size-m);"]);
-const Indicator = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__[/* default */ "c"]).withConfig({
+const Indicator = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "d"]).withConfig({
   displayName: "UserCard__Indicator",
   componentId: "bx733i-7"
 })(["align-items:flex-end;flex-grow:10;height:100%;"]);
-const Footer = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const Footer = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"]).withConfig({
   displayName: "UserCard__Footer",
   componentId: "bx733i-8"
-})(["justify-content:space-between;grid-column:1 / 3;@media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);", "{flex-grow:1;", "{flex-grow:1;button{width:100%;}}}}"], _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* Wrap */ "a"], _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* Wrap */ "a"]);
+})(["justify-content:space-between;grid-column:1 / 3;@media only screen and (max-width:480px){display:flex;flex-direction:column;grid-gap:var(--default-gap);", "{flex-grow:1;", "{flex-grow:1;button{width:100%;}}}}"], _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* Wrap */ "a"], _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* Wrap */ "a"]);
 const Card = ({
   user,
   preview,
@@ -9180,14 +9587,41 @@ const Card = ({
 }) => {
   var _user$avatar, _user$about, _user$projects, _user$company, _user$company$avatar, _user$company2;
 
+  const recall = Object(_hooks_useHelper__WEBPACK_IMPORTED_MODULE_20__[/* useHelper */ "b"])();
   const {
     setQuery
-  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_15__[/* useEntityQuery */ "b"])();
+  } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_16__[/* useEntityQuery */ "b"])();
+  const auth = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.user);
   const [isAdded, setAdded] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(added);
+  const canEditRole = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => auth && auth.role.name === 'ADMIN', [auth]);
 
   const onClickAdd = () => {
     if (onAdd) onAdd();
     setAdded(!isAdded);
+  };
+
+  const handleEdit = () => {
+    recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_19__[/* onUserEdit */ "f"], {
+      user: user.email,
+      auth: auth === null || auth === void 0 ? void 0 : auth.email,
+      canEditRole,
+      mutations: {
+        update: _graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].UPDATE_USER,
+        del: _graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].DELETE_USER,
+        changePassword: _graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].UPDATE_USER
+      }
+    })();
+    if (onEdit) onEdit();
+  };
+
+  const handleDelete = () => {
+    recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_19__[/* onUserDelete */ "e"], {
+      id: user.email,
+      user,
+      auth: auth === null || auth === void 0 ? void 0 : auth.email,
+      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].DELETE_USER
+    })();
+    if (onDelete) onDelete();
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, {
@@ -9199,55 +9633,55 @@ const Card = ({
     alt: user.name,
     effect: 'opacity',
     layout: 'fill'
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     style: {
       gridGap: 5
     }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__[/* MarkedText */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* MarkedText */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
     shareTitle: withSocials && (user === null || user === void 0 ? void 0 : user.name),
     shareUrl:  false ? undefined : HOST_URL,
-    category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "g"])(user.account)
-  }), Object(_Members__WEBPACK_IMPORTED_MODULE_17__[/* hasResponsibleMember */ "c"])(user) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Members__WEBPACK_IMPORTED_MODULE_17__[/* ResponsibleMark */ "a"], null)), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
+    category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_15__[/* getLabelRole */ "g"])(user.account)
+  }), Object(_Members__WEBPACK_IMPORTED_MODULE_18__[/* hasResponsibleMember */ "c"])(user) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Members__WEBPACK_IMPORTED_MODULE_18__[/* ResponsibleMark */ "a"], null)), (onChecked || onEdit || onDelete) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Удалить пользователя'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     kind: 'icon',
     size: 'xs',
     appearance: 'red',
-    onClick: onDelete
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+    onClick: handleDelete
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     icon: 'delete',
     size: 'xs',
     stroke: 'white'
-  }))), onEdit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
+  }))), onEdit && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Редактировать пользователя'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     kind: 'icon',
     size: 'xs',
-    onClick: onEdit
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+    onClick: handleEdit
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     icon: 'edit',
     size: 'xs',
     stroke: 'white'
-  }))), onChecked && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
+  }))), onChecked && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Отметить пользователя',
     self: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
     onClick: () => setQuery(user.email, 'user', onLink)
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about.slice(0, 100), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_16__[/* More */ "e"], {
+  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about.slice(0, 100), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_17__[/* More */ "e"], {
     onClick: onAboutMore
-  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
+  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
     icon: 'work',
     label: 'Проекты',
     text: (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.length
-  }))), !preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+  }))), !preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
     clear: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, user.account === 'ENTITY' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__[/* default */ "c"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, user.account === 'ENTITY' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "d"], {
     icon: 'user2',
     label: 'Участники',
     text: user.members,
     onLink: user.members && onMembers
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_12__[/* default */ "c"], _extends({}, user.company ? {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "d"], _extends({}, user.company ? {
     img: (_user$company = user.company) === null || _user$company === void 0 ? void 0 : (_user$company$avatar = _user$company.avatar) === null || _user$company$avatar === void 0 ? void 0 : _user$company$avatar.path
   } : {
     icon: 'work'
@@ -9255,25 +9689,25 @@ const Card = ({
     label: 'Компания',
     text: ((_user$company2 = user.company) === null || _user$company2 === void 0 ? void 0 : _user$company2.name) || '-',
     onLink: user.company && onCompanyLink && (() => setQuery(user.company.email, 'user', onCompanyLink))
-  })), !owned && (onChat || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"], null, onChat && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
+  })), !owned && (onChat || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], null, onChat && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Написать пользователю'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     type: 'button',
     kind: 'icon',
     appearance: 'green',
     onClick: onChat,
     revert: true
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     icon: 'chat',
     stroke: 'var(--default-color-green)'
-  }))), onAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], {
+  }))), onAdd && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], {
     text: 'Подписаться на пользователя'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
     type: 'button',
     kind: 'icon',
     onClick: onClickAdd,
     revert: !isAdded
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     icon: isAdded ? 'check' : 'add',
     stroke: isAdded ? 'white' : 'var(--default-color-accent)'
   })))))));
@@ -9429,6 +9863,9 @@ var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_)
 // EXTERNAL MODULE: external "next/router"
 var router_ = __webpack_require__("4Q3z");
 
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
 // EXTERNAL MODULE: external "styled-components"
 var external_styled_components_ = __webpack_require__("Dtiu");
 var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
@@ -9502,13 +9939,26 @@ var Checkbox = __webpack_require__("79b8");
 // EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
 var Tooltip = __webpack_require__("VWQm");
 
-// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
-var functions = __webpack_require__("NWnW");
-
 // EXTERNAL MODULE: ./config/index.js
 var config = __webpack_require__("rOcY");
 
+// EXTERNAL MODULE: ./store/helpers/article.js + 4 modules
+var helpers_article = __webpack_require__("owvJ");
+
+// EXTERNAL MODULE: ./hooks/useHelper.js
+var useHelper = __webpack_require__("ApjV");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
+var queries = __webpack_require__("u2Cb");
+
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
+
 // CONCATENATED MODULE: ./components/ArticleCard/index.js
+
+
+
+
 
 
 
@@ -9588,6 +10038,9 @@ const Card = ({
   var _article$preview, _article$category;
 
   const router = Object(router_["useRouter"])();
+  const recall = Object(useHelper["b" /* useHelper */])();
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const canEditStatus = Object(external_react_["useMemo"])(() => user && user.role.name === 'ADMIN', [user]);
 
   const handleClick = async () => {
     await router.push({
@@ -9599,6 +10052,24 @@ const Card = ({
       shallow: true
     });
     if (onLink) onLink();
+  };
+
+  const handleEdit = () => {
+    recall(helpers_article["c" /* onArticleEdit */], {
+      id: article.id,
+      canEditStatus,
+      mutation: queries["a" /* default */].UPDATE_ARTICLE
+    })();
+    if (onEdit) onEdit();
+  };
+
+  const handleDelete = () => {
+    recall(helpers_article["b" /* onArticleDelete */], {
+      id: article.id,
+      article,
+      mutation: queries["a" /* default */].DELETE_ARTICLE
+    })();
+    if (onDelete) onDelete();
   };
 
   return /*#__PURE__*/external_react_default.a.createElement(ArticleCard_Wrap, {
@@ -9627,7 +10098,7 @@ const Card = ({
     kind: 'icon',
     size: 'xs',
     appearance: 'red',
-    onClick: onDelete
+    onClick: handleDelete
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'delete',
     size: 'xs',
@@ -9637,7 +10108,7 @@ const Card = ({
   }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     kind: 'icon',
     size: 'xs',
-    onClick: onEdit
+    onClick: handleEdit
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'edit',
     size: 'xs',
@@ -9847,11 +10318,10 @@ Image.defaultProps = {
 "use strict";
 
 // EXPORTS
-__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ onCategoryLink; });
+__webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ onCategoryLink; });
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ onCategoryCreate; });
-__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ onCategoryEdit; });
-
-// UNUSED EXPORTS: onCategoryDelete
+__webpack_require__.d(__webpack_exports__, "c", function() { return /* binding */ onCategoryEdit; });
+__webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ onCategoryDelete; });
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
@@ -9887,7 +10357,15 @@ var functions = __webpack_require__("NWnW");
 // EXTERNAL MODULE: ./components/Form/index.js
 var Form = __webpack_require__("qoM+");
 
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
+var queries = __webpack_require__("u2Cb");
+
 // CONCATENATED MODULE: ./components/FormCategory/index.js
+
+
 
 
 
@@ -9901,7 +10379,6 @@ var Form = __webpack_require__("qoM+");
 
 const Category = ({
   category,
-  categoryTypes,
   mutation,
   appearance,
   className,
@@ -9912,6 +10389,16 @@ const Category = ({
     value: category.type,
     label: Object(functions["e" /* getLabelCategory */])(category.type)
   } || null);
+  const {
+    data: dataTypes,
+    loading: loadingTypes
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_CATEGORY_TYPES);
+  const [types, setTypes] = Object(external_react_["useState"])([]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingTypes && dataTypes) {
+      setTypes(dataTypes.getCategoryTypes);
+    }
+  }, [loadingTypes, dataTypes]);
   return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
     className: className,
     appearance: appearance,
@@ -9961,11 +10448,11 @@ const Category = ({
       setTypeError(false);
     },
     placeholder: 'Выберите тип',
-    options: categoryTypes.map(type => ({
+    options: types.map(type => ({
       value: type,
       label: Object(functions["e" /* getLabelCategory */])(type)
     })),
-    isLoading: loading,
+    isLoading: loading || loadingTypes,
     isClearable: true
   }), /*#__PURE__*/external_react_default.a.createElement(TextArea["a" /* default */], {
     name: 'description',
@@ -9993,9 +10480,6 @@ var FormDelete = __webpack_require__("xAqQ");
 var external_styled_components_ = __webpack_require__("Dtiu");
 var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
 
-// EXTERNAL MODULE: external "@apollo/react-hooks"
-var react_hooks_ = __webpack_require__("mU8t");
-
 // EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
 var Text = __webpack_require__("QUga");
 
@@ -10007,9 +10491,6 @@ var Meta = __webpack_require__("aBfq");
 
 // EXTERNAL MODULE: ./components/Processed/index.js
 var Processed = __webpack_require__("2qQv");
-
-// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
-var queries = __webpack_require__("u2Cb");
 
 // CONCATENATED MODULE: ./components/CategoryView/index.js
 
@@ -11020,7 +11501,7 @@ const DefaultLayout = ({
       title: 'Каталог',
       links: categories.filter(category => category.type === 'DIVISION').map(link => /*#__PURE__*/external_react_default.a.createElement(link_default.a, {
         key: Object(external_uuid_["v4"])(),
-        href: `/projects?category=${link.id}`
+        href: `/projects?c=${link.id}`
       }, /*#__PURE__*/external_react_default.a.createElement("a", null, link.name)))
     },
     support: {
@@ -11472,7 +11953,7 @@ const TicketChat = ({
   const [message, setMessage] = Object(external_react_["useState"])('');
   const messageRef = Object(external_react_["useRef"])(null);
   const isAccess = (ticket === null || ticket === void 0 ? void 0 : (_ticket$counsellor = ticket.counsellor) === null || _ticket$counsellor === void 0 ? void 0 : _ticket$counsellor.email) === auth;
-  return /*#__PURE__*/external_react_default.a.createElement(Wrap, props, /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+  return /*#__PURE__*/external_react_default.a.createElement(Wrap, props, /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
     label: 'Автор обращения',
     text: ticket !== null && ticket !== void 0 && (_ticket$author = ticket.author) !== null && _ticket$author !== void 0 && _ticket$author.name && !loading ? ticket.author.name : '-'
   }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, (ticket === null || ticket === void 0 ? void 0 : ticket.status) !== 'CLOSED' && /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
@@ -12332,12 +12813,13 @@ const Assessment = external_styled_components_default.a.div`
 `;
 const Meta = ({
   date,
-  category,
-  rating,
   short,
-  shareTitle,
+  rating,
+  category,
   shareUrl,
-  onChangeRating
+  shareTitle,
+  onChangeRating,
+  onClickByCategory
 }) => Meta_jsx(Meta_Wrap, null, date && Meta_jsx(DateRow, null, Meta_jsx(DateIcon, {
   icon: 'calendar',
   size: 'xs',
@@ -12353,10 +12835,11 @@ const Meta = ({
   place: 'top',
   text: category
 }, Meta_jsx(Category, {
-  short: short && category.length > 25,
+  size: 'xs',
   color: 'ghost',
   appearance: 'outlined',
-  size: 'xs'
+  short: short && category.length > 25,
+  onClick: onClickByCategory
 }, category)), shareTitle && Meta_jsx(components_ShareInSocial, {
   title: shareTitle,
   url: shareUrl
@@ -12415,6 +12898,335 @@ const Spinner = () => __jsx("div", {
   style: styles
 });
 /* harmony default export */ __webpack_exports__["a"] = (Spinner);
+
+/***/ }),
+
+/***/ "bh4N":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export Wrap */
+/* unused harmony export Container */
+/* unused harmony export List */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InputLabel; });
+/* unused harmony export Item */
+/* unused harmony export Header */
+/* unused harmony export Actions */
+/* unused harmony export AddButton */
+/* unused harmony export Trunks */
+/* unused harmony export Value */
+/* unused harmony export ListItem */
+/* unused harmony export InteractiveList */
+/* unused harmony export CharacteristicEditor */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("kNaX");
+/* harmony import */ var uuid__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(uuid__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Row__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("nShV");
+/* harmony import */ var _Column__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("8CDE");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("ZeZO");
+/* harmony import */ var _Tooltip__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("VWQm");
+/* harmony import */ var _Divider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("RKiZ");
+/* harmony import */ var _Difinition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("DTT8");
+/* harmony import */ var _Input__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("Gliw");
+/* harmony import */ var _Alert__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("ZwIX");
+/* harmony import */ var _Text__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("QUga");
+/* harmony import */ var _Icon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("feIE");
+/* harmony import */ var _Title__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("7sPp");
+var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const MAX_LIMIT_VALUE = 256;
+const MIN_LIMIT_VALUE = 0;
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])`
+  grid-gap: 0;
+`;
+const Container = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  flex-grow: 1;
+  grid-gap: 5px;
+  margin-bottom: var(--default-gap);
+`;
+const List = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"])`
+  grid-gap: 5px 0;
+
+  ${({
+  readOnly
+}) => readOnly && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+      padding: 2px;
+      grid-gap: 15px;
+    `}
+`;
+const InputLabel = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Text__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"])`
+  font-size: var(--font-size-s);
+`;
+const Item = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"])`
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  grid-gap: 5px;
+`;
+const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"])`
+  flex-grow: 1;
+  grid-gap: 10px;
+
+  label:first-child {
+    flex-grow: 1;
+  }
+
+  label:last-child {
+    flex-grow: 4;
+  }
+
+  ${({
+  readOnly
+}) => readOnly && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+      flex-direction: column;
+    `}
+`;
+const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"])`
+  align-items: center;
+  grid-gap: 5px;
+
+  button {
+    width: 100%;
+    flex-grow: 1;
+
+    & > i {
+      height: 100%;
+      width: 100%;
+
+      & > svg {
+        transform: scale(0.35);
+      }
+    }
+  }
+`;
+const AddButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Button__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"])`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 10px;
+
+  span {
+    white-space: nowrap;
+  }
+
+  @media only screen and (max-width: 996px) {
+    width: 100%;
+  }
+`;
+const Trunks = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  grid-gap: 5px;
+
+  span {
+    background: var(--default-color-accent);
+    border-radius: var(--surface-border-radius);
+    width: 4px;
+    min-height: 16px;
+
+    ${({
+  value
+}) => value < 9 && styled_components__WEBPACK_IMPORTED_MODULE_1__["css"]`
+        width: 12px;
+        border-radius: 4px;
+      `}
+  }
+`;
+const Value = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Title__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"])`
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+
+  @media only screen and (max-width: 480px) {
+    font-size: var(--font-size-l);
+  }
+`;
+
+const getValue = val => {
+  const number = Number(val);
+  if (number > MAX_LIMIT_VALUE) return MAX_LIMIT_VALUE;
+  if (number < MIN_LIMIT_VALUE) return MIN_LIMIT_VALUE;
+  return val;
+};
+
+const ListItem = ({
+  item,
+  readOnly,
+  divided,
+  onEdit,
+  onDelete
+}) => {
+  return __jsx(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, __jsx(Item, {
+    readOnly: readOnly
+  }, __jsx(Header, {
+    readOnly: readOnly
+  }, readOnly && item.isVisualize && !isNaN(item.value) ? __jsx(Trunks, {
+    value: item.value
+  }, new Array(Number(item.value)).fill(null).map((_, i) => __jsx("span", {
+    key: i
+  }))) : null, readOnly && !item.isVisualize ? __jsx(_Difinition__WEBPACK_IMPORTED_MODULE_8__[/* Label */ "a"], null, item.name) : null, readOnly ? __jsx(Value, {
+    tag: 'h4'
+  }, item.isVisualize ? `${item.value} ${item.name}` : item.value) : null, !readOnly && __jsx(_Input__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    type: 'text',
+    defaultValue: item.value,
+    appearance: 'ghost',
+    placeholder: 'Значение',
+    onChange: e => onEdit && onEdit(_objectSpread(_objectSpread({}, item), {}, {
+      value: getValue(e.target.value),
+      isVisualize: !isNaN(item.value)
+    }))
+  }), !readOnly && __jsx(_Input__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    type: 'text',
+    defaultValue: item.name,
+    appearance: 'ghost',
+    placeholder: 'Введите название',
+    onChange: e => onEdit && onEdit(_objectSpread(_objectSpread({}, item), {}, {
+      name: e.target.value
+    }))
+  })), !readOnly && __jsx(Actions, null, __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
+    text: 'Визуализировать (только цифры)'
+  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    size: 'xs',
+    kind: 'icon',
+    type: 'button',
+    revert: !item.isVisualize,
+    onClick: () => onEdit && onEdit(_objectSpread(_objectSpread({}, item), {}, {
+      value: !isNaN(item.value) ? item.value : MIN_LIMIT_VALUE,
+      isVisualize: !item.isVisualize
+    }))
+  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+    size: 'xs',
+    icon: 'graph',
+    stroke: item.isVisualize ? 'white' : 'var(--default-color-accent)',
+    fill: 'var(--default-color-accent)'
+  }))), onDelete && __jsx(_Tooltip__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
+    text: 'Удалить'
+  }, __jsx(_Button__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    size: 'xs',
+    kind: 'icon',
+    type: 'button',
+    appearance: 'ghost',
+    stroke: 'none',
+    onClick: () => onDelete(item)
+  }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+    icon: 'delete',
+    stroke: 'none',
+    fill: 'var(--default-color-red)',
+    size: 'xs'
+  }))))), !readOnly && divided && __jsx(_Divider__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+    clear: true
+  }));
+};
+const InteractiveList = ({
+  list,
+  readOnly,
+  onChange
+}) => {
+  const onEdit = edited => {
+    const mapped = prev => prev.map(item => (item === null || item === void 0 ? void 0 : item.id) === (edited === null || edited === void 0 ? void 0 : edited.id) ? edited : item);
+
+    if (onChange) onChange(mapped);
+  };
+
+  const onDelete = deleted => {
+    const filtered = prev => prev.filter(item => (item === null || item === void 0 ? void 0 : item.id) !== (deleted === null || deleted === void 0 ? void 0 : deleted.id));
+
+    if (onChange) onChange(filtered);
+  };
+
+  return __jsx(List, {
+    readOnly: readOnly
+  }, (list || []).length === 0 && __jsx(_Alert__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+    style: {
+      width: '100%',
+      textAlign: 'center',
+      flexGrow: 1
+    }
+  }, "\u041F\u0443\u0441\u0442\u043E"), (list || []).map((item, index) => __jsx(ListItem, {
+    key: item === null || item === void 0 ? void 0 : item.id,
+    item: item,
+    readOnly: readOnly,
+    divided: (list || []).length - 1 !== index,
+    onDelete: onDelete,
+    onEdit: onEdit
+  })));
+};
+const CharacteristicEditor = ({
+  label,
+  defaultValue,
+  readOnly,
+  onChange
+}) => {
+  const {
+    0: characteristics,
+    1: setCharacteristics
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(defaultValue || []);
+
+  const onAdd = () => {
+    const name = 'Новое учебное помещение';
+    const item = {
+      id: Object(uuid__WEBPACK_IMPORTED_MODULE_2__["v4"])(),
+      name,
+      value: null,
+      isVisualize: null
+    };
+    setCharacteristics(prev => [...prev, item]);
+  };
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    if (onChange) onChange(characteristics);
+  }, [characteristics, onChange]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    setCharacteristics(defaultValue);
+  }, [defaultValue]);
+
+  if (readOnly && characteristics.length === 0) {
+    return null;
+  }
+
+  return __jsx(Wrap, null, __jsx(Container, null, label && __jsx(InputLabel, null, label), __jsx(InteractiveList, {
+    list: characteristics,
+    onChange: setCharacteristics,
+    readOnly: readOnly
+  }), !readOnly && __jsx(AddButton, {
+    type: 'button',
+    onClick: onAdd
+  }, __jsx("span", null, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"), __jsx(_Icon__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
+    type: 'button',
+    icon: 'add',
+    stroke: 'white'
+  }))));
+};
+/* harmony default export */ __webpack_exports__["b"] = (CharacteristicEditor);
 
 /***/ }),
 
@@ -12737,7 +13549,7 @@ const Handle = ({
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     setChecked(checked);
   }, [checked]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_7__[/* default */ "c"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_7__[/* default */ "d"], {
     icon: icon,
     text: title
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ActionGroup, null, onCreate && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CreateButton, {
@@ -18906,10 +19718,10 @@ const Members = ({
   }, members.map(member => {
     var _member$avatar;
 
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "c"], {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "d"], {
       key: member.email,
       img: ((_member$avatar = member.avatar) === null || _member$avatar === void 0 ? void 0 : _member$avatar.path) || '/images/avatar-default.png',
-      label: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* MarkedText */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "g"])(member.account)), hasResponsibleMember(member) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResponsibleMark, null)),
+      label: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* MarkedText */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "g"])(member.account)), hasResponsibleMember(member) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ResponsibleMark, null)),
       text: member.name,
       actions: authUser.email === user && (hasResponsibleMember(member) ? getResponsibleActions(member) : getDefaultActions(member)),
       onLink: () => setQuery(member.email, 'user', onMemberLink),
@@ -19076,21 +19888,21 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
-// EXTERNAL MODULE: ./components/FormArticle/index.js
-var FormArticle = __webpack_require__("O2T+");
-
-// EXTERNAL MODULE: ./components/FormDelete/index.js
-var FormDelete = __webpack_require__("xAqQ");
-
-// EXTERNAL MODULE: ./components/ArticleCard/index.js + 1 modules
-var ArticleCard = __webpack_require__("UwjQ");
-
 // EXTERNAL MODULE: external "styled-components"
 var external_styled_components_ = __webpack_require__("Dtiu");
 var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
 
+// EXTERNAL MODULE: external "react-hook-form"
+var external_react_hook_form_ = __webpack_require__("BTiB");
+
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
 // EXTERNAL MODULE: external "@apollo/react-hooks"
 var react_hooks_ = __webpack_require__("mU8t");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
+var Row = __webpack_require__("nShV");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
 var Column = __webpack_require__("8CDE");
@@ -19098,38 +19910,695 @@ var Column = __webpack_require__("8CDE");
 // EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
 var Title = __webpack_require__("7sPp");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
-var Image = __webpack_require__("V0nP");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
-var Meta = __webpack_require__("aBfq");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
-var Divider = __webpack_require__("RKiZ");
-
-// EXTERNAL MODULE: ./components/HTMLView/index.js
-var HTMLView = __webpack_require__("ji1G");
-
-// EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__("h74D");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
-var Row = __webpack_require__("nShV");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Comment/index.js
-var Comment = __webpack_require__("GZJE");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
-var Alert = __webpack_require__("ZwIX");
-
 // EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
 var Input = __webpack_require__("Gliw");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Select/index.js
+var Select = __webpack_require__("QclZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/TextEditor/index.js
+var TextEditor = __webpack_require__("QWIf");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Dropzone/index.js
+var Dropzone = __webpack_require__("kJLk");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
+var Alert = __webpack_require__("ZwIX");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Avatar/index.js
+var Avatar = __webpack_require__("ThpJ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
+var Text = __webpack_require__("QUga");
+
+// EXTERNAL MODULE: ./atomic-ui/components/DateText/index.js
+var DateText = __webpack_require__("+nv6");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
+var Tooltip = __webpack_require__("VWQm");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Checkbox/index.js
+var Checkbox = __webpack_require__("79b8");
+
+// EXTERNAL MODULE: ./atomic-ui/components/TextArea/index.js
+var TextArea = __webpack_require__("3jgA");
+
+// CONCATENATED MODULE: ./atomic-ui/components/Comment/index.js
+var __jsx = external_react_default.a.createElement;
+
+
+
+
+
+
+
+
+
+
+
+
+const Wrap = external_styled_components_default()(Row["b" /* default */])`
+  position: relative;
+  margin: 0;
+  padding: 0;
+
+  ${({
+  checked
+}) => checked && external_styled_components_["css"]`
+      opacity: 0.45;
+    `}
+`;
+const MiniAvatar = external_styled_components_default()(Avatar["b" /* default */])`
+  width: var(--input-height-xs);
+  height: var(--input-height-xs);
+  min-width: var(--input-height-xs);
+  min-height: var(--input-height-xs);
+  border-radius: var(--surface-border-radius);
+`;
+const Name = external_styled_components_default()(Text["b" /* default */])`
+  font-weight: var(--font-weight-medium);
+  color: var(--default-color-accent);
+  transition: opacity 150ms ease;
+
+  ${({
+  compact
+}) => compact && external_styled_components_["css"]`
+      display: flex;
+      align-items: center;
+      grid-gap: 10px;
+      margin-bottom: 5px;
+    `}
+
+  ${({
+  onClick
+}) => onClick && external_styled_components_["css"]`
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.65;
+      }
+    `}
+`;
+const MessageTextArea = external_styled_components_default()(TextArea["a" /* default */])`
+  height: 128px;
+`;
+const MessageText = external_styled_components_default()(Text["b" /* default */])`
+  color: black;
+`;
+const Content = external_styled_components_default()(Column["a" /* default */])`
+  grid-gap: 0;
+  width: 100%;
+`;
+const Meta = external_styled_components_default()(Row["b" /* default */])`
+  grid-gap: 5px;
+`;
+const Line = external_styled_components_default()(Row["b" /* default */])`
+  justify-content: space-between;
+  align-items: center;
+`;
+const Actions = external_styled_components_default()(Row["b" /* default */])`
+  position: absolute;
+  top: 0;
+  right: 0;
+  grid-gap: 10px;
+`;
+const DispatchUpdatedDate = external_styled_components_default()(DateText["a" /* default */])`
+  font-size: var(--font-size-s);
+  color: var(--default-color-text);
+`;
+const DispatchTime = external_styled_components_default()(DateText["a" /* default */])`
+  font-size: var(--font-size-s);
+  color: var(--default-color-text);
+`;
+const ReplyButton = external_styled_components_default()(Button["a" /* default */])`
+  color: var(--default-color-accent);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+`;
+const Likes = external_styled_components_default()(Row["b" /* default */])`
+  align-items: center;
+  grid-gap: 0;
+`;
+const LikesButton = external_styled_components_default()(Button["a" /* default */])`
+  span {
+    color: var(--default-color-text);
+    transition: color 150ms ease;
+  }
+
+  &:hover {
+    span {
+      color: var(--default-color-accent);
+    }
+  }
+`;
+const LikeButton = external_styled_components_default()(Button["a" /* default */])`
+  &:hover {
+    svg {
+      path,
+      circle {
+        stroke: var(--default-color-accent);
+      }
+    }
+  }
+`;
+const Comment = ({
+  user,
+  message,
+  likes,
+  time,
+  className,
+  style,
+  compact,
+  isLiked: initialLiked,
+  isUpdated,
+  isChecked,
+  onLink,
+  onReply,
+  onChecked,
+  onShowLikes,
+  onDelete,
+  onEdit,
+  onLike
+}) => {
+  var _user$avatar$path, _user$avatar, _user$avatar$path2, _user$avatar2;
+
+  const {
+    0: updatedAt,
+    1: setUpdatedAt
+  } = Object(external_react_["useState"])(isUpdated ? time : null);
+  const {
+    0: checked,
+    1: setChecked
+  } = Object(external_react_["useState"])(isChecked);
+  const {
+    0: count,
+    1: setCount
+  } = Object(external_react_["useState"])(likes);
+  const {
+    0: isEdit,
+    1: setEdit
+  } = Object(external_react_["useState"])(false);
+  const {
+    0: isLiked,
+    1: setLiked
+  } = Object(external_react_["useState"])(initialLiked);
+  const color = Object(external_react_["useMemo"])(() => isLiked ? 'var(--default-color-accent)' : 'var(--default-color-text)', [isLiked]);
+  const textLikes = Object(external_react_["useMemo"])(() => count === 1 ? 'человеку' : 'людям', [count]);
+  const {
+    0: comment,
+    1: setComment
+  } = Object(external_react_["useState"])(message);
+  const commentRef = Object(external_react_["useRef"])(null);
+
+  const onClick = () => {
+    const value = !isLiked;
+    if (onLike) onLike(value);
+    setCount(prev => prev + (value ? 1 : -1));
+    setLiked(value);
+  };
+
+  const handleToggleEdit = () => setEdit(prev => !prev);
+
+  const handleChecked = e => {
+    const value = e.target.checked;
+    if (onChecked) onChecked(value);
+    setChecked(value);
+  };
+
+  const handleApplyChanges = () => {
+    var _commentRef$current;
+
+    const value = commentRef === null || commentRef === void 0 ? void 0 : (_commentRef$current = commentRef.current) === null || _commentRef$current === void 0 ? void 0 : _commentRef$current.value;
+
+    if (value) {
+      if (onEdit) onEdit(value);
+      setUpdatedAt(new Date());
+      setComment(value);
+    }
+
+    handleToggleEdit();
+  };
+
+  return __jsx(Wrap, {
+    checked: checked,
+    style: style,
+    className: className
+  }, !compact && __jsx(Avatar["b" /* default */], {
+    src: (_user$avatar$path = user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) !== null && _user$avatar$path !== void 0 ? _user$avatar$path : ''
+  }), __jsx(Content, null, __jsx(Name, {
+    compact: compact,
+    onClick: onLink
+  }, compact && __jsx(MiniAvatar, {
+    src: (_user$avatar$path2 = user === null || user === void 0 ? void 0 : (_user$avatar2 = user.avatar) === null || _user$avatar2 === void 0 ? void 0 : _user$avatar2.path) !== null && _user$avatar$path2 !== void 0 ? _user$avatar$path2 : ''
+  }), user.name), isEdit ? __jsx(MessageTextArea, {
+    ref: commentRef,
+    defaultValue: comment,
+    appearance: 'ghost'
+  }) : __jsx(MessageText, null, comment), compact && onEdit && onDelete && __jsx(Actions, null, !isEdit ? __jsx(external_react_default.a.Fragment, null, __jsx(Tooltip["b" /* default */], {
+    text: 'Удалить комментарий'
+  }, __jsx(Button["a" /* default */], {
+    kind: 'icon',
+    size: 'xs',
+    disabled: checked,
+    appearance: 'red',
+    onClick: onDelete
+  }, __jsx(Icon["a" /* default */], {
+    icon: 'delete',
+    size: 'xs',
+    stroke: 'white'
+  }))), __jsx(Tooltip["b" /* default */], {
+    text: 'Редактировать комментарий'
+  }, __jsx(Button["a" /* default */], {
+    kind: 'icon',
+    size: 'xs',
+    disabled: checked,
+    onClick: handleToggleEdit
+  }, __jsx(Icon["a" /* default */], {
+    icon: 'edit',
+    size: 'xs',
+    stroke: 'white'
+  }))), __jsx(Tooltip["b" /* default */], {
+    text: 'Отметить комментарий',
+    self: true
+  }, __jsx(Checkbox["a" /* default */], {
+    checked: checked,
+    onChange: handleChecked
+  }))) : __jsx(external_react_default.a.Fragment, null, __jsx(Tooltip["b" /* default */], {
+    text: 'Применить изменения',
+    self: true
+  }, __jsx(Button["a" /* default */], {
+    kind: 'icon',
+    size: 'xs',
+    disabled: checked,
+    appearance: 'green',
+    onClick: handleApplyChanges
+  }, __jsx(Icon["a" /* default */], {
+    icon: 'check',
+    size: 'xs',
+    stroke: 'white'
+  }))), __jsx(Tooltip["b" /* default */], {
+    text: 'Отменить изменения',
+    self: true
+  }, __jsx(Button["a" /* default */], {
+    kind: 'icon',
+    size: 'xs',
+    disabled: checked,
+    appearance: 'red',
+    onClick: handleToggleEdit
+  }, __jsx(Icon["a" /* default */], {
+    icon: 'closeSquare',
+    size: 'xs',
+    stroke: 'white'
+  }))))), __jsx(Line, null, __jsx(Meta, null, updatedAt ? __jsx(DispatchUpdatedDate, null, "\u041E\u0442\u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E", ' ', new Date(updatedAt).toLocaleString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  })) : __jsx(DispatchTime, {
+    text: time
+  }), onReply && __jsx(ReplyButton, {
+    appearance: 'clear',
+    onClick: onReply
+  }, "\u041E\u0442\u0432\u0435\u0442\u0438\u0442\u044C")), __jsx(Likes, null, count > 0 && __jsx(Tooltip["b" /* default */], {
+    text: `${count} ${textLikes} это нравится`
+  }, __jsx(LikesButton, {
+    type: 'button',
+    onClick: onShowLikes,
+    appearance: 'clear',
+    size: 'xs'
+  }, __jsx("span", {
+    style: {
+      color
+    }
+  }, count))), __jsx(Tooltip["b" /* default */], {
+    text: 'Мне нравится'
+  }, __jsx(LikeButton, {
+    type: 'button',
+    onClick: onClick,
+    appearance: 'clear',
+    size: 'xs'
+  }, __jsx(Icon["a" /* default */], {
+    icon: 'heart',
+    size: 'xs',
+    stroke: color,
+    fill: isLiked ? 'var(--default-color-accent)' : 'none'
+  })))))));
+};
+/* harmony default export */ var components_Comment = (Comment);
+// EXTERNAL MODULE: ./atomic-ui/components/Divider/index.js
+var Divider = __webpack_require__("RKiZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./atomic-ui/utils/functions.js
+var functions = __webpack_require__("NWnW");
+
+// EXTERNAL MODULE: ./components/Form/index.js
+var Form = __webpack_require__("qoM+");
+
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
+var queries = __webpack_require__("u2Cb");
+
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
+
+// CONCATENATED MODULE: ./components/FormArticle/index.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const Header = external_styled_components_default()(Row["b" /* default */]).withConfig({
+  displayName: "FormArticle__Header",
+  componentId: "sc-1ftxonu-0"
+})(["justify-content:space-between;@media only screen and (max-width:480px){flex-direction:column;align-items:end;grid-gap:var(--default-gap);}"]);
+const Comments = ({
+  article,
+  setValue
+}) => {
+  const [comments, setComments] = Object(external_react_["useState"])([]);
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
+  const [checkedAll, setCheckedAll] = Object(external_react_["useState"])(false);
+  const {
+    data: dataComments,
+    loading: loadingComments
+  } = article ? Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_COMMENTS, {
+    variables: {
+      id: article
+    }
+  }) : {
+    data: [],
+    loading: false
+  };
+
+  const handleCheckedComments = e => {
+    setCheckedAll(e.target.checked);
+    setComments(prev => prev.map(item => ({ ...item,
+      checked: !item.checked
+    })));
+  };
+
+  const handleCheckedComment = (message, value) => {
+    setComments(prev => prev.map(item => item.id === message.id ? { ...item,
+      checked: value
+    } : item));
+  };
+
+  const handleDeleteChecked = () => {
+    setComments(prev => prev.filter(message => !message.checked));
+  };
+
+  const handleCommentEdit = (message, text) => {
+    setComments(prev => prev.map(item => item.id === message.id ? { ...item,
+      updatedAt: new Date(),
+      text
+    } : item));
+  };
+
+  const handleCommentDelete = message => {
+    setComments(prev => prev.filter(item => item.id !== message.id));
+  };
+
+  Object(external_react_["useEffect"])(() => {
+    if (article && !loadingComments && dataComments) {
+      setComments(dataComments.getComments.map(comment => ({ ...comment,
+        checked: false
+      })));
+    }
+  }, [article, dataComments, loadingComments]);
+  Object(external_react_["useEffect"])(() => {
+    setValue('comments', comments);
+  }, [comments]);
+
+  if (!article || comments.length === 0) {
+    return null;
+  }
+
+  return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    clear: true
+  }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    tag: 'h4'
+  }, "\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0438"), /*#__PURE__*/external_react_default.a.createElement(Header, null, /*#__PURE__*/external_react_default.a.createElement(Checkbox["a" /* default */], {
+    label: 'Выделить все',
+    checked: checkedAll,
+    onChange: handleCheckedComments
+  }), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    style: {
+      color: 'var(--default-color-red)'
+    },
+    appearance: 'clear',
+    onClick: handleDeleteChecked
+  }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0432\u044B\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0435")), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+    style: {
+      gridGap: 5
+    }
+  }, comments.map(comment => {
+    var _comment$likes;
+
+    return /*#__PURE__*/external_react_default.a.createElement(components_Comment, {
+      key: `${comment.id}_${comment.checked}`,
+      user: comment.author,
+      message: comment.text,
+      likes: (_comment$likes = comment.likes) === null || _comment$likes === void 0 ? void 0 : _comment$likes.length,
+      time: comment.createdAt !== comment.updatedAt ? comment.updatedAt : comment.createdAt,
+      isLiked: comment.likes.find(likedUser => likedUser.email === user.email),
+      isChecked: comment.checked,
+      isUpdated: comment.createdAt !== comment.updatedAt,
+      onChecked: value => handleCheckedComment(comment, value),
+      onEdit: text => handleCommentEdit(comment, text),
+      onDelete: () => handleCommentDelete(comment),
+      compact: true
+    });
+  })));
+};
+const Article = ({
+  article,
+  mutation,
+  appearance,
+  className,
+  canEditStatus,
+  onSubmit,
+  isPurpose
+}) => {
+  const {
+    data,
+    loading: loadingArticle,
+    error: errorArticle
+  } = article ? Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_ARTICLE, {
+    variables: {
+      id: article
+    }
+  }) : {
+    data: {
+      getArticle: {}
+    },
+    loading: false,
+    error: false
+  };
+  const {
+    data: dataCategories,
+    loading: loadingCategories
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_CATEGORIES);
+  const {
+    data: dataStatuses,
+    loading: loadingStatuses
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_POST_STATUSES);
+  const [categories, setCategories] = Object(external_react_["useState"])([]);
+  const [statuses, setStatuses] = Object(external_react_["useState"])([]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingCategories && dataCategories) {
+      setCategories(dataCategories.getCategories);
+    }
+  }, [loadingCategories, dataCategories]);
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingStatuses && dataStatuses) {
+      setStatuses(dataStatuses.getPostStatus);
+    }
+  }, [loadingStatuses, dataStatuses]);
+  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+    className: className,
+    appearance: appearance,
+    mutation: mutation,
+    onSubmit: onSubmit
+  }, ({
+    register,
+    loading,
+    errors,
+    control,
+    getValues,
+    setValue
+  }) => {
+    var _data$getArticle, _data$getArticle2, _data$getArticle3, _data$getArticle4, _data$getArticle5;
+
+    return !loadingArticle && data ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+      tag: 'h4'
+    }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.preview && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u0412\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \u0434\u043B\u044F \u043F\u0440\u0435\u0432\u044C\u044E"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'preview',
+      control: control,
+      rules: {
+        required: true
+      },
+      defaultValue: ((_data$getArticle = data.getArticle) === null || _data$getArticle === void 0 ? void 0 : _data$getArticle.preview) || null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Dropzone["b" /* default */], {
+        accept: 'image/*',
+        defaultValue: value,
+        onChange: onChange,
+        placeholder: 'Перетащите сюда изображение для превью',
+        tooltip: 'Разрешение: 960x480px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
+      })
+    }), errors && errors.title && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0437\u0430\u0433\u043E\u043B\u043E\u0432\u043E\u043A \u0441\u0442\u0430\u0442\u044C\u0438"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+      type: 'text',
+      name: 'title',
+      ref: register({
+        required: true
+      }),
+      defaultValue: getValues('title') || ((_data$getArticle2 = data.getArticle) === null || _data$getArticle2 === void 0 ? void 0 : _data$getArticle2.title),
+      placeholder: 'Название',
+      appearance: 'ghost',
+      disabled: loading
+    }), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'category',
+      control: control,
+      defaultValue: (_data$getArticle3 = data.getArticle) !== null && _data$getArticle3 !== void 0 && _data$getArticle3.category ? {
+        value: data.getArticle.category.id,
+        label: Object(functions["e" /* getLabelCategory */])(data.getArticle.category.name)
+      } : null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+        appearance: 'ghost',
+        placeholder: 'Выберите раздел',
+        options: categories.filter(item => item.type === 'DIVISION').map(item => ({
+          value: item.id,
+          label: Object(functions["e" /* getLabelCategory */])(item.name)
+        })),
+        onChange: onChange,
+        defaultValue: value,
+        isLoading: loading || loadingCategories,
+        isClearable: true
+      })
+    }), errors && errors.body && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      style: {
+        width: '100%'
+      },
+      appearance: 'error'
+    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u043D\u0438\u0435 \u0441\u0442\u0430\u0442\u044C\u0438"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'body',
+      control: control,
+      defaultValue: getValues('body') || ((_data$getArticle4 = data.getArticle) === null || _data$getArticle4 === void 0 ? void 0 : _data$getArticle4.body) || null,
+      rules: {
+        required: true
+      },
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(TextEditor["a" /* default */], {
+        apiKey: config["a" /* default */].get('tiny-key'),
+        appearance: 'ghost',
+        defaultValue: value,
+        onChange: onChange
+      })
+    }), /*#__PURE__*/external_react_default.a.createElement(Comments, {
+      article: article,
+      setValue: setValue
+    }), canEditStatus && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), canEditStatus && /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+      name: 'status',
+      control: control,
+      defaultValue: (_data$getArticle5 = data.getArticle) !== null && _data$getArticle5 !== void 0 && _data$getArticle5.status ? {
+        value: data.getArticle.status,
+        label: Object(functions["h" /* getLabelStatus */])(data.getArticle.status)
+      } : null,
+      render: ({
+        value,
+        onChange
+      }) => /*#__PURE__*/external_react_default.a.createElement(Select["a" /* default */], {
+        appearance: 'ghost',
+        placeholder: 'Выберите статус',
+        options: statuses.map(item => ({
+          value: item,
+          label: Object(functions["h" /* getLabelStatus */])(item)
+        })),
+        onChange: onChange,
+        defaultValue: value,
+        menuPlacement: 'top',
+        isLoading: loading || loadingStatuses,
+        isClearable: true
+      })
+    })), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+      clear: true
+    }), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+      style: {
+        flexGrow: 1
+      },
+      type: 'submit',
+      disabled: loading
+    }, isPurpose ? 'Предложить' : article ? 'Сохранить' : 'Создать'))) : errorArticle ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+      appearance: 'error',
+      style: {
+        width: '100%',
+        textAlign: 'center'
+      }
+    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E \u0441\u0442\u0430\u0442\u044C\u0435") : /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null));
+  });
+};
+/* harmony default export */ var FormArticle = (Article);
+// EXTERNAL MODULE: ./components/FormDelete/index.js
+var FormDelete = __webpack_require__("xAqQ");
+
+// EXTERNAL MODULE: ./components/ArticleCard/index.js + 1 modules
+var ArticleCard = __webpack_require__("UwjQ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
+var Image = __webpack_require__("V0nP");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Meta/index.js + 1 modules
+var components_Meta = __webpack_require__("aBfq");
+
+// EXTERNAL MODULE: ./components/HTMLView/index.js
+var HTMLView = __webpack_require__("ji1G");
 
 // CONCATENATED MODULE: ./components/Comments/index.js
 
@@ -19142,7 +20611,7 @@ var Icon = __webpack_require__("feIE");
 
 
 
-const Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
+const Comments_Wrap = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "Comments__Wrap",
   componentId: "sc-6rcmxi-0"
 })(["flex-grow:1;"]);
@@ -19150,7 +20619,7 @@ const CentralAlert = external_styled_components_default()(Alert["a" /* default *
   displayName: "Comments__CentralAlert",
   componentId: "sc-6rcmxi-1"
 })(["display:flex;justify-content:center;align-items:center;text-align:center;width:100%;flex-grow:1;"]);
-const Comments = ({
+const Comments_Comments = ({
   comments,
   loading,
   appearance,
@@ -19163,10 +20632,10 @@ const Comments = ({
   const user = Object(external_react_redux_["useSelector"])(state => state.user);
   const [message, setMessage] = Object(external_react_["useState"])('');
   const messageRef = Object(external_react_["useRef"])(null);
-  return /*#__PURE__*/external_react_default.a.createElement(Wrap, null, comments && comments.length > 0 ? comments.map(comment => {
+  return /*#__PURE__*/external_react_default.a.createElement(Comments_Wrap, null, comments && comments.length > 0 ? comments.map(comment => {
     var _comment$likes;
 
-    return /*#__PURE__*/external_react_default.a.createElement(Comment["a" /* default */], {
+    return /*#__PURE__*/external_react_default.a.createElement(components_Comment, {
       key: comment.id,
       user: comment.author,
       message: comment.text,
@@ -19214,18 +20683,12 @@ const Comments = ({
     stroke: 'white'
   }))));
 };
-Comments.defaultProps = {
+Comments_Comments.defaultProps = {
   appearance: 'default'
 };
-/* harmony default export */ var components_Comments = (Comments);
+/* harmony default export */ var components_Comments = (Comments_Comments);
 // EXTERNAL MODULE: ./components/Processed/index.js
 var Processed = __webpack_require__("2qQv");
-
-// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
-var queries = __webpack_require__("u2Cb");
-
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
 
 // CONCATENATED MODULE: ./components/ArticleView/index.js
 
@@ -19256,7 +20719,7 @@ const Poster = external_styled_components_default()(Image["a" /* default */]).wi
   displayName: "ArticleView__Poster",
   componentId: "sc-12lysue-1"
 })(["object-fit:cover;width:100%;height:512px;border-radius:var(--surface-border-radius);@media only screen and (max-width:480px){height:256px;}"]);
-const Content = external_styled_components_default()(Column["a" /* default */]).withConfig({
+const ArticleView_Content = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "ArticleView__Content",
   componentId: "sc-12lysue-2"
 })(["grid-gap:0;"]);
@@ -19318,7 +20781,7 @@ const View = ({
     emptyMessage: 'Кажется такой статьи не существует'
   }, /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, (data === null || data === void 0 ? void 0 : (_data$getArticle = data.getArticle) === null || _data$getArticle === void 0 ? void 0 : _data$getArticle.preview) && /*#__PURE__*/external_react_default.a.createElement(Poster, {
     src: data === null || data === void 0 ? void 0 : (_data$getArticle2 = data.getArticle) === null || _data$getArticle2 === void 0 ? void 0 : (_data$getArticle2$pre = _data$getArticle2.preview) === null || _data$getArticle2$pre === void 0 ? void 0 : _data$getArticle2$pre.path
-  }), /*#__PURE__*/external_react_default.a.createElement(Content, null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
+  }), /*#__PURE__*/external_react_default.a.createElement(ArticleView_Content, null, /*#__PURE__*/external_react_default.a.createElement(components_Meta["a" /* default */], {
     shareTitle: data === null || data === void 0 ? void 0 : (_data$getArticle3 = data.getArticle) === null || _data$getArticle3 === void 0 ? void 0 : _data$getArticle3.title,
     shareUrl: false ? undefined : HOST_URL,
     category: data === null || data === void 0 ? void 0 : (_data$getArticle4 = data.getArticle) === null || _data$getArticle4 === void 0 ? void 0 : (_data$getArticle4$cat = _data$getArticle4.category) === null || _data$getArticle4$cat === void 0 ? void 0 : _data$getArticle4$cat.name,
@@ -19412,7 +20875,7 @@ function onArticleCreate(dispatch, props) {
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'document',
     title: `${isPurpose ? 'Предложение' : 'Создание'} статьи`,
-    content: /*#__PURE__*/external_react_default.a.createElement(FormArticle["a" /* default */], {
+    content: /*#__PURE__*/external_react_default.a.createElement(FormArticle, {
       mutation: mutation,
       categories: categories,
       statuses: statuses,
@@ -19464,7 +20927,7 @@ function onArticleEdit(dispatch, props) {
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'document',
     title: 'Редактирование статьи',
-    content: /*#__PURE__*/external_react_default.a.createElement(FormArticle["a" /* default */], {
+    content: /*#__PURE__*/external_react_default.a.createElement(FormArticle, {
       article: id,
       mutation: mutation,
       categories: categories,
@@ -19606,6 +21069,12 @@ var Row = __webpack_require__("nShV");
 // EXTERNAL MODULE: ./atomic-ui/components/Container/index.js
 var Container = __webpack_require__("N0uN");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Search/index.js
+var Search = __webpack_require__("t7jn");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
+var Tooltip = __webpack_require__("VWQm");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
 var Spinner = __webpack_require__("auMy");
 
@@ -19618,20 +21087,14 @@ var Button = __webpack_require__("ZeZO");
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Search/index.js
-var Search = __webpack_require__("t7jn");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
-var Tooltip = __webpack_require__("VWQm");
-
 // EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 109 modules
 var Icon = __webpack_require__("feIE");
 
-// EXTERNAL MODULE: ./hooks/useHelper.js
-var useHelper = __webpack_require__("ApjV");
-
 // EXTERNAL MODULE: ./layouts/main.js + 4 modules
 var main = __webpack_require__("wOhW");
+
+// EXTERNAL MODULE: ./hooks/useHelper.js
+var useHelper = __webpack_require__("ApjV");
 
 // EXTERNAL MODULE: ./components/Styled/index.js
 var Styled = __webpack_require__("586Q");
@@ -19764,11 +21227,338 @@ Side.defaultProps = {
   }) => /*#__PURE__*/external_react_default.a.createElement("a", props, children)
 };
 /* harmony default export */ var SideBar = (Side);
+// EXTERNAL MODULE: ./atomic-ui/components/Select/index.js
+var Select = __webpack_require__("QclZ");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
+var Alert = __webpack_require__("ZwIX");
+
+// CONCATENATED MODULE: ./atomic-ui/components/GlobalSearch/index.js
+var __jsx = external_react_default.a.createElement;
+
+
+
+
+
+
+
+const GlobalSearch_Wrap = external_styled_components_default()(Column["a" /* default */])`
+  padding: var(--default-gap);
+`;
+const Loader = external_styled_components_default.a.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+`;
+/*
+ * const entities: entity[]
+ * type entity = {
+ *  label: string;
+ *  value: ObjectID | string;
+ *  render: ReactNode | Element | string;
+ * }
+ */
+
+const GlobalSearch = ({
+  result,
+  search,
+  loading,
+  entities,
+  initialEntity,
+  appearance,
+  style,
+  className,
+  onChange,
+  onSubmit
+}) => {
+  const {
+    0: entity,
+    1: setEntity
+  } = Object(external_react_["useState"])(initialEntity);
+  const searchRef = Object(external_react_["useRef"])(null);
+
+  const handleChange = value => {
+    setEntity(value);
+
+    if (searchRef !== null && searchRef !== void 0 && searchRef.current) {
+      searchRef.current.value = '';
+      if (onSubmit) onSubmit('');
+    }
+  };
+
+  const renderContent = () => __jsx(external_react_default.a.Fragment, null, __jsx(Search["a" /* default */], {
+    ref: searchRef,
+    appearance: 'ghost',
+    placeholder: 'Поиск',
+    defaultValue: search,
+    onSubmit: onSubmit
+  }), (result === null || result === void 0 ? void 0 : result.length) > 0 ? result.map(item => entity.render && __jsx(external_react_default.a.Fragment, {
+    key: item.id || item.email
+  }, entity.render(item))) : __jsx(Alert["a" /* default */], {
+    style: {
+      width: '100%',
+      textAlign: 'center',
+      flexGrow: 1
+    }
+  }, "\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E"));
+
+  Object(external_react_["useEffect"])(() => {
+    if (onChange) onChange(entity);
+  }, [entity, onChange]);
+  return __jsx(GlobalSearch_Wrap, {
+    style: style,
+    className: className,
+    appearance: appearance
+  }, __jsx(Select["a" /* default */], {
+    appearance: 'ghost',
+    defaultValue: entity,
+    placeholder: 'Где будем искать?',
+    label: 'Зона поиска',
+    options: entities,
+    onChange: handleChange,
+    isLoading: loading,
+    isSearchable: true,
+    isClearable: true
+  }), !loading && entity && renderContent(), loading && __jsx(Loader, null, __jsx(Spinner["a" /* default */], null)));
+};
+GlobalSearch.defaultProps = {
+  appearance: 'clear'
+};
+/* harmony default export */ var components_GlobalSearch = (GlobalSearch);
+// EXTERNAL MODULE: ./layouts/dashboard/content.js + 1 modules
+var content = __webpack_require__("OqOz");
+
+// EXTERNAL MODULE: ./store/actions/modal.js
+var modal = __webpack_require__("qOKH");
+
+// CONCATENATED MODULE: ./components/QuerySearch/index.js
+
+
+
+
+
+
+const Query = Object(external_react_["memo"])(({
+  data,
+  loading,
+  search,
+  entity,
+  entities,
+  onChange,
+  onSubmit
+}) => {
+  const dispatch = Object(external_react_redux_["useDispatch"])();
+
+  const hideModal = () => dispatch(Object(modal["a" /* setModal */])(null));
+
+  return /*#__PURE__*/external_react_default.a.createElement(components_GlobalSearch, {
+    search: search,
+    loading: loading,
+    initialEntity: entity,
+    result: search && data && entity && data[entity === null || entity === void 0 ? void 0 : entity.value],
+    entities: (entities || []).map(elem => ({ ...elem,
+      render: item => /*#__PURE__*/external_react_default.a.createElement(content["a" /* Card */], {
+        key: item.id || item.email,
+        item: item,
+        appearance: 'clear',
+        component: elem.render(item),
+        onLink: hideModal,
+        onEdit: hideModal,
+        onDelete: hideModal,
+        withoutChecked: true
+      })
+    })),
+    onSubmit: onSubmit,
+    onChange: onChange
+  });
+});
+const QuerySearch = Object(external_react_["memo"])(({
+  search,
+  entity,
+  entities,
+  setSearch,
+  onHide,
+  onChange
+}) => {
+  const initialResult = [null, {
+    data: null,
+    loading: false,
+    refetch: null
+  }];
+  const [load, {
+    data,
+    loading,
+    refetch
+  }] = entity ? Object(react_hooks_["useLazyQuery"])(entity.query) : initialResult;
+
+  const onSubmit = value => {
+    const variables = {
+      search: value
+    };
+    if (setSearch) setSearch(value);
+
+    if (value) {
+      if (refetch) {
+        refetch(variables);
+      }
+
+      if (load) {
+        load({
+          variables
+        });
+      }
+    }
+  };
+
+  return /*#__PURE__*/external_react_default.a.createElement(Query, {
+    data: data,
+    entity: entity,
+    search: search,
+    loading: loading,
+    entities: entities,
+    onHide: onHide,
+    onChange: onChange,
+    onSubmit: onSubmit
+  });
+});
+/* harmony default export */ var components_QuerySearch = (QuerySearch);
+// EXTERNAL MODULE: ./components/UserCard/index.js
+var UserCard = __webpack_require__("TsNn");
+
+// EXTERNAL MODULE: ./components/CategoryCard/index.js + 1 modules
+var CategoryCard = __webpack_require__("yEVw");
+
+// EXTERNAL MODULE: ./components/ArticleCard/index.js + 1 modules
+var ArticleCard = __webpack_require__("UwjQ");
+
+// EXTERNAL MODULE: ./components/ProjectCard/index.js
+var ProjectCard = __webpack_require__("1zqG");
+
+// EXTERNAL MODULE: ./components/TicketCard/index.js
+var TicketCard = __webpack_require__("4nJQ");
+
+// EXTERNAL MODULE: ./components/RoleCard/index.js
+var RoleCard = __webpack_require__("4NP5");
+
+// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
+var queries = __webpack_require__("u2Cb");
+
+// CONCATENATED MODULE: ./components/Search/mocks/index.js
+
+
+
+
+
+
+
+
+const mocks_entities = [{
+  value: 'getUsers',
+  label: 'Пользователи',
+  singlePath: 'user',
+  originPath: 'users',
+  query: queries["a" /* default */].GET_USERS,
+  deleteQuery: queries["a" /* default */].DELETE_USER,
+  deleteEntityMultiText: 'Пользователи',
+  deleteEntitySingleText: 'Пользователь',
+  render: item => /*#__PURE__*/external_react_default.a.createElement(UserCard["a" /* default */], {
+    user: item
+  })
+}, {
+  value: 'getCategories',
+  label: 'Категории',
+  singlePath: 'category',
+  originPath: 'categories',
+  query: queries["a" /* default */].GET_CATEGORIES,
+  deleteQuery: queries["a" /* default */].DELETE_CATEGORY,
+  deleteEntityMultiText: 'Категории',
+  deleteEntitySingleText: 'Категория',
+  render: item => /*#__PURE__*/external_react_default.a.createElement(CategoryCard["a" /* default */], {
+    category: item
+  })
+}, {
+  value: 'getArticles',
+  label: 'Статьи',
+  singlePath: 'article',
+  originPath: 'articles',
+  query: queries["a" /* default */].GET_ARTICLES,
+  deleteQuery: queries["a" /* default */].DELETE_ARTICLE,
+  deleteEntityMultiText: 'Статьи',
+  deleteEntitySingleText: 'Статья',
+  render: item => /*#__PURE__*/external_react_default.a.createElement(ArticleCard["b" /* default */], {
+    article: item
+  })
+}, {
+  value: 'getProjects',
+  label: 'Проекты',
+  singlePath: 'project',
+  originPath: 'projects',
+  query: queries["a" /* default */].GET_PROJECTS,
+  deleteQuery: queries["a" /* default */].DELETE_PROJECT,
+  deleteEntityMultiText: 'Продукты',
+  deleteEntitySingleText: 'Продукт',
+  render: item => /*#__PURE__*/external_react_default.a.createElement(ProjectCard["c" /* default */], {
+    project: item,
+    preview: true
+  })
+}, {
+  value: 'getTickets',
+  label: 'Обращения',
+  singlePath: 'ticket',
+  originPath: 'tickets',
+  query: queries["a" /* default */].GET_TICKETS,
+  deleteQuery: queries["a" /* default */].DELETE_TICKET,
+  deleteEntityMultiText: 'Обращения',
+  deleteEntitySingleText: 'Обращение',
+  render: item => /*#__PURE__*/external_react_default.a.createElement(TicketCard["a" /* default */], {
+    ticket: item
+  })
+}, {
+  value: 'getRoles',
+  label: 'Роли',
+  singlePath: 'role',
+  originPath: 'roles',
+  query: queries["a" /* default */].GET_ROLES,
+  deleteQuery: queries["a" /* default */].DELETE_ROLE,
+  deleteEntityMultiText: 'Роли',
+  deleteEntitySingleText: 'Роль',
+  render: item => /*#__PURE__*/external_react_default.a.createElement(RoleCard["a" /* default */], {
+    role: item
+  })
+}];
+// CONCATENATED MODULE: ./components/Search/index.js
+
+
+
+const Search_Search = ({
+  onJump,
+  onHide
+}) => {
+  const [entity, setEntity] = Object(external_react_["useState"])(null);
+  const [search, setSearch] = Object(external_react_["useState"])(null);
+  return /*#__PURE__*/external_react_default.a.createElement(components_QuerySearch, {
+    search: search,
+    entity: entity,
+    entities: mocks_entities,
+    setSearch: setSearch,
+    onChange: setEntity,
+    onJump: onJump,
+    onHide: onHide
+  });
+};
+/* harmony default export */ var components_Search = (Search_Search);
 // EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
 
 // EXTERNAL MODULE: ./store/actions/user.js
 var actions_user = __webpack_require__("8ihE");
+
+// EXTERNAL MODULE: ./config/index.js
+var config = __webpack_require__("rOcY");
 
 // CONCATENATED MODULE: ./layouts/dashboard/links.js
 
@@ -19865,13 +21655,9 @@ const getLinks = permissions => {
   return result;
 };
 /* harmony default export */ var dashboard_links = (getLinks);
-// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
-var queries = __webpack_require__("u2Cb");
-
-// EXTERNAL MODULE: ./config/index.js
-var config = __webpack_require__("rOcY");
-
 // CONCATENATED MODULE: ./layouts/dashboard/index.js
+
+
 
 
 
@@ -19995,7 +21781,19 @@ const DashboardLayout = ({
     src: (_root$settings$genera = root.settings.general.logotype) === null || _root$settings$genera === void 0 ? void 0 : _root$settings$genera.path,
     alt: 'Logotype'
   })))))), /*#__PURE__*/external_react_default.a.createElement(Search["a" /* default */], {
-    appearance: 'ghost'
+    appearance: 'ghost',
+    onClick: () => dispatch(Object(modal["a" /* setModal */])([{
+      path: '/',
+      title: 'Поиск',
+      component: ({
+        jump,
+        close
+      }) => /*#__PURE__*/external_react_default.a.createElement(components_Search, {
+        onJump: jump,
+        onHide: close
+      })
+    }], 'l')),
+    disable: true
   })), /*#__PURE__*/external_react_default.a.createElement(Main, null, /*#__PURE__*/external_react_default.a.createElement(dashboard_SideBar, {
     user: {
       name: user.name,
@@ -20636,7 +22434,6 @@ const getLabelGender = gender => {
 };
 const User = ({
   user,
-  roles,
   mutation,
   appearance,
   className,
@@ -20669,12 +22466,22 @@ const User = ({
       account: ['ENTITY']
     }
   });
+  const {
+    data: dataRoles,
+    loading: loadingRoles
+  } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_ROLES);
   const [tab, setTab] = Object(external_react_["useState"])(TAB_TYPES[0]);
+  const [roles, setRoles] = Object(external_react_["useState"])([]);
   const [account, setAccount] = Object(external_react_["useState"])(null);
   const [isShowPassword, setShowPassword] = Object(external_react_["useState"])(false);
 
   const onTogglePassword = () => setShowPassword(!isShowPassword);
 
+  Object(external_react_["useEffect"])(() => {
+    if (!loadingRoles && dataRoles) {
+      setRoles(dataRoles.getRoles);
+    }
+  }, [loadingRoles, dataRoles]);
   return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
     className: className,
     appearance: appearance,
@@ -21806,18 +23613,18 @@ const View = ({
     emptyMessage: 'Кажется такого пользователя не существует'
   }, /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(RoundedAvatar, {
     src: (data === null || data === void 0 ? void 0 : (_data$getUser = data.getUser) === null || _data$getUser === void 0 ? void 0 : (_data$getUser$avatar = _data$getUser.avatar) === null || _data$getUser$avatar === void 0 ? void 0 : _data$getUser$avatar.path) || '/images/avatar-default.png'
-  }), /*#__PURE__*/external_react_default.a.createElement(Content, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["a" /* MarkedText */], null, (data === null || data === void 0 ? void 0 : (_data$getUser2 = data.getUser) === null || _data$getUser2 === void 0 ? void 0 : _data$getUser2.account) && /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
+  }), /*#__PURE__*/external_react_default.a.createElement(Content, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["b" /* MarkedText */], null, (data === null || data === void 0 ? void 0 : (_data$getUser2 = data.getUser) === null || _data$getUser2 === void 0 ? void 0 : _data$getUser2.account) && /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
     category: Object(functions["g" /* getLabelRole */])(data === null || data === void 0 ? void 0 : (_data$getUser3 = data.getUser) === null || _data$getUser3 === void 0 ? void 0 : _data$getUser3.account)
   }), (data === null || data === void 0 ? void 0 : data.getUser) && Object(Members["c" /* hasResponsibleMember */])(data === null || data === void 0 ? void 0 : data.getUser) && /*#__PURE__*/external_react_default.a.createElement(Members["a" /* ResponsibleMark */], null)), (data === null || data === void 0 ? void 0 : (_data$getUser4 = data.getUser) === null || _data$getUser4 === void 0 ? void 0 : _data$getUser4.name) && /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h3'
   }, data === null || data === void 0 ? void 0 : (_data$getUser5 = data.getUser) === null || _data$getUser5 === void 0 ? void 0 : _data$getUser5.name), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], null), /*#__PURE__*/external_react_default.a.createElement(About, null, (data === null || data === void 0 ? void 0 : (_data$getUser6 = data.getUser) === null || _data$getUser6 === void 0 ? void 0 : (_data$getUser6$about = _data$getUser6.about) === null || _data$getUser6$about === void 0 ? void 0 : _data$getUser6$about.length) > 255 ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data === null || data === void 0 ? void 0 : (_data$getUser7 = data.getUser) === null || _data$getUser7 === void 0 ? void 0 : _data$getUser7.about.slice(0, 255), "..."), /*#__PURE__*/external_react_default.a.createElement(Styled["e" /* More */], {
     onClick: () => onAboutMore(data === null || data === void 0 ? void 0 : data.getUser)
-  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, (data === null || data === void 0 ? void 0 : (_data$getUser8 = data.getUser) === null || _data$getUser8 === void 0 ? void 0 : _data$getUser8.about) || 'Информация о себе не заполнена')))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], null), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, (data === null || data === void 0 ? void 0 : (_data$getUser9 = data.getUser) === null || _data$getUser9 === void 0 ? void 0 : _data$getUser9.account) === 'ENTITY' ? /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, (data === null || data === void 0 ? void 0 : (_data$getUser8 = data.getUser) === null || _data$getUser8 === void 0 ? void 0 : _data$getUser8.about) || 'Информация о себе не заполнена')))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], null), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, (data === null || data === void 0 ? void 0 : (_data$getUser9 = data.getUser) === null || _data$getUser9 === void 0 ? void 0 : _data$getUser9.account) === 'ENTITY' ? /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
     icon: 'chart',
     label: 'Участники',
     text: (data === null || data === void 0 ? void 0 : (_data$getUser10 = data.getUser) === null || _data$getUser10 === void 0 ? void 0 : _data$getUser10.members) || '-',
     onLink: (data === null || data === void 0 ? void 0 : (_data$getUser11 = data.getUser) === null || _data$getUser11 === void 0 ? void 0 : _data$getUser11.members) && onMembers
-  }) : /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], _extends({}, data !== null && data !== void 0 && (_data$getUser12 = data.getUser) !== null && _data$getUser12 !== void 0 && _data$getUser12.company ? {
+  }) : /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], _extends({}, data !== null && data !== void 0 && (_data$getUser12 = data.getUser) !== null && _data$getUser12 !== void 0 && _data$getUser12.company ? {
     img: data === null || data === void 0 ? void 0 : (_data$getUser13 = data.getUser) === null || _data$getUser13 === void 0 ? void 0 : (_data$getUser13$compa = _data$getUser13.company) === null || _data$getUser13$compa === void 0 ? void 0 : (_data$getUser13$compa2 = _data$getUser13$compa.avatar) === null || _data$getUser13$compa2 === void 0 ? void 0 : _data$getUser13$compa2.path
   } : {
     icon: 'chart'
@@ -21829,7 +23636,7 @@ const View = ({
 
       return setQuery(data === null || data === void 0 ? void 0 : (_data$getUser16 = data.getUser) === null || _data$getUser16 === void 0 ? void 0 : (_data$getUser16$compa = _data$getUser16.company) === null || _data$getUser16$compa === void 0 ? void 0 : _data$getUser16$compa.email, 'user', onCompanyLink);
     })
-  })), /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+  })), /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
     icon: 'work',
     label: 'Проекты',
     text: (dataParticipatingUserProjects === null || dataParticipatingUserProjects === void 0 ? void 0 : (_dataParticipatingUse = dataParticipatingUserProjects.getProjects) === null || _dataParticipatingUse === void 0 ? void 0 : _dataParticipatingUse.length) || '-'
@@ -22546,33 +24353,42 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"])`
   width: 100%;
 `;
-const Search = (_ref) => {
+const Search = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.forwardRef((_ref, ref) => {
   let {
+    className,
+    defaultValue,
     onSubmit,
-    className
+    onClick
   } = _ref,
-      props = _objectWithoutProperties(_ref, ["onSubmit", "className"]);
+      props = _objectWithoutProperties(_ref, ["className", "defaultValue", "onSubmit", "onClick"]);
 
   const {
     0: value,
     1: setValue
-  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])('');
+  } = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(defaultValue || '');
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
   return __jsx(Wrap, {
     className: className
   }, __jsx(_Input__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], _extends({
     type: 'text',
     placeholder: 'Поиск'
   }, props, {
-    value: value,
-    onChange: e => setValue(e.target.value)
+    ref: ref,
+    readOnly: !!onClick,
+    defaultValue: defaultValue,
+    onClick: onClick && (() => onClick()),
+    onChange: e => !onClick && setValue(e.target.value),
+    onKeyDown: e => !onClick && e.key === 'Enter' && onSubmit(value)
   })), __jsx(_Button__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
     kind: 'icon',
-    onClick: () => onSubmit(value)
+    onClick: () => onClick ? onClick : onSubmit(value)
   }, __jsx(_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     icon: 'search',
     stroke: 'white'
   })));
-};
+});
 /* harmony default export */ __webpack_exports__["a"] = (Search);
 
 /***/ }),
@@ -22625,6 +24441,8 @@ __webpack_require__.d(User_namespaceObject, "GET_USER_CHATS", function() { retur
 var Meta_namespaceObject = {};
 __webpack_require__.r(Meta_namespaceObject);
 __webpack_require__.d(Meta_namespaceObject, "GET_NOTICE_TYPES", function() { return GET_NOTICE_TYPES; });
+__webpack_require__.d(Meta_namespaceObject, "GET_CATEGORY_TYPES", function() { return GET_CATEGORY_TYPES; });
+__webpack_require__.d(Meta_namespaceObject, "GET_PERMISSIONS", function() { return GET_PERMISSIONS; });
 __webpack_require__.d(Meta_namespaceObject, "GET_POST_STATUSES", function() { return GET_POST_STATUSES; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META", function() { return GET_META; });
 __webpack_require__.d(Meta_namespaceObject, "GET_META_SCAFFOLD", function() { return GET_META_SCAFFOLD; });
@@ -22837,8 +24655,14 @@ const ProjectFields = external_graphql_tag_default.a`
       }
     }
     title
-    description
     body
+    characteristics {
+      id
+      name
+      value
+      isVisualize
+    }
+    description
     company {
       name
       email
@@ -23362,6 +25186,16 @@ const GET_USER_CHATS = external_graphql_tag_default.a`
 const GET_NOTICE_TYPES = external_graphql_tag_default.a`
   query getNoticeTypes {
     getNoticeTypes
+  }
+`;
+const GET_CATEGORY_TYPES = external_graphql_tag_default.a`
+  query getCategoryTypes {
+    getCategoryTypes
+  }
+`;
+const GET_PERMISSIONS = external_graphql_tag_default.a`
+  query getPermissions {
+    getPermissions
   }
 `;
 const GET_POST_STATUSES = external_graphql_tag_default.a`
@@ -23984,6 +25818,7 @@ const GET_PROJECTS = external_graphql_tag_default.a`
     $category: ID
     $rating: [String]
     $author: String
+    $search: String
     $status: PostStatus
   ) {
     getProjects(
@@ -23992,6 +25827,7 @@ const GET_PROJECTS = external_graphql_tag_default.a`
       category: $category
       rating: $rating
       author: $author
+      search: $search
       status: $status
     ) {
       id
@@ -25400,7 +27236,7 @@ const MainLayout = ({
     icon: 'arrowLeft',
     size: 's',
     stroke: 'var(--default-color-accent)'
-  })), drawer.title && /*#__PURE__*/external_react_default.a.createElement(Difinition["c" /* default */], {
+  })), drawer.title && /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
     color: drawer.color,
     icon: drawer.icon,
     text: drawer.title
@@ -26155,6 +27991,12 @@ var functions = __webpack_require__("NWnW");
 // EXTERNAL MODULE: ./hooks/useEntityQuery.js
 var useEntityQuery = __webpack_require__("8UhZ");
 
+// EXTERNAL MODULE: ./store/helpers/category.js + 2 modules
+var helpers_category = __webpack_require__("V9G2");
+
+// EXTERNAL MODULE: ./hooks/useHelper.js
+var useHelper = __webpack_require__("ApjV");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
 var Tooltip = __webpack_require__("VWQm");
 
@@ -26224,7 +28066,13 @@ const CardActions = ({
   onChange: onChecked
 })));
 /* harmony default export */ var components_CardActions = (CardActions);
+// EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
+var queries = __webpack_require__("u2Cb");
+
 // CONCATENATED MODULE: ./components/CategoryCard/index.js
+
+
+
 
 
 
@@ -26277,9 +28125,29 @@ const Card = ({
   onDelete,
   onEdit
 }) => {
+  const recall = Object(useHelper["b" /* useHelper */])();
   const {
     setQuery
   } = Object(useEntityQuery["b" /* useEntityQuery */])();
+
+  const handleEdit = () => {
+    recall(helpers_category["c" /* onCategoryEdit */], {
+      id: category.id,
+      category,
+      mutation: queries["a" /* default */].UPDATE_CATEGORY
+    })();
+    if (onEdit) onEdit();
+  };
+
+  const handleDelete = () => {
+    recall(helpers_category["b" /* onCategoryDelete */], {
+      id: category.id,
+      category,
+      mutation: queries["a" /* default */].DELETE_CATEGORY
+    })();
+    if (onDelete) onDelete();
+  };
+
   return /*#__PURE__*/external_react_default.a.createElement(Wrap, {
     className: className,
     style: style,
@@ -26291,8 +28159,8 @@ const Card = ({
   }), /*#__PURE__*/external_react_default.a.createElement(components_CardActions, {
     typeText: 'категорию',
     checked: checked,
-    onEdit: onEdit,
-    onDelete: onDelete,
+    onEdit: handleEdit,
+    onDelete: handleDelete,
     onChecked: onChecked
   })), /*#__PURE__*/external_react_default.a.createElement(Name, {
     tag: 'h4',

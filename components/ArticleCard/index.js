@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
@@ -12,9 +13,12 @@ import Icon from '../../atomic-ui/components/Icon'
 import Image from '../../atomic-ui/components/Image'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Tooltip from '../../atomic-ui/components/Tooltip'
-import { b64EncodeUnicode } from '../../atomic-ui/utils/functions'
 
 import config from '../../config'
+import { onArticleDelete, onArticleEdit } from '../../store/helpers/article'
+import { useHelper } from '../../hooks/useHelper'
+import queries from '../../graphql/queries'
+import { b64EncodeUnicode } from '../../atomic-ui/utils/functions'
 
 const HOST_URL = config.get('host-url')
 
@@ -161,6 +165,9 @@ export const Card = ({
   withSocials
 }) => {
   const router = useRouter()
+  const recall = useHelper()
+  const user = useSelector((state) => state.user)
+  const canEditStatus = useMemo(() => user && user.role.name === 'ADMIN', [user])
 
   const handleClick = async () => {
     await router.push(
@@ -174,6 +181,24 @@ export const Card = ({
       { shallow: true }
     )
     if (onLink) onLink()
+  }
+
+  const handleEdit = () => {
+    recall(onArticleEdit, {
+      id: article.id,
+      canEditStatus,
+      mutation: queries.UPDATE_ARTICLE
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onArticleDelete, {
+      id: article.id,
+      article,
+      mutation: queries.DELETE_ARTICLE
+    })()
+    if (onDelete) onDelete()
   }
 
   return (
@@ -205,14 +230,14 @@ export const Card = ({
             <Actions>
               {onDelete && (
                 <Tooltip text={'Удалить статью'}>
-                  <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
+                  <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={handleDelete}>
                     <Icon icon={'delete'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>
               )}
               {onEdit && (
                 <Tooltip text={'Редактировать статью'}>
-                  <Button kind={'icon'} size={'xs'} onClick={onEdit}>
+                  <Button kind={'icon'} size={'xs'} onClick={handleEdit}>
                     <Icon icon={'edit'} size={'xs'} stroke={'white'} />
                   </Button>
                 </Tooltip>

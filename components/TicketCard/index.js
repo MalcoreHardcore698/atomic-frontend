@@ -13,7 +13,10 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 
+import { onTicketDelete, onTicketEdit } from '../../store/helpers/ticket'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
+import { useHelper } from '../../hooks/useHelper'
+import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);
@@ -95,7 +98,24 @@ export const Card = ({
   onEdit,
   onDelete
 }) => {
+  const recall = useHelper()
   const { setQuery } = useEntityQuery()
+
+  const handleEdit = () => {
+    recall(onTicketEdit, {
+      id: ticket.id,
+      mutation: queries.UPDATE_TICKET
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onTicketDelete, {
+      ticket,
+      mutation: queries.DELETE_TICKET
+    })()
+    if (onDelete) onDelete()
+  }
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
@@ -106,12 +126,12 @@ export const Card = ({
           {onChecked && onEdit && onDelete && (
             <Actions>
               <Tooltip text={'Удалить обращение'}>
-                <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
+                <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={handleDelete}>
                   <Icon icon={'delete'} size={'xs'} stroke={'white'} />
                 </Button>
               </Tooltip>
               <Tooltip text={'Редактировать обращение'}>
-                <Button kind={'icon'} size={'xs'} onClick={onEdit}>
+                <Button kind={'icon'} size={'xs'} onClick={handleEdit}>
                   <Icon icon={'edit'} size={'xs'} stroke={'white'} />
                 </Button>
               </Tooltip>

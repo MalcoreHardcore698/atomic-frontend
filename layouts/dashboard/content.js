@@ -95,6 +95,8 @@ const ContentLayout = ({
   filters,
   options,
   template,
+  limit = 6,
+  startOffset = 6,
   buttonCreateText,
   getType,
   getQuery,
@@ -210,9 +212,11 @@ const ContentLayout = ({
 
         <List
           key={updated}
+          limit={limit}
           type={getType}
           query={getQuery}
           template={template}
+          startOffset={startOffset}
           setCheckedList={setCheckedList}
           component={(item) => (
             <Card

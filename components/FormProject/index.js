@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Controller } from 'react-hook-form'
 import { useQuery } from '@apollo/react-hooks'
@@ -14,9 +14,11 @@ import Button from '../../atomic-ui/components/Button'
 import Select from '../../atomic-ui/components/Select'
 import TextArea from '../../atomic-ui/components/TextArea'
 import TextEditor from '../../atomic-ui/components/TextEditor'
+import CharacteristicEditor from '../../atomic-ui/components/CharacteristicEditor'
 import Dropzone from '../../atomic-ui/components/Dropzone'
 import ActionRow from '../../atomic-ui/components/ActionRow'
 import Difinition from '../../atomic-ui/components/Difinition'
+import Checkbox from '../../atomic-ui/components/Checkbox'
 import Spinner from '../../atomic-ui/components/Spinner'
 import Divider from '../../atomic-ui/components/Divider'
 import Tooltip from '../../atomic-ui/components/Tooltip'
@@ -81,11 +83,48 @@ export const AlignmentRow = styled(Row)`
   }
 `
 
+export const Characteristics = ({ project, watch, control, getValues }) => {
+  const [isPreviewCharacteristics, setIsPreviewCharacteristics] = useState(
+    getValues('characteristics')?.length > 0 || project?.characteristics?.length > 0
+  )
+
+  watch('characteristics')
+
+  return (
+    <React.Fragment>
+      <AdaptiveRow style={{ justifyContent: 'space-between' }}>
+        <Title tag={'h4'}>Характеристики</Title>
+        <Checkbox
+          label={'Превью'}
+          disabled={
+            getValues('characteristics')?.length === 0 || project?.characteristics?.length === 0
+          }
+          defaultChecked={isPreviewCharacteristics}
+          onChange={(e) => setIsPreviewCharacteristics(e.target.checked)}
+          rtl
+        />
+      </AdaptiveRow>
+      {isPreviewCharacteristics && (
+        <CharacteristicEditor
+          appearance={'ghost'}
+          defaultValue={getValues('characteristics') || project?.characteristics || null}
+          readOnly
+        />
+      )}
+      <Controller
+        name={'characteristics'}
+        control={control}
+        defaultValue={getValues('characteristics') || project?.characteristics || null}
+        render={({ value, onChange }) => (
+          <CharacteristicEditor appearance={'ghost'} defaultValue={value} onChange={onChange} />
+        )}
+      />
+    </React.Fragment>
+  )
+}
+
 export const Project = ({
   project,
-  companies,
-  categories,
-  statuses,
   mutation,
   appearance,
   className,
@@ -106,6 +145,18 @@ export const Project = ({
         }
       })
     : { data: { getProject: {} }, loading: false, error: false }
+
+  const { data: dataCompanies, loading: loadingCompanies } = useQuery(queries.GET_USERS, {
+    variables: {
+      account: ['ENTITY']
+    }
+  })
+  const { data: dataCategories, loading: loadingCategories } = useQuery(queries.GET_CATEGORIES)
+  const { data: dataStatuses, loading: loadingStatuses } = useQuery(queries.GET_POST_STATUSES)
+
+  const [companies, setCompanies] = useState([])
+  const [categories, setCategories] = useState([])
+  const [statuses, setStatuses] = useState([])
 
   const { members, screenshots, files } = useSelector((state) => ({
     members: state.root.members,
@@ -128,23 +179,56 @@ export const Project = ({
     }
   }, [loadingData, data])
 
+  useEffect(() => {
+    if (!loadingCompanies && dataCompanies) {
+      setCompanies(dataCompanies.getUsers)
+    }
+  }, [loadingCompanies, dataCompanies])
+
+  useEffect(() => {
+    if (!loadingCategories && dataCategories) {
+      setCategories(dataCategories.getCategories)
+    }
+  }, [loadingCategories, dataCategories])
+
+  useEffect(() => {
+    if (!loadingStatuses && dataStatuses) {
+      setStatuses(dataStatuses.getPostStatus)
+    }
+  }, [loadingStatuses, dataStatuses])
+
   return (
     <Form
       className={className}
       appearance={appearance}
       mutation={mutation}
-      onSubmit={(form, action) => onSubmit({ ...form, members, screenshots, files }, action)}>
-      {({ register, loading, errors, control, getValues }) =>
+      onSubmit={(form, action) =>
+        onSubmit(
+          {
+            ...form,
+            screenshots,
+            members,
+            files
+          },
+          action
+        )
+      }>
+      {({ watch, register, loading, errors, control, getValues }) =>
         !loading && !loadingData && data ? (
           <React.Fragment>
-            <Title tag={'h4'}>Основное</Title>
+            {errors && errors.preview && (
+              <Alert style={{ width: '100%' }} appearance={'error'}>
+                Выберите изображение для превью
+              </Alert>
+            )}
+            {errors && errors.title && (
+              <Alert style={{ width: '100%' }} appearance={'error'}>
+                Введите название проекта
+              </Alert>
+            )}
 
+            <Title tag={'h4'}>Основное</Title>
             <AdaptiveRow>
-              {errors && errors.preview && (
-                <Alert style={{ width: '100%' }} appearance={'error'}>
-                  Выберите изображение для превью
-                </Alert>
-              )}
               <Controller
                 name={'preview'}
                 control={control}
@@ -164,11 +248,6 @@ export const Project = ({
               />
 
               <General>
-                {errors && errors.title && (
-                  <Alert style={{ width: '100%' }} appearance={'error'}>
-                    Введите название проекта
-                  </Alert>
-                )}
                 <Input
                   type={'text'}
                   name={'title'}
@@ -205,7 +284,7 @@ export const Project = ({
                       defaultValue={value}
                       placeholder={'Выберите компанию'}
                       onChange={onChange}
-                      isLoading={loading}
+                      isLoading={loading || loadingCompanies}
                       isSearchable
                     />
                   )}
@@ -235,7 +314,7 @@ export const Project = ({
                         }))}
                       onChange={onChange}
                       defaultValue={value}
-                      isLoading={loading}
+                      isLoading={loading || loadingCategories}
                       isClearable
                     />
                   )}
@@ -259,6 +338,16 @@ export const Project = ({
 
             <Divider clear />
 
+            <Characteristics
+              project={data.getProject}
+              watch={watch}
+              control={control}
+              getValues={getValues}
+            />
+
+            <Divider clear />
+
+            <Title tag={'h4'}>Содержание</Title>
             {errors && errors.body && (
               <Alert style={{ width: '100%' }} appearance={'error'}>
                 Введите содержание статьи
@@ -421,6 +510,7 @@ export const Project = ({
               name={'presentation'}
               defaultValue={getValues('presentation') || data.getProject?.presentation}
               placeholder={'Вставьте ссылку на видео'}
+              label={'Видео-презентация'}
               appearance={'ghost'}
               disabled={loading}
             />
@@ -451,7 +541,7 @@ export const Project = ({
                     onChange={onChange}
                     defaultValue={value}
                     menuPlacement={'top'}
-                    isLoading={loading}
+                    isLoading={loading || loadingStatuses}
                     isClearable
                   />
                 )}

@@ -9,7 +9,7 @@
   "/contact": "pages/contact.html",
   "/creators": "pages/creators.js",
   "/dashboard/articles": "pages/dashboard/articles.js",
-  "/dashboard/categories": "pages/dashboard/categories.js",
+  "/dashboard/categories": "pages/dashboard/categories.html",
   "/dashboard": "pages/dashboard.html",
   "/dashboard/projects": "pages/dashboard/projects.js",
   "/dashboard/roles": "pages/dashboard/roles.js",

@@ -151,8 +151,6 @@ export const Comments = ({ article, setValue }) => {
 
 export const Article = ({
   article,
-  categories,
-  statuses,
   mutation,
   appearance,
   className,
@@ -167,6 +165,24 @@ export const Article = ({
         }
       })
     : { data: { getArticle: {} }, loading: false, error: false }
+
+  const { data: dataCategories, loading: loadingCategories } = useQuery(queries.GET_CATEGORIES)
+  const { data: dataStatuses, loading: loadingStatuses } = useQuery(queries.GET_POST_STATUSES)
+
+  const [categories, setCategories] = useState([])
+  const [statuses, setStatuses] = useState([])
+
+  useEffect(() => {
+    if (!loadingCategories && dataCategories) {
+      setCategories(dataCategories.getCategories)
+    }
+  }, [loadingCategories, dataCategories])
+
+  useEffect(() => {
+    if (!loadingStatuses && dataStatuses) {
+      setStatuses(dataStatuses.getPostStatus)
+    }
+  }, [loadingStatuses, dataStatuses])
 
   return (
     <Form className={className} appearance={appearance} mutation={mutation} onSubmit={onSubmit}>
@@ -237,7 +253,7 @@ export const Article = ({
                       }))}
                     onChange={onChange}
                     defaultValue={value}
-                    isLoading={loading}
+                    isLoading={loading || loadingCategories}
                     isClearable
                   />
                 )}
@@ -290,7 +306,7 @@ export const Article = ({
                       onChange={onChange}
                       defaultValue={value}
                       menuPlacement={'top'}
-                      isLoading={loading}
+                      isLoading={loading || loadingStatuses}
                       isClearable
                     />
                   )}

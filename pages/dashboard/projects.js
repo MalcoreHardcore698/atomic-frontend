@@ -52,7 +52,7 @@ const Projects = ({ store }) => {
         { type: 'DATEPICKER' },
         {
           type: 'SELECT',
-          options: store?.categories.map((category) => ({
+          options: [].map((category) => ({
             value: category.id,
             label: getLabelCategory(category.name)
           }))
@@ -67,9 +67,6 @@ const Projects = ({ store }) => {
         icon: 'work',
         buttonCreateText: 'Создать проект',
         onCreate: recall(onProjectCreate, {
-          companies: store.companies,
-          categories: store.categories,
-          statuses: store.statuses,
           canEditStatus,
           mutation: queries.CREATE_PROJECT,
           query: queries.GET_USERS
@@ -101,9 +98,6 @@ const Projects = ({ store }) => {
             onEdit={(project) =>
               recall(onProjectEdit, {
                 id: project.id,
-                companies: store.companies,
-                categories: store.categories,
-                statuses: store.statuses,
                 canEditStatus,
                 mutation: queries.UPDATE_PROJECT,
                 query: queries.GET_USERS,
@@ -162,9 +156,6 @@ const Projects = ({ store }) => {
                     })}
                     onEdit={recall(onProjectEdit, {
                       id: project.id,
-                      companies: store.companies,
-                      categories: store.categories,
-                      statuses: store.statuses,
                       canEditStatus,
                       mutation: queries.UPDATE_PROJECT,
                       query: queries.GET_USERS,
@@ -187,25 +178,18 @@ export async function getServerSideProps() {
   const client = initializeApollo()
 
   let projects = []
-  let companies = []
-  let categories = []
-  let statuses = []
 
   try {
     const response = await client.query({
-      query: queries.GET_META_DASHBOARD_PROJECTS,
+      query: queries.GET_PROJECTS,
       variables: {
         offset: 0,
-        limit: LIMIT,
-        account: ['ENTITY']
+        limit: LIMIT
       }
     })
 
     if (response && response.data) {
       projects = response.data.getProjects
-      companies = response.data.getUsers
-      categories = response.data.getCategories
-      statuses = response.data.getPostStatus
     }
   } catch (err) {
     console.log(err)
@@ -214,10 +198,7 @@ export async function getServerSideProps() {
   return {
     props: {
       store: {
-        projects,
-        companies,
-        categories,
-        statuses
+        projects
       }
     }
   }

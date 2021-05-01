@@ -15,6 +15,9 @@ import Tooltip from '../../atomic-ui/components/Tooltip'
 import { getLabelRole, getLabelPermission } from '../../atomic-ui/utils/functions'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
+import { onRoleDelete, onRoleEdit } from '../../store/helpers/role'
+import { useHelper } from '../../hooks/useHelper'
+import queries from '../../graphql/queries'
 
 export const Wrap = styled(Column)`
   grid-gap: var(--default-gap);
@@ -91,9 +94,29 @@ export const Card = ({
   onEdit,
   onDelete
 }) => {
+  const recall = useHelper()
   const { setQuery } = useEntityQuery()
   const permissions = role.permissions.slice(0, limitPermissions)
   const residue = role.permissions.length - limitPermissions
+
+  const handleEdit = () => {
+    recall(onRoleEdit, {
+      id: role.id,
+      role,
+      permissions,
+      mutation: queries.UPDATE_ROLE
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onRoleDelete, {
+      id: role.id,
+      role,
+      mutation: queries.DELETE_ROLE
+    })()
+    if (onDelete) onDelete()
+  }
 
   return (
     <Wrap className={className} style={style} appearance={appearance}>
@@ -104,12 +127,12 @@ export const Card = ({
           {onChecked && onEdit && onDelete && (
             <Actions>
               <Tooltip text={'Удалить роль'}>
-                <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
+                <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={handleDelete}>
                   <Icon icon={'delete'} size={'xs'} stroke={'white'} />
                 </Button>
               </Tooltip>
               <Tooltip text={'Редактировать роль'}>
-                <Button kind={'icon'} size={'xs'} onClick={onEdit}>
+                <Button kind={'icon'} size={'xs'} onClick={handleEdit}>
                   <Icon icon={'edit'} size={'xs'} stroke={'white'} />
                 </Button>
               </Tooltip>
