@@ -14,9 +14,9 @@ import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
-import Checkbox from '../../atomic-ui/components/Checkbox'
 
-import { More } from '../Styled'
+import { Surface, More } from '../Styled'
+import CardActions from '../CardActions'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { onProjectDelete, onProjectEdit } from '../../store/helpers/project'
 import { useHelper } from '../../hooks/useHelper'
@@ -82,7 +82,7 @@ export const Poster = styled(Image)`
   }
 `
 
-export const Wrap = styled(Column)`
+export const Wrap = styled(Surface)`
   grid-gap: var(--default-gap);
   height: 100%;
 
@@ -91,36 +91,6 @@ export const Wrap = styled(Column)`
     css`
       display: flex;
       flex-wrap: wrap;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'default' &&
-    css`
-      padding: var(--default-gap);
-      background: var(--surface-background);
-      border: var(--surface-border);
-      border-radius: var(--surface-border-radius);
-      box-shadow: var(--surface-shadow);
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'ghost' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'clear' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
     `}
 `
 
@@ -291,6 +261,7 @@ export const Footer = styled(Row)`
 export const Card = ({
   layout,
   project,
+  checked,
   eliminable,
   appearance,
   className,
@@ -352,7 +323,12 @@ export const Card = ({
   }, [liked])
 
   return (
-    <Wrap className={className} style={style} appearance={appearance} layout={layout}>
+    <Wrap
+      className={className}
+      style={style}
+      appearance={appearance}
+      checked={checked}
+      layout={layout}>
       <Content layout={layout} clear={!project.preview}>
         {project.preview && (
           <Media layout={layout}>
@@ -403,29 +379,13 @@ export const Card = ({
               />
             </Tooltip>
 
-            {(onChecked || onEdit || onDelete) && (
-              <Actions>
-                {onDelete && (
-                  <Tooltip text={'Удалить проект'}>
-                    <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={handleDelete}>
-                      <Icon icon={'delete'} size={'xs'} stroke={'white'} />
-                    </Button>
-                  </Tooltip>
-                )}
-                {onEdit && (
-                  <Tooltip text={'Редактировать проект'}>
-                    <Button kind={'icon'} size={'xs'} onClick={handleEdit}>
-                      <Icon icon={'edit'} size={'xs'} stroke={'white'} />
-                    </Button>
-                  </Tooltip>
-                )}
-                {onChecked && (
-                  <Tooltip text={'Отметить проект'} self>
-                    <Checkbox />
-                  </Tooltip>
-                )}
-              </Actions>
-            )}
+            <CardActions
+              typeText={'проект'}
+              checked={checked}
+              onEdit={onEdit && handleEdit}
+              onDelete={onDelete && handleDelete}
+              onChecked={onChecked}
+            />
           </Header>
 
           <Name tag={'h4'} onClick={() => setQuery(project.id, 'project', onLink)}>

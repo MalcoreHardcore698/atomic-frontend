@@ -37,7 +37,7 @@ const Categories = () => {
       deleteQuery={queries.DELETE_CATEGORY}
       deleteEntityMultiText={'категории'}
       deleteEntitySingleText={'категорию'}
-      onLink={(category) => recall(onCategoryLink, { id: category.id, category })}
+      onLink={(category) => recall(onCategoryLink, { id: category.id, category })()}
       onEdit={(category) =>
         recall(onCategoryEdit, {
           id: category.id,

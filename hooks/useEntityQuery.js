@@ -15,7 +15,7 @@ import { onTicketLink } from '../store/helpers/ticket'
 import { updateUser } from '../store/actions/user'
 import queries from '../graphql/queries'
 
-export const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall) => ({
+export const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall, callback) => ({
   id,
   auth: user?.email,
   liked: !!(user?.likedProjects || []).find((item) => item.id === id),
@@ -32,7 +32,8 @@ export const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall) =
       mutations: {
         addProject: queries.ADD_USER_PROJECT,
         createFolder: queries.ADD_USER_FOLDER
-      }
+      },
+      callback
     }),
   owned
 })

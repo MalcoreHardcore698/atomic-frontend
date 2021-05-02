@@ -8,7 +8,6 @@ import Alert from '../../atomic-ui/components/Alert'
 import Screenshot from '../../atomic-ui/components/Screenshot'
 import Difinition from '../../atomic-ui/components/Difinition'
 import Icon from '../../atomic-ui/components/Icon'
-import { omit } from '../../atomic-ui/utils/functions'
 
 import AddMemberForm from '../../components/FormAddMember'
 import AddFileForm from '../../components/FormAddFile'
@@ -138,9 +137,11 @@ export function onProjectCreate(dispatch, props) {
                   input: {
                     title: form.title,
                     body: form.body,
-                    characteristics: (form.characteristics || []).map((characteristic) =>
-                      omit(characteristic, ['id'])
-                    ),
+                    characteristics: (form.characteristics || []).map((characteristic) => ({
+                      name: characteristic.name,
+                      value: characteristic.value,
+                      isVisualize: characteristic.isVisualize
+                    })),
                     description: form.description,
                     preview: form.preview?.file,
                     company: form.company?.value?.email,
@@ -236,6 +237,11 @@ export function onProjectEdit(dispatch, props) {
                   input: {
                     title: form.title,
                     body: form.body,
+                    characteristics: (form.characteristics || []).map((characteristic) => ({
+                      name: characteristic.name,
+                      value: characteristic.value,
+                      isVisualize: characteristic.isVisualize
+                    })),
                     description: form.description,
                     preview: form.preview?.file,
                     company: form.company?.value?.email,

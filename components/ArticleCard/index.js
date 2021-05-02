@@ -8,28 +8,21 @@ import Column from '../../atomic-ui/components/Column'
 import Title from '../../atomic-ui/components/Title'
 import Meta from '../../atomic-ui/components/Meta'
 import More from '../../atomic-ui/components/More'
-import Button from '../../atomic-ui/components/Button'
-import Icon from '../../atomic-ui/components/Icon'
 import Image from '../../atomic-ui/components/Image'
-import Checkbox from '../../atomic-ui/components/Checkbox'
-import Tooltip from '../../atomic-ui/components/Tooltip'
+import { b64EncodeUnicode } from '../../atomic-ui/utils/functions'
 
-import config from '../../config'
+import { Surface } from '../Styled'
+import CardActions from '../CardActions'
 import { onArticleDelete, onArticleEdit } from '../../store/helpers/article'
 import { useHelper } from '../../hooks/useHelper'
 import queries from '../../graphql/queries'
-import { b64EncodeUnicode } from '../../atomic-ui/utils/functions'
+import config from '../../config'
 
 const HOST_URL = config.get('host-url')
 
-export const Wrap = styled(Row)`
+export const Wrap = styled(Surface)`
   display: grid;
   grid-template-columns: 1fr 2fr;
-  padding: var(--default-gap);
-  background: var(--surface-background);
-  border: var(--surface-border);
-  border-radius: var(--surface-border-radius);
-  box-shadow: var(--surface-shadow);
   height: inherit;
 
   & > span {
@@ -46,36 +39,6 @@ export const Wrap = styled(Row)`
       & > span {
         height: 128px;
       }
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'default' &&
-    css`
-      padding: var(--default-gap);
-      background: var(--surface-background);
-      border: var(--surface-border);
-      border-radius: var(--surface-border-radius);
-      box-shadow: var(--surface-shadow);
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'ghost' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'clear' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
     `}
 
   @media only screen and (max-width: 480px) {
@@ -157,6 +120,7 @@ export const Card = ({
   layout,
   article,
   preview,
+  checked,
   appearance,
   onLink,
   onChecked,
@@ -202,7 +166,7 @@ export const Card = ({
   }
 
   return (
-    <Wrap appearance={appearance} layout={layout}>
+    <Wrap checked={checked} appearance={appearance} layout={layout}>
       {article.preview && (
         <Poster
           src={article.preview?.path}
@@ -226,29 +190,13 @@ export const Card = ({
             short
           />
 
-          {(onChecked || onEdit || onDelete) && (
-            <Actions>
-              {onDelete && (
-                <Tooltip text={'Удалить статью'}>
-                  <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={handleDelete}>
-                    <Icon icon={'delete'} size={'xs'} stroke={'white'} />
-                  </Button>
-                </Tooltip>
-              )}
-              {onEdit && (
-                <Tooltip text={'Редактировать статью'}>
-                  <Button kind={'icon'} size={'xs'} onClick={handleEdit}>
-                    <Icon icon={'edit'} size={'xs'} stroke={'white'} />
-                  </Button>
-                </Tooltip>
-              )}
-              {onChecked && (
-                <Tooltip text={'Отметить статью'} self>
-                  <Checkbox />
-                </Tooltip>
-              )}
-            </Actions>
-          )}
+          <CardActions
+            typeText={'статью'}
+            checked={checked}
+            onEdit={onEdit && handleEdit}
+            onDelete={onDelete && handleDelete}
+            onChecked={onChecked}
+          />
         </Header>
 
         <Name tag={'h4'} onClick={handleClick}>
@@ -256,7 +204,7 @@ export const Card = ({
         </Name>
 
         {article.body && <ShortText content={article.body} />}
-        {!preview && <MoreButton onClick={onLink} withButton />}
+        {!onChecked && !preview && <MoreButton onClick={onLink} withButton />}
       </Column>
     </Wrap>
   )
