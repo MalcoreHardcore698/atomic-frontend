@@ -21,7 +21,7 @@ export function onRoleLink(dispatch, props) {
 }
 
 export function onRoleCreate(dispatch, props) {
-  const { permissions, mutation } = props
+  const { permissions, mutation, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -50,6 +50,7 @@ export function onRoleCreate(dispatch, props) {
                   message: 'Роль успешно создана'
                 })
               )
+              if (onAfter) onAfter()
             } catch {
               dispatch(setDrawer(null))
               dispatch(
@@ -67,7 +68,7 @@ export function onRoleCreate(dispatch, props) {
 }
 
 export function onRoleEdit(dispatch, props) {
-  const { role, permissions, mutation } = props
+  const { role, permissions, mutation, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -98,6 +99,7 @@ export function onRoleEdit(dispatch, props) {
                   message: 'Роль успешно отредактирована'
                 })
               )
+              if (onAfter) onAfter()
             } catch {
               dispatch(setDrawer(null))
               dispatch(

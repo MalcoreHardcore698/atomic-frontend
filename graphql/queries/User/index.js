@@ -215,7 +215,7 @@ export const UPDATE_USER = gql`
 `
 
 export const DELETE_USER = gql`
-  mutation deleteUser($email: String!) {
+  mutation deleteUser($email: [String]!) {
     deleteUser(email: $email) {
       ...UserFields
     }

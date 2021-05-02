@@ -38,14 +38,15 @@ const Roles = () => {
       deleteEntityMultiText={'роли'}
       deleteEntitySingleText={'роль'}
       onLink={(role) => recall(onRoleLink, { id: role.id, role })()}
-      onEdit={(role) =>
+      onEdit={(role, onAfter) =>
         recall(onRoleEdit, {
           id: role.id,
           role,
-          mutation: queries.UPDATE_ROLE
+          mutation: queries.UPDATE_ROLE,
+          onAfter
         })()
       }
-      onCreate={recall(onRoleCreate, { mutation: queries.CREATE_ROLE })}
+      onCreate={(onAfter) => recall(onRoleCreate, { mutation: queries.CREATE_ROLE, onAfter })()}
       render={(document) => <RoleCard role={document} />}
     />
   )

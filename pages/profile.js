@@ -371,9 +371,12 @@ const Profile = () => {
             user: user?.email,
             canEditAccount: !isAdmin,
             mutations: {
-              update: queries.UPDATE_CLIENT_USER,
               del: queries.DELETE_USER,
-              changePassword: queries.UPDATE_CLIENT_USER
+              forgotEmail: queries.LOGIN,
+              forgotPassword: queries.RESET,
+              changePassword: queries.UPDATE_CLIENT_USER,
+              checkResetToken: queries.CHECK_RESET_TOKEN,
+              update: queries.UPDATE_CLIENT_USER
             }
           })}
           onAboutMore={recall(onUserAboutMore, { user })}

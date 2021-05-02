@@ -86,7 +86,8 @@ export function onProjectCreate(dispatch, props) {
     mutation,
     query,
     onCompanyInputChange,
-    isPurpose
+    isPurpose,
+    onAfter
   } = props
 
   dispatch(clearProjectMembers())
@@ -164,6 +165,7 @@ export function onProjectCreate(dispatch, props) {
                   message: 'Проект успешно создан'
                 })
               )
+              if (onAfter) onAfter()
             } catch (err) {
               dispatch(
                 setItem({
@@ -186,7 +188,17 @@ export function onProjectCreate(dispatch, props) {
 }
 
 export function onProjectEdit(dispatch, props) {
-  const { id, auth, companies, categories, statuses, canEditStatus, mutation, query } = props
+  const {
+    id,
+    auth,
+    companies,
+    categories,
+    statuses,
+    canEditStatus,
+    mutation,
+    query,
+    onAfter
+  } = props
 
   dispatch(
     setDrawer({
@@ -264,6 +276,7 @@ export function onProjectEdit(dispatch, props) {
                   message: 'Проект успешно отредактирован'
                 })
               )
+              if (onAfter) onAfter()
             } catch (err) {
               dispatch(
                 setItem({

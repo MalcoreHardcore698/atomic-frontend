@@ -14,6 +14,7 @@ export const ResetPassword = ({
   appearance,
   className,
   mutations,
+  onlyButton,
   onSubmit,
   onBack
 }) => {
@@ -33,17 +34,19 @@ export const ResetPassword = ({
             </Container>
           )}
 
-          <Column>
-            <Input
-              type={'text'}
-              name={'email'}
-              ref={register({ required: true })}
-              placeholder={'Телефон или адрес эл. почты'}
-              appearance={'ghost'}
-              disabled={loading}
-              required
-            />
-          </Column>
+          {!onlyButton && (
+            <Column>
+              <Input
+                type={'text'}
+                name={'email'}
+                ref={register({ required: !onlyButton })}
+                placeholder={'Телефон или адрес эл. почты'}
+                appearance={'ghost'}
+                disabled={loading}
+                required
+              />
+            </Column>
+          )}
 
           <Row>
             <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>

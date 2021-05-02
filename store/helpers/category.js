@@ -21,7 +21,7 @@ export function onCategoryLink(dispatch, props) {
 }
 
 export function onCategoryCreate(dispatch, props) {
-  const { types, mutation } = props
+  const { types, mutation, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -51,6 +51,7 @@ export function onCategoryCreate(dispatch, props) {
                   message: 'Категория успешно создана'
                 })
               )
+              if (onAfter) onAfter()
             } catch {
               dispatch(setDrawer(null))
               dispatch(
@@ -68,7 +69,7 @@ export function onCategoryCreate(dispatch, props) {
 }
 
 export function onCategoryEdit(dispatch, props) {
-  const { category, types, mutation } = props
+  const { category, types, mutation, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -100,6 +101,7 @@ export function onCategoryEdit(dispatch, props) {
                   message: 'Категория успешно отредактирована'
                 })
               )
+              if (onAfter) onAfter()
             } catch {
               dispatch(setDrawer(null))
               dispatch(

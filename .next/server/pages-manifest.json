@@ -1,8 +1,8 @@
 {
+  "/404": "pages/404.html",
+  "/500": "pages/500.html",
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-<<<<<<< HEAD
-=======
   "/about": "pages/about.html",
   "/articles": "pages/articles.js",
   "/auth": "pages/auth.html",
@@ -20,6 +20,5 @@
   "/": "pages/index.js",
   "/profile": "pages/profile.js",
   "/projects": "pages/projects.html",
->>>>>>> main
   "/_error": "pages/_error.js"
 }

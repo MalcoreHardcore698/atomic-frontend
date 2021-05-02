@@ -38,7 +38,7 @@ export const UPDATE_ROLE = gql`
 `
 
 export const DELETE_ROLE = gql`
-  mutation deleteRole($id: ID!) {
+  mutation deleteRole($id: [ID]!) {
     deleteRole(id: $id) {
       ...RoleFields
     }

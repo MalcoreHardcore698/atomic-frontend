@@ -12,6 +12,8 @@ import { createSelectOptions, getLabelPermission } from '../../atomic-ui/utils/f
 import Form from '../Form'
 import { useQuery } from '@apollo/react-hooks'
 import queries from '../../graphql/queries'
+import { Loader } from '../Styled'
+import Spinner from '../../atomic-ui/components/Spinner'
 
 export const Role = ({ role, mutation, appearance, className, onSubmit }) => {
   const [permissionsError, setPermissionsError] = useState(false)
@@ -44,60 +46,66 @@ export const Role = ({ role, mutation, appearance, className, onSubmit }) => {
           setPermissionsError(true)
         }
       }}>
-      {({ register, loading, errors, getValues }) => (
-        <React.Fragment>
-          <Column>
-            <Title tag={'h4'}>Основное</Title>
+      {({ register, loading, errors, getValues }) =>
+        !loading ? (
+          <React.Fragment>
+            <Column>
+              <Title tag={'h4'}>Основное</Title>
 
-            {errors && errors.name && (
-              <Alert style={{ width: '100%' }} appearance={'error'}>
-                Название роли должно содержать только латинские символы
-              </Alert>
-            )}
-            <Input
-              type={'text'}
-              name={'name'}
-              ref={register({
-                required: true,
-                pattern: /[A-Za-z]/
-              })}
-              defaultValue={role?.name || getValues('name')}
-              placeholder={'Название'}
-              appearance={'ghost'}
-              disabled={loading}
-            />
+              {errors && errors.name && (
+                <Alert style={{ width: '100%' }} appearance={'error'}>
+                  Название роли должно содержать только латинские символы
+                </Alert>
+              )}
+              <Input
+                type={'text'}
+                name={'name'}
+                ref={register({
+                  required: true,
+                  pattern: /[A-Za-z]/
+                })}
+                defaultValue={role?.name || getValues('name')}
+                placeholder={'Название'}
+                appearance={'ghost'}
+                disabled={loading}
+              />
 
-            {permissionsError && (
-              <Alert style={{ width: '100%' }} appearance={'error'}>
-                Список привилегий должен содержать хотя бы один элемент
-              </Alert>
-            )}
-            <Select
-              name={'permissions'}
-              appearance={'ghost'}
-              defaultValue={selectedPermissions}
-              onChange={(value) => {
-                setSelectedPermissions(value)
-                setPermissionsError(false)
-              }}
-              placeholder={'Выберите привелегии'}
-              options={createSelectOptions(permissions).map((option) => ({
-                ...option,
-                label: getLabelPermission(option.label)
-              }))}
-              isLoading={loading || loadingPermissions}
-              isClearable
-              isMulti
-            />
-          </Column>
+              {permissionsError && (
+                <Alert style={{ width: '100%' }} appearance={'error'}>
+                  Список привилегий должен содержать хотя бы один элемент
+                </Alert>
+              )}
+              <Select
+                name={'permissions'}
+                appearance={'ghost'}
+                defaultValue={selectedPermissions}
+                onChange={(value) => {
+                  setSelectedPermissions(value)
+                  setPermissionsError(false)
+                }}
+                placeholder={'Выберите привелегии'}
+                options={createSelectOptions(permissions).map((option) => ({
+                  ...option,
+                  label: getLabelPermission(option.label)
+                }))}
+                isLoading={loading || loadingPermissions}
+                isClearable
+                isMulti
+              />
+            </Column>
 
-          <Row>
-            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-              {role ? 'Сохранить' : 'Создать'}
-            </Button>
-          </Row>
-        </React.Fragment>
-      )}
+            <Row>
+              <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
+                {role ? 'Сохранить' : 'Создать'}
+              </Button>
+            </Row>
+          </React.Fragment>
+        ) : (
+          <Loader>
+            <Spinner />
+          </Loader>
+        )
+      }
     </Form>
   )
 }

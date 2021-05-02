@@ -9,23 +9,22 @@ import LoginForm from '../../components/FormLogin'
 import RegisterForm from '../../components/FormRegister'
 import ForgotEmailForm from '../../components/FormForgotEmail'
 import ForgotPasswordForm from '../../components/FormForgotPassword'
-import ChangePasswordForm from '../../components/FormChangePassword'
+import { CheckTokenAndChangePassword } from '../../components/FormCheckTokenAndChangePassword'
 import AddUserFolderForm from '../../components/FormAddUserFolder'
+import ResetPassword from '../../components/FormResetPassword'
 import SureDeleteForm from '../../components/FormSureDelete'
 import DeleteForm from '../../components/FormDelete'
 import UserCard from '../../components/UserCard'
 import UserView from '../../components/UserView'
 import Members from '../../components/Members'
+import { onProjectLink, onProjectAdd, onProjectScreenshot } from './project'
+import { setUser, updateUser, setUserFolders } from '../actions/user'
+import { setDocuments } from '../actions/documents'
 import { setStepper } from '../actions/stepper'
 import { setDrawer } from '../actions/drawer'
 import { setModal } from '../actions/modal'
-import { setUser, updateUser, setUserFolders } from '../actions/user'
-import { setDocuments } from '../actions/documents'
 import { setItem } from '../actions/snacks'
-import { onProjectLink, onProjectAdd, onProjectScreenshot } from './project'
 import { onChat } from '.'
-import ResetPassword from '../../components/FormResetPassword'
-import { CheckTokenAndChangePassword } from '../../components/FormCheckTokenAndChangePassword'
 
 export function onCheckResetToken(dispatch, props) {
   const { email, mutations } = props
@@ -297,41 +296,81 @@ export function onUserForgotPassword(dispatch, props) {
 }
 
 export function onUserChangePassword(dispatch, props) {
-  const { user, mutation } = props
+  const { user, mutations } = props
 
   dispatch(
     setModal([
       {
         path: '/',
         home: true,
-        title: 'Смена пароля',
-        component: () => (
-          <ChangePasswordForm
-            mutation={mutation}
-            title={false}
-            appearance={'ghost'}
-            onSubmit={async (form, action) => {
-              try {
-                await action({
-                  variables: {
-                    id: user.id,
-                    input: {
-                      password: form.password
+        title: 'Сброс пароля',
+        component: ({ jump }) => (
+          <Column style={{ padding: '15px' }}>
+            <ResetPassword
+              title={false}
+              appearance={'clear'}
+              mutations={mutations}
+              onBack={() => dispatch(setModal(null))}
+              onSubmit={async (form, action) => {
+                try {
+                  const response = await action({
+                    variables: {
+                      email: user
                     }
+                  })
+
+                  if (response) jump('/reset')
+                } catch (err) {
+                  dispatch(
+                    setItem({
+                      type: 'error',
+                      message: 'Не удалось сбросить пароль'
+                    })
+                  )
+                }
+              }}
+              onlyButton
+            />
+          </Column>
+        )
+      },
+      {
+        path: '/reset',
+        title: 'Новый пароль',
+        component: ({ close }) => (
+          <Column style={{ padding: '15px' }}>
+            <CheckTokenAndChangePassword
+              title={false}
+              email={user}
+              appearance={'clear'}
+              mutations={mutations}
+              onSubmit={async (form, action) => {
+                const result = await action({
+                  variables: {
+                    email: user,
+                    token: form.token,
+                    password: form.password
                   }
                 })
-              } catch (err) {
-                dispatch(
-                  setItem({
-                    type: 'error',
-                    message: 'Не удалось изменить пароль'
-                  })
-                )
-              } finally {
-                dispatch(setDrawer(null))
-              }
-            }}
-          />
+                if (result.data.checkTokenAndResetPassword.email !== '') {
+                  dispatch(
+                    setItem({
+                      type: 'success',
+                      message: 'Пароль успешно сброшен'
+                    })
+                  )
+                  setTimeout(() => close(), 200)
+                } else {
+                  dispatch(
+                    setItem({
+                      type: 'error',
+                      message: 'Не верный код проверки или ошибка сервера'
+                    })
+                  )
+                }
+              }}
+            />
+          </Column>
         )
       }
     ])
@@ -376,7 +415,7 @@ export function onUserLink(dispatch, props) {
 }
 
 export function onUserCreate(dispatch, props) {
-  const { roles, canEditRole, mutation } = props
+  const { roles, canEditRole, mutation, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -415,6 +454,7 @@ export function onUserCreate(dispatch, props) {
                   message: 'Пользователь успешно создан'
                 })
               )
+              if (onAfter) onAfter()
             } catch (err) {
               dispatch(
                 setItem({
@@ -433,7 +473,7 @@ export function onUserCreate(dispatch, props) {
 }
 
 export function onUserClientEdit(dispatch, props) {
-  const { user, mutations } = props
+  const { user, mutations, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -471,6 +511,7 @@ export function onUserClientEdit(dispatch, props) {
                   message: 'Данные успешно отредактированы'
                 })
               )
+              if (onAfter) onAfter()
             } catch (err) {
               dispatch(
                 setItem({
@@ -488,9 +529,7 @@ export function onUserClientEdit(dispatch, props) {
               mutation: mutations.del
             })
           }
-          onChangePassword={() =>
-            onUserChangePassword(dispatch, { mutation: mutations.changePassword })
-          }
+          onChangePassword={() => onUserChangePassword(dispatch, props)}
         />
       )
     })
@@ -498,7 +537,7 @@ export function onUserClientEdit(dispatch, props) {
 }
 
 export function onUserEdit(dispatch, props) {
-  const { user, roles, canEditAccount, canEditRole, mutations } = props
+  const { user, roles, canEditAccount, canEditRole, mutations, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -540,6 +579,7 @@ export function onUserEdit(dispatch, props) {
                   message: 'Пользователь успешно отредактирован'
                 })
               )
+              if (onAfter) onAfter()
             } catch (err) {
               dispatch(
                 setItem({
@@ -557,9 +597,7 @@ export function onUserEdit(dispatch, props) {
               mutation: mutations.del
             })
           }
-          onChangePassword={() =>
-            onUserChangePassword(dispatch, { mutation: mutations.changePassword })
-          }
+          onChangePassword={() => onUserChangePassword(dispatch, props)}
         />
       )
     })

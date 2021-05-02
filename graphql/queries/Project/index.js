@@ -97,7 +97,7 @@ export const UPDATE_PROJECT = gql`
 `
 
 export const DELETE_PROJECT = gql`
-  mutation deleteProject($id: ID!, $status: PostStatus) {
+  mutation deleteProject($id: [ID]!, $status: PostStatus) {
     deleteProject(id: $id, status: $status) {
       ...ProjectFields
     }
