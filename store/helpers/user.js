@@ -24,6 +24,86 @@ import { setDocuments } from '../actions/documents'
 import { setItem } from '../actions/snacks'
 import { onProjectLink, onProjectAdd, onProjectScreenshot } from './project'
 import { onChat } from '.'
+import ResetPassword from '../../components/FormResetPassword'
+import { CheckTokenAndChangePassword } from '../../components/FormCheckTokenAndChangePassword'
+
+export function onCheckResetToken(dispatch, props) {
+  const { email, mutations } = props
+
+  dispatch(
+    setStepper({
+      name: 'checkResetToken',
+      content: (
+        <CheckTokenAndChangePassword
+          email={email}
+          mutations={mutations}
+          onSubmit={async (form, action) => {
+            const result = await action({
+              variables: {
+                email: email,
+                token: form.token,
+                password: form.password
+              }
+            })
+            if (result.data.checkTokenAndResetPassword.email !== '') {
+              dispatch(
+                setItem({
+                  type: 'success',
+                  message: 'Пароль успешно сброшен'
+                })
+              )
+              setTimeout(() => {
+                onUserCheckin(dispatch, { mutations })
+              }, 200)
+            } else {
+              dispatch(
+                setItem({
+                  type: 'error',
+                  message: 'Не верный код проверки или ошибка сервера'
+                })
+              )
+            }
+          }}
+        />
+      )
+    })
+  )
+}
+
+export function onUserResetPassword(dispatch, props) {
+  const { mutations } = props
+  dispatch(
+    setStepper({
+      name: 'resetPassword',
+      content: (
+        <ResetPassword
+          mutations={mutations}
+          onBack={() => onUserCheckin(dispatch, { mutations })}
+          onSubmit={async (form, action) => {
+            try {
+              const response = await action({
+                variables: {
+                  email: form.email
+                }
+              })
+
+              if (response) {
+                onCheckResetToken(dispatch, { email: form.email, mutations })
+              }
+            } catch (err) {
+              dispatch(
+                setItem({
+                  type: 'error',
+                  message: 'Не удалось сбросить пароль'
+                })
+              )
+            }
+          }}
+        />
+      )
+    })
+  )
+}
 
 export function onUserCheckin(dispatch, props) {
   const { mutations } = props
@@ -35,7 +115,7 @@ export function onUserCheckin(dispatch, props) {
         <CheckinForm
           mutations={mutations}
           onCreate={() => onUserRegister(dispatch, props)}
-          onForgot={() => onUserForgotEmail(dispatch, props)}
+          onForgot={() => onUserResetPassword(dispatch, props)}
           onGoogleError={() => {}}
           onFacebookError={() => {}}
           onGoogleFinally={(user) => dispatch(setUser(user))}

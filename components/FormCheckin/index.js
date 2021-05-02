@@ -173,9 +173,9 @@ export const Checkin = ({
             disabled={loading}
             required
           />
-          {/*<Button type={'button'} appearance={'link'} onClick={onForgot}>*/}
-          {/*  Забыли адрес электронной почты?*/}
-          {/*</Button>*/}
+          <Button type={'button'} appearance={'link'} onClick={onForgot}>
+            Забыли пароль ?
+          </Button>
         </Column>
 
         <Row>

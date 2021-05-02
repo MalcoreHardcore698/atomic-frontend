@@ -9,6 +9,7 @@ import { useHelper } from '../hooks/useHelper'
 import DefaultLayout from '../layouts/default'
 import { onUserCheckin } from '../store/helpers/user'
 import queries from '../graphql/queries'
+import { GET_USER, RESET } from "../graphql/queries/User"
 
 const TITLE = 'Авторизация'
 
@@ -56,7 +57,8 @@ const Auth = () => {
           login: queries.LOGIN,
           register: queries.REGISTER,
           forgotEmail: queries.LOGIN,
-          forgotPassword: queries.LOGIN
+          forgotPassword: queries.RESET,
+          checkResetToken: queries.CHECK_RESET_TOKEN
         }
       })()
     }
