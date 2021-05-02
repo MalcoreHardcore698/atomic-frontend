@@ -53,7 +53,7 @@ export const UPDATE_TICKET = gql`
 `
 
 export const DELETE_TICKET = gql`
-  mutation deleteTicket($id: ID!) {
+  mutation deleteTicket($id: [ID]!) {
     deleteTicket(id: $id) {
       ...TicketFields
     }

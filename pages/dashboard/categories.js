@@ -38,14 +38,17 @@ const Categories = () => {
       deleteEntityMultiText={'категории'}
       deleteEntitySingleText={'категорию'}
       onLink={(category) => recall(onCategoryLink, { id: category.id, category })()}
-      onEdit={(category) =>
+      onEdit={(category, onAfter) =>
         recall(onCategoryEdit, {
           id: category.id,
           category,
-          mutation: queries.UPDATE_CATEGORY
+          mutation: queries.UPDATE_CATEGORY,
+          onAfter
         })()
       }
-      onCreate={recall(onCategoryCreate, { mutation: queries.CREATE_CATEGORY })}
+      onCreate={(onAfter) =>
+        recall(onCategoryCreate, { mutation: queries.CREATE_CATEGORY, onAfter })()
+      }
       render={(document) => <CategoryCard category={document} />}
     />
   )

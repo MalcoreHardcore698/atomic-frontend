@@ -40,17 +40,21 @@ const Articles = () => {
       deleteEntityMultiText={'статьи'}
       deleteEntitySingleText={'статья'}
       onLink={(article) => recall(onArticleLink, { id: article.id })()}
-      onEdit={(article) =>
+      onEdit={(article, onAfter) =>
         recall(onArticleEdit, {
           id: article.id,
           canEditStatus,
-          mutation: queries.UPDATE_ARTICLE
+          mutation: queries.UPDATE_ARTICLE,
+          onAfter
         })()
       }
-      onCreate={recall(onArticleCreate, {
-        canEditStatus,
-        mutation: queries.CREATE_ARTICLE
-      })}
+      onCreate={(onAfter) =>
+        recall(onArticleCreate, {
+          canEditStatus,
+          mutation: queries.CREATE_ARTICLE,
+          onAfter
+        })()
+      }
       render={(document) => <ArticleCard article={document} withSocials />}
     />
   )

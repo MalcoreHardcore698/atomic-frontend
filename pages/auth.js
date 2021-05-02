@@ -56,7 +56,8 @@ const Auth = () => {
           login: queries.LOGIN,
           register: queries.REGISTER,
           forgotEmail: queries.LOGIN,
-          forgotPassword: queries.LOGIN
+          forgotPassword: queries.RESET,
+          checkResetToken: queries.CHECK_RESET_TOKEN
         }
       })()
     }

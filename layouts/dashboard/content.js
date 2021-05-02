@@ -126,6 +126,8 @@ const ContentLayout = ({
     [checkedList]
   )
 
+  const onAfter = () => setUpdated(v4())
+
   const onChecked = (document) => {
     setCheckedList((prev) => {
       const isExists = (item) => item[field] === document[field]
@@ -205,7 +207,7 @@ const ContentLayout = ({
           defaultVisibleFilters={visibleFilters}
           buttonDeleteDisabled={!checkedList.find((item) => item.checked)}
           buttonCreateText={buttonCreateText}
-          onCreate={onCreate}
+          onCreate={() => onCreate && onCreate(onAfter)}
           onChecked={() => displayMethod === 'grid' && onAllChecked && onAllChecked()}
           onChangeVisibleFilter={() => dispatch(setVisibleFilters(!visibleFilters))}
           onChangeDisplayMethod={(item) => dispatch(setDisplayMethod(item.value))}
@@ -233,7 +235,7 @@ const ContentLayout = ({
               checked={getIsAdmin(item) && (isAllChecked || getIsAnyChecked(item))}
               onChecked={onChecked}
               onLink={(item) => onLink(item)}
-              onEdit={(item) => onEdit(item)}
+              onEdit={(item) => onEdit(item, onAfter)}
               onDelete={onDelete}
               withoutChecked={withoutChecked}
             />
@@ -241,7 +243,7 @@ const ContentLayout = ({
           emptyMessage={emptyMessage}
           onChecked={onChecked}
           onClick={(item) => onLink(item)}
-          onEdit={(item) => onEdit(item)}
+          onEdit={(item) => onEdit(item, onAfter)}
           onDelete={onDelete}
         />
       </Column>

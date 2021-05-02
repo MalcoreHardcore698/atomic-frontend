@@ -678,7 +678,7 @@ var modal = __webpack_require__("qOKH");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/index.js
@@ -3440,7 +3440,15 @@ var react_hooks_ = __webpack_require__("mU8t");
 // EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
 var queries = __webpack_require__("u2Cb");
 
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
+
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
 // CONCATENATED MODULE: ./components/FormRole/index.js
+
+
 
 
 
@@ -3495,7 +3503,7 @@ const Role = ({
     loading,
     errors,
     getValues
-  }) => /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+  }) => !loading ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
   }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.name && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
@@ -3539,7 +3547,7 @@ const Role = ({
     },
     type: 'submit',
     disabled: loading
-  }, role ? 'Сохранить' : 'Создать'))));
+  }, role ? 'Сохранить' : 'Создать'))) : /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)));
 };
 /* harmony default export */ var FormRole = (Role);
 // EXTERNAL MODULE: ./components/FormDelete/index.js
@@ -3677,7 +3685,8 @@ function onRoleLink(dispatch, props) {
 function onRoleCreate(dispatch, props) {
   const {
     permissions,
-    mutation
+    mutation,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'lock',
@@ -3702,6 +3711,7 @@ function onRoleCreate(dispatch, props) {
             type: 'success',
             message: 'Роль успешно создана'
           }));
+          if (onAfter) onAfter();
         } catch (_unused) {
           dispatch(Object(drawer["a" /* setDrawer */])(null));
           dispatch(Object(snacks["c" /* setItem */])({
@@ -3717,7 +3727,8 @@ function onRoleEdit(dispatch, props) {
   const {
     role,
     permissions,
-    mutation
+    mutation,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'lock',
@@ -3744,6 +3755,7 @@ function onRoleEdit(dispatch, props) {
             type: 'success',
             message: 'Роль успешно отредактирована'
           }));
+          if (onAfter) onAfter();
         } catch (_unused2) {
           dispatch(Object(drawer["a" /* setDrawer */])(null));
           dispatch(Object(snacks["c" /* setItem */])({
@@ -6199,7 +6211,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
@@ -6284,7 +6296,8 @@ function onProjectCreate(dispatch, props) {
     mutation,
     query,
     onCompanyInputChange,
-    isPurpose
+    isPurpose,
+    onAfter
   } = props;
   dispatch(Object(root["e" /* clearProjectMembers */])());
   dispatch(Object(root["f" /* clearProjectScreenshots */])());
@@ -6355,6 +6368,7 @@ function onProjectCreate(dispatch, props) {
             type: 'success',
             message: 'Проект успешно создан'
           }));
+          if (onAfter) onAfter();
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
@@ -6380,7 +6394,8 @@ function onProjectEdit(dispatch, props) {
     statuses,
     canEditStatus,
     mutation,
-    query
+    query,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'work',
@@ -6469,6 +6484,7 @@ function onProjectEdit(dispatch, props) {
             type: 'success',
             message: 'Проект успешно отредактирован'
           }));
+          if (onAfter) onAfter();
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
@@ -9481,6 +9497,9 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
+// EXTERNAL MODULE: external "@apollo/react-hooks"
+var react_hooks_ = __webpack_require__("mU8t");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
 var Row = __webpack_require__("nShV");
 
@@ -9502,6 +9521,9 @@ var Select = __webpack_require__("QclZ");
 // EXTERNAL MODULE: ./atomic-ui/components/TextArea/index.js
 var TextArea = __webpack_require__("3jgA");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
+var Spinner = __webpack_require__("auMy");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
 
@@ -9511,13 +9533,15 @@ var functions = __webpack_require__("NWnW");
 // EXTERNAL MODULE: ./components/Form/index.js
 var Form = __webpack_require__("qoM+");
 
-// EXTERNAL MODULE: external "@apollo/react-hooks"
-var react_hooks_ = __webpack_require__("mU8t");
-
 // EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
 var queries = __webpack_require__("u2Cb");
 
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
+
 // CONCATENATED MODULE: ./components/FormCategory/index.js
+
+
 
 
 
@@ -9571,7 +9595,7 @@ const Category = ({
     loading,
     errors,
     getValues
-  }) => /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+  }) => !loading ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
   }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.name && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
@@ -9621,7 +9645,7 @@ const Category = ({
     },
     type: 'submit',
     disabled: loading
-  }, category ? 'Сохранить' : 'Создать'))));
+  }, category ? 'Сохранить' : 'Создать'))) : /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)));
 };
 Category.defaultProps = {
   create: true
@@ -9751,7 +9775,8 @@ function onCategoryLink(dispatch, props) {
 function onCategoryCreate(dispatch, props) {
   const {
     types,
-    mutation
+    mutation,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'folder',
@@ -9777,6 +9802,7 @@ function onCategoryCreate(dispatch, props) {
             type: 'success',
             message: 'Категория успешно создана'
           }));
+          if (onAfter) onAfter();
         } catch (_unused) {
           dispatch(Object(drawer["a" /* setDrawer */])(null));
           dispatch(Object(snacks["c" /* setItem */])({
@@ -9792,7 +9818,8 @@ function onCategoryEdit(dispatch, props) {
   const {
     category,
     types,
-    mutation
+    mutation,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'folder',
@@ -9820,6 +9847,7 @@ function onCategoryEdit(dispatch, props) {
             type: 'success',
             message: 'Категория успешно отредактирована'
           }));
+          if (onAfter) onAfter();
         } catch (_unused2) {
           dispatch(Object(drawer["a" /* setDrawer */])(null));
           dispatch(Object(snacks["c" /* setItem */])({
@@ -10296,7 +10324,7 @@ var actions_user = __webpack_require__("8ihE");
 // EXTERNAL MODULE: ./store/actions/root.js
 var root = __webpack_require__("Sza6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./store/helpers/project.js + 7 modules
@@ -10627,9 +10655,12 @@ const Profile = () => {
       user: user === null || user === void 0 ? void 0 : user.email,
       canEditAccount: !isAdmin,
       mutations: {
-        update: queries["a" /* default */].UPDATE_CLIENT_USER,
         del: queries["a" /* default */].DELETE_USER,
-        changePassword: queries["a" /* default */].UPDATE_CLIENT_USER
+        forgotEmail: queries["a" /* default */].LOGIN,
+        forgotPassword: queries["a" /* default */].RESET,
+        changePassword: queries["a" /* default */].UPDATE_CLIENT_USER,
+        checkResetToken: queries["a" /* default */].CHECK_RESET_TOKEN,
+        update: queries["a" /* default */].UPDATE_CLIENT_USER
       }
     }),
     onAboutMore: recall(helpers_user["a" /* onUserAboutMore */], {
@@ -10733,15 +10764,15 @@ var link_default = /*#__PURE__*/__webpack_require__.n(next_link);
 // EXTERNAL MODULE: external "next/router"
 var router_ = __webpack_require__("4Q3z");
 
-// EXTERNAL MODULE: external "styled-components"
-var external_styled_components_ = __webpack_require__("Dtiu");
-var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
-
 // EXTERNAL MODULE: external "@apollo/react-hooks"
 var react_hooks_ = __webpack_require__("mU8t");
 
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__("h74D");
+
+// EXTERNAL MODULE: external "styled-components"
+var external_styled_components_ = __webpack_require__("Dtiu");
+var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
 
 // EXTERNAL MODULE: external "uuid"
 var external_uuid_ = __webpack_require__("kNaX");
@@ -10752,14 +10783,14 @@ var Image = __webpack_require__("V0nP");
 // EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
 var Spinner = __webpack_require__("auMy");
 
+// EXTERNAL MODULE: ./layouts/main.js + 4 modules
+var main = __webpack_require__("wOhW");
+
 // EXTERNAL MODULE: ./hooks/useMutate.js
 var useMutate = __webpack_require__("lphG");
 
 // EXTERNAL MODULE: ./hooks/useHelper.js
 var useHelper = __webpack_require__("ApjV");
-
-// EXTERNAL MODULE: ./layouts/main.js + 4 modules
-var main = __webpack_require__("wOhW");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Column/index.js
 var Column = __webpack_require__("8CDE");
@@ -11176,17 +11207,17 @@ var actions_user = __webpack_require__("8ihE");
 // EXTERNAL MODULE: ./store/actions/drawer.js
 var drawer = __webpack_require__("Ztxg");
 
+// EXTERNAL MODULE: ./__mock__/index.js
+var _mock_ = __webpack_require__("wha1");
+
 // EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
 var queries = __webpack_require__("u2Cb");
-
-// EXTERNAL MODULE: ./__mock__/index.js
-var _mock_ = __webpack_require__("wha1");
 
 // CONCATENATED MODULE: ./layouts/default.js
 function default_extends() { default_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return default_extends.apply(this, arguments); }
@@ -11358,9 +11389,12 @@ const DefaultLayout = ({
     onSettings: recall(helpers_user["c" /* onUserClientEdit */], {
       user: user === null || user === void 0 ? void 0 : user.email,
       mutations: {
-        update: queries["a" /* default */].UPDATE_CLIENT_USER,
         del: queries["a" /* default */].DELETE_USER,
-        changePassword: queries["a" /* default */].UPDATE_CLIENT_USER
+        forgotEmail: queries["a" /* default */].LOGIN,
+        forgotPassword: queries["a" /* default */].RESET,
+        changePassword: queries["a" /* default */].UPDATE_CLIENT_USER,
+        checkResetToken: queries["a" /* default */].CHECK_RESET_TOKEN,
+        update: queries["a" /* default */].UPDATE_CLIENT_USER
       }
     }),
     onNotification: recall(helpers["f" /* onNotification */], {
@@ -12088,7 +12122,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
@@ -12127,7 +12161,8 @@ function onTicketLink(dispatch, props) {
 }
 function onTicketCreate(dispatch, props) {
   const {
-    mutation
+    mutation,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'ticket',
@@ -12156,6 +12191,7 @@ function onTicketCreate(dispatch, props) {
             type: 'success',
             message: 'Обращение успешно создано'
           }));
+          if (onAfter) onAfter();
         } catch (err) {
           dispatch(Object(drawer["a" /* setDrawer */])(null));
           dispatch(Object(snacks["c" /* setItem */])({
@@ -12170,7 +12206,8 @@ function onTicketCreate(dispatch, props) {
 function onTicketEdit(dispatch, props) {
   const {
     id,
-    mutation
+    mutation,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'ticket',
@@ -12205,6 +12242,7 @@ function onTicketEdit(dispatch, props) {
             type: 'success',
             message: 'Обращение успешно отредактировано'
           }));
+          if (onAfter) onAfter();
         } catch (_unused) {
           dispatch(Object(drawer["a" /* setDrawer */])(null));
           dispatch(Object(snacks["c" /* setItem */])({
@@ -20790,7 +20828,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/article.js
@@ -20827,7 +20865,8 @@ function onArticleCreate(dispatch, props) {
     statuses,
     canEditStatus,
     mutation,
-    isPurpose
+    isPurpose,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'document',
@@ -20860,6 +20899,7 @@ function onArticleCreate(dispatch, props) {
             type: 'success',
             message: 'Статья успешно создана'
           }));
+          if (onAfter) onAfter();
         } catch (err) {
           dispatch(Object(drawer["a" /* setDrawer */])(null));
           dispatch(Object(snacks["c" /* setItem */])({
@@ -20879,7 +20919,8 @@ function onArticleEdit(dispatch, props) {
     categories,
     statuses,
     canEditStatus,
-    mutation
+    mutation,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'document',
@@ -20913,6 +20954,7 @@ function onArticleEdit(dispatch, props) {
             type: 'success',
             message: 'Статья успешно отредактирована'
           }));
+          if (onAfter) onAfter();
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
@@ -21435,7 +21477,7 @@ __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ onUserFolderAdd; });
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ onUserFolderDelete; });
 
-// UNUSED EXPORTS: onUserLogin, onUserRegister, onUserForgotEmail, onUserForgotPassword, onUserChangePassword
+// UNUSED EXPORTS: onCheckResetToken, onUserResetPassword, onUserLogin, onUserRegister, onUserForgotEmail, onUserForgotPassword, onUserChangePassword
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
@@ -21568,17 +21610,21 @@ const GENDER_TYPES = [{
   label: 'Женский',
   value: 'FEMALE'
 }];
+const CommonAlert = external_styled_components_default()(Alert["a" /* default */]).withConfig({
+  displayName: "FormUser__CommonAlert",
+  componentId: "c1ieix-0"
+})(["display:flex;justify-content:center;align-items:center;width:100%;text-align:center;flex-grow:100;"]);
 const AdaptiveDropzone = external_styled_components_default()(Dropzone["b" /* default */]).withConfig({
   displayName: "FormUser__AdaptiveDropzone",
-  componentId: "c1ieix-0"
+  componentId: "c1ieix-1"
 })(["width:196px;height:276px;span{width:100%;}@media only screen and (max-width:575px){width:100% !important;height:256px;}"]);
 const AdaptiveRow = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "FormUser__AdaptiveRow",
-  componentId: "c1ieix-1"
+  componentId: "c1ieix-2"
 })(["@media only screen and (max-width:575px){flex-direction:column;grid-gap:var(--default-gap);", "{flex-grow:1;button{width:100%;}}}"], Tooltip["a" /* Wrap */]);
 const Tab = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "FormUser__Tab",
-  componentId: "c1ieix-2"
+  componentId: "c1ieix-3"
 })(["display:none;", ""], ({
   active
 }) => active && Object(external_styled_components_["css"])(["display:flex;"]));
@@ -21724,12 +21770,7 @@ const User = ({
       placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser7 = data.getUser) === null || _data$getUser7 === void 0 ? void 0 : _data$getUser7.account) === 'ENTITY' ? 'Название компании' : 'ФИО',
       appearance: 'ghost',
       disabled: loading
-    }), ((_data$getUser8 = data.getUser) === null || _data$getUser8 === void 0 ? void 0 : (_data$getUser8$role = _data$getUser8.role) === null || _data$getUser8$role === void 0 ? void 0 : _data$getUser8$role.name) === 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-      style: {
-        width: '100%',
-        textAlign: 'center'
-      }
-    }, "\u0423 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440\u0430 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u043D\u044B\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0433\u043E \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430"), ((_data$getUser9 = data.getUser) === null || _data$getUser9 === void 0 ? void 0 : (_data$getUser9$role = _data$getUser9.role) === null || _data$getUser9$role === void 0 ? void 0 : _data$getUser9$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    }), ((_data$getUser8 = data.getUser) === null || _data$getUser8 === void 0 ? void 0 : (_data$getUser8$role = _data$getUser8.role) === null || _data$getUser8$role === void 0 ? void 0 : _data$getUser8$role.name) === 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(CommonAlert, null, "\u0423 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440\u0430 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u043D\u044B\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0433\u043E \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430"), ((_data$getUser9 = data.getUser) === null || _data$getUser9 === void 0 ? void 0 : (_data$getUser9$role = _data$getUser9.role) === null || _data$getUser9$role === void 0 ? void 0 : _data$getUser9$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
       tag: 'h4'
     }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser10 = data.getUser) === null || _data$getUser10 === void 0 ? void 0 : _data$getUser10.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения'), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
       name: 'dateOfBirth',
@@ -22119,7 +22160,11 @@ const Checkin = ({
   appearance: 'ghost',
   disabled: loading,
   required: true
-})), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+}), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+  type: 'button',
+  appearance: 'link',
+  onClick: onForgot
+}, "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C ?")), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
   style: {
     flexGrow: 1
   },
@@ -22167,7 +22212,6 @@ const Login = ({
   appearance,
   className,
   onBack,
-  // onForgot,
   onSubmit
 }) => /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
   className: className,
@@ -22530,7 +22574,7 @@ const ForgotPassword = ({
   }, "\u0414\u0430\u043B\u0435\u0435"))));
 };
 /* harmony default export */ var FormForgotPassword = (ForgotPassword);
-// CONCATENATED MODULE: ./components/FormChangePassword/index.js
+// CONCATENATED MODULE: ./components/FormCheckTokenAndChangePassword/index.js
 
 
 
@@ -22539,18 +22583,18 @@ const ForgotPassword = ({
 
 
 
-const ChangePassword = ({
+const CheckTokenAndChangePassword = ({
   title = true,
   appearance,
   className,
-  mutation,
+  mutations,
   onSubmit
 }) => {
   return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+    onSubmit: onSubmit,
     className: className,
     appearance: appearance,
-    mutation: mutation,
-    onSubmit: onSubmit
+    mutation: mutations.checkResetToken
   }, ({
     register,
     loading
@@ -22559,25 +22603,35 @@ const ChangePassword = ({
       textAlign: 'center'
     },
     tag: 'h4'
-  }, "\u0421\u043C\u0435\u043D\u0430 \u043F\u0430\u0440\u043E\u043B\u044F")), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
-    type: 'password',
-    name: 'password',
-    inputRef: register({
+  }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043A\u043B\u044E\u0447 \u0438\u0437 \u043F\u0438\u0441\u044C\u043C\u0430 \u0438 \u043D\u043E\u0432\u044B\u0439 \u043F\u0430\u0440\u043E\u043B\u044C")), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    type: 'text',
+    name: 'token',
+    ref: register({
       required: true
     }),
-    placeholder: 'Введите новый пароль',
+    placeholder: 'Ключ из письма',
     appearance: 'ghost',
-    loading: loading.toString(),
+    disabled: loading,
+    required: true
+  }), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    type: 'password',
+    name: 'password',
+    ref: register({
+      required: true
+    }),
+    placeholder: 'Новый пароль',
+    appearance: 'ghost',
+    disabled: loading,
     required: true
   })), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     style: {
       flexGrow: 1
     },
     type: 'submit',
-    loading: loading.toString()
-  }, "\u0418\u0437\u043C\u0435\u043D\u0438\u0442\u044C"))));
+    disabled: loading
+  }, "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C"))));
 };
-/* harmony default export */ var FormChangePassword = (ChangePassword);
+/* harmony default export */ var FormCheckTokenAndChangePassword = (CheckTokenAndChangePassword);
 // CONCATENATED MODULE: ./components/FormAddUserFolder/index.js
 
 
@@ -22635,6 +22689,62 @@ const AddUserFolder = ({
   }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C"))));
 };
 /* harmony default export */ var FormAddUserFolder = (AddUserFolder);
+// CONCATENATED MODULE: ./components/FormResetPassword/index.js
+
+
+
+
+
+
+
+
+const ResetPassword = ({
+  title = true,
+  appearance,
+  className,
+  mutations,
+  onlyButton,
+  onSubmit,
+  onBack
+}) => {
+  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+    onSubmit: onSubmit,
+    className: className,
+    appearance: appearance,
+    mutation: mutations.forgotPassword
+  }, ({
+    register,
+    loading
+  }) => /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, title && /*#__PURE__*/external_react_default.a.createElement(Container["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    style: {
+      textAlign: 'center'
+    },
+    tag: 'h4'
+  }, "\u0421\u0431\u0440\u043E\u0441 \u043F\u0430\u0440\u043E\u043B\u044F")), !onlyButton && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    type: 'text',
+    name: 'email',
+    ref: register({
+      required: !onlyButton
+    }),
+    placeholder: 'Телефон или адрес эл. почты',
+    appearance: 'ghost',
+    disabled: loading,
+    required: true
+  })), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    style: {
+      flexGrow: 1
+    },
+    type: 'submit',
+    disabled: loading
+  }, "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    style: {
+      flexGrow: 1
+    },
+    type: 'button',
+    onClick: onBack
+  }, "\u041E\u0442\u043C\u0435\u043D\u0430"))));
+};
+/* harmony default export */ var FormResetPassword = (ResetPassword);
 // EXTERNAL MODULE: ./components/FormSureDelete/index.js
 var FormSureDelete = __webpack_require__("FHIK");
 
@@ -22859,6 +22969,15 @@ View.defaultProps = {
   appearance: 'default'
 };
 /* harmony default export */ var UserView = (View);
+// EXTERNAL MODULE: ./store/helpers/project.js + 7 modules
+var helpers_project = __webpack_require__("IxyI");
+
+// EXTERNAL MODULE: ./store/actions/user.js
+var actions_user = __webpack_require__("8ihE");
+
+// EXTERNAL MODULE: ./store/actions/documents.js
+var documents = __webpack_require__("j8/+");
+
 // EXTERNAL MODULE: ./store/types/stepper.js
 var types_stepper = __webpack_require__("v8xy");
 
@@ -22876,17 +22995,8 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/modal.js
 var modal = __webpack_require__("qOKH");
 
-// EXTERNAL MODULE: ./store/actions/user.js
-var actions_user = __webpack_require__("8ihE");
-
-// EXTERNAL MODULE: ./store/actions/documents.js
-var documents = __webpack_require__("j8/+");
-
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
-
-// EXTERNAL MODULE: ./store/helpers/project.js + 7 modules
-var helpers_project = __webpack_require__("IxyI");
 
 // EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
@@ -22916,6 +23026,81 @@ var helpers = __webpack_require__("+EEm");
 
 
 
+
+function onCheckResetToken(dispatch, props) {
+  const {
+    email,
+    mutations
+  } = props;
+  dispatch(setStepper({
+    name: 'checkResetToken',
+    content: /*#__PURE__*/external_react_default.a.createElement(CheckTokenAndChangePassword, {
+      email: email,
+      mutations: mutations,
+      onSubmit: async (form, action) => {
+        const result = await action({
+          variables: {
+            email: email,
+            token: form.token,
+            password: form.password
+          }
+        });
+
+        if (result.data.checkTokenAndResetPassword.email !== '') {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Пароль успешно сброшен'
+          }));
+          setTimeout(() => {
+            onUserCheckin(dispatch, {
+              mutations
+            });
+          }, 200);
+        } else {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не верный код проверки или ошибка сервера'
+          }));
+        }
+      }
+    })
+  }));
+}
+function onUserResetPassword(dispatch, props) {
+  const {
+    mutations
+  } = props;
+  dispatch(setStepper({
+    name: 'resetPassword',
+    content: /*#__PURE__*/external_react_default.a.createElement(FormResetPassword, {
+      mutations: mutations,
+      onBack: () => onUserCheckin(dispatch, {
+        mutations
+      }),
+      onSubmit: async (form, action) => {
+        try {
+          const response = await action({
+            variables: {
+              email: form.email
+            }
+          });
+
+          if (response) {
+            onCheckResetToken(dispatch, {
+              email: form.email,
+              mutations
+            });
+          }
+        } catch (err) {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не удалось сбросить пароль'
+          }));
+        }
+      }
+    })
+  }));
+}
 function onUserCheckin(dispatch, props) {
   const {
     mutations
@@ -22925,7 +23110,7 @@ function onUserCheckin(dispatch, props) {
     content: /*#__PURE__*/external_react_default.a.createElement(FormCheckin, {
       mutations: mutations,
       onCreate: () => onUserRegister(dispatch, props),
-      onForgot: () => onUserForgotEmail(dispatch, props),
+      onForgot: () => onUserResetPassword(dispatch, props),
       onGoogleError: () => {},
       onFacebookError: () => {},
       onGoogleFinally: user => dispatch(Object(actions_user["b" /* setUser */])(user)),
@@ -23107,36 +23292,77 @@ function onUserForgotPassword(dispatch, props) {
 function onUserChangePassword(dispatch, props) {
   const {
     user,
-    mutation
+    mutations
   } = props;
   dispatch(Object(modal["a" /* setModal */])([{
     path: '/',
     home: true,
-    title: 'Смена пароля',
-    component: () => /*#__PURE__*/external_react_default.a.createElement(FormChangePassword, {
-      mutation: mutation,
+    title: 'Сброс пароля',
+    component: ({
+      jump
+    }) => /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        padding: '15px'
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(FormResetPassword, {
       title: false,
-      appearance: 'ghost',
+      appearance: 'clear',
+      mutations: mutations,
+      onBack: () => dispatch(Object(modal["a" /* setModal */])(null)),
       onSubmit: async (form, action) => {
         try {
-          await action({
+          const response = await action({
             variables: {
-              id: user.id,
-              input: {
-                password: form.password
-              }
+              email: user
             }
           });
+          if (response) jump('/reset');
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
-            message: 'Не удалось изменить пароль'
+            message: 'Не удалось сбросить пароль'
           }));
-        } finally {
-          dispatch(Object(drawer["a" /* setDrawer */])(null));
+        }
+      },
+      onlyButton: true
+    }))
+  }, {
+    path: '/reset',
+    title: 'Новый пароль',
+    component: ({
+      close
+    }) => /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+      style: {
+        padding: '15px'
+      }
+    }, /*#__PURE__*/external_react_default.a.createElement(CheckTokenAndChangePassword, {
+      title: false,
+      email: user,
+      appearance: 'clear',
+      mutations: mutations,
+      onSubmit: async (form, action) => {
+        const result = await action({
+          variables: {
+            email: user,
+            token: form.token,
+            password: form.password
+          }
+        });
+
+        if (result.data.checkTokenAndResetPassword.email !== '') {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'success',
+            message: 'Пароль успешно сброшен'
+          }));
+          setTimeout(() => close(), 200);
+        } else {
+          dispatch(Object(snacks["c" /* setItem */])({
+            type: 'error',
+            message: 'Не верный код проверки или ошибка сервера'
+          }));
         }
       }
-    })
+    }))
   }]));
 }
 function onUserLink(dispatch, props) {
@@ -23190,7 +23416,8 @@ function onUserCreate(dispatch, props) {
   const {
     roles,
     canEditRole,
-    mutation
+    mutation,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
@@ -23227,6 +23454,7 @@ function onUserCreate(dispatch, props) {
             type: 'success',
             message: 'Пользователь успешно создан'
           }));
+          if (onAfter) onAfter();
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
@@ -23242,7 +23470,8 @@ function onUserCreate(dispatch, props) {
 function onUserClientEdit(dispatch, props) {
   const {
     user,
-    mutations
+    mutations,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
@@ -23277,6 +23506,7 @@ function onUserClientEdit(dispatch, props) {
             type: 'success',
             message: 'Данные успешно отредактированы'
           }));
+          if (onAfter) onAfter();
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
@@ -23290,9 +23520,7 @@ function onUserClientEdit(dispatch, props) {
         id: user,
         mutation: mutations.del
       }),
-      onChangePassword: () => onUserChangePassword(dispatch, {
-        mutation: mutations.changePassword
-      })
+      onChangePassword: () => onUserChangePassword(dispatch, props)
     })
   }));
 }
@@ -23302,7 +23530,8 @@ function onUserEdit(dispatch, props) {
     roles,
     canEditAccount,
     canEditRole,
-    mutations
+    mutations,
+    onAfter
   } = props;
   dispatch(Object(drawer["a" /* setDrawer */])({
     icon: 'user2',
@@ -23341,6 +23570,7 @@ function onUserEdit(dispatch, props) {
             type: 'success',
             message: 'Пользователь успешно отредактирован'
           }));
+          if (onAfter) onAfter();
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
@@ -23354,9 +23584,7 @@ function onUserEdit(dispatch, props) {
         id: user,
         mutation: mutations.del
       }),
-      onChangePassword: () => onUserChangePassword(dispatch, {
-        mutation: mutations.changePassword
-      })
+      onChangePassword: () => onUserChangePassword(dispatch, props)
     })
   }));
 }
@@ -23582,6 +23810,9 @@ __webpack_require__.d(User_namespaceObject, "FACEBOOK_AUTH", function() { return
 __webpack_require__.d(User_namespaceObject, "CHECKIN", function() { return CHECKIN; });
 __webpack_require__.d(User_namespaceObject, "LOGIN", function() { return LOGIN; });
 __webpack_require__.d(User_namespaceObject, "REGISTER", function() { return REGISTER; });
+__webpack_require__.d(User_namespaceObject, "RESET", function() { return RESET; });
+__webpack_require__.d(User_namespaceObject, "CHECK_EMAIL", function() { return CHECK_EMAIL; });
+__webpack_require__.d(User_namespaceObject, "CHECK_RESET_TOKEN", function() { return CHECK_RESET_TOKEN; });
 __webpack_require__.d(User_namespaceObject, "LOGOUT", function() { return LOGOUT; });
 __webpack_require__.d(User_namespaceObject, "CHECK_USER", function() { return CHECK_USER; });
 __webpack_require__.d(User_namespaceObject, "GET_USER", function() { return GET_USER; });
@@ -23791,6 +24022,12 @@ const UserMemberFields = external_graphql_tag_default.a`
     }
     account
     email
+  }
+`;
+const UserForReset = external_graphql_tag_default.a`
+  fragment UserForReset on User {
+    email
+    resetPasswordKey
   }
 `;
 const NoticeFields = external_graphql_tag_default.a`
@@ -24114,6 +24351,28 @@ const REGISTER = external_graphql_tag_default.a`
   }
   ${UserFields}
 `;
+const RESET = external_graphql_tag_default.a`
+  mutation updateUserPasswordResetStatus($email: String!) {
+    updateUserPasswordResetStatus(email: $email) {
+      ...UserForReset
+    }
+  }
+  ${UserForReset}
+`;
+const CHECK_EMAIL = external_graphql_tag_default.a`
+  query getResetTokenByEmail($email: String, $token: String) {
+    ...UserForReset
+  }
+  ${UserForReset}
+`;
+const CHECK_RESET_TOKEN = external_graphql_tag_default.a`
+  mutation checkTokenAndResetPassword($email: String!, $token: String!, $password: String!) {
+    checkTokenAndResetPassword(email: $email, token: $token, password: $password) {
+      ...UserForReset
+    }
+  }
+  ${UserForReset}
+`;
 const LOGOUT = external_graphql_tag_default.a`
   mutation logout {
     logout
@@ -24245,7 +24504,7 @@ const UPDATE_USER = external_graphql_tag_default.a`
   ${UserFields}
 `;
 const DELETE_USER = external_graphql_tag_default.a`
-  mutation deleteUser($email: String!) {
+  mutation deleteUser($email: [String]!) {
     deleteUser(email: $email) {
       ...UserFields
     }
@@ -24729,7 +24988,7 @@ const UPDATE_ROLE = external_graphql_tag_default.a`
   ${RoleFields}
 `;
 const DELETE_ROLE = external_graphql_tag_default.a`
-  mutation deleteRole($id: ID!) {
+  mutation deleteRole($id: [ID]!) {
     deleteRole(id: $id) {
       ...RoleFields
     }
@@ -24839,7 +25098,7 @@ const UPDATE_TICKET = external_graphql_tag_default.a`
   ${TicketFields}
 `;
 const DELETE_TICKET = external_graphql_tag_default.a`
-  mutation deleteTicket($id: ID!) {
+  mutation deleteTicket($id: [ID]!) {
     deleteTicket(id: $id) {
       ...TicketFields
     }
@@ -24962,7 +25221,7 @@ const UPDATE_ARTICLE = external_graphql_tag_default.a`
   ${ArticleFields}
 `;
 const DELETE_ARTICLE = external_graphql_tag_default.a`
-  mutation deleteArticle($id: ID!, $status: PostStatus) {
+  mutation deleteArticle($id: [ID]!, $status: PostStatus) {
     deleteArticle(id: $id, status: $status) {
       ...ArticleFields
     }
@@ -25062,7 +25321,7 @@ const UPDATE_PROJECT = external_graphql_tag_default.a`
   ${ProjectFields}
 `;
 const DELETE_PROJECT = external_graphql_tag_default.a`
-  mutation deleteProject($id: ID!, $status: PostStatus) {
+  mutation deleteProject($id: [ID]!, $status: PostStatus) {
     deleteProject(id: $id, status: $status) {
       ...ProjectFields
     }
@@ -25105,7 +25364,7 @@ const UPDATE_CATEGORY = external_graphql_tag_default.a`
   ${CategoryFields}
 `;
 const DELETE_CATEGORY = external_graphql_tag_default.a`
-  mutation deleteCategory($id: ID!) {
+  mutation deleteCategory($id: [ID]!) {
     deleteCategory(id: $id) {
       ...CategoryFields
     }

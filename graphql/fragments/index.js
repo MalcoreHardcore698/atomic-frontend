@@ -56,6 +56,13 @@ export const UserMemberFields = gql`
   }
 `
 
+export const UserForReset = gql`
+  fragment UserForReset on User {
+    email
+    resetPasswordKey
+  }
+`
+
 export const NoticeFields = gql`
   fragment NoticeFields on Notice {
     id

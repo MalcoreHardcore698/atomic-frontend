@@ -42,6 +42,15 @@ const GENDER_TYPES = [
   { label: 'Женский', value: 'FEMALE' }
 ]
 
+export const CommonAlert = styled(Alert)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  flex-grow: 100;
+`
+
 export const AdaptiveDropzone = styled(Dropzone)`
   width: 196px;
   height: 276px;
@@ -220,9 +229,9 @@ export const User = ({
                   />
 
                   {data.getUser?.role?.name === 'ADMIN' && (
-                    <Alert style={{ width: '100%', textAlign: 'center' }}>
+                    <CommonAlert>
                       У администратора ограниченные возможности изменения собственного аккаунта
-                    </Alert>
+                    </CommonAlert>
                   )}
 
                   {data.getUser?.role?.name !== 'ADMIN' && (

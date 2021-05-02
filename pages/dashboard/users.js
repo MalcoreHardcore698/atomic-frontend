@@ -56,7 +56,7 @@ const Users = () => {
           }
         })
       }}
-      onEdit={(author) =>
+      onEdit={(author, onAfter) =>
         recall(onUserEdit, {
           user: author.email,
           auth: user?.email,
@@ -65,13 +65,17 @@ const Users = () => {
             update: queries.UPDATE_USER,
             del: queries.DELETE_USER,
             changePassword: queries.UPDATE_USER
-          }
+          },
+          onAfter
         })()
       }
-      onCreate={recall(onUserCreate, {
-        canEditRole,
-        mutation: queries.CREATE_USER
-      })}
+      onCreate={(onAfter) =>
+        recall(onUserCreate, {
+          canEditRole,
+          mutation: queries.CREATE_USER,
+          onAfter
+        })()
+      }
       render={(document) => (
         <UserCard
           user={document}

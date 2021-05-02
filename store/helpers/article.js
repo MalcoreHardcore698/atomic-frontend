@@ -28,7 +28,7 @@ export function onArticleLink(dispatch, props) {
 }
 
 export function onArticleCreate(dispatch, props) {
-  const { categories, statuses, canEditStatus, mutation, isPurpose } = props
+  const { categories, statuses, canEditStatus, mutation, isPurpose, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -63,6 +63,7 @@ export function onArticleCreate(dispatch, props) {
                   message: 'Статья успешно создана'
                 })
               )
+              if (onAfter) onAfter()
             } catch (err) {
               dispatch(setDrawer(null))
               dispatch(
@@ -81,7 +82,7 @@ export function onArticleCreate(dispatch, props) {
 }
 
 export function onArticleEdit(dispatch, props) {
-  const { id, auth, categories, statuses, canEditStatus, mutation } = props
+  const { id, auth, categories, statuses, canEditStatus, mutation, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -117,6 +118,7 @@ export function onArticleEdit(dispatch, props) {
                   message: 'Статья успешно отредактирована'
                 })
               )
+              if (onAfter) onAfter()
             } catch (err) {
               dispatch(
                 setItem({

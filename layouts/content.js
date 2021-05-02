@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import styled, { css } from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
 import { useLazyQuery } from '@apollo/react-hooks'
 import InfiniteScroll from 'react-infinite-scroller'
+import styled, { css } from 'styled-components'
 import { v4 } from 'uuid'
 
 import Column from '../atomic-ui/components/Column'
@@ -10,13 +11,13 @@ import DatePicker from '../atomic-ui/components/DatePicker'
 import Spinner from '../atomic-ui/components/Spinner'
 import Select from '../atomic-ui/components/Select'
 
-import DefaultLayout from '../layouts/default'
 import DashboardLayout from './dashboard'
+import DefaultLayout from '../layouts/default'
 import FilterBar from '../components/FilterBar'
 import SearchBar from '../components/SearchBar'
 import HandleBar from '../components/HandleBar'
 import { LowerLoader } from '../components/Styled'
-import { useSelector } from 'react-redux'
+import { setSearch } from '../store/actions/root'
 
 const Wrap = styled(Column)`
   margin-top: 120px;
@@ -43,22 +44,20 @@ const ContentLayout = ({
   scaffold,
   dashboard,
   variables = {},
-  limit = 6,
-  startOffset = 6,
   initialize,
   children
 }) => {
   const router = useRouter()
-  const research = useSelector((state) => state.root.search)
+  const search = useSelector((state) => state.root.search)
   const Layout = dashboard ? DashboardLayout : DefaultLayout
   const [date, onChangeDate] = useState()
   const [select, onChangeSelect] = useState()
-  const [search, setSearch] = useState(null)
   const [visibleFilter, setVisibleFilter] = useState(false)
-  const [offset, setOffset] = useState(startOffset + 1)
   const [documents, setDocuments] = useState(store?.documents || [])
   const [isEnd, setIsEnd] = useState(false)
   const pageStart = useMemo(() => Number(router.query?.page) || 1, [router])
+
+  const dispatch = useDispatch()
 
   const [
     loadDocumentsBySearch,
@@ -99,45 +98,45 @@ const ContentLayout = ({
   const onSearch = (value) => {
     setDocuments([])
     if (value) {
-      setSearch(value)
+      dispatch(setSearch(value))
       loadDocumentsBySearch({
-        variables: { ...variables, search: value, offset: 0, limit: startOffset * pageStart }
+        variables: { ...variables, search: value }
       })
     } else {
-      const result = { ...variables, offset: 0, limit }
+      const result = { ...variables }
 
-      setSearch(null)
+      dispatch(setSearch(null))
 
       if (refetch) refetch(result)
       else loadDocuments({ variables: result })
     }
-    setOffset(0)
   }
 
-  const loadMore = async (page) => {
-    const updateOffset = () => setOffset(limit * page + startOffset + 1)
-
-    const result = { ...variables, offset, limit }
-
+  const loadMore = async () => {
     if (search && refetchBySearch) {
       await refetchBySearch(variables)
     } else {
       if (refetch) {
-        await refetch(result)
-        updateOffset()
+        await refetch(variables)
       } else {
-        await loadDocuments({ variables: result })
+        await loadDocuments({ variables })
       }
     }
   }
 
+  const renderLoader = () => (
+    <LowerLoader key={'loader'}>
+      <Spinner />
+    </LowerLoader>
+  )
+
   useEffect(() => {
-    if (initialize) loadDocuments({ variables: { offset, limit } })
+    if (initialize) loadDocuments()
   }, [initialize])
 
   useEffect(() => {
-    if (research) onSearch(research)
-  }, [research])
+    if (search) onSearch(search)
+  }, [search])
 
   useEffect(() => {
     const commonList = !search && !loading && data
@@ -145,7 +144,7 @@ const ContentLayout = ({
     const resultList = commonList || searchList
     if (resultList) {
       const list = resultList[Object.keys(resultList)[0]]
-      if (list.length > 0) setDocuments((prev) => [...prev, ...list])
+      if (list.length > 0) setDocuments(list)
       if (list.length === 0) setIsEnd(true)
     }
   }, [search, loading, loadingBySearch, data, dataBySearch, setIsEnd])
@@ -155,7 +154,7 @@ const ContentLayout = ({
       <Wrap clear={scaffold || dashboard}>
         {!scaffold && !dashboard && (
           <SearchBar
-            defaultValue={research || search}
+            defaultValue={search}
             onChangeFilter={() => setVisibleFilter(!visibleFilter)}
             onSubmit={onSearch}
           />
@@ -176,7 +175,9 @@ const ContentLayout = ({
           <FilterBar isOpen={visibleFilter} filters={getFilters()} options={options} />
         )}
 
-        {search ? (
+        {search && loadingBySearch ? (
+          renderLoader()
+        ) : search ? (
           typeof children === 'function' ? (
             React.createElement(children, { documents })
           ) : (
@@ -187,11 +188,7 @@ const ContentLayout = ({
             pageStart={pageStart || 0}
             loadMore={loadMore}
             hasMore={!isEnd}
-            loader={
-              <LowerLoader key={'loader'}>
-                <Spinner />
-              </LowerLoader>
-            }>
+            loader={renderLoader()}>
             {typeof children === 'function'
               ? React.createElement(children, { documents })
               : children}

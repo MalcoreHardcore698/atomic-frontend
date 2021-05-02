@@ -58,7 +58,7 @@ export const UPDATE_ARTICLE = gql`
 `
 
 export const DELETE_ARTICLE = gql`
-  mutation deleteArticle($id: ID!, $status: PostStatus) {
+  mutation deleteArticle($id: [ID]!, $status: PostStatus) {
     deleteArticle(id: $id, status: $status) {
       ...ArticleFields
     }

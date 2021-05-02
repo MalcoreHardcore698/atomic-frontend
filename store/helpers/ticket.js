@@ -31,7 +31,7 @@ export function onTicketLink(dispatch, props) {
 }
 
 export function onTicketCreate(dispatch, props) {
-  const { mutation } = props
+  const { mutation, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -62,6 +62,7 @@ export function onTicketCreate(dispatch, props) {
                   message: 'Обращение успешно создано'
                 })
               )
+              if (onAfter) onAfter()
             } catch (err) {
               dispatch(setDrawer(null))
               dispatch(
@@ -79,7 +80,7 @@ export function onTicketCreate(dispatch, props) {
 }
 
 export function onTicketEdit(dispatch, props) {
-  const { id, mutation } = props
+  const { id, mutation, onAfter } = props
 
   dispatch(
     setDrawer({
@@ -116,6 +117,7 @@ export function onTicketEdit(dispatch, props) {
                   message: 'Обращение успешно отредактировано'
                 })
               )
+              if (onAfter) onAfter()
             } catch {
               dispatch(setDrawer(null))
               dispatch(

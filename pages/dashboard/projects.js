@@ -54,20 +54,24 @@ const Projects = () => {
           })
         )()
       }}
-      onEdit={(project) =>
+      onEdit={(project, onAfter) =>
         recall(onProjectEdit, {
           id: project.id,
           canEditStatus,
           mutation: queries.UPDATE_PROJECT,
           query: queries.GET_USERS,
-          onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' })
+          onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' }),
+          onAfter
         })()
       }
-      onCreate={recall(onProjectCreate, {
-        canEditStatus,
-        mutation: queries.CREATE_PROJECT,
-        query: queries.GET_USERS
-      })}
+      onCreate={(onAfter) =>
+        recall(onProjectCreate, {
+          canEditStatus,
+          mutation: queries.CREATE_PROJECT,
+          query: queries.GET_USERS,
+          onAfter
+        })()
+      }
       render={(document) => <ProjectCard project={document} withSocials preview />}
     />
   )

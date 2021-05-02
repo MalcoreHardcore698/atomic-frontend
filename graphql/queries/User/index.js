@@ -4,8 +4,8 @@ import {
   UserMemberFields,
   MessageFields,
   ProjectFields,
-  NoticeFields
-} from '../../fragments'
+  NoticeFields, UserForReset
+} from "../../fragments"
 
 export const GOOGLE_AUTH = gql`
   mutation googleAuth($accessToken: String!) {
@@ -47,6 +47,30 @@ export const REGISTER = gql`
     }
   }
   ${UserFields}
+`
+
+export const RESET = gql`
+  mutation updateUserPasswordResetStatus($email: String!) {
+    updateUserPasswordResetStatus(email: $email) {
+      ...UserForReset
+    }
+  }
+  ${UserForReset}
+`
+
+export const CHECK_EMAIL = gql`
+  query getResetTokenByEmail($email: String, $token: String) {
+    ...UserForReset
+  }
+  ${UserForReset}
+`
+export const CHECK_RESET_TOKEN = gql`
+  mutation checkTokenAndResetPassword($email: String!, $token: String!, $password: String!) {
+    checkTokenAndResetPassword(email: $email, token: $token, password: $password) {
+      ...UserForReset
+    }
+  }
+  ${UserForReset}
 `
 
 export const LOGOUT = gql`
@@ -191,7 +215,7 @@ export const UPDATE_USER = gql`
 `
 
 export const DELETE_USER = gql`
-  mutation deleteUser($email: String!) {
+  mutation deleteUser($email: [String]!) {
     deleteUser(email: $email) {
       ...UserFields
     }

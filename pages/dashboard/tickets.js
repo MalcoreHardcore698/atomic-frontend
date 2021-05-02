@@ -40,13 +40,14 @@ const Tickets = () => {
       deleteEntityMultiText={'обращения'}
       deleteEntitySingleText={'обращение'}
       onLink={(ticket) => recall(onTicketLink, { id: ticket.id, auth: user?.email })()}
-      onEdit={(ticket) =>
+      onEdit={(ticket, onAfter) =>
         recall(onTicketEdit, {
           id: ticket.id,
-          mutation: queries.UPDATE_TICKET
+          mutation: queries.UPDATE_TICKET,
+          onAfter
         })()
       }
-      onCreate={recall(onTicketCreate, { mutation: queries.CREATE_TICKET })}
+      onCreate={(onAfter) => recall(onTicketCreate, { mutation: queries.CREATE_TICKET, onAfter })()}
       render={(document) => (
         <TicketCard
           ticket={document}

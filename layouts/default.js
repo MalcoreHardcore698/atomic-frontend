@@ -2,27 +2,27 @@ import React, { useMemo } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import styled, { css } from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
 import { useSelector, useDispatch } from 'react-redux'
+import styled, { css } from 'styled-components'
 import { v4 } from 'uuid'
 
 import Image from '../atomic-ui/components/Image'
 import Spinner from '../atomic-ui/components/Spinner'
 
+import MainLayout from './main'
 import { useMutate } from '../hooks/useMutate'
 import { useHelper } from '../hooks/useHelper'
-import MainLayout from './main'
 import Scaffold from '../components/Scaffold'
 import AppBar from '../components/AppBar'
 import Footer from '../components/Footer'
 import { FixedLoader } from '../components/Styled'
 import { setLogout } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
+import { getSupportLinks, socials, contacts } from '../__mock__'
 import { onMenu, onHelp, onNotification, onChat } from '../store/helpers'
 import { onUserClientEdit } from '../store/helpers/user'
 import queries from '../graphql/queries'
-import { getSupportLinks, socials, contacts } from '../__mock__'
 
 const Wrap = styled.div`
   position: relative;
@@ -201,9 +201,12 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
           onSettings={recall(onUserClientEdit, {
             user: user?.email,
             mutations: {
-              update: queries.UPDATE_CLIENT_USER,
               del: queries.DELETE_USER,
-              changePassword: queries.UPDATE_CLIENT_USER
+              forgotEmail: queries.LOGIN,
+              forgotPassword: queries.RESET,
+              changePassword: queries.UPDATE_CLIENT_USER,
+              checkResetToken: queries.CHECK_RESET_TOKEN,
+              update: queries.UPDATE_CLIENT_USER
             }
           })}
           onNotification={recall(onNotification, { user: user.email })}
