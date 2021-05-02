@@ -8,23 +8,25 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Row from '../../atomic-ui/components/Row'
 import Container from '../../atomic-ui/components/Container'
+import CommonSearch from '../../atomic-ui/components/Search'
+import Tooltip from '../../atomic-ui/components/Tooltip'
 import Spinner from '../../atomic-ui/components/Spinner'
 import Column from '../../atomic-ui/components/Column'
 import Button from '../../atomic-ui/components/Button'
 import Image from '../../atomic-ui/components/Image'
-import Search from '../../atomic-ui/components/Search'
-import Tooltip from '../../atomic-ui/components/Tooltip'
 import Icon from '../../atomic-ui/components/Icon'
 
-import { useHelper } from '../../hooks/useHelper'
 import MainLayout from '../main'
+import { useHelper } from '../../hooks/useHelper'
 import { FixedLoader } from '../../components/Styled'
 import BaseSideBar from '../../components/SideBar'
+import Search from '../../components/Search'
 import { onMenu } from '../../store/helpers'
+import { setModal } from '../../store/actions/modal'
 import { setUser } from '../../store/actions/user'
-import getLinks from './links'
 import queries from '../../graphql/queries'
 import config from '../../config'
+import getLinks from './links'
 
 const Main = styled.main`
   display: flex;
@@ -185,7 +187,24 @@ export const DashboardLayout = ({ children, title = 'Панель админис
             </Logotype>
           </Tooltip>
         </LogoZone>
-        <Search appearance={'ghost'} />
+        <CommonSearch
+          appearance={'ghost'}
+          onClick={() =>
+            dispatch(
+              setModal(
+                [
+                  {
+                    path: '/',
+                    title: 'Поиск',
+                    component: ({ jump, close }) => <Search onJump={jump} onHide={close} />
+                  }
+                ],
+                'l'
+              )
+            )
+          }
+          disable
+        />
       </Header>
 
       <Main>

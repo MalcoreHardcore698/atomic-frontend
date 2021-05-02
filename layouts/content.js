@@ -154,7 +154,11 @@ const ContentLayout = ({
     <Layout title={title} scaffold={scaffold}>
       <Wrap clear={scaffold || dashboard}>
         {!scaffold && !dashboard && (
-          <SearchBar onChangeFilter={() => setVisibleFilter(!visibleFilter)} onSubmit={onSearch} />
+          <SearchBar
+            defaultValue={research || search}
+            onChangeFilter={() => setVisibleFilter(!visibleFilter)}
+            onSubmit={onSearch}
+          />
         )}
 
         {dashboard && handle && (
@@ -172,17 +176,27 @@ const ContentLayout = ({
           <FilterBar isOpen={visibleFilter} filters={getFilters()} options={options} />
         )}
 
-        <InfiniteScroll
-          pageStart={pageStart || 0}
-          loadMore={loadMore}
-          hasMore={!isEnd}
-          loader={
-            <LowerLoader key={'loader'}>
-              <Spinner />
-            </LowerLoader>
-          }>
-          {typeof children === 'function' ? React.createElement(children, { documents }) : children}
-        </InfiniteScroll>
+        {search ? (
+          typeof children === 'function' ? (
+            React.createElement(children, { documents })
+          ) : (
+            children
+          )
+        ) : (
+          <InfiniteScroll
+            pageStart={pageStart || 0}
+            loadMore={loadMore}
+            hasMore={!isEnd}
+            loader={
+              <LowerLoader key={'loader'}>
+                <Spinner />
+              </LowerLoader>
+            }>
+            {typeof children === 'function'
+              ? React.createElement(children, { documents })
+              : children}
+          </InfiniteScroll>
+        )}
       </Wrap>
     </Layout>
   )

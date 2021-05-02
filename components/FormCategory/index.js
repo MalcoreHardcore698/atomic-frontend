@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
@@ -11,15 +11,10 @@ import Alert from '../../atomic-ui/components/Alert'
 import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
 import Form from '../Form'
+import { useQuery } from '@apollo/react-hooks'
+import queries from '../../graphql/queries'
 
-export const Category = ({
-  category,
-  categoryTypes,
-  mutation,
-  appearance,
-  className,
-  onSubmit
-}) => {
+export const Category = ({ category, mutation, appearance, className, onSubmit }) => {
   const [typeError, setTypeError] = useState(false)
   const [type, setType] = useState(
     (category &&
@@ -29,6 +24,16 @@ export const Category = ({
       }) ||
       null
   )
+
+  const { data: dataTypes, loading: loadingTypes } = useQuery(queries.GET_CATEGORY_TYPES)
+
+  const [types, setTypes] = useState([])
+
+  useEffect(() => {
+    if (!loadingTypes && dataTypes) {
+      setTypes(dataTypes.getCategoryTypes)
+    }
+  }, [loadingTypes, dataTypes])
 
   return (
     <Form
@@ -76,11 +81,11 @@ export const Category = ({
                 setTypeError(false)
               }}
               placeholder={'Выберите тип'}
-              options={categoryTypes.map((type) => ({
+              options={types.map((type) => ({
                 value: type,
                 label: getLabelCategory(type)
               }))}
-              isLoading={loading}
+              isLoading={loading || loadingTypes}
               isClearable
             />
 

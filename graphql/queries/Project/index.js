@@ -17,6 +17,7 @@ export const GET_PROJECTS = gql`
     $category: ID
     $rating: [String]
     $author: String
+    $search: String
     $status: PostStatus
   ) {
     getProjects(
@@ -25,6 +26,7 @@ export const GET_PROJECTS = gql`
       category: $category
       rating: $rating
       author: $author
+      search: $search
       status: $status
     ) {
       id

@@ -224,7 +224,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
             links: categories
               .filter((category) => category.type === 'DIVISION')
               .map((link) => (
-                <Link key={v4()} href={`/projects?category=${link.id}`}>
+                <Link key={v4()} href={`/projects?c=${link.id}`}>
                   <a>{link.name}</a>
                 </Link>
               ))

@@ -11,8 +11,8 @@ export const GET_ROLE = gql`
 `
 
 export const GET_ROLES = gql`
-  query getRoles($search: String) {
-    getRoles(search: $search) {
+  query getRoles($offset: Int, $limit: Int, $search: String) {
+    getRoles(offset: $offset, limit: $limit, search: $search) {
       ...RoleFields
     }
   }

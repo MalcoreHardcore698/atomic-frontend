@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components'
 
+import Column from '../../atomic-ui/components/Column'
+
 export const loaderStyles = css`
   display: flex;
   justify-content: center;
@@ -8,6 +10,46 @@ export const loaderStyles = css`
   width: 100%;
   height: 100%;
   flex-grow: 1;
+`
+
+export const Surface = styled(Column)`
+  position: relative;
+
+  ${({ checked }) =>
+    checked &&
+    css`
+      opacity: 0.45;
+    `}
+
+  ${({ appearance }) =>
+    appearance === 'default' &&
+    css`
+      padding: var(--default-gap);
+      background: var(--surface-background);
+      border: var(--surface-border);
+      border-radius: var(--surface-border-radius);
+      box-shadow: var(--surface-shadow);
+    `}
+
+  ${({ appearance }) =>
+    appearance === 'ghost' &&
+    css`
+      padding: 0;
+      border: none;
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+    `}
+
+  ${({ appearance }) =>
+    appearance === 'clear' &&
+    css`
+      padding: 0;
+      border: none;
+      background: none;
+      border-radius: 0;
+      box-shadow: none;
+    `}
 `
 
 export const GridAside = styled.aside`

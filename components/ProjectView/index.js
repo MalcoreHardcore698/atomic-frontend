@@ -14,6 +14,7 @@ import Icon from '../../atomic-ui/components/Icon'
 import Alert from '../../atomic-ui/components/Alert'
 import Divider from '../../atomic-ui/components/Divider'
 import Difinition from '../../atomic-ui/components/Difinition'
+import CharacteristicEditor from '../../atomic-ui/components/CharacteristicEditor'
 import VideoPresentation, { parseUrl } from '../../atomic-ui/components/VideoPresentation'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import { getFileSize, getLabelRole } from '../../atomic-ui/utils/functions'
@@ -389,6 +390,18 @@ export const View = ({
               </Column>
             </Content>
           </Container>
+
+          {data?.getProject?.characteristics?.length > 0 && (
+            <React.Fragment>
+              <Divider clear />
+
+              <CharacteristicEditor
+                appearance={'ghost'}
+                defaultValue={data?.getProject?.characteristics}
+                readOnly
+              />
+            </React.Fragment>
+          )}
 
           <Divider clear />
 

@@ -7,48 +7,19 @@ import Meta from '../../atomic-ui/components/Meta'
 import Divider from '../../atomic-ui/components/Divider'
 import Chip from '../../atomic-ui/components/Chip'
 import Alert from '../../atomic-ui/components/Alert'
-import Button from '../../atomic-ui/components/Button'
-import Icon from '../../atomic-ui/components/Icon'
-import Checkbox from '../../atomic-ui/components/Checkbox'
 import Title from '../../atomic-ui/components/Title'
-import Tooltip from '../../atomic-ui/components/Tooltip'
 import { getLabelRole, getLabelPermission } from '../../atomic-ui/utils/functions'
 
+import { Surface } from '../Styled'
+import CardActions from '../CardActions'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
+import { onRoleDelete, onRoleEdit } from '../../store/helpers/role'
+import { useHelper } from '../../hooks/useHelper'
+import queries from '../../graphql/queries'
 
-export const Wrap = styled(Column)`
+export const Wrap = styled(Surface)`
   grid-gap: var(--default-gap);
   height: 100%;
-
-  ${({ appearance }) =>
-    appearance === 'default' &&
-    css`
-      padding: var(--default-gap);
-      background: var(--surface-background);
-      border: var(--surface-border);
-      border-radius: var(--surface-border-radius);
-      box-shadow: var(--surface-shadow);
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'ghost' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'clear' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
 `
 
 export const Header = styled(Row)`
@@ -83,6 +54,7 @@ export const Permissions = styled(Row)`
 export const Card = ({
   role,
   style,
+  checked,
   appearance,
   className,
   limitPermissions,
@@ -91,33 +63,43 @@ export const Card = ({
   onEdit,
   onDelete
 }) => {
+  const recall = useHelper()
   const { setQuery } = useEntityQuery()
   const permissions = role.permissions.slice(0, limitPermissions)
   const residue = role.permissions.length - limitPermissions
 
+  const handleEdit = () => {
+    recall(onRoleEdit, {
+      id: role.id,
+      role,
+      permissions,
+      mutation: queries.UPDATE_ROLE
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onRoleDelete, {
+      id: role.id,
+      role,
+      mutation: queries.DELETE_ROLE
+    })()
+    if (onDelete) onDelete()
+  }
+
   return (
-    <Wrap className={className} style={style} appearance={appearance}>
+    <Wrap className={className} style={style} checked={checked} appearance={appearance}>
       <Column style={{ gridGap: 5 }}>
         <Header>
           <Meta date={role.createdAt} />
 
-          {onChecked && onEdit && onDelete && (
-            <Actions>
-              <Tooltip text={'Удалить роль'}>
-                <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
-                  <Icon icon={'delete'} size={'xs'} stroke={'white'} />
-                </Button>
-              </Tooltip>
-              <Tooltip text={'Редактировать роль'}>
-                <Button kind={'icon'} size={'xs'} onClick={onEdit}>
-                  <Icon icon={'edit'} size={'xs'} stroke={'white'} />
-                </Button>
-              </Tooltip>
-              <Tooltip text={'Отметить роль'} self>
-                <Checkbox />
-              </Tooltip>
-            </Actions>
-          )}
+          <CardActions
+            typeText={'роль'}
+            checked={checked}
+            onEdit={onEdit && handleEdit}
+            onDelete={onDelete && handleDelete}
+            onChecked={onChecked}
+          />
         </Header>
 
         <Name tag={'h4'} onClick={() => setQuery(role.id, 'role', onLink)}>

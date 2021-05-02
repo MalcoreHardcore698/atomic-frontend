@@ -15,6 +15,18 @@ export const GET_NOTICE_TYPES = gql`
   }
 `
 
+export const GET_CATEGORY_TYPES = gql`
+  query getCategoryTypes {
+    getCategoryTypes
+  }
+`
+
+export const GET_PERMISSIONS = gql`
+  query getPermissions {
+    getPermissions
+  }
+`
+
 export const GET_POST_STATUSES = gql`
   query getPostStatus {
     getPostStatus

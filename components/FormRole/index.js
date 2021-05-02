@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
@@ -10,8 +10,10 @@ import Alert from '../../atomic-ui/components/Alert'
 import { createSelectOptions, getLabelPermission } from '../../atomic-ui/utils/functions'
 
 import Form from '../Form'
+import { useQuery } from '@apollo/react-hooks'
+import queries from '../../graphql/queries'
 
-export const Role = ({ role, permissions, mutation, appearance, className, onSubmit }) => {
+export const Role = ({ role, mutation, appearance, className, onSubmit }) => {
   const [permissionsError, setPermissionsError] = useState(false)
   const [selectedPermissions, setSelectedPermissions] = useState(
     role?.permissions?.map((permission) => ({
@@ -19,6 +21,16 @@ export const Role = ({ role, permissions, mutation, appearance, className, onSub
       label: getLabelPermission(permission)
     })) || null
   )
+
+  const { data: dataPermissions, loading: loadingPermissions } = useQuery(queries.GET_PERMISSIONS)
+
+  const [permissions, setPermissions] = useState([])
+
+  useEffect(() => {
+    if (!loadingPermissions && dataPermissions) {
+      setPermissions(dataPermissions.getPermissions)
+    }
+  }, [loadingPermissions, dataPermissions])
 
   return (
     <Form
@@ -73,7 +85,7 @@ export const Role = ({ role, permissions, mutation, appearance, className, onSub
                 ...option,
                 label: getLabelPermission(option.label)
               }))}
-              isLoading={loading}
+              isLoading={loading || loadingPermissions}
               isClearable
               isMulti
             />

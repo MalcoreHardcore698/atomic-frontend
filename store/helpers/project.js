@@ -34,7 +34,6 @@ import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
 import { onUserLink, onUserFolderAdd, onUserAboutMore } from './user'
 import { onFileLink } from '.'
-import ArticleForm from '../../components/FormArticle'
 
 const CreateButton = styled(Button)`
   display: flex;
@@ -138,6 +137,11 @@ export function onProjectCreate(dispatch, props) {
                   input: {
                     title: form.title,
                     body: form.body,
+                    characteristics: (form.characteristics || []).map((characteristic) => ({
+                      name: characteristic.name,
+                      value: characteristic.value,
+                      isVisualize: characteristic.isVisualize
+                    })),
                     description: form.description,
                     preview: form.preview?.file,
                     company: form.company?.value?.email,
@@ -233,6 +237,11 @@ export function onProjectEdit(dispatch, props) {
                   input: {
                     title: form.title,
                     body: form.body,
+                    characteristics: (form.characteristics || []).map((characteristic) => ({
+                      name: characteristic.name,
+                      value: characteristic.value,
+                      isVisualize: characteristic.isVisualize
+                    })),
                     description: form.description,
                     preview: form.preview?.file,
                     company: form.company?.value?.email,

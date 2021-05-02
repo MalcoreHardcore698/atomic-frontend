@@ -95,8 +95,14 @@ export const ProjectFields = gql`
       }
     }
     title
-    description
     body
+    characteristics {
+      id
+      name
+      value
+      isVisualize
+    }
+    description
     company {
       name
       email

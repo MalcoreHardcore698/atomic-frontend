@@ -1,5 +1,25 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
+<<<<<<< HEAD
+=======
+  "/about": "pages/about.html",
+  "/articles": "pages/articles.js",
+  "/auth": "pages/auth.html",
+  "/contact": "pages/contact.html",
+  "/creators": "pages/creators.js",
+  "/dashboard/articles": "pages/dashboard/articles.html",
+  "/dashboard/categories": "pages/dashboard/categories.html",
+  "/dashboard": "pages/dashboard.html",
+  "/dashboard/projects": "pages/dashboard/projects.html",
+  "/dashboard/roles": "pages/dashboard/roles.html",
+  "/dashboard/settings": "pages/dashboard/settings.html",
+  "/dashboard/tickets": "pages/dashboard/tickets.html",
+  "/dashboard/users": "pages/dashboard/users.html",
+  "/guide": "pages/guide.html",
+  "/": "pages/index.js",
+  "/profile": "pages/profile.js",
+  "/projects": "pages/projects.html",
+>>>>>>> main
   "/_error": "pages/_error.js"
 }

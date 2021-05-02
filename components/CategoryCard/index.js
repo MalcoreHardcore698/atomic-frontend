@@ -9,49 +9,16 @@ import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
 import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
+import { Surface } from '../Styled'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
+import { onCategoryEdit, onCategoryDelete } from '../../store/helpers/category'
+import { useHelper } from '../../hooks/useHelper'
 import CardActions from '../CardActions'
+import queries from '../../graphql/queries'
 
-export const Wrap = styled(Column)`
-  position: relative;
+export const Wrap = styled(Surface)`
   height: 100%;
   min-height: 100px;
-
-  ${({ checked }) =>
-    checked &&
-    css`
-      opacity: 0.45;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'default' &&
-    css`
-      padding: var(--default-gap);
-      background: var(--surface-background);
-      border: var(--surface-border);
-      border-radius: var(--surface-border-radius);
-      box-shadow: var(--surface-shadow);
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'ghost' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'clear' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
 `
 
 export const Poster = styled(Image)`
@@ -95,7 +62,26 @@ export const Card = ({
   onDelete,
   onEdit
 }) => {
+  const recall = useHelper()
   const { setQuery } = useEntityQuery()
+
+  const handleEdit = () => {
+    recall(onCategoryEdit, {
+      id: category.id,
+      category,
+      mutation: queries.UPDATE_CATEGORY
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onCategoryDelete, {
+      id: category.id,
+      category,
+      mutation: queries.DELETE_CATEGORY
+    })()
+    if (onDelete) onDelete()
+  }
 
   return (
     <Wrap className={className} style={style} checked={checked} appearance={appearance}>
@@ -106,8 +92,8 @@ export const Card = ({
           <CardActions
             typeText={'категорию'}
             checked={checked}
-            onEdit={onEdit}
-            onDelete={onDelete}
+            onEdit={onEdit && handleEdit}
+            onDelete={onDelete && handleDelete}
             onChecked={onChecked}
           />
         </Header>

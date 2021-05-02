@@ -15,7 +15,7 @@ import { onTicketLink } from '../store/helpers/ticket'
 import { updateUser } from '../store/actions/user'
 import queries from '../graphql/queries'
 
-const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall) => ({
+export const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall, callback) => ({
   id,
   auth: user?.email,
   liked: !!(user?.likedProjects || []).find((item) => item.id === id),
@@ -32,12 +32,13 @@ const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall) => ({
       mutations: {
         addProject: queries.ADD_USER_PROJECT,
         createFolder: queries.ADD_USER_FOLDER
-      }
+      },
+      callback
     }),
   owned
 })
 
-const getUserLinkProps = (id, user, owned) => ({
+export const getUserLinkProps = (id, user, owned) => ({
   id,
   auth: user?.email,
   owned,
@@ -50,6 +51,40 @@ const getUserLinkProps = (id, user, owned) => ({
     sendMessage: queries.SEND_MESSAGE
   }
 })
+
+export const invokeRecall = (recall, mutate, user, dispatch, query) => {
+  if (query.article) {
+    const id = b64DecodeUnicode(query.article)
+    recall(onArticleLink, { id })()
+  }
+
+  if (query.category) {
+    const id = b64DecodeUnicode(query.category)
+    recall(onCategoryLink, { id })()
+  }
+
+  if (query.project) {
+    const id = b64DecodeUnicode(query.project)
+    const owned = user?.projects?.find((candidate) => candidate.id === id)
+    recall(onProjectLink, getProjectLinkProps(id, user, owned, dispatch, mutate, recall))()
+  }
+
+  if (query.role) {
+    const id = b64DecodeUnicode(query.role)
+    recall(onRoleLink, { id })()
+  }
+
+  if (query.user) {
+    const id = b64DecodeUnicode(query.user)
+    const owned = id === user?.name
+    recall(onUserLink, getUserLinkProps(id, user, owned))()
+  }
+
+  if (query.ticket) {
+    const id = b64DecodeUnicode(query.ticket)
+    recall(onTicketLink, { id, auth: user?.email })()
+  }
+}
 
 export const useEntityQuery = () => {
   const recall = useHelper()
@@ -76,38 +111,7 @@ export const useEntityQuery = () => {
   const useDetectQuery = () => {
     useEffect(() => {
       const query = router.query
-
-      if (query.article) {
-        const id = b64DecodeUnicode(query.article)
-        recall(onArticleLink, { id })()
-      }
-
-      if (query.category) {
-        const id = b64DecodeUnicode(query.category)
-        recall(onCategoryLink, { id })()
-      }
-
-      if (query.project) {
-        const id = b64DecodeUnicode(query.project)
-        const owned = user?.projects?.find((candidate) => candidate.id === id)
-        recall(onProjectLink, getProjectLinkProps(id, user, owned, dispatch, mutate, recall))()
-      }
-
-      if (query.role) {
-        const id = b64DecodeUnicode(query.role)
-        recall(onRoleLink, { id })()
-      }
-
-      if (query.user) {
-        const id = b64DecodeUnicode(query.user)
-        const owned = id === user?.name
-        recall(onUserLink, getUserLinkProps(id, user, owned))()
-      }
-
-      if (query.ticket) {
-        const id = b64DecodeUnicode(query.ticket)
-        recall(onTicketLink, { id, auth: user?.email })()
-      }
+      invokeRecall(recall, mutate, user, dispatch, query)
     }, [router])
   }
 

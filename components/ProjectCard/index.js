@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row, { Wrap as WrapRow } from '../../atomic-ui/components/Row'
@@ -12,10 +14,14 @@ import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
-import Checkbox from '../../atomic-ui/components/Checkbox'
 
+import { Surface, More } from '../Styled'
+import CardActions from '../CardActions'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
-import { More } from '../Styled'
+import { onProjectDelete, onProjectEdit } from '../../store/helpers/project'
+import { useHelper } from '../../hooks/useHelper'
+import { useMutate } from '../../hooks/useMutate'
+import queries from '../../graphql/queries'
 import config from '../../config'
 
 const HOST_URL = config.get('host-url')
@@ -76,7 +82,7 @@ export const Poster = styled(Image)`
   }
 `
 
-export const Wrap = styled(Column)`
+export const Wrap = styled(Surface)`
   grid-gap: var(--default-gap);
   height: 100%;
 
@@ -85,36 +91,6 @@ export const Wrap = styled(Column)`
     css`
       display: flex;
       flex-wrap: wrap;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'default' &&
-    css`
-      padding: var(--default-gap);
-      background: var(--surface-background);
-      border: var(--surface-border);
-      border-radius: var(--surface-border-radius);
-      box-shadow: var(--surface-shadow);
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'ghost' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'clear' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
     `}
 `
 
@@ -285,6 +261,7 @@ export const Footer = styled(Row)`
 export const Card = ({
   layout,
   project,
+  checked,
   eliminable,
   appearance,
   className,
@@ -305,14 +282,40 @@ export const Card = ({
   onDelete,
   withSocials
 }) => {
+  const recall = useHelper()
+  const router = useRouter()
+  const mutate = useMutate()
   const { setQuery } = useEntityQuery()
   const [isLiked, setLike] = useState(liked)
+  const user = useSelector((state) => state.user)
   const screenshots = project?.screenshots?.slice(0, slicedFactor) || []
   const residue = (project?.screenshots?.length || slicedFactor) - slicedFactor
+  const canEditStatus = useMemo(() => user && user.role.name === 'ADMIN', [user])
 
   const onClickLike = () => {
     if (onLike) onLike()
     setLike(!isLiked)
+  }
+
+  const handleEdit = () => {
+    recall(onProjectEdit, {
+      id: project.id,
+      canEditStatus,
+      mutation: queries.UPDATE_PROJECT,
+      query: queries.GET_USERS,
+      onCompanyInputChange: mutate(queries.GET_USERS, { account: 'ENTITY' })
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onProjectDelete, {
+      id: project.id,
+      project,
+      auth: user,
+      mutation: queries.DELETE_PROJECT
+    })()
+    if (onDelete) onDelete()
   }
 
   useEffect(() => {
@@ -320,7 +323,12 @@ export const Card = ({
   }, [liked])
 
   return (
-    <Wrap className={className} style={style} appearance={appearance} layout={layout}>
+    <Wrap
+      className={className}
+      style={style}
+      appearance={appearance}
+      checked={checked}
+      layout={layout}>
       <Content layout={layout} clear={!project.preview}>
         {project.preview && (
           <Media layout={layout}>
@@ -363,36 +371,21 @@ export const Card = ({
           <Header>
             <Tooltip place={'top'} text={project.category?.name}>
               <Meta
+                category={project.category?.name}
                 shareTitle={withSocials && project?.title}
                 shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
-                category={project.category?.name}
+                onClickByCategory={() => router.push(`/projects?c=${project.category?.id}`)}
                 short
               />
             </Tooltip>
 
-            {(onChecked || onEdit || onDelete) && (
-              <Actions>
-                {onDelete && (
-                  <Tooltip text={'Удалить проект'}>
-                    <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
-                      <Icon icon={'delete'} size={'xs'} stroke={'white'} />
-                    </Button>
-                  </Tooltip>
-                )}
-                {onEdit && (
-                  <Tooltip text={'Редактировать проект'}>
-                    <Button kind={'icon'} size={'xs'} onClick={onEdit}>
-                      <Icon icon={'edit'} size={'xs'} stroke={'white'} />
-                    </Button>
-                  </Tooltip>
-                )}
-                {onChecked && (
-                  <Tooltip text={'Отметить проект'} self>
-                    <Checkbox />
-                  </Tooltip>
-                )}
-              </Actions>
-            )}
+            <CardActions
+              typeText={'проект'}
+              checked={checked}
+              onEdit={onEdit && handleEdit}
+              onDelete={onDelete && handleDelete}
+              onChecked={onChecked}
+            />
           </Header>
 
           <Name tag={'h4'} onClick={() => setQuery(project.id, 'project', onLink)}>

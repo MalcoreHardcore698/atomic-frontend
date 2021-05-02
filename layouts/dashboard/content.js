@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { v4 } from 'uuid'
 
 import Column from '../../atomic-ui/components/Column'
+import Grid from '../../atomic-ui/components/Grid'
 
 import DashboardLayout from '../dashboard'
 import List from '../../components/List'
@@ -55,11 +56,11 @@ const Delete = ({ item, query, component, entityMultiText, entitySingleText, onS
         }
       }}>
       {isArray ? (
-        <Column>
+        <Grid length={'auto-fit'}>
           {item.map((document) => (
             <Component key={document.id} item={document} />
           ))}
-        </Column>
+        </Grid>
       ) : (
         <Component item={item} />
       )}
@@ -72,6 +73,7 @@ export const Card = ({
   checked,
   appearance,
   component,
+  withoutActions,
   withoutChecked,
   onChecked,
   onLink,
@@ -83,8 +85,8 @@ export const Card = ({
     appearance,
     onChecked: !withoutChecked && ((checked) => onChecked({ ...item, checked })),
     onLink: onLink && (() => onLink(item)),
-    onEdit: onEdit && (() => onEdit(item)),
-    onDelete: onDelete && (() => onDelete(item))
+    onEdit: !withoutActions && onEdit && (() => onEdit(item)),
+    onDelete: !withoutActions && onDelete && (() => onDelete(item))
   })
 
 const ContentLayout = ({
@@ -95,6 +97,8 @@ const ContentLayout = ({
   filters,
   options,
   template,
+  limit = 6,
+  startOffset = 6,
   buttonCreateText,
   getType,
   getQuery,
@@ -166,7 +170,13 @@ const ContentLayout = ({
           <Delete
             item={item}
             query={deleteQuery}
-            component={(props) => React.cloneElement(render(props.item), { appearance: 'clear' })}
+            component={(props) =>
+              React.cloneElement(render(props.item), {
+                appearance: 'clear',
+                onEdit: null,
+                onDelete: null
+              })
+            }
             entityMultiText={deleteEntityMultiText}
             entitySingleText={deleteEntitySingleText}
             onSubmit={() => setUpdated(v4())}
@@ -210,9 +220,11 @@ const ContentLayout = ({
 
         <List
           key={updated}
+          limit={limit}
           type={getType}
           query={getQuery}
           template={template}
+          startOffset={startOffset}
           setCheckedList={setCheckedList}
           component={(item) => (
             <Card

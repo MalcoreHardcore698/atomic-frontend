@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row, { Wrap as WrapRow } from '../../atomic-ui/components/Row'
-import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import Column from '../../atomic-ui/components/Column'
 import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
@@ -11,19 +11,22 @@ import Meta from '../../atomic-ui/components/Meta'
 import Image from '../../atomic-ui/components/Image'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
+import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
 import Difinition, { MarkedText } from '../../atomic-ui/components/Difinition'
-import Checkbox from '../../atomic-ui/components/Checkbox'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
-import { useEntityQuery } from '../../hooks/useEntityQuery'
-import { More } from '../Styled'
-
+import { Surface, More } from '../Styled'
+import CardActions from '../CardActions'
 import { ResponsibleMark, hasResponsibleMember } from '../Members'
+import { onUserDelete, onUserEdit } from '../../store/helpers/user'
+import { useEntityQuery } from '../../hooks/useEntityQuery'
+import { useHelper } from '../../hooks/useHelper'
+import queries from '../../graphql/queries'
 import config from '../../config'
 
 const HOST_URL = config.get('host-url')
 
-export const Wrap = styled(Column)`
+export const Wrap = styled(Surface)`
   grid-gap: var(--default-gap);
 
   ${({ layout }) =>
@@ -31,36 +34,6 @@ export const Wrap = styled(Column)`
     css`
       display: flex;
       flex-wrap: wrap;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'default' &&
-    css`
-      padding: var(--default-gap);
-      background: var(--surface-background);
-      border: var(--surface-border);
-      border-radius: var(--surface-border-radius);
-      box-shadow: var(--surface-shadow);
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'ghost' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
-
-  ${({ appearance }) =>
-    appearance === 'clear' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
     `}
 `
 
@@ -149,6 +122,7 @@ export const Card = ({
   owned,
   added,
   style,
+  checked,
   className,
   appearance,
   onAdd,
@@ -162,16 +136,43 @@ export const Card = ({
   onDelete,
   withSocials
 }) => {
+  const recall = useHelper()
   const { setQuery } = useEntityQuery()
+  const auth = useSelector((state) => state.user)
   const [isAdded, setAdded] = useState(added)
+  const canEditRole = useMemo(() => auth && auth.role.name === 'ADMIN', [auth])
 
   const onClickAdd = () => {
     if (onAdd) onAdd()
     setAdded(!isAdded)
   }
 
+  const handleEdit = () => {
+    recall(onUserEdit, {
+      user: user.email,
+      auth: auth?.email,
+      canEditRole,
+      mutations: {
+        update: queries.UPDATE_USER,
+        del: queries.DELETE_USER,
+        changePassword: queries.UPDATE_USER
+      }
+    })()
+    if (onEdit) onEdit()
+  }
+
+  const handleDelete = () => {
+    recall(onUserDelete, {
+      id: user.email,
+      user,
+      auth: auth?.email,
+      mutation: queries.DELETE_USER
+    })()
+    if (onDelete) onDelete()
+  }
+
   return (
-    <Wrap className={className} style={style} appearance={appearance}>
+    <Wrap className={className} style={style} checked={checked} appearance={appearance}>
       <Content>
         <Avatar
           src={user?.avatar?.path || '/images/avatar-default.png'}
@@ -190,29 +191,13 @@ export const Card = ({
               {hasResponsibleMember(user) && <ResponsibleMark />}
             </MarkedText>
 
-            {(onChecked || onEdit || onDelete) && (
-              <Actions>
-                {onDelete && (
-                  <Tooltip text={'Удалить пользователя'}>
-                    <Button kind={'icon'} size={'xs'} appearance={'red'} onClick={onDelete}>
-                      <Icon icon={'delete'} size={'xs'} stroke={'white'} />
-                    </Button>
-                  </Tooltip>
-                )}
-                {onEdit && (
-                  <Tooltip text={'Редактировать пользователя'}>
-                    <Button kind={'icon'} size={'xs'} onClick={onEdit}>
-                      <Icon icon={'edit'} size={'xs'} stroke={'white'} />
-                    </Button>
-                  </Tooltip>
-                )}
-                {onChecked && (
-                  <Tooltip text={'Отметить пользователя'} self>
-                    <Checkbox />
-                  </Tooltip>
-                )}
-              </Actions>
-            )}
+            <CardActions
+              typeText={'категорию'}
+              checked={checked}
+              onEdit={onEdit && handleEdit}
+              onDelete={onDelete && handleDelete}
+              onChecked={onChecked}
+            />
           </Header>
 
           <Name tag={'h4'} onClick={() => setQuery(user.email, 'user', onLink)}>

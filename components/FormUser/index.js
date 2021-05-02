@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Controller } from 'react-hook-form'
 import styled, { css } from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
@@ -105,7 +105,6 @@ export const getLabelGender = (gender) => {
 
 export const User = ({
   user,
-  roles,
   mutation,
   appearance,
   className,
@@ -127,11 +126,20 @@ export const User = ({
       account: ['ENTITY']
     }
   })
+  const { data: dataRoles, loading: loadingRoles } = useQuery(queries.GET_ROLES)
+
   const [tab, setTab] = useState(TAB_TYPES[0])
+  const [roles, setRoles] = useState([])
   const [account, setAccount] = useState(null)
   const [isShowPassword, setShowPassword] = useState(false)
 
   const onTogglePassword = () => setShowPassword(!isShowPassword)
+
+  useEffect(() => {
+    if (!loadingRoles && dataRoles) {
+      setRoles(dataRoles.getRoles)
+    }
+  }, [loadingRoles, dataRoles])
 
   return (
     <Form
