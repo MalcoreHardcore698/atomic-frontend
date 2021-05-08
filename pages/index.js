@@ -1,42 +1,26 @@
-import React, { useMemo } from 'react'
-import { useRouter } from 'next/router'
-import styled, { css } from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import styled from 'styled-components'
 
 import Title from '../atomic-ui/components/Title'
 
-import ProjectList from '../components/ProjectList'
-import ArticleList from '../components/ArticleList'
-import UserList from '../components/UserList'
-import { useHelper } from '../hooks/useHelper'
-import { useMutate } from '../hooks/useMutate'
 import ContentLayout from '../layouts/content'
-import { setUserFolder, updateUser } from '../store/actions/user'
-import { onProjectLink, onProjectAdd, onProjectScreenshot } from '../store/helpers/project'
-import { onUserAboutMore, onUserLink } from '../store/helpers/user'
-import queries from '../graphql/queries'
+import UserList from '../components/UserList'
+import ArticleList from '../components/ArticleList'
+import ProjectSuit from '../components/ProjectSuit'
+import { useProject } from '../hooks/useProject'
 import { initializeApollo } from '../apollo'
+import { COMMON_START_OFFSET, COMMON_LOAD_LIMIT } from '../constants'
+import queries from '../graphql/queries'
 
 const TITLE = 'Атомик'
-const START_OFFSET = 0
-const LIMIT = 4
 
-const Container = styled.div`
-  display: grid;
-  grid-template-columns: 1fr min-content;
-  grid-gap: var(--default-gap);
-  margin-bottom: 80px;
-
-  ${({ isSearch }) =>
-    isSearch &&
-    css`
-      grid-template-columns: 1fr;
-    `}
-
-  @media only screen and (max-width: 1196px) {
-    grid-template-columns: 1fr;
-  }
-`
+const ASIDE_PROPS = {
+  limit: 1,
+  startOffset: COMMON_START_OFFSET,
+  gridOptions: { length: 'auto-fit', percentage: '1fr' },
+  withoutSearch: true,
+  withoutMore: true
+}
 
 const Aside = styled.aside`
   display: flex;
@@ -50,118 +34,29 @@ const Aside = styled.aside`
 `
 
 const Home = ({ store }) => {
-  const router = useRouter()
-  const recall = useHelper()
-  const mutate = useMutate()
-  const { user, search } = useSelector((state) => ({
-    user: state.user,
-    search: state.root.search
-  }))
-  const dispatch = useDispatch()
-
-  const scaffold = useMemo(
-    () => ({
-      title: store.scaffold.title,
-      background: store.scaffold.background.path,
-      primary: store.scaffold.primary,
-      residues: store.scaffold.residues,
-      onLink: (project, owned) =>
-        recall(onProjectLink, {
-          id: project.id,
-          auth: user?.email,
-          added: !!user?.folders?.find(
-            (folder) => !!folder?.projects.find((item) => item === project.id)
-          ),
-          liked: !!(project.rating || []).find((item) => item.email === user.email),
-          onLike:
-            user.email &&
-            mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-              dispatch(updateUser(response.data.likeProject))
-            ),
-          onAdd:
-            user.email &&
-            recall(onProjectAdd, {
-              id: project.id,
-              folders: user?.folders,
-              mutations: {
-                addProject: queries.ADD_USER_PROJECT,
-                createFolder: queries.ADD_USER_FOLDER
-              },
-              callback: (item) => {
-                const result = { ...item, projects: [...item.projects, project.id] }
-                dispatch(setUserFolder(result))
-              }
-            }),
-          owned
-        })(),
-      onLike:
-        user.email &&
-        ((project) =>
-          mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-            dispatch(updateUser(response.data.likeProject))
-          )()),
-      onAdd:
-        user.email &&
-        ((project) =>
-          recall(onProjectAdd, {
-            id: project.id,
-            folders: user?.folders,
-            mutations: {
-              addProject: queries.ADD_USER_PROJECT,
-              createFolder: queries.ADD_USER_FOLDER
-            },
-            callback: (item) => {
-              const result = { ...item, projects: [...item.projects, project.id] }
-              dispatch(setUserFolder(result))
-            }
-          })()),
-      onSearch: (value) =>
-        router.push(
-          {
-            pathname: router.pathname,
-            query: {
-              search: value
-            }
-          },
-          undefined,
-          { shallow: true }
-        ),
-      onAboutMore: (project) => recall(onUserAboutMore, { user: project }),
-      onCompanyLink: (project) => recall(onUserLink, { id: project.company?.email, auth: user })(),
-      onScreenshotClick: (project, key) =>
-        recall(onProjectScreenshot, {
-          screenshots: [project.preview, ...project.screenshots],
-          key
-        })()
-    }),
-    [user, store, recall, mutate, dispatch]
-  )
+  const methods = useProject()
 
   return (
     <ContentLayout
       title={TITLE}
-      limit={LIMIT}
-      scaffold={scaffold}
-      startOffset={START_OFFSET}
-      query={queries.GET_PROJECTS}
+      store={store}
+      getType={'getProjects'}
+      limit={COMMON_LOAD_LIMIT}
+      emptyMessage={'Проектов нет'}
+      getQuery={queries.GET_PROJECTS}
+      startOffsett={COMMON_START_OFFSET}
       variables={{ status: 'PUBLISHED' }}
-      initialize>
-      {({ documents }) => (
-        <Container isSearch={search}>
-          <ProjectList initialList={documents} layout />
+      render={(document) => <ProjectSuit {...methods} project={document} />}
+      aside={
+        <Aside>
+          <Title tag={'h4'}>Авторы</Title>
+          <UserList {...ASIDE_PROPS} />
 
-          {!search && (
-            <Aside>
-              <Title tag={'h4'}>Авторы</Title>
-              <UserList variables={{ offset: 0, limit: 1 }} />
-
-              <Title tag={'h4'}>Новости</Title>
-              <ArticleList variables={{ offset: 0, limit: 1 }} />
-            </Aside>
-          )}
-        </Container>
-      )}
-    </ContentLayout>
+          <Title tag={'h4'}>Новости</Title>
+          <ArticleList {...ASIDE_PROPS} layout={'column'} />
+        </Aside>
+      }
+    />
   )
 }
 

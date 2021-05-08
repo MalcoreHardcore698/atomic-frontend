@@ -227,23 +227,23 @@ const ContentLayout = ({
           query={getQuery}
           template={template}
           startOffset={startOffset}
+          emptyMessage={emptyMessage}
           setCheckedList={setCheckedList}
           component={(item) => (
             <Card
               item={item}
               component={render(item)}
-              checked={getIsAdmin(item) && (isAllChecked || getIsAnyChecked(item))}
-              onChecked={onChecked}
-              onLink={(item) => onLink(item)}
-              onEdit={(item) => onEdit(item, onAfter)}
-              onDelete={onDelete}
               withoutChecked={withoutChecked}
+              checked={getIsAdmin(item) && (isAllChecked || getIsAnyChecked(item))}
+              onLink={onLink && ((item) => onLink(item))}
+              onEdit={onEdit && ((item) => onEdit(item, onAfter))}
+              onChecked={onChecked}
+              onDelete={onDelete}
             />
           )}
-          emptyMessage={emptyMessage}
           onChecked={onChecked}
-          onClick={(item) => onLink(item)}
-          onEdit={(item) => onEdit(item, onAfter)}
+          onClick={onLink && ((item) => onLink(item))}
+          onEdit={onEdit && ((item) => onEdit(item, onAfter))}
           onDelete={onDelete}
         />
       </Column>

@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 import Column from '../../atomic-ui/components/Column'
 import Search from '../../atomic-ui/components/Search'
 import Title from '../../atomic-ui/components/Title'
 
-import ProjectCard, { Poster, Media } from '../ProjectCard'
+import ProjectSuit from '../ProjectSuit'
+import { Poster, Media } from '../ProjectCard'
+import { useSearch } from '../../hooks/useSearch'
+import { useProject } from '../../hooks/useProject'
 
 export const Wrap = styled(Column)`
   position: relative;
@@ -118,7 +121,7 @@ export const Projects = styled.div`
   }
 `
 
-export const PrimaryProject = styled(ProjectCard)`
+export const PrimaryProject = styled(ProjectSuit)`
   flex-grow: 1;
   height: 100%;
   flex-basis: 50%;
@@ -153,7 +156,7 @@ export const Residues = styled(Column)`
   }
 `
 
-export const Residue = styled(ProjectCard)`
+export const Residue = styled(ProjectSuit)`
   flex-grow: 1;
 
   @media only screen and (max-width: 1280px) {
@@ -164,46 +167,17 @@ export const Residue = styled(ProjectCard)`
 export const detectOwnedProject = (projects, project) =>
   projects?.find((candidate) => candidate.id === project.id)
 
-export const Scaffold = ({
-  title,
-  image,
-  background,
-  primary,
-  residues,
-  className,
-  style,
-  onLike,
-  onLink,
-  onAdd,
-  onSearch,
-  onAboutMore,
-  onCompanyLink,
-  onScreenshotClick
-}) => {
-  const { user, search } = useSelector((state) => ({
-    user: state.user,
-    search: state.root.search
-  }))
-  const getProjectProps = useCallback(
-    (project, layout) => ({
-      image,
-      project,
-      layout,
-      slicedFactor: 5,
-      owned: detectOwnedProject(user?.projects, project),
-      added: !!user?.folders?.find(
-        (folder) => !!folder?.projects?.find((item) => item === project.id)
-      ),
-      liked: !![...(project?.rating || [])].find((item) => item.email === user.email),
-      onLike: onLike && (() => onLike(project)),
-      onAdd: onAdd && (() => onAdd(project)),
-      onLink: () => onLink(project, detectOwnedProject(user?.projects, project)),
-      onAboutMore: () => onAboutMore(project),
-      onCompanyLink: () => onCompanyLink(project),
-      onScreenshotClick: (_, key) => onScreenshotClick(project, key),
-      withSocials: true
+export const Scaffold = ({ scaffold, style, className }) => {
+  const methods = useProject()
+  const [onSearch] = useSearch()
+  const search = useSelector((state) => state.root.search)
+
+  const { title, background, primary, residues } = useMemo(
+    () => ({
+      ...scaffold,
+      background: scaffold.background.path
     }),
-    [user, image, onLike, onAdd, onAboutMore, onCompanyLink, onScreenshotClick]
+    [scaffold]
   )
 
   return (
@@ -213,16 +187,16 @@ export const Scaffold = ({
       <Container>
         <Header>
           {!search && title && <MainTitle>{title}</MainTitle>}
-          <GlobalSearch onSubmit={onSearch} />
+          <GlobalSearch defaultValue={search} onSubmit={onSearch} />
         </Header>
 
         {!search && (primary || (residues && residues.length > 0)) && (
           <Projects>
-            {primary && <PrimaryProject {...getProjectProps(primary, 'column')} />}
+            {primary && <PrimaryProject {...methods} project={primary} layout={'column'} />}
             {residues && residues.length > 0 && (
               <Residues>
                 {residues.map((project, index) => (
-                  <Residue key={index} {...getProjectProps(project)} />
+                  <Residue key={index} {...methods} project={project} />
                 ))}
               </Residues>
             )}

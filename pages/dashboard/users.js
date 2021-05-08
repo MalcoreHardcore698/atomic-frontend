@@ -1,25 +1,20 @@
-import React, { useEffect, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 import template from '../../atomic-ui/components/Table/templates/user'
 
-import UserCard from '../../components/UserCard'
+import UserSuit from '../../components/UserSuit'
 import ContentLayout from '../../layouts/dashboard/content'
-import { onUserCreate, onUserEdit, onUserLink, onUserAboutMore } from '../../store/helpers/user'
 import { setDocuments } from '../../store/actions/documents'
-import { useHelper } from '../../hooks/useHelper'
-import { onChat } from '../../store/helpers'
+import { COMMON_START_OFFSET, DASHBOARD_LOAD_LIMIT } from '../../constants'
+import { useUser } from '../../hooks/useUser'
 import queries from '../../graphql/queries'
 
 const TITLE = 'Пользователи'
-const START_OFFSET = 0
-const LIMIT = 12
 
 const Users = () => {
-  const recall = useHelper()
-  const user = useSelector((state) => state.user)
+  const { onCreate, onEdit, ...methods } = useUser({ isManage: true })
   const dispatch = useDispatch()
-  const canEditRole = useMemo(() => user && user.role.name === 'ADMIN', [user])
 
   useEffect(() => {
     dispatch(setDocuments(null))
@@ -28,76 +23,21 @@ const Users = () => {
   return (
     <ContentLayout
       title={TITLE}
-      limit={LIMIT}
       icon={'user2'}
       field={'email'}
       template={template}
-      startOffset={START_OFFSET}
-      emptyMessage={'Пользователей нет'}
-      buttonCreateText={'Создать пользователя'}
       getType={'getUsers'}
+      limit={DASHBOARD_LOAD_LIMIT}
       getQuery={queries.GET_USERS}
+      startOffset={COMMON_START_OFFSET}
       deleteQuery={queries.DELETE_USER}
+      emptyMessage={'Пользователей нет'}
       deleteEntityMultiText={'пользователи'}
       deleteEntitySingleText={'пользователь'}
-      onLink={(author) => {
-        const owned = author.name === user.name
-        recall(onUserLink, {
-          id: author.email,
-          auth: user?.email,
-          owned,
-          queries: {
-            userChats: queries.GET_USER_CHATS,
-            chat: queries.GET_CHAT
-          },
-          mutations: {
-            addUserChat: queries.ADD_USER_CHAT,
-            sendMessage: queries.SEND_MESSAGE
-          }
-        })
-      }}
-      onEdit={(author, onAfter) =>
-        recall(onUserEdit, {
-          user: author.email,
-          auth: user?.email,
-          canEditRole,
-          mutations: {
-            update: queries.UPDATE_USER,
-            del: queries.DELETE_USER,
-            changePassword: queries.UPDATE_USER
-          },
-          onAfter
-        })()
-      }
-      onCreate={(onAfter) =>
-        recall(onUserCreate, {
-          canEditRole,
-          mutation: queries.CREATE_USER,
-          onAfter
-        })()
-      }
-      render={(document) => (
-        <UserCard
-          user={document}
-          onChat={
-            user.email &&
-            recall(onChat, {
-              id: document.email,
-              auth: user?.email,
-              queries: {
-                userChats: queries.GET_USER_CHATS,
-                chat: queries.GET_CHAT
-              },
-              mutations: {
-                addUserChat: queries.ADD_USER_CHAT,
-                sendMessage: queries.SEND_MESSAGE
-              }
-            })
-          }
-          onAboutMore={recall(onUserAboutMore, { user: document })}
-          preview
-        />
-      )}
+      buttonCreateText={'Создать пользователя'}
+      render={(document) => <UserSuit {...methods} user={document} withSocials={false} preview />}
+      onCreate={onCreate}
+      onEdit={onEdit}
     />
   )
 }

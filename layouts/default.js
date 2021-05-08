@@ -215,7 +215,7 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
           onLogout={mutate(queries.LOGOUT, {}, () => dispatch(setLogout()))}
         />
 
-        {scaffold && <Scaffold {...scaffold} />}
+        {scaffold && <Scaffold scaffold={scaffold} />}
 
         <Main id={'main'}>{children}</Main>
 

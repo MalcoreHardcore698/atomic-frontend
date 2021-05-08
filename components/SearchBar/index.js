@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
-import Button from '../../atomic-ui/components/Button'
 import Icon from '../../atomic-ui/components/Icon'
+import Button from '../../atomic-ui/components/Button'
 import SearchField from '../../atomic-ui/components/Search'
 
 import { CreateButton } from '../HandleBar'
+import { useSearch } from '../../hooks/useSearch'
 
 export const Wrap = styled(Row)`
   width: 100%;
@@ -36,14 +38,9 @@ export const WrapButton = styled(Button)`
     `}
 `
 
-export const Search = ({
-  appearance,
-  buttonCreateText,
-  defaultValue,
-  onCreate,
-  onChangeFilter,
-  onSubmit
-}) => {
+export const Search = ({ appearance, buttonCreateText, onChangeFilter, onCreate }) => {
+  const [onSubmit] = useSearch()
+  const search = useSelector((state) => state.root.search)
   const [visibleFilter, setVisibleFilter] = useState(false)
 
   const onClick = () => {
@@ -54,14 +51,18 @@ export const Search = ({
   return (
     <Wrap>
       <WrapSearchField
-        appearance={appearance}
         placeholder={'Поиск'}
-        defaultValue={defaultValue}
+        appearance={appearance}
+        defaultValue={search}
         onSubmit={onSubmit}
       />
-      <WrapButton type={'button'} kind={'icon'} onClick={onClick} visibleFilter={visibleFilter}>
-        <Icon icon={'filter2'} stroke={visibleFilter ? 'white' : 'var(--default-color-accent)'} />
-      </WrapButton>
+
+      {onChangeFilter && (
+        <WrapButton type={'button'} kind={'icon'} onClick={onClick} visibleFilter={visibleFilter}>
+          <Icon icon={'filter2'} stroke={visibleFilter ? 'white' : 'var(--default-color-accent)'} />
+        </WrapButton>
+      )}
+
       {onCreate && (
         <CreateButton type={'button'} onClick={onCreate}>
           <span>{buttonCreateText}</span>

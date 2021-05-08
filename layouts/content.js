@@ -1,14 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { useRouter } from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
-import { useLazyQuery } from '@apollo/react-hooks'
-import InfiniteScroll from 'react-infinite-scroller'
+import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 import { v4 } from 'uuid'
 
 import Column from '../atomic-ui/components/Column'
 import DatePicker from '../atomic-ui/components/DatePicker'
-import Spinner from '../atomic-ui/components/Spinner'
 import Select from '../atomic-ui/components/Select'
 
 import DashboardLayout from './dashboard'
@@ -16,8 +12,12 @@ import DefaultLayout from '../layouts/default'
 import FilterBar from '../components/FilterBar'
 import SearchBar from '../components/SearchBar'
 import HandleBar from '../components/HandleBar'
-import { LowerLoader } from '../components/Styled'
-import { setSearch } from '../store/actions/root'
+import { Card } from './dashboard/content'
+import List from '../components/List'
+
+export const INITIAL_DISPLAY_METHOD = 'grid'
+
+const DISABLED_FILTERS = true
 
 const Wrap = styled(Column)`
   margin-top: 120px;
@@ -34,40 +34,47 @@ const Wrap = styled(Column)`
   }
 `
 
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  grid-gap: var(--default-gap);
+  margin-bottom: 80px;
+
+  ${({ stretch }) =>
+    stretch &&
+    css`
+      grid-template-columns: 1fr;
+    `}
+
+  @media only screen and (max-width: 1196px) {
+    grid-template-columns: 1fr;
+  }
+`
+
 const ContentLayout = ({
+  limit,
   title,
+  aside,
   store,
-  query,
   handle,
+  render,
   filters,
-  options,
-  scaffold,
+  getType,
+  getQuery,
   dashboard,
-  variables = {},
-  initialize,
-  children
+  variables,
+  emptyMessage,
+  startOffset,
+  onLink
 }) => {
-  const router = useRouter()
   const search = useSelector((state) => state.root.search)
   const Layout = dashboard ? DashboardLayout : DefaultLayout
-  const [date, onChangeDate] = useState()
-  const [select, onChangeSelect] = useState()
   const [visibleFilter, setVisibleFilter] = useState(false)
-  const [documents, setDocuments] = useState(store?.documents || [])
-  const [isEnd, setIsEnd] = useState(false)
-  const pageStart = useMemo(() => Number(router.query?.page) || 1, [router])
-
-  const dispatch = useDispatch()
-
-  const [
-    loadDocumentsBySearch,
-    { data: dataBySearch, loading: loadingBySearch, refetch: refetchBySearch }
-  ] = useLazyQuery(query)
-
-  const [loadDocuments, { data, loading, refetch }] = useLazyQuery(query)
+  const [select, onChangeSelect] = useState()
+  const [date, onChangeDate] = useState()
 
   const getFilters = () => {
-    return filters.map((filter) => {
+    return (filters || []).map((filter) => {
       switch (filter.type) {
         case 'DATEPICKER':
           return (
@@ -95,105 +102,53 @@ const ContentLayout = ({
     })
   }
 
-  const onSearch = (value) => {
-    setDocuments([])
-    if (value) {
-      dispatch(setSearch(value))
-      loadDocumentsBySearch({
-        variables: { ...variables, search: value }
-      })
-    } else {
-      const result = { ...variables }
+  const getOptions = () => []
 
-      dispatch(setSearch(null))
-
-      if (refetch) refetch(result)
-      else loadDocuments({ variables: result })
-    }
-  }
-
-  const loadMore = async () => {
-    if (search && refetchBySearch) {
-      await refetchBySearch(variables)
-    } else {
-      if (refetch) {
-        await refetch(variables)
-      } else {
-        await loadDocuments({ variables })
-      }
-    }
-  }
-
-  const renderLoader = () => (
-    <LowerLoader key={'loader'}>
-      <Spinner />
-    </LowerLoader>
+  const renderCard = (item) => (
+    <Card
+      item={item}
+      component={render(item)}
+      onLink={onLink && ((item) => onLink(item))}
+      withoutChecked
+    />
   )
 
-  useEffect(() => {
-    if (initialize) loadDocuments()
-  }, [initialize])
-
-  useEffect(() => {
-    if (search) onSearch(search)
-  }, [search])
-
-  useEffect(() => {
-    const commonList = !search && !loading && data
-    const searchList = search && !loadingBySearch && dataBySearch
-    const resultList = commonList || searchList
-    if (resultList) {
-      const list = resultList[Object.keys(resultList)[0]]
-      if (list.length > 0) setDocuments(list)
-      if (list.length === 0) setIsEnd(true)
-    }
-  }, [search, loading, loadingBySearch, data, dataBySearch, setIsEnd])
-
   return (
-    <Layout title={title} scaffold={scaffold}>
-      <Wrap clear={scaffold || dashboard}>
-        {!scaffold && !dashboard && (
+    <Layout title={title} scaffold={store?.scaffold}>
+      <Wrap clear={store?.scaffold || dashboard}>
+        {!store?.scaffold && !dashboard && (
           <SearchBar
-            defaultValue={search}
-            onChangeFilter={() => setVisibleFilter(!visibleFilter)}
-            onSubmit={onSearch}
+            onChangeFilter={!DISABLED_FILTERS && (() => setVisibleFilter(!visibleFilter))}
           />
         )}
 
-        {dashboard && handle && (
+        {!DISABLED_FILTERS && dashboard && handle && (
           <HandleBar
             title={title}
             icon={handle.icon}
-            buttonCreateText={handle.buttonCreateText}
             onCreate={handle.onCreate}
+            buttonCreateText={handle.buttonCreateText}
             onChangeVisibleFilter={() => setVisibleFilter(!visibleFilter)}
             onChangeDisplayMethod={handle.onChangeDisplayMethod}
           />
         )}
 
-        {(filters || options) && (
-          <FilterBar isOpen={visibleFilter} filters={getFilters()} options={options} />
-        )}
+        <FilterBar isOpen={visibleFilter} filters={getFilters()} options={getOptions()} />
 
-        {search && loadingBySearch ? (
-          renderLoader()
-        ) : search ? (
-          typeof children === 'function' ? (
-            React.createElement(children, { documents })
-          ) : (
-            children
-          )
-        ) : (
-          <InfiniteScroll
-            pageStart={pageStart || 0}
-            loadMore={loadMore}
-            hasMore={!isEnd}
-            loader={renderLoader()}>
-            {typeof children === 'function'
-              ? React.createElement(children, { documents })
-              : children}
-          </InfiniteScroll>
-        )}
+        <Container stretch={(search && !aside) || !aside}>
+          <List
+            limit={limit}
+            type={getType}
+            query={getQuery}
+            variables={variables}
+            startOffset={startOffset}
+            emptyMessage={emptyMessage}
+            component={(item) => renderCard(item)}
+            initialDisplayMethod={INITIAL_DISPLAY_METHOD}
+            onClick={onLink && ((item) => onLink(item))}
+          />
+          {aside}
+        </Container>
       </Wrap>
     </Layout>
   )

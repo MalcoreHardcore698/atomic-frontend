@@ -5,13 +5,14 @@ import { useRouter } from 'next/router'
 import styled from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
+import Grid from '../../atomic-ui/components/Grid'
 import Spinner from '../../atomic-ui/components/Spinner'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
 import Table, { Wrap as WrapTable } from '../../atomic-ui/components/Table'
 import Alert from '../../atomic-ui/components/Alert'
 
-import { GridAside as Container, LowerLoader } from '../Styled'
+import { LowerLoader } from '../Styled'
 import LazyLoad from '../LazyLoad'
 
 export const Wrap = styled.div`
@@ -25,16 +26,26 @@ export const CenterAlert = styled(Alert)`
   text-align: center;
 `
 
+export const Loader = () => (
+  <LowerLoader key={'loader'}>
+    <Spinner />
+  </LowerLoader>
+)
+
 export const Content = ({
   type,
-  limit = 6,
+  search,
+  refetch,
+  loading,
   template,
   component,
   variables,
-  loading,
-  refetch,
+  limit = 6,
   initialList,
+  initialDisplayMethod,
   setCheckedList,
+  gridOptions,
+  withoutMore,
   onChecked,
   onClick,
   onEdit,
@@ -43,8 +54,8 @@ export const Content = ({
   const router = useRouter()
   const displayMethod = useSelector((state) => state.root.displayMethod)
 
-  const [page, setPage] = useState(Number(router.query?.page) || 1)
   const [items, setItems] = useState(initialList || [])
+  const [page, setPage] = useState(Number(router.query?.page) || 1)
   const [isLoading, setIsLoading] = useState(false)
   const [isEnd, setIsEnd] = useState(false)
 
@@ -52,7 +63,13 @@ export const Content = ({
     if (!isEnd && !loading && refetch) {
       setIsLoading(true)
 
-      const response = await refetch({ ...variables, offset: limit * page, limit })
+      const response = await refetch({
+        ...variables,
+        offset: limit * page,
+        search,
+        limit
+      })
+
       if (response?.data) {
         const list = response.data[type]
         if (list.length === 0) setIsEnd(true)
@@ -71,15 +88,15 @@ export const Content = ({
 
   return (
     <Wrap>
-      {displayMethod === 'grid' && (
-        <Container>
-          {(items || []).map((item) => (
+      {(initialDisplayMethod || displayMethod) === 'grid' && (
+        <Grid {...gridOptions}>
+          {items.map((item) => (
             <LazyLoad key={item.id || item.email}>{component(item)}</LazyLoad>
           ))}
-        </Container>
+        </Grid>
       )}
 
-      {displayMethod === 'list' && (
+      {(initialDisplayMethod || displayMethod) === 'list' && (
         <Table
           data={items}
           template={template}
@@ -90,13 +107,9 @@ export const Content = ({
         />
       )}
 
-      {(loading || isLoading) && (
-        <LowerLoader key={'loader'}>
-          <Spinner />
-        </LowerLoader>
-      )}
+      {(loading || isLoading) && !withoutMore && <Loader />}
 
-      {!isEnd && !loading && (
+      {!isEnd && !loading && !withoutMore && (
         <React.Fragment>
           <Divider />
           <Row style={{ justifyContent: 'center' }}>
@@ -115,45 +128,56 @@ export const List = ({
   query,
   limit,
   template,
-  variables,
   component,
+  variables,
+  startOffset,
+  initialDisplayMethod,
   setCheckedList,
+  withoutSearch,
+  withoutMore,
+  gridOptions,
   onChecked,
+  onDelete,
   onClick,
-  onEdit,
-  onDelete
+  onEdit
 }) => {
+  const search = useSelector((state) => (withoutSearch ? '' : state.root.search))
+
   const { data, loading, refetch } = useQuery(query, {
     variables: {
       ...variables,
-      offset: 0,
+      offset: startOffset,
+      search,
       limit
     }
   })
 
-  if (loading) {
-    return (
-      <LowerLoader key={'loader'}>
-        <Spinner />
-      </LowerLoader>
-    )
-  }
+  if (loading) return <Loader />
 
   return (
     <Content
       type={type}
       limit={limit}
+      query={query}
+      search={search}
       refetch={refetch}
       template={template}
       component={component}
       initialList={type && data && data[type]}
+      initialDisplayMethod={initialDisplayMethod}
       setCheckedList={setCheckedList}
+      withoutMore={withoutMore}
+      gridOptions={gridOptions}
       onChecked={onChecked}
       onDelete={onDelete}
       onClick={onClick}
       onEdit={onEdit}
     />
   )
+}
+
+List.defaultProps = {
+  startOffset: 0
 }
 
 export default List

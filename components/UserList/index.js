@@ -1,103 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import { useSelector } from 'react-redux'
+import React from 'react'
 
-import Alert from '../../atomic-ui/components/Alert'
-import Spinner from '../../atomic-ui/components/Spinner'
-
-import { Loader } from '../Styled'
-import LazyLoad from '../LazyLoad'
-import UserCard from '../UserCard'
-import { useHelper } from '../../hooks/useHelper'
-import { onChat } from '../../store/helpers'
-import { onUserAboutMore, onUserLink, onUserMembers } from '../../store/helpers/user'
+import List from '../List'
+import UserSuit from '../UserSuit'
+import { useUser } from '../../hooks/useUser'
+import { COMMON_LOAD_LIMIT, COMMON_START_OFFSET } from '../../constants'
+import { INITIAL_DISPLAY_METHOD } from '../../layouts/content'
 import queries from '../../graphql/queries'
 
-export const UserList = ({ variables, initialList }) => {
-  const recall = useHelper()
-  const user = useSelector((state) => state.user)
-  const [users, setUsers] = useState(initialList || [])
+export const UserList = ({
+  limit,
+  variables,
+  startOffset,
+  gridOptions,
+  emptyMessage,
+  initialDisplayMethod,
+  withoutSearch,
+  withoutMore
+}) => {
+  const methods = useUser()
 
-  const { data, loading, error } = initialList
-    ? { data: null, loading: false, error: false }
-    : useQuery(queries.GET_USERS, { variables })
-
-  useEffect(() => {
-    if (!loading && data) {
-      setUsers(data.getUsers)
-    }
-  }, [data, loading])
-
-  useEffect(() => {
-    if (initialList?.length > 0) setUsers(initialList)
-  }, [initialList])
-
-  return (!loading && data) || users.length > 0 ? (
-    users.map((author) => {
-      const owned = author.name === user?.name
-
-      return (
-        <LazyLoad key={author.email}>
-          <UserCard
-            user={author}
-            owned={owned}
-            onChat={
-              user.email &&
-              recall(onChat, {
-                sender: user?.email,
-                recipient: author.email,
-                queries: {
-                  userChats: queries.GET_USER_CHATS,
-                  chat: queries.GET_CHAT
-                },
-                mutations: {
-                  addUserChat: queries.ADD_USER_CHAT,
-                  sendMessage: queries.SEND_MESSAGE
-                }
-              })
-            }
-            onLink={recall(onUserLink, {
-              id: author.email,
-              auth: user?.email,
-              owned,
-              queries: {
-                userChats: queries.GET_USER_CHATS,
-                chat: queries.GET_CHAT
-              },
-              mutations: {
-                addUserChat: queries.ADD_USER_CHAT,
-                sendMessage: queries.SEND_MESSAGE
-              }
-            })}
-            onAboutMore={recall(onUserAboutMore, { user: author })}
-            onMembers={recall(onUserMembers, { id: author?.email, auth: user?.email })}
-            onCompanyLink={recall(onUserLink, {
-              id: author.company?.email,
-              auth: user?.email,
-              queries: {
-                userChats: queries.GET_USER_CHATS,
-                chat: queries.GET_CHAT
-              },
-              mutations: {
-                addUserChat: queries.ADD_USER_CHAT,
-                sendMessage: queries.SEND_MESSAGE
-              }
-            })}
-          />
-        </LazyLoad>
-      )
-    })
-  ) : error ? (
-    <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-      Не удалось загрузить данные
-    </Alert>
-  ) : loading ? (
-    <Loader>
-      <Spinner />
-    </Loader>
-  ) : (
-    <Alert style={{ width: '100%', textAlign: 'center' }}>Авторов нет</Alert>
+  return (
+    <List
+      type={'getUsers'}
+      variables={variables}
+      withoutMore={withoutMore}
+      gridOptions={gridOptions}
+      query={queries.GET_USERS}
+      emptyMessage={emptyMessage}
+      withoutSearch={withoutSearch}
+      limit={limit ?? COMMON_LOAD_LIMIT}
+      startOffset={startOffset ?? COMMON_START_OFFSET}
+      initialDisplayMethod={initialDisplayMethod ?? INITIAL_DISPLAY_METHOD}
+      component={(document) => <UserSuit {...methods} user={document} />}
+    />
   )
+}
+
+UserList.defaultProps = {
+  emptyMessage: 'Пользователей нет'
 }
 
 export default UserList

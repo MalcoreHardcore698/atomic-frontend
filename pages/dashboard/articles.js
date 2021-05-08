@@ -1,25 +1,20 @@
-import React, { useEffect, useMemo } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 import template from '../../atomic-ui/components/Table/templates/article'
 
-import { useHelper } from '../../hooks/useHelper'
-import ArticleCard from '../../components/ArticleCard'
+import ArticleSuit from '../../components/ArticleSuit'
 import ContentLayout from '../../layouts/dashboard/content'
-import { onArticleCreate, onArticleEdit, onArticleLink } from '../../store/helpers/article'
 import { setDocuments } from '../../store/actions/documents'
+import { useArticle } from '../../hooks/useArticle'
+import { COMMON_START_OFFSET, DASHBOARD_LOAD_LIMIT } from '../../constants'
 import queries from '../../graphql/queries'
 
 const TITLE = 'Статьи'
-const START_OFFSET = 0
-const LIMIT = 12
 
 const Articles = () => {
-  const recall = useHelper()
-  const user = useSelector((state) => state.user)
+  const { onCreate, onEdit, ...methods } = useArticle({ isManage: true })
   const dispatch = useDispatch()
-
-  const canEditStatus = useMemo(() => user && user.role.name === 'ADMIN', [user])
 
   useEffect(() => {
     dispatch(setDocuments(null))
@@ -28,34 +23,20 @@ const Articles = () => {
   return (
     <ContentLayout
       title={TITLE}
-      limit={LIMIT}
       icon={'document'}
       template={template}
-      startOffset={START_OFFSET}
-      emptyMessage={'Статей нет'}
-      buttonCreateText={'Создать статью'}
       getType={'getArticles'}
+      emptyMessage={'Статей нет'}
+      limit={DASHBOARD_LOAD_LIMIT}
       getQuery={queries.GET_ARTICLES}
-      deleteQuery={queries.DELETE_ARTICLE}
       deleteEntityMultiText={'статьи'}
       deleteEntitySingleText={'статья'}
-      onLink={(article) => recall(onArticleLink, { id: article.id })()}
-      onEdit={(article, onAfter) =>
-        recall(onArticleEdit, {
-          id: article.id,
-          canEditStatus,
-          mutation: queries.UPDATE_ARTICLE,
-          onAfter
-        })()
-      }
-      onCreate={(onAfter) =>
-        recall(onArticleCreate, {
-          canEditStatus,
-          mutation: queries.CREATE_ARTICLE,
-          onAfter
-        })()
-      }
-      render={(document) => <ArticleCard article={document} withSocials />}
+      startOffset={COMMON_START_OFFSET}
+      buttonCreateText={'Создать статью'}
+      deleteQuery={queries.DELETE_ARTICLE}
+      render={(document) => <ArticleSuit {...methods} article={document} withSocials={false} />}
+      onCreate={onCreate}
+      onEdit={onEdit}
     />
   )
 }

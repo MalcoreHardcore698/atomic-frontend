@@ -32,7 +32,7 @@ export const Surface = styled(Column)`
     `}
 
   ${({ appearance }) =>
-    appearance === 'ghost' &&
+    (appearance === 'ghost' || appearance === 'clear') &&
     css`
       padding: 0;
       border: none;
@@ -40,26 +40,6 @@ export const Surface = styled(Column)`
       border-radius: 0;
       box-shadow: none;
     `}
-
-  ${({ appearance }) =>
-    appearance === 'clear' &&
-    css`
-      padding: 0;
-      border: none;
-      background: none;
-      border-radius: 0;
-      box-shadow: none;
-    `}
-`
-
-export const GridAside = styled.aside`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(442px, 1fr));
-  grid-gap: var(--default-gap);
-
-  @media only screen and (max-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
-  }
 `
 
 export const More = styled.p`

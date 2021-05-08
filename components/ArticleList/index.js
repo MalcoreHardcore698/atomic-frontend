@@ -1,59 +1,45 @@
-import React, { useState, useEffect } from 'react'
-import { useQuery } from '@apollo/react-hooks'
-import { useSelector } from 'react-redux'
+import React from 'react'
 
-import Alert from '../../atomic-ui/components/Alert'
-import Spinner from '../../atomic-ui/components/Spinner'
-
-import { Loader } from '../Styled'
-import LazyLoad from '../LazyLoad'
-import ArticleCard from '../ArticleCard'
-import { useHelper } from '../../hooks/useHelper'
-import { onArticleLink } from '../../store/helpers/article'
+import List from '../List'
+import ArticleSuit from '../ArticleSuit'
+import { useArticle } from '../../hooks/useArticle'
+import { INITIAL_DISPLAY_METHOD } from '../../layouts/content'
+import { COMMON_LOAD_LIMIT, COMMON_START_OFFSET } from '../../constants'
 import queries from '../../graphql/queries'
 
-export const ArticleList = ({ variables, layout, initialList }) => {
-  const recall = useHelper()
-  const user = useSelector((state) => state.user)
-  const [articles, setArticles] = useState(initialList || [])
+export const ArticleList = ({
+  limit,
+  layout,
+  variables,
+  startOffset,
+  gridOptions,
+  emptyMessage,
+  initialDisplayMethod,
+  withoutSearch,
+  withoutMore
+}) => {
+  const methods = useArticle()
 
-  const { data, loading, error } = initialList
-    ? { data: null, loading: false, error: false }
-    : useQuery(queries.GET_ARTICLES, { variables })
-
-  useEffect(() => {
-    if (!loading && data) {
-      setArticles(data.getArticles)
-    }
-  }, [data, loading])
-
-  useEffect(() => {
-    if (initialList?.length > 0) setArticles(initialList)
-  }, [initialList])
-
-  return (!loading && data) || articles.length > 0 ? (
-    articles.map((article) => (
-      <LazyLoad key={article.id}>
-        <ArticleCard
-          article={article}
-          layout={layout || 'column'}
-          owned={user?.articles?.find((candidate) => candidate.id === article.id)}
-          onLink={recall(onArticleLink, { id: article.id, auth: user?.email })}
-          withSocials
-        />
-      </LazyLoad>
-    ))
-  ) : error ? (
-    <Alert appearance={'error'} style={{ width: '100%', textAlign: 'center' }}>
-      Не удалось загрузить данные
-    </Alert>
-  ) : loading ? (
-    <Loader>
-      <Spinner />
-    </Loader>
-  ) : (
-    <Alert style={{ width: '100%', textAlign: 'center' }}>Новостей нет</Alert>
+  return (
+    <List
+      type={'getArticles'}
+      variables={variables}
+      gridOptions={gridOptions}
+      withoutMore={withoutMore}
+      emptyMessage={emptyMessage}
+      query={queries.GET_ARTICLES}
+      withoutSearch={withoutSearch}
+      limit={limit ?? COMMON_LOAD_LIMIT}
+      startOffset={startOffset ?? COMMON_START_OFFSET}
+      initialDisplayMethod={initialDisplayMethod ?? INITIAL_DISPLAY_METHOD}
+      component={(document) => <ArticleSuit {...methods} article={document} layout={layout} />}
+    />
   )
+}
+
+ArticleList.defaultProps = {
+  emptyMessage: 'Статей нет',
+  layout: 'row'
 }
 
 export default ArticleList
