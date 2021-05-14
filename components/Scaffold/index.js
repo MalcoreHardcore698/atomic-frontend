@@ -164,9 +164,6 @@ export const Residue = styled(ProjectSuit)`
   }
 `
 
-export const detectOwnedProject = (projects, project) =>
-  projects?.find((candidate) => candidate.id === project.id)
-
 export const Scaffold = ({ scaffold, style, className }) => {
   const methods = useProject()
   const [onSearch] = useSearch()

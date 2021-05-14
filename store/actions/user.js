@@ -42,3 +42,13 @@ export function setUserFolder(folder) {
     payload: folder
   }
 }
+
+export function removeProjectFromUserFolder(folderId, projectId) {
+  return {
+    type: C.REMOVE_PROJECT_FROM_USER_FOLDER,
+    payload: {
+      folderId,
+      projectId
+    }
+  }
+}

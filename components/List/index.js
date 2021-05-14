@@ -6,16 +6,18 @@ import styled from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
 import Grid from '../../atomic-ui/components/Grid'
+import Alert from '../../atomic-ui/components/Alert'
 import Spinner from '../../atomic-ui/components/Spinner'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
 import Table, { Wrap as WrapTable } from '../../atomic-ui/components/Table'
-import Alert from '../../atomic-ui/components/Alert'
 
-import { LowerLoader } from '../Styled'
+import { CentralAlert, LowerLoader } from '../Styled'
 import LazyLoad from '../LazyLoad'
 
 export const Wrap = styled.div`
+  width: 100%;
+
   ${WrapTable} {
     width: calc(100vw - 280px);
   }
@@ -109,7 +111,9 @@ export const Content = ({
 
       {(loading || isLoading) && !withoutMore && <Loader />}
 
-      {!isEnd && !loading && !withoutMore && (
+      {!loading && !isLoading && items.length === 0 && <CentralAlert>Проектов нет</CentralAlert>}
+
+      {items.length > 0 && !isEnd && !loading && !withoutMore && (
         <React.Fragment>
           <Divider />
           <Row style={{ justifyContent: 'center' }}>

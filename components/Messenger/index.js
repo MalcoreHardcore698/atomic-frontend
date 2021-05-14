@@ -279,10 +279,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
         chat={
           currentChat && {
             ...currentChat,
-            messages: currentChat.messages.map((message) => ({
-              ...message,
-              side: sender === message.user.email ? 'owner' : 'observer'
-            }))
+            messages: getExtendMessages(currentChat.messages, sender)
           }
         }
         appearance={'ghost'}

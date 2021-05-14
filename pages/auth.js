@@ -65,7 +65,7 @@ const Auth = () => {
 
   useEffect(() => {
     if (user && user.authenticated) {
-      router.push('/profile')
+      router.push({ pathname: '/profile', query: router.query })
     }
   }, [user])
 

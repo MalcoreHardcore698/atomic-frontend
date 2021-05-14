@@ -12,6 +12,7 @@ const initialState = {
       description: ''
     }
   },
+  currentPage: 'projects',
   displayMethod: 'grid',
   visibleFilters: false,
   variables: null,
@@ -99,6 +100,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         visibleFilters: action.payload.visibleFilters
       }
+    case C.SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload.currentPage
+      }
     case C.ADD_MEMBER:
       return {
         ...state,
@@ -125,6 +131,14 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         screenshots: state.screenshots.filter((screenshot) => screenshot.id !== action.payload.id)
+      }
+    case C.REMOVE_PROJECT_FROM_FOLDER:
+      return {
+        ...state,
+        folder: {
+          ...state.folder,
+          projects: state.folder.projects.filter((projectId) => projectId !== action.payload.id)
+        }
       }
     case C.REMOVE_FILE:
       return {

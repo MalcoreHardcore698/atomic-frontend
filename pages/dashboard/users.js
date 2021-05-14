@@ -26,6 +26,7 @@ const Users = () => {
       icon={'user2'}
       field={'email'}
       template={template}
+      entityType={'user'}
       getType={'getUsers'}
       limit={DASHBOARD_LOAD_LIMIT}
       getQuery={queries.GET_USERS}

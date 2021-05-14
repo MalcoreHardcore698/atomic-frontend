@@ -9,7 +9,7 @@ export const useArticle = ({ isManage } = {}) => {
   const recall = useHelper()
   const user = useSelector((state) => state.user)
 
-  const canEditStatus = useMemo(() => user && user.role.name === 'ADMIN', [user])
+  const canEditStatus = useMemo(() => user && user?.role?.name === 'ADMIN', [user])
 
   const hasOwned = useCallback(
     (article) => user?.articles?.find((item) => item.id === article.id),

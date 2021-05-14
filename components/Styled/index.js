@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 
 import Column from '../../atomic-ui/components/Column'
+import Alert from '../../atomic-ui/components/Alert'
 
 export const loaderStyles = css`
   display: flex;
@@ -40,6 +41,15 @@ export const Surface = styled(Column)`
       border-radius: 0;
       box-shadow: none;
     `}
+`
+
+export const CentralAlert = styled(Alert)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  flex-grow: 1;
 `
 
 export const More = styled.p`

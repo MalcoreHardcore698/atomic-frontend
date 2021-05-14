@@ -6,6 +6,7 @@ export const UserSuit = ({
   user,
   preview,
   checked,
+  appearance,
   hasOwned,
   onLink,
   onChat,
@@ -20,6 +21,7 @@ export const UserSuit = ({
     user={user}
     preview={preview}
     checked={checked}
+    appearance={appearance}
     owned={hasOwned && hasOwned(user)}
     onLink={() => onLink && onLink(user)}
     onChat={hasOwned && (() => onChat(user))}

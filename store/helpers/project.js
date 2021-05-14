@@ -1,13 +1,15 @@
 import React from 'react'
 import styled from 'styled-components'
+import sanitize from 'sanitize-filename'
 
 import Grid from '../../atomic-ui/components/Grid'
 import Column from '../../atomic-ui/components/Column'
 import Button from '../../atomic-ui/components/Button'
 import Alert from '../../atomic-ui/components/Alert'
+import Icon from '../../atomic-ui/components/Icon'
 import Screenshot from '../../atomic-ui/components/Screenshot'
 import Difinition from '../../atomic-ui/components/Difinition'
-import Icon from '../../atomic-ui/components/Icon'
+import { b64EncodeUnicode } from '../../atomic-ui/utils/functions'
 
 import AddMemberForm from '../../components/FormAddMember'
 import AddFileForm from '../../components/FormAddFile'
@@ -24,6 +26,7 @@ import {
   addProjectFile,
   removeProjectMember,
   removeProjectScreenshot,
+  removeProjectFromFolder,
   removeProjectFile,
   clearProjectMembers,
   clearProjectScreenshots,
@@ -32,6 +35,7 @@ import {
 import { setModal } from '../actions/modal'
 import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
+import { removeProjectFromUserFolder } from '../actions/user'
 import { onUserLink, onUserFolderAdd, onUserAboutMore } from './user'
 import { onFileLink } from '.'
 
@@ -53,6 +57,7 @@ export function onProjectLink(dispatch, props) {
     setDrawer({
       icon: 'work',
       title: 'Проект',
+      pdfName: sanitize((b64EncodeUnicode(id) || Date.now()).toString()),
       content: (
         <ProjectView
           appearance={'clear'}
@@ -429,14 +434,18 @@ export function onProjectRemove(dispatch, props) {
             padding={false}
             onCancel={() => dispatch(setModal(null))}
             onSubmit={async (_, action) => {
-              await action({
-                variables: {
-                  project: id,
-                  folder: folder.id
-                }
-              })
-              dispatch(setModal(null))
-              if (callback) callback()
+              if (action) {
+                await action({
+                  variables: {
+                    project: id,
+                    folder: folder.id
+                  }
+                })
+                dispatch(removeProjectFromUserFolder(folder.id, id))
+                dispatch(removeProjectFromFolder(id))
+                dispatch(setModal(null))
+                if (callback) callback()
+              }
             }}
           />
         )

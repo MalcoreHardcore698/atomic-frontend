@@ -25,6 +25,7 @@ const Articles = () => {
       title={TITLE}
       icon={'document'}
       template={template}
+      entityType={'article'}
       getType={'getArticles'}
       emptyMessage={'Статей нет'}
       limit={DASHBOARD_LOAD_LIMIT}

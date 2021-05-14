@@ -32,6 +32,7 @@ const Roles = () => {
       startOffset={START_OFFSET}
       emptyMessage={'Ролей нет'}
       buttonCreateText={'Создать роль'}
+      entityType={'role'}
       getType={'getRoles'}
       getQuery={queries.GET_ROLES}
       deleteQuery={queries.DELETE_ROLE}

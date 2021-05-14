@@ -1,83 +1,35 @@
 import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import styled from 'styled-components'
-import { useSelector, useDispatch } from 'react-redux'
 import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks'
+import { useSelector, useDispatch } from 'react-redux'
+import styled from 'styled-components'
 
-import Row from '../atomic-ui/components/Row'
 import Column from '../atomic-ui/components/Column'
 import Snacks from '../atomic-ui/components/Snacks'
-import Difinition from '../atomic-ui/components/Difinition'
 import Spinner from '../atomic-ui/components/Spinner'
-import Drawer from '../atomic-ui/components/Drawer'
 import Button from '../atomic-ui/components/Button'
-import Icon from '../atomic-ui/components/Icon'
 import Divider from '../atomic-ui/components/Divider'
 import Modal from '../atomic-ui/components/Modal'
 import Text from '../atomic-ui/components/Text'
 
-import useEntityQuery from '../hooks/useEntityQuery'
+import Drawer from '../components/Drawer'
 import { FixedLoader } from '../components/Styled'
+import useEntityQuery from '../hooks/useEntityQuery'
 import { removeItem, clearItems } from '../store/actions/snacks'
-import { setUser } from '../store/actions/user'
-import { setDrawer } from '../store/actions/drawer'
-import { setModal } from '../store/actions/modal'
 import { setMutate, setSearch, setSettings } from '../store/actions/root'
+import { setModal } from '../store/actions/modal'
+import { setUser } from '../store/actions/user'
 import queries from '../graphql/queries'
 import config from '../config'
 
 const LIFETIME_OF_SNACK = 3000
-
-const Container = styled(Column)`
-  height: 100%;
-  flex-grow: 1;
-
-  &.fade-enter {
-    opacity: 0;
-  }
-
-  &.fade-enter-active {
-    opacity: 1;
-    transition: opacity 100ms, blur 100ms;
-  }
-
-  &.fade-exit {
-    opacity: 1;
-  }
-
-  &.fade-exit-active {
-    opacity: 0;
-    transition: opacity 100ms, blur 100ms;
-  }
-`
-
-export const BrandLogo = styled.img`
-  object-fit: contain;
-  width: 100%;
-  height: 100%;
-`
-
-const Header = styled(Row)`
-  display: flex;
-  grid-gap: var(--default-gap);
-`
 
 const GuideButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--default-color-accent);
-`
-
-const BackButton = styled(Button)`
-  display: none;
-
-  @media only screen and (max-width: 480px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 `
 
 const Welcome = ({ close }) => {
@@ -126,20 +78,8 @@ export const MainLayout = ({ children }) => {
   const { useDetectQuery } = useEntityQuery()
   const [getUser, { data, loading }] = useLazyQuery(queries.GET_USER)
   const { data: dataMeta, loading: loadingMeta } = useQuery(queries.GET_META)
-  const { root, user, drawer, snacks, modal } = useSelector((state) => state)
+  const { root, user, snacks, modal } = useSelector((state) => state)
   const dispatch = useDispatch()
-
-  const onDrawerBack = async () => {
-    await router.push(
-      {
-        pathname: router.pathname,
-        query: {}
-      },
-      undefined,
-      { shallow: true }
-    )
-    dispatch(setDrawer(null))
-  }
 
   const onModalHide = () => {
     dispatch(setModal(null))
@@ -205,33 +145,7 @@ export const MainLayout = ({ children }) => {
         children
       )}
 
-      <Drawer
-        key={drawer.history.length}
-        side={drawer.side}
-        half={drawer.half}
-        isOpen={drawer.open}
-        onBack={onDrawerBack}>
-        <Container>
-          <Header>
-            {drawer.side === 'left' && drawer.half ? (
-              <Button appearance={'clear'} onClick={() => router.push('/')}>
-                <BrandLogo src={root.settings.general.logotype?.path} alt={'Logotype'} />
-              </Button>
-            ) : (
-              <BackButton size={'s'} kind={'icon'} onClick={onDrawerBack} revert>
-                <Icon icon={'arrowLeft'} size={'s'} stroke={'var(--default-color-accent)'} />
-              </BackButton>
-            )}
-
-            {drawer.title && (
-              <Difinition color={drawer.color} icon={drawer.icon} text={drawer.title} />
-            )}
-          </Header>
-          {drawer.title && <Divider clear />}
-
-          {drawer.content}
-        </Container>
-      </Drawer>
+      <Drawer />
 
       <Snacks snacks={snacks} onRemove={(snack) => dispatch(removeItem(snack.id))} />
       <Modal size={modal?.size} routes={modal?.routes} onHide={onModalHide} />

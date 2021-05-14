@@ -25,7 +25,7 @@ export const useProject = ({ isManage } = {}) => {
   }))
   const dispatch = useDispatch()
 
-  const canEditStatus = useMemo(() => user && user.role.name === 'ADMIN', [user])
+  const canEditStatus = useMemo(() => user && user?.role?.name === 'ADMIN', [user])
 
   const hasAdded = useCallback(
     (project) =>

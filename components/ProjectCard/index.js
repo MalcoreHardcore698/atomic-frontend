@@ -262,7 +262,7 @@ export const Card = ({
   layout,
   project,
   checked,
-  eliminable,
+  canRemove,
   appearance,
   className,
   style,
@@ -429,7 +429,7 @@ export const Card = ({
             />
             {!owned && (onLike || onAdd) && (
               <Row>
-                {!eliminable && onLike && (
+                {!canRemove && onLike && (
                   <Tooltip text={'Мне нравится'}>
                     <Button type={'button'} kind={'icon'} onClick={onClickLike} revert={!isLiked}>
                       <Icon
@@ -439,14 +439,14 @@ export const Card = ({
                     </Button>
                   </Tooltip>
                 )}
-                {!eliminable && onAdd && (
+                {!canRemove && onAdd && (
                   <Tooltip text={'Добавить проект к себе'}>
                     <Button type={'button'} kind={'icon'} onClick={onAdd} revert>
                       <Icon icon={'add'} stroke={'var(--default-color-accent)'} />
                     </Button>
                   </Tooltip>
                 )}
-                {eliminable && (
+                {canRemove && (
                   <Tooltip text={'Удалить проект из папки'}>
                     <Button
                       type={'button'}

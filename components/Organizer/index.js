@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
@@ -101,7 +101,7 @@ const ListItem = styled.div`
     `}
 `
 
-export const Organizer = ({ defaultFolder }) => {
+export const Organizer = () => {
   const recall = useHelper()
   const { user, folder } = useSelector((state) => ({
     user: state.user,
@@ -109,21 +109,21 @@ export const Organizer = ({ defaultFolder }) => {
   }))
   const dispatch = useDispatch()
 
-  const onRefetch = async (item, projects) => {
-    if (projects && item) {
-      const result = { ...item, projects }
+  const defaultFolder = useMemo(() => user?.folders[0], [user])
+
+  const onFolderClick = (item) => {
+    if (item.projects && item) {
+      const result = { ...item, projects: item.projects }
       dispatch(setFolder(result))
       dispatch(setUserFolder(result))
     }
   }
 
-  const onFolderClick = (item) => onRefetch(item, item.projects)
-
   useEffect(() => {
     if (defaultFolder) {
       dispatch(setFolder(defaultFolder))
     }
-  }, [defaultFolder, dispatch])
+  }, [dispatch])
 
   return (
     <Wrap>

@@ -32,6 +32,7 @@ const Categories = () => {
       startOffset={START_OFFSET}
       emptyMessage={'Категорий нет'}
       buttonCreateText={'Создать категорию'}
+      entityType={'category'}
       getType={'getCategories'}
       getQuery={queries.GET_CATEGORIES}
       deleteQuery={queries.DELETE_CATEGORY}

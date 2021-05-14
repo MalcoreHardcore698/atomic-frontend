@@ -18,10 +18,10 @@ export const contacts = [
 ]
 
 export const profilePages = [
-  { label: 'Мои проекты', value: '/projects' },
-  { label: 'Нравится', value: '/liked' },
-  { label: 'В работе', value: '/feed' },
-  { label: 'Статьи', value: '/articles' }
+  { label: 'Мои проекты', value: 'projects' },
+  { label: 'Нравится', value: 'liked' },
+  { label: 'В работе', value: 'feed' },
+  { label: 'Статьи', value: 'articles' }
 ]
 
 export const notifications = [

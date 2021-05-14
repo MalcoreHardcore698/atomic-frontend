@@ -13,6 +13,7 @@ import DeleteForm from '../../components/FormDelete'
 import { setDisplayMethod, setVisibleFilters } from '../../store/actions/root'
 import { setDrawer } from '../../store/actions/drawer'
 import { setItem } from '../../store/actions/snacks'
+import { useAccess } from '../../hooks/useAccess'
 
 const getIsAdmin = (document) => document?.name?.toUpperCase() !== 'ADMIN'
 
@@ -83,9 +84,9 @@ export const Card = ({
   React.cloneElement(component, {
     checked,
     appearance,
-    onChecked: !withoutChecked && ((checked) => onChecked({ ...item, checked })),
     onLink: onLink && (() => onLink(item)),
     onEdit: !withoutActions && onEdit && (() => onEdit(item)),
+    onChecked: !withoutChecked && onChecked && ((checked) => onChecked({ ...item, checked })),
     onDelete: !withoutActions && onDelete && (() => onDelete(item))
   })
 
@@ -102,6 +103,7 @@ const ContentLayout = ({
   buttonCreateText,
   getType,
   getQuery,
+  entityType,
   deleteQuery,
   deleteEntityMultiText,
   deleteEntitySingleText,
@@ -115,6 +117,12 @@ const ContentLayout = ({
     displayMethod: state.root.displayMethod,
     visibleFilters: state.root.visibleFilters
   }))
+  const {
+    isAccessibleForView,
+    isAccessibleForAdd,
+    isAccessibleForEdit,
+    isAccessibleForDelete
+  } = useAccess(entityType)
   const dispatch = useDispatch()
 
   const [isAllChecked, setIsAllChecked] = useState(false)
@@ -207,12 +215,15 @@ const ContentLayout = ({
           defaultVisibleFilters={visibleFilters}
           buttonDeleteDisabled={!checkedList.find((item) => item.checked)}
           buttonCreateText={buttonCreateText}
-          onCreate={() => onCreate && onCreate(onAfter)}
-          onChecked={() => displayMethod === 'grid' && onAllChecked && onAllChecked()}
+          onCreate={isAccessibleForAdd && (() => onCreate && onCreate(onAfter))}
+          onChecked={
+            isAccessibleForDelete &&
+            (() => displayMethod === 'grid' && onAllChecked && onAllChecked())
+          }
           onChangeVisibleFilter={() => dispatch(setVisibleFilters(!visibleFilters))}
           onChangeDisplayMethod={(item) => dispatch(setDisplayMethod(item.value))}
-          onDeleteAll={onDeleteAll}
-          withoutFooter={displayMethod === 'list'}
+          onDeleteAll={isAccessibleForDelete && onDeleteAll}
+          withoutFooter={!isAccessibleForDelete || displayMethod === 'list'}
           withFilters={filters && options}
         />
 
@@ -233,18 +244,19 @@ const ContentLayout = ({
             <Card
               item={item}
               component={render(item)}
-              withoutChecked={withoutChecked}
+              withoutChecked={!isAccessibleForDelete && withoutChecked}
+              withoutActions={!isAccessibleForEdit && !isAccessibleForDelete}
               checked={getIsAdmin(item) && (isAllChecked || getIsAnyChecked(item))}
-              onLink={onLink && ((item) => onLink(item))}
-              onEdit={onEdit && ((item) => onEdit(item, onAfter))}
-              onChecked={onChecked}
-              onDelete={onDelete}
+              onLink={onLink && isAccessibleForView && ((item) => onLink(item))}
+              onEdit={onEdit && isAccessibleForEdit && ((item) => onEdit(item, onAfter))}
+              onChecked={isAccessibleForDelete && onChecked}
+              onDelete={isAccessibleForDelete && onDelete}
             />
           )}
-          onChecked={onChecked}
-          onClick={onLink && ((item) => onLink(item))}
-          onEdit={onEdit && ((item) => onEdit(item, onAfter))}
-          onDelete={onDelete}
+          onClick={onLink && isAccessibleForView && ((item) => onLink(item))}
+          onEdit={onEdit && isAccessibleForEdit && ((item) => onEdit(item, onAfter))}
+          onChecked={isAccessibleForDelete && onChecked}
+          onDelete={isAccessibleForDelete && onDelete}
         />
       </Column>
     </DashboardLayout>

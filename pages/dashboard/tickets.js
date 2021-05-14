@@ -34,6 +34,7 @@ const Tickets = () => {
       startOffset={START_OFFSET}
       emptyMessage={'Обращений нет'}
       buttonCreateText={'Создать обращение'}
+      entityType={'ticket'}
       getType={'getTickets'}
       getQuery={queries.GET_TICKETS}
       deleteQuery={queries.DELETE_TICKET}

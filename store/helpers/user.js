@@ -698,16 +698,18 @@ export function onUserFolderAdd(dispatch, props) {
             mutation={mutation}
             onCancel={() => (onCancel ? onCancel() : dispatch(setModal(null)))}
             onSubmit={async (form, action) => {
-              const response = await action({
-                variables: {
-                  name: form.name
-                }
-              })
+              if (action) {
+                const response = await action({
+                  variables: {
+                    name: form.name
+                  }
+                })
 
-              const folders = response.data.addUserFolder
-              dispatch(setUserFolders(folders))
-              dispatch(setModal(null))
-              if (callback) callback(folders)
+                const folders = response.data.addUserFolder
+                dispatch(setUserFolders(folders))
+                dispatch(setModal(null))
+                if (callback) callback(folders)
+              }
             }}
           />
         )
@@ -731,12 +733,14 @@ export function onUserFolderDelete(dispatch, props) {
             text={'Вы действительно хотите удалить папку?'}
             onCancel={() => dispatch(setModal(null))}
             onSubmit={async (_, action) => {
-              const response = await action({
-                variables: { id }
-              })
-              dispatch(setUserFolders(response.data.deleteUserFolder))
-              dispatch(setModal(null))
-              if (callback) callback()
+              if (action) {
+                const response = await action({
+                  variables: { id }
+                })
+                dispatch(setUserFolders(response.data.deleteUserFolder))
+                dispatch(setModal(null))
+                if (callback) callback()
+              }
             }}
           />
         )

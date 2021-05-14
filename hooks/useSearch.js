@@ -10,6 +10,8 @@ export const useSearch = () => {
   const onSearch = (value) => {
     dispatch(setSearch(value))
 
+    console.log(router.query, router)
+
     router.push(
       {
         pathname: router.pathname,

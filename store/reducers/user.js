@@ -43,6 +43,20 @@ export const userReducer = (state = initialState, action) => {
           folder.id === action.payload.id ? action.payload : folder
         )
       }
+    case C.REMOVE_PROJECT_FROM_USER_FOLDER:
+      return {
+        ...state,
+        folders: state.folders.map((folder) =>
+          folder.id === action.payload.folderId
+            ? {
+                ...folder,
+                projects: folder.projects.filter(
+                  (projectId) => projectId !== action.payload.projectId
+                )
+              }
+            : folder
+        )
+      }
     case C.UPDATE_USER:
       return {
         ...state,

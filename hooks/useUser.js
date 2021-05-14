@@ -18,7 +18,9 @@ export const useUser = ({ isManage } = {}) => {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
-  const canEditRole = useMemo(() => user && user.role.name === 'ADMIN', [user])
+  const canEditAccount = useMemo(() => user?.account !== 'ADMIN', [user])
+
+  const canEditRole = useMemo(() => user && user?.role?.name === 'ADMIN', [user])
 
   const hasOwned = useCallback((author) => author.name === user?.name, [user])
 
@@ -68,8 +70,8 @@ export const useUser = ({ isManage } = {}) => {
   )
 
   const onAboutMore = useCallback(
-    (project) => {
-      recall(onUserAboutMore, { user: project })()
+    (author) => {
+      recall(onUserAboutMore, { user: author })()
     },
     [recall]
   )
@@ -96,11 +98,11 @@ export const useUser = ({ isManage } = {}) => {
     recall(onUserEdit, {
       user: author.email,
       auth: user?.email,
+      canEditAccount,
       canEditRole,
       mutations: {
-        update: queries.UPDATE_USER,
         del: queries.DELETE_USER,
-        changePassword: queries.UPDATE_USER
+        update: queries.UPDATE_USER
       },
       onAfter
     })()
@@ -117,9 +119,9 @@ export const useUser = ({ isManage } = {}) => {
     hasOwned,
     onLink,
     onChat,
-    onMembers,
     onAboutMore,
-    onCompanyLink,
+    onMembers: user?.members?.length > 0 && onMembers,
+    onCompanyLink: user?.company && onCompanyLink,
     onEdit: isManage && onEdit,
     onCreate: isManage && onCreate
   }

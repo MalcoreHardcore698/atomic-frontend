@@ -7,6 +7,7 @@ export const ArticleSuit = ({
   article,
   preview,
   checked,
+  appearance,
   withSocials,
   hasOwned,
   onLink,
@@ -19,6 +20,7 @@ export const ArticleSuit = ({
     article={article}
     preview={preview}
     checked={checked}
+    appearance={appearance}
     withSocials={withSocials}
     owned={hasOwned && hasOwned(article)}
     onLink={onLink && (() => onLink(article))}

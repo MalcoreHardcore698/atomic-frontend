@@ -1,7 +1,6 @@
 import React from 'react'
 
 import ProjectCard from '../ProjectCard'
-import ArticleCard from '../ArticleCard'
 
 export const ProjectSuit = ({
   user,
@@ -9,6 +8,8 @@ export const ProjectSuit = ({
   preview,
   project,
   checked,
+  canRemove,
+  appearance,
   withSocials,
   hasAdded,
   hasLiked,
@@ -28,6 +29,8 @@ export const ProjectSuit = ({
     project={project}
     preview={preview}
     checked={checked}
+    canRemove={canRemove}
+    appearance={appearance}
     withSocials={withSocials}
     added={hasAdded && hasAdded(project)}
     liked={hasLiked && hasLiked(project)}

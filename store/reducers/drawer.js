@@ -21,6 +21,7 @@ export const drawerReducer = (state = initialState, action) => {
         title: (action.payload && action.payload.title) ?? '',
         half: (action.payload && action.payload.half) ?? false,
         side: (action.payload && action.payload.side) ?? 'right',
+        pdfName: (action.payload && action.payload.pdfName) ?? '',
         content: (action.payload && action.payload.content) ?? '',
         history:
           action.payload && state.history.length < HISTORY_LIMIT

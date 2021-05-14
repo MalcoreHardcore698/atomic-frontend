@@ -128,6 +128,15 @@ export function setVisibleFilters(visibleFilters) {
   }
 }
 
+export function setCurrentPage(currentPage) {
+  return {
+    type: C.SET_CURRENT_PAGE,
+    payload: {
+      currentPage
+    }
+  }
+}
+
 export function addProjectMember(member) {
   return {
     type: C.ADD_MEMBER,
@@ -167,6 +176,15 @@ export function removeProjectMember(email) {
 export function removeProjectScreenshot(id) {
   return {
     type: C.REMOVE_SCREENSHOT,
+    payload: {
+      id
+    }
+  }
+}
+
+export function removeProjectFromFolder(id) {
+  return {
+    type: C.REMOVE_PROJECT_FROM_FOLDER,
     payload: {
       id
     }

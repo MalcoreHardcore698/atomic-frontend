@@ -25,6 +25,7 @@ const Projects = () => {
       title={TITLE}
       icon={'work'}
       template={template}
+      entityType={'project'}
       getType={'getProjects'}
       limit={DASHBOARD_LOAD_LIMIT}
       emptyMessage={'Проектов нет'}

@@ -33,7 +33,7 @@ export const CardActions = ({ typeText, checked, onChecked, onEdit, onDelete }) 
   <Header>
     {(onEdit || onDelete) && (
       <Actions>
-        {onEdit && (
+        {onDelete && (
           <Tooltip text={`Удалить ${typeText}`}>
             <Button
               kind={'icon'}
@@ -45,7 +45,7 @@ export const CardActions = ({ typeText, checked, onChecked, onEdit, onDelete }) 
             </Button>
           </Tooltip>
         )}
-        {onDelete && (
+        {onEdit && (
           <Tooltip text={`Редактировать ${typeText}`}>
             <Button kind={'icon'} size={'xs'} disabled={checked} onClick={onEdit}>
               <Icon icon={'edit'} size={'xs'} stroke={'white'} />
