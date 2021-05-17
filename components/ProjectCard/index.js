@@ -290,7 +290,8 @@ export const Card = ({
   const user = useSelector((state) => state.user)
   const screenshots = project?.screenshots?.slice(0, slicedFactor) || []
   const residue = (project?.screenshots?.length || slicedFactor) - slicedFactor
-  const canEditStatus = useMemo(() => user && user.role.name === 'ADMIN', [user])
+
+  const canEditStatus = useMemo(() => user && user?.role?.name === 'ADMIN', [user])
 
   const onClickLike = () => {
     if (onLike) onLike()

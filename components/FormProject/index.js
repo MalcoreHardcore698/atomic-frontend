@@ -114,6 +114,7 @@ export const Characteristics = ({ project, watch, control, getValues }) => {
       <Controller
         name={'characteristics'}
         control={control}
+        rules={{ required: getValues('characteristics')?.length > 0 }}
         defaultValue={getValues('characteristics') || project?.characteristics || null}
         render={({ value, onChange }) => (
           <CharacteristicEditor appearance={'ghost'} defaultValue={value} onChange={onChange} />

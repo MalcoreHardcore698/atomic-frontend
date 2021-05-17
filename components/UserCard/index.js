@@ -140,7 +140,8 @@ export const Card = ({
   const { setQuery } = useEntityQuery()
   const auth = useSelector((state) => state.user)
   const [isAdded, setAdded] = useState(added)
-  const canEditRole = useMemo(() => auth && auth.role.name === 'ADMIN', [auth])
+
+  const canEditRole = useMemo(() => auth && auth?.role?.name === 'ADMIN', [auth])
 
   const onClickAdd = () => {
     if (onAdd) onAdd()
@@ -149,7 +150,7 @@ export const Card = ({
 
   const handleEdit = () => {
     recall(onUserEdit, {
-      user: user.email,
+      user: user?.email,
       auth: auth?.email,
       canEditRole,
       mutations: {
@@ -163,7 +164,7 @@ export const Card = ({
 
   const handleDelete = () => {
     recall(onUserDelete, {
-      id: user.email,
+      id: user?.email,
       user,
       auth: auth?.email,
       mutation: queries.DELETE_USER
@@ -176,7 +177,7 @@ export const Card = ({
       <Content>
         <Avatar
           src={user?.avatar?.path || '/images/avatar-default.png'}
-          alt={user.name}
+          alt={user?.name}
           effect={'opacity'}
           layout={'fill'}
         />
@@ -186,7 +187,7 @@ export const Card = ({
               <Meta
                 shareTitle={withSocials && user?.name}
                 shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
-                category={getLabelRole(user.account)}
+                category={getLabelRole(user?.account)}
               />
               {hasResponsibleMember(user) && <ResponsibleMark />}
             </MarkedText>
@@ -200,22 +201,22 @@ export const Card = ({
             />
           </Header>
 
-          <Name tag={'h4'} onClick={() => setQuery(user.email, 'user', onLink)}>
-            {user.name}
+          <Name tag={'h4'} onClick={() => setQuery(user?.email, 'user', onLink)}>
+            {user?.name}
           </Name>
 
           <About>
             {user?.about?.length > 135 ? (
               <React.Fragment>
-                <Text>{user.about.slice(0, 100)}...</Text>
+                <Text>{user?.about.slice(0, 100)}...</Text>
                 <More onClick={onAboutMore}>Подробнее</More>
               </React.Fragment>
             ) : (
-              <Text>{user.about || 'Информация о себе не заполнена'}</Text>
+              <Text>{user?.about || 'Информация о себе не заполнена'}</Text>
             )}
           </About>
-          {user.projects && (
-            <Indicator icon={'work'} label={'Проекты'} text={user.projects?.length} />
+          {user?.projects && (
+            <Indicator icon={'work'} label={'Проекты'} text={user?.projects?.length} />
           )}
         </Column>
       </Content>
@@ -225,28 +226,28 @@ export const Card = ({
           <Divider clear />
 
           <Footer>
-            {user.account === 'ENTITY' ? (
+            {user?.account === 'ENTITY' ? (
               <Difinition
                 icon={'user2'}
                 label={'Участники'}
-                text={user.members}
-                onLink={user.members && onMembers}
+                text={user?.members}
+                onLink={user?.members && onMembers}
               />
             ) : (
               <Difinition
-                {...(user.company
+                {...(user?.company
                   ? {
-                      img: user.company?.avatar?.path
+                      img: user?.company?.avatar?.path
                     }
                   : {
                       icon: 'work'
                     })}
                 label={'Компания'}
-                text={user.company?.name || '-'}
+                text={user?.company?.name || '-'}
                 onLink={
-                  user.company &&
+                  user?.company &&
                   onCompanyLink &&
-                  (() => setQuery(user.company.email, 'user', onCompanyLink))
+                  (() => setQuery(user?.company?.email, 'user', onCompanyLink))
                 }
               />
             )}

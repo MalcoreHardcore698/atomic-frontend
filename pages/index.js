@@ -9,13 +9,13 @@ import ArticleList from '../components/ArticleList'
 import ProjectSuit from '../components/ProjectSuit'
 import { useProject } from '../hooks/useProject'
 import { initializeApollo } from '../apollo'
-import { COMMON_START_OFFSET, COMMON_LOAD_LIMIT } from '../constants'
+import { COMMON_START_OFFSET, INDEX_LOAD_LIMIT } from '../constants'
 import queries from '../graphql/queries'
 
 const TITLE = 'Атомик'
 
 const ASIDE_PROPS = {
-  limit: 1,
+  limit: 3,
   startOffset: COMMON_START_OFFSET,
   gridOptions: { length: 'auto-fit', percentage: '1fr' },
   withoutSearch: true,
@@ -41,10 +41,10 @@ const Home = ({ store }) => {
       title={TITLE}
       store={store}
       getType={'getProjects'}
-      limit={COMMON_LOAD_LIMIT}
+      limit={INDEX_LOAD_LIMIT}
       emptyMessage={'Проектов нет'}
       getQuery={queries.GET_PROJECTS}
-      startOffsett={COMMON_START_OFFSET}
+      startOffset={COMMON_START_OFFSET}
       variables={{ status: 'PUBLISHED' }}
       render={(document) => <ProjectSuit {...methods} project={document} />}
       aside={

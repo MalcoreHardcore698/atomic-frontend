@@ -221,7 +221,7 @@ export const App = ({
                     link: { text: 'Управление', onClick: onSettings }
                   }}
                   links={[
-                    { text: 'Обзор профиля', onClick: onProfile },
+                    { text: 'Личный кабинет', onClick: onProfile },
                     { text: 'Пользовательские настройки', onClick: onSettings },
                     { text: 'Получить помощь', onClick: onHelp },
                     { text: 'Выход', onClick: onLogout }

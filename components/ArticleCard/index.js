@@ -131,7 +131,8 @@ export const Card = ({
   const router = useRouter()
   const recall = useHelper()
   const user = useSelector((state) => state.user)
-  const canEditStatus = useMemo(() => user && user.role.name === 'ADMIN', [user])
+
+  const canEditStatus = useMemo(() => user && user?.role?.name === 'ADMIN', [user])
 
   const handleClick = async () => {
     await router.push(

@@ -1310,7 +1310,11 @@ const Card = ({
   const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["useSelector"])(state => state.user);
   const screenshots = (project === null || project === void 0 ? void 0 : (_project$screenshots = project.screenshots) === null || _project$screenshots === void 0 ? void 0 : _project$screenshots.slice(0, slicedFactor)) || [];
   const residue = ((project === null || project === void 0 ? void 0 : (_project$screenshots2 = project.screenshots) === null || _project$screenshots2 === void 0 ? void 0 : _project$screenshots2.length) || slicedFactor) - slicedFactor;
-  const canEditStatus = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => user && user.role.name === 'ADMIN', [user]);
+  const canEditStatus = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => {
+    var _user$role;
+
+    return user && (user === null || user === void 0 ? void 0 : (_user$role = user.role) === null || _user$role === void 0 ? void 0 : _user$role.name) === 'ADMIN';
+  }, [user]);
 
   const onClickLike = () => {
     if (onLike) onLike();
@@ -4918,7 +4922,7 @@ const Characteristics = ({
   control,
   getValues
 }) => {
-  var _getValues, _project$characterist, _getValues2, _project$characterist2;
+  var _getValues, _project$characterist, _getValues2, _project$characterist2, _getValues3;
 
   const [isPreviewCharacteristics, setIsPreviewCharacteristics] = Object(external_react_["useState"])(((_getValues = getValues('characteristics')) === null || _getValues === void 0 ? void 0 : _getValues.length) > 0 || (project === null || project === void 0 ? void 0 : (_project$characterist = project.characteristics) === null || _project$characterist === void 0 ? void 0 : _project$characterist.length) > 0);
   watch('characteristics');
@@ -4941,6 +4945,9 @@ const Characteristics = ({
   }), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
     name: 'characteristics',
     control: control,
+    rules: {
+      required: ((_getValues3 = getValues('characteristics')) === null || _getValues3 === void 0 ? void 0 : _getValues3.length) > 0
+    },
     defaultValue: getValues('characteristics') || (project === null || project === void 0 ? void 0 : project.characteristics) || null,
     render: ({
       value,
@@ -8093,7 +8100,7 @@ const useProject = ({
 
     return !!(user !== null && user !== void 0 && (_user$folders = user.folders) !== null && _user$folders !== void 0 && _user$folders.find(folder => !!(folder !== null && folder !== void 0 && folder.projects.find(item => item === project.id))));
   }, [user]);
-  const hasLiked = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => !!(project.rating || []).find(item => item.email === user.email), [user]);
+  const hasLiked = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => !!(project.rating || []).find(item => (item === null || item === void 0 ? void 0 : item.email) === (user === null || user === void 0 ? void 0 : user.email)), [user]);
   const onAdd = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_2__[/* onProjectAdd */ "a"], {
     id: project.id,
     folders: user === null || user === void 0 ? void 0 : user.folders,
@@ -8109,7 +8116,7 @@ const useProject = ({
     }
   })(), [user, recall, dispatch]);
   const onLike = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => {
-    if (user.email) {
+    if (user !== null && user !== void 0 && user.email) {
       mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].LIKE_PROJECT, {
         id: project.id
       }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_4__[/* updateUser */ "f"])(response.data.likeProject)));
@@ -8337,7 +8344,7 @@ function pages_extends() { pages_extends = Object.assign || function (target) { 
 
 const TITLE = 'Атомик';
 const ASIDE_PROPS = {
-  limit: 1,
+  limit: 3,
   startOffset: constants["b" /* COMMON_START_OFFSET */],
   gridOptions: {
     length: 'auto-fit',
@@ -8359,10 +8366,10 @@ const Home = ({
     title: TITLE,
     store: store,
     getType: 'getProjects',
-    limit: constants["a" /* COMMON_LOAD_LIMIT */],
+    limit: constants["d" /* INDEX_LOAD_LIMIT */],
     emptyMessage: 'Проектов нет',
     getQuery: queries["a" /* default */].GET_PROJECTS,
-    startOffsett: constants["b" /* COMMON_START_OFFSET */],
+    startOffset: constants["b" /* COMMON_START_OFFSET */],
     variables: {
       status: 'PUBLISHED'
     },
@@ -8933,7 +8940,11 @@ const Card = ({
   } = Object(_hooks_useEntityQuery__WEBPACK_IMPORTED_MODULE_19__[/* useEntityQuery */ "c"])();
   const auth = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.user);
   const [isAdded, setAdded] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(added);
-  const canEditRole = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => auth && auth.role.name === 'ADMIN', [auth]);
+  const canEditRole = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => {
+    var _auth$role;
+
+    return auth && (auth === null || auth === void 0 ? void 0 : (_auth$role = auth.role) === null || _auth$role === void 0 ? void 0 : _auth$role.name) === 'ADMIN';
+  }, [auth]);
 
   const onClickAdd = () => {
     if (onAdd) onAdd();
@@ -8942,7 +8953,7 @@ const Card = ({
 
   const handleEdit = () => {
     recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_18__[/* onUserEdit */ "f"], {
-      user: user.email,
+      user: user === null || user === void 0 ? void 0 : user.email,
       auth: auth === null || auth === void 0 ? void 0 : auth.email,
       canEditRole,
       mutations: {
@@ -8956,7 +8967,7 @@ const Card = ({
 
   const handleDelete = () => {
     recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_18__[/* onUserDelete */ "e"], {
-      id: user.email,
+      id: user === null || user === void 0 ? void 0 : user.email,
       user,
       auth: auth === null || auth === void 0 ? void 0 : auth.email,
       mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_21__[/* default */ "a"].DELETE_USER
@@ -8971,7 +8982,7 @@ const Card = ({
     appearance: appearance
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Content, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Avatar, {
     src: (user === null || user === void 0 ? void 0 : (_user$avatar = user.avatar) === null || _user$avatar === void 0 ? void 0 : _user$avatar.path) || '/images/avatar-default.png',
-    alt: user.name,
+    alt: user === null || user === void 0 ? void 0 : user.name,
     effect: 'opacity',
     layout: 'fill'
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
@@ -8981,7 +8992,7 @@ const Card = ({
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* MarkedText */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Meta__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
     shareTitle: withSocials && (user === null || user === void 0 ? void 0 : user.name),
     shareUrl:  false ? undefined : HOST_URL,
-    category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "g"])(user.account)
+    category: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_14__[/* getLabelRole */ "g"])(user === null || user === void 0 ? void 0 : user.account)
   }), Object(_Members__WEBPACK_IMPORTED_MODULE_17__[/* hasResponsibleMember */ "c"])(user) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Members__WEBPACK_IMPORTED_MODULE_17__[/* ResponsibleMark */ "a"], null)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CardActions__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"], {
     typeText: 'категорию',
     checked: checked,
@@ -8990,28 +9001,32 @@ const Card = ({
     onChecked: onChecked
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Name, {
     tag: 'h4',
-    onClick: () => setQuery(user.email, 'user', onLink)
-  }, user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about.slice(0, 100), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
+    onClick: () => setQuery(user === null || user === void 0 ? void 0 : user.email, 'user', onLink)
+  }, user === null || user === void 0 ? void 0 : user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(About, null, (user === null || user === void 0 ? void 0 : (_user$about = user.about) === null || _user$about === void 0 ? void 0 : _user$about.length) > 135 ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user === null || user === void 0 ? void 0 : user.about.slice(0, 100), "..."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_15__[/* More */ "e"], {
     onClick: onAboutMore
-  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, user.about || 'Информация о себе не заполнена')), user.projects && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
+  }, "\u041F\u043E\u0434\u0440\u043E\u0431\u043D\u0435\u0435")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Text__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], null, (user === null || user === void 0 ? void 0 : user.about) || 'Информация о себе не заполнена')), (user === null || user === void 0 ? void 0 : user.projects) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Indicator, {
     icon: 'work',
     label: 'Проекты',
-    text: (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.length
+    text: user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.length
   }))), !preview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     clear: true
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, user.account === 'ENTITY' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "d"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, (user === null || user === void 0 ? void 0 : user.account) === 'ENTITY' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "d"], {
     icon: 'user2',
     label: 'Участники',
-    text: user.members,
-    onLink: user.members && onMembers
-  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "d"], _extends({}, user.company ? {
-    img: (_user$company = user.company) === null || _user$company === void 0 ? void 0 : (_user$company$avatar = _user$company.avatar) === null || _user$company$avatar === void 0 ? void 0 : _user$company$avatar.path
+    text: user === null || user === void 0 ? void 0 : user.members,
+    onLink: (user === null || user === void 0 ? void 0 : user.members) && onMembers
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_13__[/* default */ "d"], _extends({}, user !== null && user !== void 0 && user.company ? {
+    img: user === null || user === void 0 ? void 0 : (_user$company = user.company) === null || _user$company === void 0 ? void 0 : (_user$company$avatar = _user$company.avatar) === null || _user$company$avatar === void 0 ? void 0 : _user$company$avatar.path
   } : {
     icon: 'work'
   }, {
     label: 'Компания',
-    text: ((_user$company2 = user.company) === null || _user$company2 === void 0 ? void 0 : _user$company2.name) || '-',
-    onLink: user.company && onCompanyLink && (() => setQuery(user.company.email, 'user', onCompanyLink))
+    text: (user === null || user === void 0 ? void 0 : (_user$company2 = user.company) === null || _user$company2 === void 0 ? void 0 : _user$company2.name) || '-',
+    onLink: (user === null || user === void 0 ? void 0 : user.company) && onCompanyLink && (() => {
+      var _user$company3;
+
+      return setQuery(user === null || user === void 0 ? void 0 : (_user$company3 = user.company) === null || _user$company3 === void 0 ? void 0 : _user$company3.email, 'user', onCompanyLink);
+    })
   })), !owned && (onChat || onAdd) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"], null, onChat && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_12__[/* default */ "b"], {
     text: 'Написать пользователю'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
@@ -9172,11 +9187,11 @@ const useUser = ({
 
     return user && (user === null || user === void 0 ? void 0 : (_user$role = user.role) === null || _user$role === void 0 ? void 0 : _user$role.name) === 'ADMIN';
   }, [user]);
-  const hasOwned = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(author => author.name === (user === null || user === void 0 ? void 0 : user.name), [user]);
+  const hasOwned = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(author => (author === null || author === void 0 ? void 0 : author.name) === (user === null || user === void 0 ? void 0 : user.name), [user]);
   const onLink = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(author => {
-    const owned = author.name === (user === null || user === void 0 ? void 0 : user.name);
+    const owned = (author === null || author === void 0 ? void 0 : author.name) === (user === null || user === void 0 ? void 0 : user.name);
     recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_2__[/* onUserLink */ "i"], {
-      id: author.email,
+      id: author === null || author === void 0 ? void 0 : author.email,
       auth: user === null || user === void 0 ? void 0 : user.email,
       owned,
       queries: {
@@ -9453,7 +9468,11 @@ const Card = ({
   const router = Object(router_["useRouter"])();
   const recall = Object(useHelper["b" /* useHelper */])();
   const user = Object(external_react_redux_["useSelector"])(state => state.user);
-  const canEditStatus = Object(external_react_["useMemo"])(() => user && user.role.name === 'ADMIN', [user]);
+  const canEditStatus = Object(external_react_["useMemo"])(() => {
+    var _user$role;
+
+    return user && (user === null || user === void 0 ? void 0 : (_user$role = user.role) === null || _user$role === void 0 ? void 0 : _user$role.name) === 'ADMIN';
+  }, [user]);
 
   const handleClick = async () => {
     await router.push({
@@ -10538,7 +10557,7 @@ const App = ({
         }
       },
       links: [{
-        text: 'Обзор профиля',
+        text: 'Личный кабинет',
         onClick: onProfile
       }, {
         text: 'Пользовательские настройки',
@@ -11930,6 +11949,12 @@ const ShareInSocial = ({
     title: title,
     url: url
   }, /*#__PURE__*/external_react_default.a.createElement(external_react_share_["TelegramIcon"], {
+    size: '1.125rem',
+    round: true
+  })), /*#__PURE__*/external_react_default.a.createElement(external_react_share_["WhatsappShareButton"], {
+    title: title,
+    url: url
+  }, /*#__PURE__*/external_react_default.a.createElement(external_react_share_["WhatsappIcon"], {
     size: '1.125rem',
     round: true
   })));
@@ -24878,9 +24903,11 @@ const GET_NOTIFICATIONS = external_graphql_tag_default.a`
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return COMMON_START_OFFSET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return COMMON_LOAD_LIMIT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return INDEX_LOAD_LIMIT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return DASHBOARD_LOAD_LIMIT; });
 const COMMON_START_OFFSET = 0;
 const COMMON_LOAD_LIMIT = 4;
+const INDEX_LOAD_LIMIT = 12;
 const DASHBOARD_LOAD_LIMIT = 12;
 
 /***/ }),

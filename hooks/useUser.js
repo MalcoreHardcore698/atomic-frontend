@@ -22,13 +22,13 @@ export const useUser = ({ isManage } = {}) => {
 
   const canEditRole = useMemo(() => user && user?.role?.name === 'ADMIN', [user])
 
-  const hasOwned = useCallback((author) => author.name === user?.name, [user])
+  const hasOwned = useCallback((author) => author?.name === user?.name, [user])
 
   const onLink = useCallback(
     (author) => {
-      const owned = author.name === user?.name
+      const owned = author?.name === user?.name
       recall(onUserLink, {
-        id: author.email,
+        id: author?.email,
         auth: user?.email,
         owned,
         queries: {
