@@ -8,6 +8,7 @@ import {
   onUserEdit,
   onUserCreate
 } from '../store/helpers/user'
+import { onChat as onUserChat } from '../store/helpers'
 import { useHelper } from './useHelper'
 import { useMutate } from './useMutate'
 import queries from '../graphql/queries'
@@ -46,9 +47,9 @@ export const useUser = ({ isManage } = {}) => {
 
   const onChat = useCallback(
     (author) => {
-      recall(onChat, {
-        sender: user?.email,
-        recipient: author.email,
+      recall(onUserChat, {
+        sender: user,
+        recipient: author,
         queries: {
           userChats: queries.GET_USER_CHATS,
           chat: queries.GET_CHAT

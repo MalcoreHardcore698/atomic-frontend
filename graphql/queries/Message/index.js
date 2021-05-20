@@ -9,3 +9,9 @@ export const SEND_MESSAGE = gql`
   }
   ${MessageFields}
 `
+
+export const READ_MESSAGES = gql`
+  mutation readMessages($id: [ID]!) {
+    readMessages(id: $id)
+  }
+`

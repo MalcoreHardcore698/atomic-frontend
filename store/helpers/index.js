@@ -113,8 +113,8 @@ export function onChat(dispatch, props) {
       title: 'Мессенджер',
       content: (
         <Messenger
-          recipient={recipient}
           sender={sender}
+          recipient={recipient}
           appearance={'clear'}
           onMemberLink={() => onUserLink(dispatch, props)}
           onSubmit={async (form, action, recipient) => {

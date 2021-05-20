@@ -216,7 +216,7 @@ const Notifications = ({
     error
   } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_NOTIFICATIONS, {
     variables: {
-      email: user
+      author: user
     }
   });
   const [apply, {
@@ -303,7 +303,7 @@ var Message = __webpack_require__("7ni8");
 // EXTERNAL MODULE: ./atomic-ui/components/Input/index.js
 var Input = __webpack_require__("Gliw");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./components/MessengerChat/index.js
@@ -329,10 +329,17 @@ const Messages = external_styled_components_default()(Column["a" /* default */])
   displayName: "MessengerChat__Messages",
   componentId: "sc-1qcfj1w-1"
 })(["background:#fbfbfb;border-radius:var(--surface-border-radius);padding:var(--default-gap);flex-grow:1;"]);
+const BreakLine = external_styled_components_default.a.div.withConfig({
+  displayName: "MessengerChat__BreakLine",
+  componentId: "sc-1qcfj1w-2"
+})(["position:relative;display:flex;justify-content:center;align-items:center;font-size:var(--font-size-xs);color:#e0e0e0;gap:10px;span{width:fit-content;}&::before,&::after{content:'';display:flex;flex-grow:1;height:1px;background:#e0e0e0;}"]);
 const Empty = external_styled_components_default()(Text["b" /* default */]).withConfig({
   displayName: "MessengerChat__Empty",
-  componentId: "sc-1qcfj1w-2"
+  componentId: "sc-1qcfj1w-3"
 })(["display:flex;justify-content:center;align-items:center;width:100%;height:100%;flex-grow:1;"]);
+const NewDay = ({
+  newDay
+}) => /*#__PURE__*/external_react_default.a.createElement(BreakLine, null, /*#__PURE__*/external_react_default.a.createElement("span", null, newDay));
 const MessengerChat = ({
   chat,
   error,
@@ -344,35 +351,61 @@ const MessengerChat = ({
   onSubmit,
   ...props
 }) => {
-  var _chat$messages, _chat$messages2;
+  var _chat$messages2, _chat$messages3;
 
   const [message, setMessage] = Object(external_react_["useState"])('');
   const messageRef = Object(external_react_["useRef"])(null);
+
+  const getMessages = () => {
+    return chat.messages.map((item, index) => {
+      var _item$user, _item$user$avatar;
+
+      let isNewDay = false;
+
+      if (index > 0) {
+        var _chat$messages;
+
+        const prevDate = new Date(parseInt((_chat$messages = chat.messages[index - 1]) === null || _chat$messages === void 0 ? void 0 : _chat$messages.createdAt)).getDate();
+        const currDate = new Date(parseInt(item.createdAt)).getDate();
+
+        if (Number(prevDate) !== Number(currDate)) {
+          isNewDay = true;
+        }
+      }
+
+      const newDay = new Date(parseInt(item.createdAt)).toLocaleString('ru-RU', {
+        day: 'numeric',
+        month: 'long'
+      });
+      return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, {
+        key: item.id
+      }, isNewDay && /*#__PURE__*/external_react_default.a.createElement(NewDay, {
+        newDay: newDay
+      }), /*#__PURE__*/external_react_default.a.createElement(Message["a" /* default */], {
+        type: item.type,
+        avatar: ((_item$user = item.user) === null || _item$user === void 0 ? void 0 : (_item$user$avatar = _item$user.avatar) === null || _item$user$avatar === void 0 ? void 0 : _item$user$avatar.path) || '/images/avatar-default.png',
+        side: item.side,
+        name: item.name,
+        text: item.text,
+        time: item.createdAt,
+        tails: {
+          default: '/parts/tail.svg',
+          owner: '/parts/tail-owner.svg'
+        },
+        onLink: onLink
+      }));
+    });
+  };
+
   return /*#__PURE__*/external_react_default.a.createElement(MessengerChat_Wrap, MessengerChat_extends({}, props, {
     className: className
-  }), /*#__PURE__*/external_react_default.a.createElement(Messages, null, !loading && (chat === null || chat === void 0 ? void 0 : (_chat$messages = chat.messages) === null || _chat$messages === void 0 ? void 0 : _chat$messages.length) > 0 ? chat.messages.map(item => {
-    var _item$user, _item$user$avatar;
-
-    return /*#__PURE__*/external_react_default.a.createElement(Message["a" /* default */], {
-      key: item.id,
-      avatar: ((_item$user = item.user) === null || _item$user === void 0 ? void 0 : (_item$user$avatar = _item$user.avatar) === null || _item$user$avatar === void 0 ? void 0 : _item$user$avatar.path) || '/images/avatar-default.png',
-      side: item.side,
-      name: item.name,
-      text: item.text,
-      time: item.createdAt,
-      tails: {
-        default: '/parts/tail.svg',
-        owner: '/parts/tail-owner.svg'
-      },
-      onLink: onLink
-    });
-  }) : loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }), /*#__PURE__*/external_react_default.a.createElement(Messages, null, !loading && (chat === null || chat === void 0 ? void 0 : (_chat$messages2 = chat.messages) === null || _chat$messages2 === void 0 ? void 0 : _chat$messages2.length) > 0 ? getMessages() : loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : error ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     appearance: 'error',
     style: {
       width: '100%',
       textAlign: 'center'
     }
-  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E\u0431 \u0447\u0430\u0442\u0435") : /*#__PURE__*/external_react_default.a.createElement(Empty, null, (chat === null || chat === void 0 ? void 0 : (_chat$messages2 = chat.messages) === null || _chat$messages2 === void 0 ? void 0 : _chat$messages2.length) === 0 ? 'История сообщений пуста' : 'Выберите чат')), chat && /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+  }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E\u0431 \u0447\u0430\u0442\u0435") : /*#__PURE__*/external_react_default.a.createElement(Empty, null, (chat === null || chat === void 0 ? void 0 : (_chat$messages3 = chat.messages) === null || _chat$messages3 === void 0 ? void 0 : _chat$messages3.length) === 0 ? 'История сообщений пуста' : 'Выберите чат')), chat && /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     kind: 'icon',
     disabled: loading || !chat,
     onSubmit: onAttach
@@ -427,6 +460,7 @@ function Messenger_extends() { Messenger_extends = Object.assign || function (ta
 
 
 
+
 const Messenger_Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "Messenger__Wrap",
   componentId: "sc-1hnkbvn-0"
@@ -445,10 +479,12 @@ const Chats = external_styled_components_default()(Column["a" /* default */]).wi
   displayName: "Messenger__Chats",
   componentId: "sc-1hnkbvn-2"
 })(["grid-gap:0;width:320px;@media only screen and (max-width:568px){width:100%;}"]);
-const Chat = external_styled_components_default()(Member["a" /* default */]).withConfig({
+const Chat = external_styled_components_default()(Member["b" /* default */]).withConfig({
   displayName: "Messenger__Chat",
   componentId: "sc-1hnkbvn-3"
-})(["margin:0;padding:10px 0;border-radius:var(--surface-border-radius);transition:all 150ms ease;", ""], ({
+})(["margin:0;padding:10px 0;border-radius:var(--surface-border-radius);transition:all 150ms ease;", " ", ""], ({
+  noPaddingForPosition
+}) => noPaddingForPosition && Object(external_styled_components_["css"])(["", "{p{padding-right:0;}}"], Member["a" /* Content */]), ({
   active
 }) => active && Object(external_styled_components_["css"])(["background:var(--input-background);padding:10px;"]));
 const getUnreadedMessages = (messages, sender) => (messages || []).reduce((acc, item) => {
@@ -467,6 +503,55 @@ const getLastMessage = (messages, sender) => {
 const getExtendMessages = (messages, sender) => messages.map(message => ({ ...message,
   side: sender === message.user.email ? 'owner' : 'observer'
 }));
+const ChatOne = ({
+  sender,
+  chat,
+  currentChat,
+  setLoading,
+  setCurrentChat,
+  getChat,
+  getTicket,
+  refetchChat,
+  refetchTicket
+}) => {
+  var _chat$chat, _chat$chat2, _chat$chat2$members$f, _chat$chat3, _chat$chat4, _chat$chat5, _chat$chat6, _chat$category, _chat$chat9;
+
+  return /*#__PURE__*/external_react_default.a.createElement(Chat, {
+    name: ((_chat$chat = chat.chat) === null || _chat$chat === void 0 ? void 0 : _chat$chat.members.filter(member => member.email !== (sender === null || sender === void 0 ? void 0 : sender.email))[0].name) || chat.title,
+    avatar: ((_chat$chat2 = chat.chat) === null || _chat$chat2 === void 0 ? void 0 : (_chat$chat2$members$f = _chat$chat2.members.filter(member => member.email !== (sender === null || sender === void 0 ? void 0 : sender.email))[0].avatar) === null || _chat$chat2$members$f === void 0 ? void 0 : _chat$chat2$members$f.path) || (chat.chat ? '/images/avatar-default.png' : null),
+    budge: ((_chat$chat3 = chat.chat) === null || _chat$chat3 === void 0 ? void 0 : _chat$chat3.messages) && getUnreadedMessages((_chat$chat4 = chat.chat) === null || _chat$chat4 === void 0 ? void 0 : _chat$chat4.messages, sender === null || sender === void 0 ? void 0 : sender.email) || null,
+    position: ((_chat$chat5 = chat.chat) === null || _chat$chat5 === void 0 ? void 0 : _chat$chat5.messages) && getLastMessage((_chat$chat6 = chat.chat) === null || _chat$chat6 === void 0 ? void 0 : _chat$chat6.messages, sender === null || sender === void 0 ? void 0 : sender.email) || ((_chat$category = chat.category) === null || _chat$category === void 0 ? void 0 : _chat$category.name) || null,
+    onClick: async () => {
+      var _chat$chat7;
+
+      setLoading(true);
+
+      if ((_chat$chat7 = chat.chat) !== null && _chat$chat7 !== void 0 && _chat$chat7.id) {
+        var _chat$chat8;
+
+        const variables = {
+          id: (_chat$chat8 = chat.chat) === null || _chat$chat8 === void 0 ? void 0 : _chat$chat8.id
+        };
+        if (refetchChat) await refetchChat(variables);else await getChat({
+          variables
+        });
+        setCurrentChat(chat.chat);
+      } else {
+        const variables = {
+          id: chat.id
+        };
+        if (refetchTicket) await refetchTicket(variables);else await getTicket({
+          variables
+        });
+        setCurrentChat(chat);
+      }
+
+      setLoading(false);
+    },
+    active: currentChat && currentChat.id === (((_chat$chat9 = chat.chat) === null || _chat$chat9 === void 0 ? void 0 : _chat$chat9.id) || chat.id),
+    noPaddingForPosition: !chat.chat
+  });
+};
 const Messenger = ({
   appearance,
   recipient,
@@ -476,10 +561,12 @@ const Messenger = ({
   ...props
 }) => {
   const [currentChat, setCurrentChat] = Object(external_react_["useState"])(null);
-  const [loading, setLoading] = Object(external_react_["useState"])(false);
-  const [chats, setChats] = Object(external_react_["useState"])([]);
-  const [userChats, setUserChats] = Object(external_react_["useState"])([]);
+  const [filteredUserChats, setFilteredUserChats] = Object(external_react_["useState"])(null);
+  const [filteredTicketChats, setFilteredTicketChats] = Object(external_react_["useState"])(null);
   const [ticketChats, setTicketChats] = Object(external_react_["useState"])([]);
+  const [userChats, setUserChats] = Object(external_react_["useState"])([]);
+  const [loading, setLoading] = Object(external_react_["useState"])(false);
+  const [search, setSearch] = Object(external_react_["useState"])('');
   const [getChat, {
     data: chat,
     loading: loadingChat,
@@ -514,24 +601,54 @@ const Messenger = ({
     loading: loadingUserSendMessage,
     error: errorUserSendMessage
   }] = Object(react_hooks_["useMutation"])(queries["a" /* default */].SEND_TICKET_MESSAGE);
-  const [addUserChat] = Object(react_hooks_["useMutation"])(queries["a" /* default */].ADD_USER_CHAT);
+  const [readMessages, {
+    loading: loadingReadMessages
+  }] = Object(react_hooks_["useMutation"])(queries["a" /* default */].READ_MESSAGES);
+  const [addUserChat, {
+    data: dataAddUserChat,
+    loading: loadingAddUserChat
+  }] = Object(react_hooks_["useMutation"])(queries["a" /* default */].ADD_USER_CHAT);
+
+  const onSubmit = value => {
+    if (value) {
+      setFilteredUserChats(userChats.filter(userChat => {
+        var _userChat$chat;
+
+        return ((userChat === null || userChat === void 0 ? void 0 : (_userChat$chat = userChat.chat) === null || _userChat$chat === void 0 ? void 0 : _userChat$chat.members) || []).find(member => (member === null || member === void 0 ? void 0 : member.name.toUpperCase().includes(value.toUpperCase())) || (member === null || member === void 0 ? void 0 : member.email.toUpperCase().includes(value.toUpperCase())));
+      }));
+      setFilteredTicketChats(ticketChats.filter(ticketChat => {
+        var _ticketChat$category;
+
+        return (ticketChat === null || ticketChat === void 0 ? void 0 : ticketChat.title.toUpperCase().includes(value.toUpperCase())) || (ticketChat === null || ticketChat === void 0 ? void 0 : (_ticketChat$category = ticketChat.category) === null || _ticketChat$category === void 0 ? void 0 : _ticketChat$category.name.toUpperCase().includes(value.toUpperCase()));
+      }));
+    } else {
+      setFilteredUserChats(null);
+      setFilteredTicketChats(null);
+    }
+
+    setSearch(value);
+  };
+
   Object(external_react_["useEffect"])(() => {
     if (recipient) {
       addUserChat({
         variables: {
-          recipient
+          recipient: recipient === null || recipient === void 0 ? void 0 : recipient.email
         }
-      }).then(() => {
-        getUserChats();
-        getUserTickets();
       });
     }
   }, [recipient, addUserChat]);
   Object(external_react_["useEffect"])(() => {
+    if (!loadingAddUserChat && dataAddUserChat) {
+      getUserChats();
+      getUserTickets();
+    }
+  }, [loadingAddUserChat, dataAddUserChat, getUserChats, getUserTickets]);
+  Object(external_react_["useEffect"])(() => {
     if (recipient && !currentChat && !loadingUserChats && dataUserChats !== null && dataUserChats !== void 0 && dataUserChats.getUserChats) {
       var _dataUserChats$getUse;
 
-      const id = (_dataUserChats$getUse = dataUserChats.getUserChats.find(userChat => userChat.chat.members.find(member => member.email === recipient))) === null || _dataUserChats$getUse === void 0 ? void 0 : _dataUserChats$getUse.chat.id;
+      const id = (_dataUserChats$getUse = dataUserChats.getUserChats.find(userChat => userChat.chat.members.find(member => member.email === (recipient === null || recipient === void 0 ? void 0 : recipient.email)))) === null || _dataUserChats$getUse === void 0 ? void 0 : _dataUserChats$getUse.chat.id;
       if (id) getChat({
         variables: {
           id
@@ -552,14 +669,14 @@ const Messenger = ({
   Object(external_react_["useEffect"])(() => {
     if (!loadingSendMessage && dataSendMessage) {
       setCurrentChat(prev => ({ ...prev,
-        messages: getExtendMessages(dataSendMessage.sendMessage, sender)
+        messages: getExtendMessages(dataSendMessage.sendMessage, sender === null || sender === void 0 ? void 0 : sender.email)
       }));
     }
   }, [sender, dataSendMessage, loadingSendMessage]);
   Object(external_react_["useEffect"])(() => {
     if (!loadingUserSendMessage && dataUserSendMessage) {
       setCurrentChat(prev => ({ ...prev,
-        messages: getExtendMessages(dataUserSendMessage.sendTicketMessage, sender)
+        messages: getExtendMessages(dataUserSendMessage.sendTicketMessage, sender === null || sender === void 0 ? void 0 : sender.email)
       }));
     }
   }, [sender, dataUserSendMessage, loadingUserSendMessage]);
@@ -574,70 +691,74 @@ const Messenger = ({
     }
   }, [dataTicketChats, loadingTicketChats]);
   Object(external_react_["useEffect"])(() => {
-    setChats(userChats.concat(ticketChats));
-  }, [userChats, ticketChats]);
+    var _currentChat$messages;
+
+    const unreadedMessages = getUnreadedMessages((_currentChat$messages = currentChat === null || currentChat === void 0 ? void 0 : currentChat.messages) !== null && _currentChat$messages !== void 0 ? _currentChat$messages : [], sender);
+
+    if (currentChat && unreadedMessages > 0) {
+      readMessages({
+        variables: {
+          id: currentChat.messages.filter(message => {
+            var _message$user2;
+
+            return ((_message$user2 = message.user) === null || _message$user2 === void 0 ? void 0 : _message$user2.email) !== (sender === null || sender === void 0 ? void 0 : sender.email);
+          }).map(message => message.id)
+        }
+      });
+    }
+  }, [sender, currentChat, readMessages]);
   return /*#__PURE__*/external_react_default.a.createElement(Messenger_Wrap, Messenger_extends({}, props, {
+    key: loadingReadMessages,
     appearance: appearance
   }), /*#__PURE__*/external_react_default.a.createElement(Chats, null, /*#__PURE__*/external_react_default.a.createElement(ChatsSearch, {
-    appearance: 'ghost'
-  }), !loadingChat && !loadingTicket && !loadingUserChats && !loadingTicketChats && !loadingSendMessage && !loadingUserSendMessage && chats.length > 0 ? chats.map(chat => {
-    var _chat$chat, _chat$chat2, _chat$counsellor, _chat$chat3, _chat$chat3$members$f, _chat$counsellor2, _chat$counsellor2$ava, _chat$chat4, _chat$chat5, _chat$chat6, _chat$chat7, _chat$chat10;
+    appearance: 'ghost',
+    onSubmit: onSubmit
+  }), !loadingChat && !loadingTicket && !loadingUserChats && !loadingTicketChats && !loadingSendMessage && !loadingAddUserChat && !loadingUserSendMessage && (userChats.length > 0 || ticketChats.length > 0) ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, search && filteredUserChats && filteredTicketChats && filteredUserChats.length === 0 && filteredTicketChats.length === 0 && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], null, "\u041D\u0438\u0447\u0435\u0433\u043E \u043D\u0435 \u043D\u0430\u0439\u0434\u0435\u043D\u043E"), (search && filteredUserChats || !search && userChats || []).map(userChat => {
+    var _userChat$chat2;
 
-    return /*#__PURE__*/external_react_default.a.createElement(Chat, {
-      key: ((_chat$chat = chat.chat) === null || _chat$chat === void 0 ? void 0 : _chat$chat.id) || chat.id,
-      name: ((_chat$chat2 = chat.chat) === null || _chat$chat2 === void 0 ? void 0 : _chat$chat2.members.filter(member => member.email !== sender)[0].name) || ((_chat$counsellor = chat.counsellor) === null || _chat$counsellor === void 0 ? void 0 : _chat$counsellor.name),
-      avatar: ((_chat$chat3 = chat.chat) === null || _chat$chat3 === void 0 ? void 0 : (_chat$chat3$members$f = _chat$chat3.members.filter(member => member.email !== sender)[0].avatar) === null || _chat$chat3$members$f === void 0 ? void 0 : _chat$chat3$members$f.path) || ((_chat$counsellor2 = chat.counsellor) === null || _chat$counsellor2 === void 0 ? void 0 : (_chat$counsellor2$ava = _chat$counsellor2.avatar) === null || _chat$counsellor2$ava === void 0 ? void 0 : _chat$counsellor2$ava.path) || '/images/avatar-default.png',
-      budge: ((_chat$chat4 = chat.chat) === null || _chat$chat4 === void 0 ? void 0 : _chat$chat4.messages) && getUnreadedMessages((_chat$chat5 = chat.chat) === null || _chat$chat5 === void 0 ? void 0 : _chat$chat5.messages, sender) || chat.messages && getUnreadedMessages(chat.messages, sender) || null,
-      position: ((_chat$chat6 = chat.chat) === null || _chat$chat6 === void 0 ? void 0 : _chat$chat6.messages) && getLastMessage((_chat$chat7 = chat.chat) === null || _chat$chat7 === void 0 ? void 0 : _chat$chat7.messages, sender) || chat.messages && getLastMessage(chat.messages, sender) || null,
-      onClick: async () => {
-        var _chat$chat8;
-
-        setLoading(true);
-
-        if ((_chat$chat8 = chat.chat) !== null && _chat$chat8 !== void 0 && _chat$chat8.id) {
-          var _chat$chat9;
-
-          const variables = {
-            id: (_chat$chat9 = chat.chat) === null || _chat$chat9 === void 0 ? void 0 : _chat$chat9.id
-          };
-          if (refetchChat) await refetchChat(variables);else await getChat({
-            variables
-          });
-          setCurrentChat(chat.chat);
-        } else {
-          const variables = {
-            id: chat.id
-          };
-          if (refetchTicket) await refetchTicket(variables);else await getTicket({
-            variables
-          });
-          setCurrentChat(chat);
-        }
-
-        setLoading(false);
-      },
-      active: currentChat && currentChat.id === (((_chat$chat10 = chat.chat) === null || _chat$chat10 === void 0 ? void 0 : _chat$chat10.id) || chat.id)
+    return /*#__PURE__*/external_react_default.a.createElement(ChatOne, {
+      key: (_userChat$chat2 = userChat.chat) === null || _userChat$chat2 === void 0 ? void 0 : _userChat$chat2.id,
+      chat: userChat,
+      sender: sender,
+      currentChat: currentChat,
+      setLoading: setLoading,
+      setCurrentChat: setCurrentChat,
+      getChat: getChat,
+      getTicket: getTicket,
+      refetchChat: refetchChat,
+      refetchTicket: refetchTicket
     });
-  }) : loadingChat || loadingTicket || loadingUserChats || loadingTicketChats || loadingSendMessage || loadingUserSendMessage ? /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }), (filteredUserChats || userChats.length > 0 && !filteredUserChats) && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], null), (search && filteredTicketChats || !search && ticketChats || []).map(ticketChat => /*#__PURE__*/external_react_default.a.createElement(ChatOne, {
+    key: ticketChat.id,
+    chat: ticketChat,
+    sender: sender,
+    currentChat: currentChat,
+    setLoading: setLoading,
+    setCurrentChat: setCurrentChat,
+    getChat: getChat,
+    getTicket: getTicket,
+    refetchChat: refetchChat,
+    refetchTicket: refetchTicket
+  }))) : loadingChat || loadingTicket || loadingUserChats || loadingTicketChats || loadingSendMessage || loadingAddUserChat || loadingUserSendMessage ? /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       marginTop: 15
     }
   }, "\u0410\u043A\u0442\u0438\u0432\u043D\u044B\u0435 \u0447\u0430\u0442\u044B \u043E\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u044E\u0442")), /*#__PURE__*/external_react_default.a.createElement(components_MessengerChat, {
     chat: currentChat && { ...currentChat,
-      messages: getExtendMessages(currentChat.messages, sender)
+      messages: getExtendMessages(currentChat.messages, sender === null || sender === void 0 ? void 0 : sender.email)
     },
     appearance: 'ghost',
     error: errorChat || errorTicket || errorUserChats || errorUserTickets || errorSendMessage || errorUserSendMessage,
-    loading: loading || loadingTicket || loadingChat || loadingUserChats || loadingTicketChats || loadingSendMessage || loadingUserSendMessage,
+    loading: loading || loadingTicket || loadingChat || loadingUserChats || loadingTicketChats || loadingSendMessage || loadingAddUserChat || loadingUserSendMessage,
     onLink: onMemberLink,
     onAttach: onAttach,
     onSubmit: value => {
       if (currentChat.members) {
-        const candidate = currentChat.members.find(member => member.email !== sender);
+        const candidate = currentChat.members.find(member => member.email !== (sender === null || sender === void 0 ? void 0 : sender.email));
         sendMessage({
           variables: {
-            sender,
-            recipient: recipient || (candidate === null || candidate === void 0 ? void 0 : candidate.email),
+            sender: sender === null || sender === void 0 ? void 0 : sender.email,
+            recipient: (recipient === null || recipient === void 0 ? void 0 : recipient.email) || (candidate === null || candidate === void 0 ? void 0 : candidate.email),
             text: value
           }
         });
@@ -770,8 +891,8 @@ function onChat(dispatch, props) {
     icon: 'chat',
     title: 'Мессенджер',
     content: /*#__PURE__*/external_react_default.a.createElement(components_Messenger, {
-      recipient: recipient,
       sender: sender,
+      recipient: recipient,
       appearance: 'clear',
       onMemberLink: () => Object(helpers_user["i" /* onUserLink */])(dispatch, props),
       onSubmit: async (form, action, recipient) => {
@@ -2370,6 +2491,7 @@ Grid.defaultProps = {
 /* unused harmony export DispatchDate */
 /* unused harmony export DispatchUpdatedDate */
 /* unused harmony export Actions */
+/* unused harmony export DispatchType */
 /* unused harmony export Message */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -2401,7 +2523,7 @@ const dispatchDateStyles = Object(styled_components__WEBPACK_IMPORTED_MODULE_1__
 const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "Message__Wrap",
   componentId: "sc-1x5w1wb-0"
-})(["display:grid;grid-template-columns:64px 1fr;grid-template-areas:'avatar opinion';margin:0;transition:opacity 150ms ease;& > span{grid-area:avatar;align-self:end;justify-self:start;cursor:pointer;transition:opacity 150ms ease;}", " ", " ", " ", ""], ({
+})(["display:grid;grid-template-columns:64px 1fr;grid-template-areas:'avatar opinion';margin:0;transition:opacity 150ms ease;& > span{display:flex;grid-area:avatar;align-self:end;justify-self:start;cursor:pointer;transition:opacity 150ms ease;}", " ", " ", " ", ""], ({
   onClick
 }) => onClick && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["& > span{cursor:pointer;&:hover{opacity:0.65;}}"]), ({
   side
@@ -2425,7 +2547,7 @@ const OpinionAvatar = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_
 const Opinion = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.div.withConfig({
   displayName: "Message__Opinion",
   componentId: "sc-1x5w1wb-3"
-})(["position:relative;padding:10px var(--default-gap) 25px var(--default-gap);border-radius:var(--surface-border-radius);color:white;width:fit-content;grid-area:opinion;", " ", " ", ""], ({
+})(["position:relative;padding:10px var(--default-gap) 25px var(--default-gap);border-radius:var(--surface-border-radius);color:white;width:fit-content;min-width:80px;grid-area:opinion;", " ", " ", ""], ({
   side
 }) => side === 'observer' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["background:var(--ghost-color-background);color:var(--ghost-color-text);"]), ({
   side
@@ -2465,9 +2587,12 @@ const OpinionTail = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.spa
 const DispatchTime = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_DateText__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]).withConfig({
   displayName: "Message__DispatchTime",
   componentId: "sc-1x5w1wb-8"
-})(["position:absolute;right:10px;bottom:5px;font-size:var(--font-size-xs);", ""], ({
+})(["position:absolute;right:10px;bottom:5px;font-size:var(--font-size-xs);", " ", ""], ({
   compact
-}) => compact && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["right:0;font-size:var(--font-size-s);color:var(--default-color-text);"]));
+}) => compact && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["right:0;font-size:var(--font-size-s);color:var(--default-color-text);"]), ({
+  type,
+  compact
+}) => !compact && type && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["right:35px;"]));
 const DispatchDate = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_DateText__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"]).withConfig({
   displayName: "Message__DispatchDate",
   componentId: "sc-1x5w1wb-9"
@@ -2480,12 +2605,19 @@ const Actions = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Row__W
   displayName: "Message__Actions",
   componentId: "sc-1x5w1wb-11"
 })(["position:absolute;top:0;right:0;grid-gap:10px;"]);
+const DispatchType = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]).withConfig({
+  displayName: "Message__DispatchType",
+  componentId: "sc-1x5w1wb-12"
+})(["position:absolute;right:7px;bottom:2px;", ""], ({
+  type
+}) => type === 'UNREADED' && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["right:10px;bottom:8px;"]));
 const Message = ({
   avatar,
   side,
   name,
   text,
   time,
+  type,
   tails,
   style,
   compact,
@@ -2556,6 +2688,7 @@ const Message = ({
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(OpinionText, {
     compact: compact
   }, message), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DispatchTime, {
+    type: type,
     text: updatedAt || time,
     compact: compact
   }), compact && updatedAt && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DispatchUpdatedDate, null, "\u041E\u0442\u0440\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u043E", ' ', new Date(updatedAt).toLocaleString('ru-RU', {
@@ -2569,6 +2702,12 @@ const Message = ({
       month: 'long',
       year: 'numeric'
     }
+  }), !compact && type && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(DispatchType, {
+    size: 'xs',
+    type: type,
+    icon: type === 'UNREADED' ? 'check' : 'doubleCheck',
+    stroke: side === 'observer' ? 'var(--ghost-color-text)' : 'white',
+    fill: side === 'observer' ? 'var(--ghost-color-text)' : 'white'
   }), compact && onEdit && onDelete && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Actions, null, !isEdit ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Tooltip__WEBPACK_IMPORTED_MODULE_8__[/* default */ "b"], {
     text: 'Удалить сообщение'
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
@@ -3650,7 +3789,7 @@ var Button = __webpack_require__("ZeZO");
 // EXTERNAL MODULE: ./atomic-ui/components/Popper/index.js
 var Popper = __webpack_require__("vJvq");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Chip/index.js
@@ -4589,7 +4728,7 @@ var Button = __webpack_require__("ZeZO");
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
@@ -9163,9 +9302,11 @@ Menu.defaultProps = {
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("h74D");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("rP4V");
-/* harmony import */ var _useHelper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("ApjV");
-/* harmony import */ var _useMutate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("lphG");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("u2Cb");
+/* harmony import */ var _store_helpers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("+EEm");
+/* harmony import */ var _useHelper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ApjV");
+/* harmony import */ var _useMutate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("lphG");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("u2Cb");
+
 
 
 
@@ -9177,8 +9318,8 @@ const useUser = ({
 } = {}) => {
   var _user$members;
 
-  const recall = Object(_useHelper__WEBPACK_IMPORTED_MODULE_3__[/* useHelper */ "b"])();
-  const mutate = Object(_useMutate__WEBPACK_IMPORTED_MODULE_4__[/* useMutate */ "a"])();
+  const recall = Object(_useHelper__WEBPACK_IMPORTED_MODULE_4__[/* useHelper */ "b"])();
+  const mutate = Object(_useMutate__WEBPACK_IMPORTED_MODULE_5__[/* useMutate */ "a"])();
   const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.user);
   const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
   const canEditAccount = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(() => (user === null || user === void 0 ? void 0 : user.account) !== 'ADMIN', [user]);
@@ -9195,26 +9336,26 @@ const useUser = ({
       auth: user === null || user === void 0 ? void 0 : user.email,
       owned,
       queries: {
-        userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].GET_USER_CHATS,
-        chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].GET_CHAT
+        userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].GET_USER_CHATS,
+        chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].GET_CHAT
       },
       mutations: {
-        addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].ADD_USER_CHAT,
-        sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].SEND_MESSAGE
+        addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].ADD_USER_CHAT,
+        sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].SEND_MESSAGE
       }
     })();
   }, [user, dispatch, mutate, recall]);
   const onChat = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(author => {
-    recall(onChat, {
-      sender: user === null || user === void 0 ? void 0 : user.email,
-      recipient: author.email,
+    recall(_store_helpers__WEBPACK_IMPORTED_MODULE_3__[/* onChat */ "a"], {
+      sender: user,
+      recipient: author,
       queries: {
-        userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].GET_USER_CHATS,
-        chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].GET_CHAT
+        userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].GET_USER_CHATS,
+        chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].GET_CHAT
       },
       mutations: {
-        addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].ADD_USER_CHAT,
-        sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].SEND_MESSAGE
+        addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].ADD_USER_CHAT,
+        sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].SEND_MESSAGE
       }
     })();
   }, [user, mutate, dispatch]);
@@ -9236,12 +9377,12 @@ const useUser = ({
       id: (_author$company = author.company) === null || _author$company === void 0 ? void 0 : _author$company.email,
       auth: user === null || user === void 0 ? void 0 : user.email,
       queries: {
-        userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].GET_USER_CHATS,
-        chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].GET_CHAT
+        userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].GET_USER_CHATS,
+        chat: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].GET_CHAT
       },
       mutations: {
-        addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].ADD_USER_CHAT,
-        sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].SEND_MESSAGE
+        addUserChat: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].ADD_USER_CHAT,
+        sendMessage: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].SEND_MESSAGE
       }
     })();
   }, [user, recall]);
@@ -9252,15 +9393,15 @@ const useUser = ({
     canEditAccount,
     canEditRole,
     mutations: {
-      del: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].DELETE_USER,
-      update: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].UPDATE_USER
+      del: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].DELETE_USER,
+      update: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].UPDATE_USER
     },
     onAfter
   })();
 
   const onCreate = onAfter => recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_2__[/* onUserCreate */ "d"], {
     canEditRole,
-    mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"].CREATE_USER,
+    mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].CREATE_USER,
     onAfter
   })();
 
@@ -9325,7 +9466,7 @@ var Text = __webpack_require__("QUga");
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./atomic-ui/components/More/index.js
@@ -10398,7 +10539,7 @@ const Scaffold = ({
 // EXTERNAL MODULE: ./atomic-ui/components/Avatar/index.js
 var Avatar = __webpack_require__("ThpJ");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
@@ -11244,7 +11385,7 @@ var Difinition = __webpack_require__("DTT8");
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
@@ -11434,7 +11575,7 @@ const Tickets = external_styled_components_default()(Column["a" /* default */]).
   displayName: "TicketView__Tickets",
   componentId: "sc-1wxiq0b-1"
 })(["grid-gap:0;width:320px;@media only screen and (max-width:568px){width:100%;}"]);
-const Ticket = external_styled_components_default()(Member["a" /* default */]).withConfig({
+const Ticket = external_styled_components_default()(Member["b" /* default */]).withConfig({
   displayName: "TicketView__Ticket",
   componentId: "sc-1wxiq0b-2"
 })(["margin:10px 0 0 0;padding:10px;border-radius:var(--surface-border-radius);", ""], ({
@@ -11894,7 +12035,7 @@ var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(exte
 // EXTERNAL MODULE: ./atomic-ui/components/Row/index.js
 var Row = __webpack_require__("nShV");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Chip/index.js
@@ -15280,6 +15421,36 @@ function SvgDownload(props) {
 }
 
 /* harmony default export */ var download = (SvgDownload);
+// CONCATENATED MODULE: ./atomic-ui/assets/images/icons/double_check.svg
+function double_check_extends() { double_check_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return double_check_extends.apply(this, arguments); }
+
+
+
+var double_check_ref = /*#__PURE__*/external_react_["createElement"]("mask", {
+  id: "double_check_svg__a",
+  fill: "#fff"
+}, /*#__PURE__*/external_react_["createElement"]("path", {
+  fillRule: "evenodd",
+  clipRule: "evenodd",
+  d: "M21.505 5.994l-9.88 9.88-3.48-3.47a.996.996 0 00-1.41 0 .996.996 0 000 1.41l4.18 4.18c.39.39 1.02.39 1.41 0l10.59-10.58a.996.996 0 000-1.41h-.01a.975.975 0 00-1.4-.01zm-4.24.01a.996.996 0 00-1.41 0l-5.64 5.64 1.41 1.41 5.64-5.65c.38-.38.38-1.02 0-1.4zm-12 12l-4.18-4.18c-.39-.39-.39-1.03 0-1.42a.996.996 0 011.41 0l4.88 4.9-.7.7a.996.996 0 01-1.41 0z"
+}));
+
+var double_check_ref2 = /*#__PURE__*/external_react_["createElement"]("path", {
+  d: "M11.625 15.874l-.706.708.707.706.706-.707-.707-.707zm9.88-9.88l-.707-.707.707.707zm-13.36 6.41l-.708.707.002.002.706-.709zm-1.41 0l.707.707-.707-.707zm5.59 5.59l-.707-.707.707.707zm10.59-10.58l.707.708-.707-.708zm0-1.41l.707-.707-.293-.293h-.414v1zm-.01 0l-.725.69.296.31h.429v-1zm-5.64 0l-.708.707.708-.707zm-1.41 0l.707.707-.707-.707zm-5.64 5.64l-.707-.707-.707.707.707.707.707-.707zm1.41 1.41l-.707.707.708.708.707-.708-.708-.707zm5.64-5.65l-.707-.707.707.707zm-16.18 6.42l.707-.707-.707.707zm4.18 4.18l.707-.707-.707.707zm-4.18-5.6l.707.707-.707-.707zm1.41 0l.709-.705h-.001l-.708.705zm4.88 4.9l.707.708.706-.706-.704-.707-.709.705zm-.7.7l-.707-.707.707.707zm5.657-1.423l9.88-9.88-1.414-1.414-9.88 9.88 1.414 1.414zM7.44 13.113l3.48 3.47 1.412-1.417-3.48-3.47-1.412 1.417zm.001-.001l-.003-.001 1.416-1.413a1.996 1.996 0 00-1.413-.586v2zm.003-.001H7.44v-2c-.53 0-1.038.212-1.413.587l1.416 1.413zm0-.004H7.44l.001.001v.004c-.001 0-.001 0 0 0l-1.414-1.415c-.78.78-.78 2.044 0 2.825l1.414-1.415zm4.18 4.18l-4.18-4.18-1.415 1.415 4.18 4.18 1.414-1.415zm-.005 0l-.001.001h.002l.001-.001h.001l.002.001-1.415 1.413c.78.781 2.044.781 2.824 0l-1.414-1.414zm10.59-10.58l-10.59 10.58 1.414 1.415 10.59-10.58-1.414-1.415zm0 .004V6.71v-.001-.002.001l1.414 1.414c.78-.78.78-2.043 0-2.824l-1.414 1.414zm.697.293h.01v-2h-.01v2zm-.693-.303h-.001a.017.017 0 01-.007.002c-.003 0-.007 0-.013-.003a.038.038 0 01-.011-.007l1.45-1.377a1.975 1.975 0 00-2.832-.029l1.414 1.414zm-5.652.01h-.003l1.416-1.413a1.996 1.996 0 00-1.413-.586v2zm.003 0h-.003v-2c-.53 0-1.038.212-1.413.587l1.416 1.413zm-5.64 5.64l5.64-5.64-1.415-1.414-5.64 5.64 1.414 1.415zm1.41-.004l-1.41-1.41-1.415 1.415 1.41 1.41 1.414-1.415zm4.224-5.65l-5.64 5.65 1.416 1.414 5.64-5.65-1.416-1.413zm0 .014a.038.038 0 01-.007-.011V6.709c0-.002.003-.007.008-.012l1.414 1.414c.77-.77.77-2.043 0-2.814l-1.414 1.414zm-16.18 7.82l4.18 4.18 1.415-1.414-4.18-4.18-1.414 1.414zm0-2.834c-.78.78-.78 2.054 0 2.835l1.415-1.415.001.002v-.001a.019.019 0 010-.007v-.001.002L.377 11.697zm1.413-.585c-.53 0-1.038.21-1.413.586l1.416 1.413H1.79v-2zm1.413.586a1.996 1.996 0 00-1.413-.586v2l-.003-.001 1.416-1.413zm4.88 4.9l-4.88-4.9-1.417 1.412 4.88 4.9 1.418-1.411zm-.7 2.114l.7-.7-1.415-1.415-.7.7 1.414 1.415zm-2.825 0c.78.78 2.044.78 2.824 0l-1.414-1.415-.001.001h.002l.001-.001h.001l.002.001-1.415 1.414z",
+  fill: "#200E32",
+  mask: "url(#double_check_svg__a)"
+});
+
+function SvgDoubleCheck(props) {
+  return /*#__PURE__*/external_react_["createElement"]("svg", double_check_extends({
+    width: 24,
+    height: 24,
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, props), double_check_ref, double_check_ref2);
+}
+
+/* harmony default export */ var double_check = (SvgDoubleCheck);
 // CONCATENATED MODULE: ./atomic-ui/assets/images/icons/edit.svg
 function edit_extends() { edit_extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return edit_extends.apply(this, arguments); }
 
@@ -17394,6 +17565,7 @@ function Icon_extends() { Icon_extends = Object.assign || function (target) { fo
 
 
 
+
 const library = {
   add: add,
   attach: attach,
@@ -17442,6 +17614,7 @@ const library = {
   discovery: discovery,
   document: icons_document,
   download: download,
+  doubleCheck: double_check,
   edit: edit,
   editSquare: edit_square,
   facebook: facebook,
@@ -18662,7 +18835,7 @@ module.exports = require("react-youtube");
 
 "use strict";
 /* unused harmony export Wrap */
-/* unused harmony export Content */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Content; });
 /* unused harmony export NameRow */
 /* unused harmony export Name */
 /* unused harmony export Position */
@@ -18744,7 +18917,7 @@ const Member = ({
 })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Position, null, position), budge && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Counter, {
   count: budge
 })));
-/* harmony default export */ __webpack_exports__["a"] = (Member);
+/* harmony default export */ __webpack_exports__["b"] = (Member);
 
 /***/ }),
 
@@ -18812,7 +18985,7 @@ var Text = __webpack_require__("QUga");
 // EXTERNAL MODULE: ./atomic-ui/components/DateText/index.js
 var DateText = __webpack_require__("+nv6");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Tooltip/index.js
@@ -19909,7 +20082,7 @@ var Button = __webpack_require__("ZeZO");
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./layouts/main.js + 5 modules
@@ -20956,7 +21129,7 @@ var Spinner = __webpack_require__("auMy");
 // EXTERNAL MODULE: ./atomic-ui/components/Switch/index.js
 var Switch = __webpack_require__("OXt0");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
@@ -23331,6 +23504,7 @@ __webpack_require__.d(UserChat_namespaceObject, "ADD_USER_CHAT", function() { re
 var Message_namespaceObject = {};
 __webpack_require__.r(Message_namespaceObject);
 __webpack_require__.d(Message_namespaceObject, "SEND_MESSAGE", function() { return SEND_MESSAGE; });
+__webpack_require__.d(Message_namespaceObject, "READ_MESSAGES", function() { return READ_MESSAGES; });
 
 // NAMESPACE OBJECT: ./graphql/queries/TicketMessage/index.js
 var TicketMessage_namespaceObject = {};
@@ -24566,6 +24740,11 @@ const SEND_MESSAGE = external_graphql_tag_default.a`
   }
   ${MessageFields}
 `;
+const READ_MESSAGES = external_graphql_tag_default.a`
+  mutation readMessages($id: [ID]!) {
+    readMessages(id: $id)
+  }
+`;
 // CONCATENATED MODULE: ./graphql/queries/TicketMessage/index.js
 
 
@@ -25148,7 +25327,7 @@ var Text = __webpack_require__("QUga");
 // EXTERNAL MODULE: ./atomic-ui/components/Button/index.js
 var Button = __webpack_require__("ZeZO");
 
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./atomic-ui/components/Snack/index.js
@@ -26127,7 +26306,7 @@ const DateSheet = ({
   })));
 };
 /* harmony default export */ var components_DateSheet = (DateSheet);
-// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 110 modules
+// EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
 // CONCATENATED MODULE: ./atomic-ui/components/DatePicker/index.js

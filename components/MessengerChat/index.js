@@ -25,6 +25,29 @@ export const Messages = styled(Column)`
   flex-grow: 1;
 `
 
+export const BreakLine = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--font-size-xs);
+  color: #e0e0e0;
+  gap: 10px;
+
+  span {
+    width: fit-content;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    display: flex;
+    flex-grow: 1;
+    height: 1px;
+    background: #e0e0e0;
+  }
+`
+
 export const Empty = styled(Text)`
   display: flex;
   justify-content: center;
@@ -33,6 +56,8 @@ export const Empty = styled(Text)`
   height: 100%;
   flex-grow: 1;
 `
+
+export const NewDay = ({ newDay }) => <BreakLine><span>{newDay}</span></BreakLine>
 
 export const MessengerChat = ({
   chat,
@@ -48,25 +73,50 @@ export const MessengerChat = ({
   const [message, setMessage] = useState('')
   const messageRef = useRef(null)
 
+  const getMessages = () => {
+    return chat.messages.map((item, index) => {
+      let isNewDay = false
+
+      if (index > 0) {
+        const prevDate = new Date(parseInt(chat.messages[index - 1]?.createdAt)).getDate()
+        const currDate = new Date(parseInt(item.createdAt)).getDate()
+
+        if (Number(prevDate) !== Number(currDate)) {
+          isNewDay = true
+        }
+      }
+
+      const newDay = new Date(parseInt(item.createdAt)).toLocaleString('ru-RU', {
+        day: 'numeric',
+        month: 'long'
+      })
+
+      return (
+        <React.Fragment key={item.id}>
+          {isNewDay && <NewDay newDay={newDay} />}
+          <Message
+            type={item.type}
+            avatar={item.user?.avatar?.path || '/images/avatar-default.png'}
+            side={item.side}
+            name={item.name}
+            text={item.text}
+            time={item.createdAt}
+            tails={{
+              default: '/parts/tail.svg',
+              owner: '/parts/tail-owner.svg'
+            }}
+            onLink={onLink}
+          />
+        </React.Fragment>
+      )
+    })
+  }
+
   return (
     <Wrap {...props} className={className}>
       <Messages>
         {!loading && chat?.messages?.length > 0 ? (
-          chat.messages.map((item) => (
-            <Message
-              key={item.id}
-              avatar={item.user?.avatar?.path || '/images/avatar-default.png'}
-              side={item.side}
-              name={item.name}
-              text={item.text}
-              time={item.createdAt}
-              tails={{
-                default: '/parts/tail.svg',
-                owner: '/parts/tail-owner.svg'
-              }}
-              onLink={onLink}
-            />
-          ))
+          getMessages()
         ) : loading ? (
           <Loader>
             <Spinner />

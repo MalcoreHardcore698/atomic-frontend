@@ -19,7 +19,7 @@ export const Notifications = ({ user, appearance }) => {
 
   const { data, loading, error } = useQuery(queries.GET_NOTIFICATIONS, {
     variables: {
-      email: user
+      author: user
     }
   })
 

@@ -4,10 +4,11 @@ import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
-import Member from '../../atomic-ui/components/Member'
+import Member, { Content as MemberContent } from '../../atomic-ui/components/Member'
 import Alert from '../../atomic-ui/components/Alert'
 import Search from '../../atomic-ui/components/Search'
 import Spinner from '../../atomic-ui/components/Spinner'
+import Divider from '../../atomic-ui/components/Divider'
 
 import { Loader } from '../Styled'
 import { Wrap as WrapForm } from '../Form'
@@ -77,6 +78,16 @@ export const Chat = styled(Member)`
   border-radius: var(--surface-border-radius);
   transition: all 150ms ease;
 
+  ${({ noPaddingForPosition }) =>
+    noPaddingForPosition &&
+    css`
+      ${MemberContent} {
+        p {
+          padding-right: 0;
+        }
+      }
+    `}
+
   ${({ active }) =>
     active &&
     css`
@@ -104,17 +115,69 @@ export const getExtendMessages = (messages, sender) =>
     side: sender === message.user.email ? 'owner' : 'observer'
   }))
 
+export const ChatOne = ({
+  sender,
+  chat,
+  currentChat,
+  setLoading,
+  setCurrentChat,
+  getChat,
+  getTicket,
+  refetchChat,
+  refetchTicket
+}) => {
+  return (
+    <Chat
+      name={
+        chat.chat?.members.filter((member) => member.email !== sender?.email)[0].name || chat.title
+      }
+      avatar={
+        chat.chat?.members.filter((member) => member.email !== sender?.email)[0].avatar?.path ||
+        (chat.chat ? '/images/avatar-default.png' : null)
+      }
+      budge={
+        (chat.chat?.messages && getUnreadedMessages(chat.chat?.messages, sender?.email)) || null
+      }
+      position={
+        (chat.chat?.messages && getLastMessage(chat.chat?.messages, sender?.email)) ||
+        chat.category?.name ||
+        null
+      }
+      onClick={async () => {
+        setLoading(true)
+        if (chat.chat?.id) {
+          const variables = { id: chat.chat?.id }
+          if (refetchChat) await refetchChat(variables)
+          else await getChat({ variables })
+          setCurrentChat(chat.chat)
+        } else {
+          const variables = { id: chat.id }
+          if (refetchTicket) await refetchTicket(variables)
+          else await getTicket({ variables })
+          setCurrentChat(chat)
+        }
+        setLoading(false)
+      }}
+      active={currentChat && currentChat.id === (chat.chat?.id || chat.id)}
+      noPaddingForPosition={!chat.chat}
+    />
+  )
+}
+
 export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLink, ...props }) => {
   const [currentChat, setCurrentChat] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [chats, setChats] = useState([])
-  const [userChats, setUserChats] = useState([])
+  const [filteredUserChats, setFilteredUserChats] = useState(null)
+  const [filteredTicketChats, setFilteredTicketChats] = useState(null)
   const [ticketChats, setTicketChats] = useState([])
+  const [userChats, setUserChats] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [search, setSearch] = useState('')
 
   const [
     getChat,
     { data: chat, loading: loadingChat, error: errorChat, refetch: refetchChat }
   ] = useLazyQuery(queries.GET_CHAT)
+
   const [
     getTicket,
     { data: ticket, loading: loadingTicket, error: errorTicket, refetch: refetchTicket }
@@ -138,27 +201,65 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
     sendMessage,
     { data: dataSendMessage, loading: loadingSendMessage, error: errorSendMessage }
   ] = useMutation(queries.SEND_MESSAGE)
+
   const [
     sendTicketMessage,
     { data: dataUserSendMessage, loading: loadingUserSendMessage, error: errorUserSendMessage }
   ] = useMutation(queries.SEND_TICKET_MESSAGE)
-  const [addUserChat] = useMutation(queries.ADD_USER_CHAT)
+
+  const [readMessages, { loading: loadingReadMessages }] = useMutation(queries.READ_MESSAGES)
+
+  const [
+    addUserChat,
+    { data: dataAddUserChat, loading: loadingAddUserChat }
+  ] = useMutation(queries.ADD_USER_CHAT)
+
+  const onSubmit = (value) => {
+    if (value) {
+      setFilteredUserChats(
+        userChats.filter((userChat) =>
+          (userChat?.chat?.members || []).find(
+            (member) =>
+              member?.name.toUpperCase().includes(value.toUpperCase()) ||
+              member?.email.toUpperCase().includes(value.toUpperCase())
+          )
+        )
+      )
+      setFilteredTicketChats(
+        ticketChats.filter(
+          (ticketChat) =>
+            ticketChat?.title.toUpperCase().includes(value.toUpperCase()) ||
+            ticketChat?.category?.name.toUpperCase().includes(value.toUpperCase())
+        )
+      )
+    } else {
+      setFilteredUserChats(null)
+      setFilteredTicketChats(null)
+    }
+    setSearch(value)
+  }
 
   useEffect(() => {
     if (recipient) {
       addUserChat({
-        variables: { recipient }
-      }).then(() => {
-        getUserChats()
-        getUserTickets()
+        variables: {
+          recipient: recipient?.email
+        }
       })
     }
   }, [recipient, addUserChat])
 
   useEffect(() => {
+    if (!loadingAddUserChat && dataAddUserChat) {
+      getUserChats()
+      getUserTickets()
+    }
+  }, [loadingAddUserChat, dataAddUserChat, getUserChats, getUserTickets])
+
+  useEffect(() => {
     if (recipient && !currentChat && !loadingUserChats && dataUserChats?.getUserChats) {
       const id = dataUserChats.getUserChats.find((userChat) =>
-        userChat.chat.members.find((member) => member.email === recipient)
+        userChat.chat.members.find((member) => member.email === recipient?.email)
       )?.chat.id
 
       if (id) getChat({ variables: { id } })
@@ -181,7 +282,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
     if (!loadingSendMessage && dataSendMessage) {
       setCurrentChat((prev) => ({
         ...prev,
-        messages: getExtendMessages(dataSendMessage.sendMessage, sender)
+        messages: getExtendMessages(dataSendMessage.sendMessage, sender?.email)
       }))
     }
   }, [sender, dataSendMessage, loadingSendMessage])
@@ -190,7 +291,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
     if (!loadingUserSendMessage && dataUserSendMessage) {
       setCurrentChat((prev) => ({
         ...prev,
-        messages: getExtendMessages(dataUserSendMessage.sendTicketMessage, sender)
+        messages: getExtendMessages(dataUserSendMessage.sendTicketMessage, sender?.email)
       }))
     }
   }, [sender, dataUserSendMessage, loadingUserSendMessage])
@@ -208,65 +309,76 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
   }, [dataTicketChats, loadingTicketChats])
 
   useEffect(() => {
-    setChats(userChats.concat(ticketChats))
-  }, [userChats, ticketChats])
+    const unreadedMessages = getUnreadedMessages(currentChat?.messages ?? [], sender)
+    if (currentChat && unreadedMessages > 0) {
+      readMessages({
+        variables: {
+          id: currentChat.messages
+            .filter((message) => message.user?.email !== sender?.email)
+            .map((message) => message.id)
+        }
+      })
+    }
+  }, [sender, currentChat, readMessages])
 
   return (
-    <Wrap {...props} appearance={appearance}>
+    <Wrap {...props} key={loadingReadMessages} appearance={appearance}>
       <Chats>
-        <ChatsSearch appearance={'ghost'} />
+        <ChatsSearch appearance={'ghost'} onSubmit={onSubmit} />
+
         {!loadingChat &&
         !loadingTicket &&
         !loadingUserChats &&
         !loadingTicketChats &&
         !loadingSendMessage &&
+        !loadingAddUserChat &&
         !loadingUserSendMessage &&
-        chats.length > 0 ? (
-          chats.map((chat) => (
-            <Chat
-              key={chat.chat?.id || chat.id}
-              name={
-                chat.chat?.members.filter((member) => member.email !== sender)[0].name ||
-                chat.counsellor?.name
-              }
-              avatar={
-                chat.chat?.members.filter((member) => member.email !== sender)[0].avatar?.path ||
-                chat.counsellor?.avatar?.path ||
-                '/images/avatar-default.png'
-              }
-              budge={
-                (chat.chat?.messages && getUnreadedMessages(chat.chat?.messages, sender)) ||
-                (chat.messages && getUnreadedMessages(chat.messages, sender)) ||
-                null
-              }
-              position={
-                (chat.chat?.messages && getLastMessage(chat.chat?.messages, sender)) ||
-                (chat.messages && getLastMessage(chat.messages, sender)) ||
-                null
-              }
-              onClick={async () => {
-                setLoading(true)
-                if (chat.chat?.id) {
-                  const variables = { id: chat.chat?.id }
-                  if (refetchChat) await refetchChat(variables)
-                  else await getChat({ variables })
-                  setCurrentChat(chat.chat)
-                } else {
-                  const variables = { id: chat.id }
-                  if (refetchTicket) await refetchTicket(variables)
-                  else await getTicket({ variables })
-                  setCurrentChat(chat)
-                }
-                setLoading(false)
-              }}
-              active={currentChat && currentChat.id === (chat.chat?.id || chat.id)}
-            />
-          ))
+        (userChats.length > 0 || ticketChats.length > 0) ? (
+          <React.Fragment>
+            {search &&
+              filteredUserChats &&
+              filteredTicketChats &&
+              filteredUserChats.length === 0 &&
+              filteredTicketChats.length === 0 && <Alert>Ничего не найдено</Alert>}
+
+            {((search && filteredUserChats) || (!search && userChats) || []).map((userChat) => (
+              <ChatOne
+                key={userChat.chat?.id}
+                chat={userChat}
+                sender={sender}
+                currentChat={currentChat}
+                setLoading={setLoading}
+                setCurrentChat={setCurrentChat}
+                getChat={getChat}
+                getTicket={getTicket}
+                refetchChat={refetchChat}
+                refetchTicket={refetchTicket}
+              />
+            ))}
+
+            {(filteredUserChats || (userChats.length > 0 && !filteredUserChats)) && <Divider />}
+
+            {((search && filteredTicketChats) || (!search && ticketChats) || []).map((ticketChat) => (
+              <ChatOne
+                key={ticketChat.id}
+                chat={ticketChat}
+                sender={sender}
+                currentChat={currentChat}
+                setLoading={setLoading}
+                setCurrentChat={setCurrentChat}
+                getChat={getChat}
+                getTicket={getTicket}
+                refetchChat={refetchChat}
+                refetchTicket={refetchTicket}
+              />
+            ))}
+          </React.Fragment>
         ) : loadingChat ||
           loadingTicket ||
           loadingUserChats ||
           loadingTicketChats ||
           loadingSendMessage ||
+          loadingAddUserChat ||
           loadingUserSendMessage ? (
           <Loader>
             <Spinner />
@@ -279,7 +391,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
         chat={
           currentChat && {
             ...currentChat,
-            messages: getExtendMessages(currentChat.messages, sender)
+            messages: getExtendMessages(currentChat.messages, sender?.email)
           }
         }
         appearance={'ghost'}
@@ -298,17 +410,18 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
           loadingUserChats ||
           loadingTicketChats ||
           loadingSendMessage ||
+          loadingAddUserChat ||
           loadingUserSendMessage
         }
         onLink={onMemberLink}
         onAttach={onAttach}
         onSubmit={(value) => {
           if (currentChat.members) {
-            const candidate = currentChat.members.find((member) => member.email !== sender)
+            const candidate = currentChat.members.find((member) => member.email !== sender?.email)
             sendMessage({
               variables: {
-                sender,
-                recipient: recipient || candidate?.email,
+                sender: sender?.email,
+                recipient: recipient?.email || candidate?.email,
                 text: value
               }
             })
