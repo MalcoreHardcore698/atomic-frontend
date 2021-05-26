@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import Title from '../atomic-ui/components/Title'
@@ -17,9 +18,7 @@ const TITLE = 'Атомик'
 const ASIDE_PROPS = {
   limit: 3,
   startOffset: COMMON_START_OFFSET,
-  gridOptions: { length: 'auto-fit', percentage: '1fr' },
-  withoutSearch: true,
-  withoutMore: true
+  gridOptions: { length: 'auto-fit', percentage: '1fr' }
 }
 
 const Aside = styled.aside`
@@ -35,6 +34,7 @@ const Aside = styled.aside`
 
 const Home = ({ store }) => {
   const methods = useProject()
+  const search = useSelector((state) => state.root.search)
 
   return (
     <ContentLayout
@@ -50,10 +50,10 @@ const Home = ({ store }) => {
       aside={
         <Aside>
           <Title tag={'h4'}>Авторы</Title>
-          <UserList {...ASIDE_PROPS} />
+          <UserList {...ASIDE_PROPS} withoutMore={!search} />
 
           <Title tag={'h4'}>Новости</Title>
-          <ArticleList {...ASIDE_PROPS} layout={'column'} />
+          <ArticleList {...ASIDE_PROPS} withoutMore={!search} layout={'column'} />
         </Aside>
       }
     />

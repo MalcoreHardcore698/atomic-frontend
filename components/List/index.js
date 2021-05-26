@@ -43,6 +43,7 @@ export const Content = ({
   component,
   variables,
   limit = 6,
+  emptyMessage,
   initialList,
   initialDisplayMethod,
   setCheckedList,
@@ -111,7 +112,7 @@ export const Content = ({
 
       {(loading || isLoading) && !withoutMore && <Loader />}
 
-      {!loading && !isLoading && items.length === 0 && <CentralAlert>Проектов нет</CentralAlert>}
+      {!loading && !isLoading && items.length === 0 && <CentralAlert>{emptyMessage}</CentralAlert>}
 
       {items.length > 0 && !isEnd && !loading && !withoutMore && (
         <React.Fragment>
@@ -135,6 +136,7 @@ export const List = ({
   component,
   variables,
   startOffset,
+  emptyMessage,
   initialDisplayMethod,
   setCheckedList,
   withoutSearch,
@@ -167,6 +169,7 @@ export const List = ({
       refetch={refetch}
       template={template}
       component={component}
+      emptyMessage={emptyMessage}
       initialList={type && data && data[type]}
       initialDisplayMethod={initialDisplayMethod}
       setCheckedList={setCheckedList}

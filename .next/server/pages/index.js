@@ -1064,6 +1064,7 @@ const Content = ({
   component,
   variables,
   limit = 6,
+  emptyMessage,
   initialList,
   initialDisplayMethod,
   setCheckedList,
@@ -1116,7 +1117,7 @@ const Content = ({
     onClick: onClick,
     onEdit: onEdit,
     onDelete: onDelete
-  }), (loading || isLoading) && !withoutMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Loader, null), !loading && !isLoading && items.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_12__[/* CentralAlert */ "a"], null, "\u041F\u0440\u043E\u0435\u043A\u0442\u043E\u0432 \u043D\u0435\u0442"), items.length > 0 && !isEnd && !loading && !withoutMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_5__[/* default */ "b"], {
+  }), (loading || isLoading) && !withoutMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Loader, null), !loading && !isLoading && items.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_12__[/* CentralAlert */ "a"], null, emptyMessage), items.length > 0 && !isEnd && !loading && !withoutMore && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_5__[/* default */ "b"], {
     style: {
       justifyContent: 'center'
     }
@@ -1137,6 +1138,7 @@ const List = ({
   component,
   variables,
   startOffset,
+  emptyMessage,
   initialDisplayMethod,
   setCheckedList,
   withoutSearch,
@@ -1168,6 +1170,7 @@ const List = ({
     refetch: refetch,
     template: template,
     component: component,
+    emptyMessage: emptyMessage,
     initialList: type && data && data[type],
     initialDisplayMethod: initialDisplayMethod,
     setCheckedList: setCheckedList,
@@ -1390,7 +1393,7 @@ const About = styled_components__WEBPACK_IMPORTED_MODULE_3___default.a.div.withC
 const Company = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_5__[/* default */ "d"]).withConfig({
   displayName: "ProjectCard__Company",
   componentId: "g3ik0u-11"
-})(["h4{max-width:250px;white-space:nowrap;font-size:var(--font-size-m);font-weight:var(--font-weight-bold);text-overflow:ellipsis;line-height:1;overflow:hidden;}"]);
+})(["padding-right:0;h4{max-width:250px;white-space:nowrap;font-size:var(--font-size-m);font-weight:var(--font-weight-bold);text-overflow:ellipsis;line-height:1;overflow:hidden;}"]);
 const Footer = styled_components__WEBPACK_IMPORTED_MODULE_3___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"]).withConfig({
   displayName: "ProjectCard__Footer",
   componentId: "g3ik0u-12"
@@ -4672,7 +4675,6 @@ const useSearch = () => {
 
   const onSearch = value => {
     dispatch(Object(_store_actions_root__WEBPACK_IMPORTED_MODULE_2__[/* setSearch */ "r"])(value));
-    console.log(router.query, router);
     router.push({
       pathname: router.pathname,
       query: {
@@ -8389,6 +8391,9 @@ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { re
 var external_react_ = __webpack_require__("cDcd");
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
 // EXTERNAL MODULE: external "styled-components"
 var external_styled_components_ = __webpack_require__("Dtiu");
 var external_styled_components_default = /*#__PURE__*/__webpack_require__.n(external_styled_components_);
@@ -8481,6 +8486,7 @@ function pages_extends() { pages_extends = Object.assign || function (target) { 
 
 
 
+
 const TITLE = 'Атомик';
 const ASIDE_PROPS = {
   limit: 3,
@@ -8488,9 +8494,7 @@ const ASIDE_PROPS = {
   gridOptions: {
     length: 'auto-fit',
     percentage: '1fr'
-  },
-  withoutSearch: true,
-  withoutMore: true
+  }
 };
 const Aside = external_styled_components_default.a.aside.withConfig({
   displayName: "pages__Aside",
@@ -8501,6 +8505,7 @@ const Home = ({
   store
 }) => {
   const methods = Object(useProject["a" /* useProject */])();
+  const search = Object(external_react_redux_["useSelector"])(state => state.root.search);
   return /*#__PURE__*/external_react_default.a.createElement(content["b" /* default */], {
     title: TITLE,
     store: store,
@@ -8517,9 +8522,12 @@ const Home = ({
     })),
     aside: /*#__PURE__*/external_react_default.a.createElement(Aside, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
       tag: 'h4'
-    }, "\u0410\u0432\u0442\u043E\u0440\u044B"), /*#__PURE__*/external_react_default.a.createElement(components_UserList, ASIDE_PROPS), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    }, "\u0410\u0432\u0442\u043E\u0440\u044B"), /*#__PURE__*/external_react_default.a.createElement(components_UserList, pages_extends({}, ASIDE_PROPS, {
+      withoutMore: !search
+    })), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
       tag: 'h4'
     }, "\u041D\u043E\u0432\u043E\u0441\u0442\u0438"), /*#__PURE__*/external_react_default.a.createElement(ArticleList["a" /* default */], pages_extends({}, ASIDE_PROPS, {
+      withoutMore: !search,
       layout: 'column'
     })))
   });

@@ -218,6 +218,8 @@ export const About = styled.div`
 `
 
 export const Company = styled(Difinition)`
+  padding-right: 0;
+
   h4 {
     max-width: 250px;
     white-space: nowrap;
