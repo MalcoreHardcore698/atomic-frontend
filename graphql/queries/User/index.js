@@ -105,6 +105,7 @@ export const GET_USERS = gql`
     $email: [String]
     $account: [AccountType]
     $company: String
+    $createdAt: String
   ) {
     getUsers(
       offset: $offset
@@ -113,6 +114,7 @@ export const GET_USERS = gql`
       email: $email
       account: $account
       company: $company
+      createdAt: $createdAt
     ) {
       name
       about

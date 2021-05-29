@@ -247,7 +247,6 @@ export const View = ({
   onAdd,
   onLike,
   onScreenshotClick,
-  onFileLink,
   onMemberLink,
   onCompanyLink
 }) => {
@@ -418,7 +417,7 @@ export const View = ({
 
           <Title tag={'h4'}>Участники проекта</Title>
           {data?.getProject?.members && data?.getProject?.members?.length > 0 && (
-            <Members percentage={'minmax(320px, 1fr)'}>
+            <Members percentage={'minmax(420px, 1fr)'}>
               {data?.getProject?.members.map((member) => (
                 <Difinition
                   key={member?.email}
@@ -438,14 +437,18 @@ export const View = ({
 
           <Title tag={'h4'}>Файлы</Title>
           {data?.getProject?.files && data?.getProject?.files?.length > 0 && (
-            <Files percentage={'minmax(256px, 1fr)'}>
+            <Files percentage={'minmax(420px, 1fr)'}>
               {data?.getProject?.files.map((file) => (
                 <Difinition
                   key={file.id}
                   icon={'paper'}
                   label={file.filename}
                   text={getFileSize(file.size)}
-                  onLink={() => onFileLink && onFileLink(file)}
+                  onLink={() => {
+                    if (typeof window !== undefined && file?.path) {
+                      window.open(file.path, '_blank')
+                    }
+                  }}
                 />
               ))}
             </Files>

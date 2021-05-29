@@ -25,6 +25,7 @@ const initialState = {
   screenshots: [],
   messages: [],
   search: '',
+  params: {},
   files: []
 }
 
@@ -59,6 +60,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         search: action.payload.search || ''
+      }
+    case C.SET_PARAMS:
+      return {
+        ...state,
+        params: action.payload.params || {}
       }
     case C.SET_FOLDER:
       return {

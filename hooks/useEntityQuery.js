@@ -111,7 +111,9 @@ export const useEntityQuery = () => {
   const useDetectQuery = () => {
     useEffect(() => {
       const query = router.query
-      invokeRecall(recall, mutate, user, dispatch, query)
+      if (Object.entries(query).length === 1) {
+        invokeRecall(recall, mutate, user, dispatch, query)
+      }
     }, [router])
   }
 

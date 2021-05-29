@@ -8,7 +8,6 @@ import { setDocuments } from '../actions/documents'
 import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
 import { onUserLink } from './user'
-import { onFileLink } from '.'
 
 export function onTicketLink(dispatch, props) {
   const { id, auth } = props
@@ -22,7 +21,7 @@ export function onTicketLink(dispatch, props) {
           auth={auth}
           ticket={id}
           appearance={'clear'}
-          onAttach={() => onFileLink(dispatch)}
+          onAttach={() => {}}
           onMemberLink={(member) => onUserLink(dispatch, { id: member.email, auth })}
         />
       )

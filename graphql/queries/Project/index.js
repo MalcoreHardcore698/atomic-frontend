@@ -18,7 +18,9 @@ export const GET_PROJECTS = gql`
     $rating: [String]
     $author: String
     $search: String
+    $company: String
     $status: PostStatus
+    $createdAt: String
   ) {
     getProjects(
       offset: $offset
@@ -27,7 +29,9 @@ export const GET_PROJECTS = gql`
       rating: $rating
       author: $author
       search: $search
+      company: $company
       status: $status
+      createdAt: $createdAt
     ) {
       id
       title

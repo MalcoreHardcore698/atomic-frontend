@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
-import { v4 } from 'uuid'
 
 import Column from '../atomic-ui/components/Column'
-import DatePicker from '../atomic-ui/components/DatePicker'
-import Select from '../atomic-ui/components/Select'
 
 import DashboardLayout from './dashboard'
 import DefaultLayout from '../layouts/default'
@@ -16,8 +13,6 @@ import { Card } from './dashboard/content'
 import List from '../components/List'
 
 export const INITIAL_DISPLAY_METHOD = 'grid'
-
-const DISABLED_FILTERS = true
 
 const Wrap = styled(Column)`
   margin-top: 120px;
@@ -58,11 +53,11 @@ const ContentLayout = ({
   store,
   handle,
   render,
-  filters,
   getType,
   getQuery,
   dashboard,
   variables,
+  filterConfig,
   emptyMessage,
   startOffset,
   onLink
@@ -70,39 +65,6 @@ const ContentLayout = ({
   const search = useSelector((state) => state.root.search)
   const Layout = dashboard ? DashboardLayout : DefaultLayout
   const [visibleFilter, setVisibleFilter] = useState(false)
-  const [select, onChangeSelect] = useState()
-  const [date, onChangeDate] = useState()
-
-  const getFilters = () => {
-    return (filters || []).map((filter) => {
-      switch (filter.type) {
-        case 'DATEPICKER':
-          return (
-            <DatePicker
-              key={v4()}
-              value={date}
-              placeholder={filter.placeholder || 'Дата публикации'}
-              onChange={onChangeDate}
-              withNavigate
-            />
-          )
-        case 'SELECT':
-          return (
-            <Select
-              key={v4()}
-              options={filter.options}
-              placeholder={filter.placeholder || 'Раздел'}
-              selected={select}
-              onChange={(item) => onChangeSelect(item)}
-            />
-          )
-        default:
-          return null
-      }
-    })
-  }
-
-  const getOptions = () => []
 
   const renderCard = (item) => (
     <Card
@@ -113,16 +75,18 @@ const ContentLayout = ({
     />
   )
 
+  const onChangeFilters = (values) => console.log(values)
+
   return (
     <Layout title={title} scaffold={store?.scaffold}>
       <Wrap clear={store?.scaffold || dashboard}>
         {!store?.scaffold && !dashboard && (
           <SearchBar
-            onChangeFilter={!DISABLED_FILTERS && (() => setVisibleFilter(!visibleFilter))}
+            onChangeFilter={() => setVisibleFilter(!visibleFilter)}
           />
         )}
 
-        {!DISABLED_FILTERS && dashboard && handle && (
+        {dashboard && handle && (
           <HandleBar
             title={title}
             icon={handle.icon}
@@ -133,7 +97,7 @@ const ContentLayout = ({
           />
         )}
 
-        <FilterBar isOpen={visibleFilter} filters={getFilters()} options={getOptions()} />
+        <FilterBar {...(filterConfig || {})} isOpen={visibleFilter} onChange={onChangeFilters} />
 
         <Container stretch={(search && !aside) || !aside}>
           <List

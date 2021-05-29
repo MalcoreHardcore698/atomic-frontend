@@ -7,7 +7,7 @@ import Search from '../../atomic-ui/components/Search'
 import Title from '../../atomic-ui/components/Title'
 
 import ProjectSuit from '../ProjectSuit'
-import { Poster, Media } from '../ProjectCard'
+import { Media } from '../ProjectCard'
 import { useSearch } from '../../hooks/useSearch'
 import { useProject } from '../../hooks/useProject'
 
@@ -126,8 +126,8 @@ export const PrimaryProject = styled(ProjectSuit)`
   height: 100%;
   flex-basis: 50%;
 
-  ${Poster} {
-    height: 256px;
+  ${Media} {
+    max-height: 345px;
   }
 
   @media only screen and (max-width: 768px) {

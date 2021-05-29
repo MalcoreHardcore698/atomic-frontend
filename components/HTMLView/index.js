@@ -6,6 +6,14 @@ export const HTMLContent = styled.div`
   flex-direction: column;
   grid-gap: var(--default-gap);
 
+  ul, ol {
+    padding-left: 15px;
+
+    li {
+      padding-left: 2px;
+    }
+  }
+
   table,
   iframe {
     width: 100%;

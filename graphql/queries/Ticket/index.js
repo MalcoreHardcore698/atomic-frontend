@@ -11,8 +11,8 @@ export const GET_TICKET = gql`
 `
 
 export const GET_TICKETS = gql`
-  query getTickets($offset: Int, $limit: Int, $search: String) {
-    getTickets(offset: $offset, limit: $limit, search: $search) {
+  query getTickets($offset: Int, $limit: Int, $search: String, $createdAt: String) {
+    getTickets(offset: $offset, limit: $limit, search: $search, createdAt: $createdAt) {
       ...TicketFields
     }
   }

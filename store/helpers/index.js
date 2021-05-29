@@ -3,9 +3,7 @@ import styled from 'styled-components'
 import YouTube from 'react-youtube'
 
 import Column from '../../atomic-ui/components/Column'
-import Button from '../../atomic-ui/components/Button'
 import Dash from '../../atomic-ui/components/Menu/Dash'
-import Text from '../../atomic-ui/components/Text'
 
 import TicketForm from '../../components/FormTicket'
 import Notifications from '../../components/Notifications'
@@ -133,28 +131,6 @@ export function onChat(dispatch, props) {
         />
       )
     })
-  )
-}
-
-export function onFileLink(dispatch) {
-  dispatch(
-    setModal([
-      {
-        path: '/',
-        title: 'Информация о файле',
-        component: () => (
-          <Column style={{ padding: '15px' }}>
-            <Text>
-              Bechtel отвечал за проектирование, закупки, строительство, запуск и ввод в
-              эксплуатацию нового газового парогазового комплекса мощностью 700 мегаватт в Огайо,
-              США и ввод в эксплуатацию нового газового парогазового комплекса мощностью 700
-              мегаватт в Огайо, США
-            </Text>
-            <Button>Скачать файл</Button>
-          </Column>
-        )
-      }
-    ])
   )
 }
 

@@ -3,10 +3,12 @@ import React from 'react'
 import ArticleCard from '../ArticleCard'
 
 export const ArticleSuit = ({
+  style,
   layout,
   article,
   preview,
   checked,
+  className,
   appearance,
   withSocials,
   hasOwned,
@@ -16,10 +18,12 @@ export const ArticleSuit = ({
   onEdit
 }) => (
   <ArticleCard
+    style={style}
     layout={layout}
     article={article}
     preview={preview}
     checked={checked}
+    className={className}
     appearance={appearance}
     withSocials={withSocials}
     owned={hasOwned && hasOwned(article)}

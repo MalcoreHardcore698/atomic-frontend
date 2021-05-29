@@ -9,6 +9,18 @@ import {
   DashboardSettingsFields
 } from '../../fragments'
 
+export const GET_GENDER_TYPES = gql`
+  query getGenderTypes {
+    getGenderTypes
+  }
+`
+
+export const GET_ACCOUNT_TYPES = gql`
+  query getAccountTypes {
+    getAccountTypes
+  }
+`
+
 export const GET_NOTICE_TYPES = gql`
   query getNoticeTypes {
     getNoticeTypes

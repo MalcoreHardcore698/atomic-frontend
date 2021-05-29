@@ -101,6 +101,15 @@ export function setSearch(search) {
   }
 }
 
+export function setParams(params) {
+  return {
+    type: C.SET_PARAMS,
+    payload: {
+      params
+    }
+  }
+}
+
 export function setMessages(messages) {
   return {
     type: C.SET_MESSAGES,

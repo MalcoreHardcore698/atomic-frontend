@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { CategoryFields, RoleFields } from '../../fragments'
+import { RoleFields } from '../../fragments'
 
 export const GET_ROLE = gql`
   query getRole($id: ID!) {
@@ -11,8 +11,8 @@ export const GET_ROLE = gql`
 `
 
 export const GET_ROLES = gql`
-  query getRoles($offset: Int, $limit: Int, $search: String) {
-    getRoles(offset: $offset, limit: $limit, search: $search) {
+  query getRoles($offset: Int, $limit: Int, $search: String, $createdAt: String) {
+    getRoles(offset: $offset, limit: $limit, search: $search, createdAt: $createdAt) {
       ...RoleFields
     }
   }

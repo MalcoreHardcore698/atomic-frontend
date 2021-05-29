@@ -37,7 +37,6 @@ import { setDrawer } from '../actions/drawer'
 import { setItem } from '../actions/snacks'
 import { removeProjectFromUserFolder } from '../actions/user'
 import { onUserLink, onUserFolderAdd, onUserAboutMore } from './user'
-import { onFileLink } from '.'
 
 const CreateButton = styled(Button)`
   display: flex;
@@ -66,7 +65,6 @@ export function onProjectLink(dispatch, props) {
           liked={liked}
           onLike={onLike}
           onAdd={onAdd}
-          onFileLink={() => onFileLink(dispatch, { id })}
           onAboutMore={(project) => onUserAboutMore(dispatch, { project })}
           onMemberLink={(member) => onUserLink(dispatch, { id: member, auth, owned })}
           onCompanyLink={(company) => onUserLink(dispatch, { id: company, auth, owned })}

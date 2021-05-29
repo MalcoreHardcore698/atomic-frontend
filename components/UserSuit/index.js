@@ -4,8 +4,10 @@ import UserCard from '../UserCard'
 
 export const UserSuit = ({
   user,
+  style,
   preview,
   checked,
+  className,
   appearance,
   hasOwned,
   onLink,
@@ -19,8 +21,10 @@ export const UserSuit = ({
 }) => (
   <UserCard
     user={user}
+    style={style}
     preview={preview}
     checked={checked}
+    className={className}
     appearance={appearance}
     owned={hasOwned && hasOwned(user)}
     onLink={() => onLink && onLink(user)}

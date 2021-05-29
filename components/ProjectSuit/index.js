@@ -4,6 +4,7 @@ import ProjectCard from '../ProjectCard'
 
 export const ProjectSuit = ({
   user,
+  style,
   layout,
   preview,
   project,
@@ -11,6 +12,7 @@ export const ProjectSuit = ({
   canRemove,
   appearance,
   withSocials,
+  className,
   hasAdded,
   hasLiked,
   onAdd,
@@ -25,10 +27,12 @@ export const ProjectSuit = ({
   onEdit
 }) => (
   <ProjectCard
+    style={style}
     layout={layout}
     project={project}
     preview={preview}
     checked={checked}
+    className={className}
     canRemove={canRemove}
     appearance={appearance}
     withSocials={withSocials}

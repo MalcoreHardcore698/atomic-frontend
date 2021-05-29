@@ -37,6 +37,7 @@ export const Loader = () => (
 export const Content = ({
   type,
   search,
+  params,
   refetch,
   loading,
   template,
@@ -68,6 +69,7 @@ export const Content = ({
 
       const response = await refetch({
         ...variables,
+        ...params,
         offset: limit * page,
         search,
         limit
@@ -147,11 +149,15 @@ export const List = ({
   onClick,
   onEdit
 }) => {
-  const search = useSelector((state) => (withoutSearch ? '' : state.root.search))
+  const { search, params } = useSelector((state) => ({
+    search: withoutSearch ? '' : state.root.search,
+    params: withoutSearch ? {} : state.root.params
+  }))
 
   const { data, loading, refetch } = useQuery(query, {
     variables: {
       ...variables,
+      ...params,
       offset: startOffset,
       search,
       limit
@@ -166,6 +172,7 @@ export const List = ({
       limit={limit}
       query={query}
       search={search}
+      params={params}
       refetch={refetch}
       template={template}
       component={component}

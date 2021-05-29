@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import ContentLayout from '../layouts/content'
 import ProjectSuit from '../components/ProjectSuit'
 import { useProject } from '../hooks/useProject'
+import { projects as filterConfig } from '../components/FilterBar/config'
 import { COMMON_START_OFFSET, COMMON_LOAD_LIMIT } from '../constants'
 import queries from '../graphql/queries'
 
@@ -18,6 +19,7 @@ const Projects = () => {
       title={TITLE}
       getType={'getProjects'}
       limit={COMMON_LOAD_LIMIT}
+      filterConfig={filterConfig}
       emptyMessage={'Проектов нет'}
       getQuery={queries.GET_PROJECTS}
       startOffsett={COMMON_START_OFFSET}

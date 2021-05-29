@@ -3,6 +3,7 @@ import React from 'react'
 import UserSuit from '../components/UserSuit'
 import ContentLayout from '../layouts/content'
 import { useUser } from '../hooks/useUser'
+import { users as filterConfig } from '../components/FilterBar/config'
 import { COMMON_START_OFFSET, COMMON_LOAD_LIMIT } from '../constants'
 import queries from '../graphql/queries'
 
@@ -16,6 +17,7 @@ const Creators = () => {
       title={TITLE}
       getType={'getUsers'}
       limit={COMMON_LOAD_LIMIT}
+      filterConfig={filterConfig}
       getQuery={queries.GET_USERS}
       variables={{ role: 'USER' }}
       emptyMessage={'Пользователей нет'}
