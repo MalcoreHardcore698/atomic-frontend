@@ -8060,9 +8060,14 @@ const ContentLayout = ({
   startOffset,
   onLink
 }) => {
-  const search = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.root.search);
+  const {
+    search,
+    visibleFilters
+  } = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => ({
+    search: state.root.search,
+    visibleFilters: state.root.visibleFilters
+  }));
   const Layout = dashboard ? _dashboard__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"] : _layouts_default__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"];
-  const [visibleFilter, setVisibleFilter] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false);
 
   const renderCard = item => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_dashboard_content__WEBPACK_IMPORTED_MODULE_9__[/* Card */ "a"], {
     item: item,
@@ -8081,10 +8086,9 @@ const ContentLayout = ({
     icon: handle.icon,
     onCreate: handle.onCreate,
     buttonCreateText: handle.buttonCreateText,
-    onChangeVisibleFilter: () => setVisibleFilter(!visibleFilter),
     onChangeDisplayMethod: handle.onChangeDisplayMethod
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_FilterBar__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], _extends({}, filterConfig || {}, {
-    isOpen: visibleFilter
+    isOpen: visibleFilters
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, {
     stretch: search && !aside || !aside
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_List__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
@@ -12950,17 +12954,20 @@ exports.default = _default;
 /* unused harmony export Handle */
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("cDcd");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("Dtiu");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("nShV");
-/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("feIE");
-/* harmony import */ var _atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("OXt0");
-/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("DTT8");
-/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("79b8");
-/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("RKiZ");
-/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("VWQm");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("h74D");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("Dtiu");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(styled_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("nShV");
+/* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("8CDE");
+/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("ZeZO");
+/* harmony import */ var _atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("feIE");
+/* harmony import */ var _atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("OXt0");
+/* harmony import */ var _atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("DTT8");
+/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("79b8");
+/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("RKiZ");
+/* harmony import */ var _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("VWQm");
+/* harmony import */ var _store_actions_root__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("Sza6");
 
 
 
@@ -12972,40 +12979,42 @@ exports.default = _default;
 
 
 
-const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]).withConfig({
+
+
+const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).withConfig({
   displayName: "HandleBar__Wrap",
   componentId: "phr6ix-0"
 })([""]);
-const Header = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const Header = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"]).withConfig({
   displayName: "HandleBar__Header",
   componentId: "phr6ix-1"
 })(["justify-content:space-between;grid-gap:var(--default-gap);flex-wrap:wrap;"]);
-const ActionGroup = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const ActionGroup = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"]).withConfig({
   displayName: "HandleBar__ActionGroup",
   componentId: "phr6ix-2"
-})(["justify-content:flex-end;@media only screen and (max-width:996px){width:100%;", "{width:auto;}}@media only screen and (max-width:480px){flex-wrap:wrap;grid-gap:var(--default-gap);", "{flex-direction:row;flex-grow:1;}", "{button{width:100%;height:100%;}}}"], _atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_6__[/* Track */ "a"], _atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_6__[/* Track */ "a"], _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_10__[/* Wrap */ "a"]);
-const CreateButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).withConfig({
+})(["justify-content:flex-end;@media only screen and (max-width:996px){width:100%;", "{width:auto;}}@media only screen and (max-width:480px){flex-wrap:wrap;grid-gap:var(--default-gap);", "{flex-direction:row;flex-grow:1;}", "{button{width:100%;height:100%;}}}"], _atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_7__[/* Track */ "a"], _atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_7__[/* Track */ "a"], _atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_11__[/* Wrap */ "a"]);
+const CreateButton = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "HandleBar__CreateButton",
   componentId: "phr6ix-3"
 })(["display:flex;justify-content:center;align-items:center;grid-gap:10px;span{white-space:nowrap;}@media only screen and (max-width:996px){width:100%;}"]);
-const Footer = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_2__[/* default */ "b"]).withConfig({
+const Footer = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_3__[/* default */ "b"]).withConfig({
   displayName: "HandleBar__Footer",
   componentId: "phr6ix-4"
 })(["justify-content:space-between;@media only screen and (max-width:480px){flex-direction:column;align-items:end;grid-gap:var(--default-gap);}"]);
-const DeleteButton = styled_components__WEBPACK_IMPORTED_MODULE_1___default()(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]).withConfig({
+const DeleteButton = styled_components__WEBPACK_IMPORTED_MODULE_2___default()(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).withConfig({
   displayName: "HandleBar__DeleteButton",
   componentId: "phr6ix-5"
 })(["color:var(--default-color-red);background:none;border:none;&:hover{background:none;border:none;color:var(--default-color-red);}", ""], ({
   disabled
-}) => disabled && Object(styled_components__WEBPACK_IMPORTED_MODULE_1__["css"])(["color:var(--ghost-color-text);&:hover{color:var(--ghost-color-text);}"]));
+}) => disabled && Object(styled_components__WEBPACK_IMPORTED_MODULE_2__["css"])(["color:var(--ghost-color-text);&:hover{color:var(--ghost-color-text);}"]));
 const displayMethods = [{
-  label: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+  label: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
     icon: 'menu'
   }),
   value: 'list',
   tooltip: 'Отображение списком'
 }, {
-  label: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+  label: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
     icon: 'category'
   }),
   value: 'grid',
@@ -13017,24 +13026,20 @@ const Handle = ({
   buttonCreateText,
   buttonDeleteDisabled,
   defaultDisplayMethod,
-  defaultVisibleFilters,
   withoutFooter,
   withFilters,
   checked,
   onCreate,
   onChecked,
   onDeleteAll,
-  onChangeDisplayMethod,
-  onChangeVisibleFilter
+  onChangeDisplayMethod
 }) => {
   const [isChecked, setChecked] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(checked);
-  const [visibleFilter, setVisibleFilter] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(defaultVisibleFilters);
   const [displayMethod, setDisplayMethod] = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(displayMethods.find(item => item.value === defaultDisplayMethod));
+  const visibleFilters = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.root.visibleFilters);
+  const dispatch = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useDispatch"])();
 
-  const onVisibleFilter = () => {
-    setVisibleFilter(!visibleFilter);
-    if (onChangeVisibleFilter) onChangeVisibleFilter();
-  };
+  const onVisibleFilter = () => dispatch(Object(_store_actions_root__WEBPACK_IMPORTED_MODULE_12__[/* setVisibleFilters */ "u"])(!visibleFilters));
 
   const onDisplayMethod = item => {
     setDisplayMethod(item);
@@ -13050,32 +13055,32 @@ const Handle = ({
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(() => {
     setChecked(checked);
   }, [checked]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_7__[/* default */ "d"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Difinition__WEBPACK_IMPORTED_MODULE_8__[/* default */ "d"], {
     icon: icon,
     text: title
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ActionGroup, null, onCreate && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CreateButton, {
     type: 'button',
     onClick: onCreate
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, buttonCreateText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, buttonCreateText), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
     icon: 'add',
     stroke: 'white'
-  })), withFilters && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_10__[/* default */ "b"], {
+  })), withFilters && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Tooltip__WEBPACK_IMPORTED_MODULE_11__[/* default */ "b"], {
     text: 'Отображение фильтров'
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
     type: 'button',
     kind: 'icon',
     onClick: onVisibleFilter,
-    revert: !visibleFilter
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], {
+    revert: !visibleFilters
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Icon__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
     icon: 'filter2',
-    stroke: !visibleFilter ? 'var(--default-color-accent)' : 'white'
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_6__[/* default */ "b"], {
+    stroke: !visibleFilters ? 'var(--default-color-accent)' : 'white'
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Switch__WEBPACK_IMPORTED_MODULE_7__[/* default */ "b"], {
     defaultValue: displayMethod || displayMethods[1],
     options: displayMethods,
     onChange: item => onDisplayMethod(item)
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
     clear: true
-  }), !withoutFooter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+  }), !withoutFooter && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Footer, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
     label: 'Выделить все',
     checked: isChecked,
     onChange: onChangeChecked

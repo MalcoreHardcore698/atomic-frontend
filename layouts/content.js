@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
@@ -62,9 +62,11 @@ const ContentLayout = ({
   startOffset,
   onLink
 }) => {
-  const search = useSelector((state) => state.root.search)
+  const { search, visibleFilters } = useSelector((state) => ({
+    search: state.root.search,
+    visibleFilters: state.root.visibleFilters
+  }))
   const Layout = dashboard ? DashboardLayout : DefaultLayout
-  const [visibleFilter, setVisibleFilter] = useState(false)
 
   const renderCard = (item) => (
     <Card
@@ -86,12 +88,11 @@ const ContentLayout = ({
             icon={handle.icon}
             onCreate={handle.onCreate}
             buttonCreateText={handle.buttonCreateText}
-            onChangeVisibleFilter={() => setVisibleFilter(!visibleFilter)}
             onChangeDisplayMethod={handle.onChangeDisplayMethod}
           />
         )}
 
-        <FilterBar {...(filterConfig || {})} isOpen={visibleFilter} />
+        <FilterBar {...(filterConfig || {})} isOpen={visibleFilters} />
 
         <Container stretch={(search && !aside) || !aside}>
           <List

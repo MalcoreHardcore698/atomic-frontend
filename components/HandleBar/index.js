@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
@@ -10,6 +11,8 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import Checkbox from '../../atomic-ui/components/Checkbox'
 import Divider from '../../atomic-ui/components/Divider'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
+
+import { setVisibleFilters } from '../../store/actions/root'
 
 export const Wrap = styled(Column)``
 
@@ -106,26 +109,22 @@ export const Handle = ({
   buttonCreateText,
   buttonDeleteDisabled,
   defaultDisplayMethod,
-  defaultVisibleFilters,
   withoutFooter,
   withFilters,
   checked,
   onCreate,
   onChecked,
   onDeleteAll,
-  onChangeDisplayMethod,
-  onChangeVisibleFilter
+  onChangeDisplayMethod
 }) => {
   const [isChecked, setChecked] = useState(checked)
-  const [visibleFilter, setVisibleFilter] = useState(defaultVisibleFilters)
   const [displayMethod, setDisplayMethod] = useState(
     displayMethods.find((item) => item.value === defaultDisplayMethod)
   )
+  const visibleFilters = useSelector((state) => state.root.visibleFilters)
+  const dispatch = useDispatch()
 
-  const onVisibleFilter = () => {
-    setVisibleFilter(!visibleFilter)
-    if (onChangeVisibleFilter) onChangeVisibleFilter()
-  }
+  const onVisibleFilter = () => dispatch(setVisibleFilters(!visibleFilters))
 
   const onDisplayMethod = (item) => {
     setDisplayMethod(item)
@@ -161,10 +160,10 @@ export const Handle = ({
                 type={'button'}
                 kind={'icon'}
                 onClick={onVisibleFilter}
-                revert={!visibleFilter}>
+                revert={!visibleFilters}>
                 <Icon
                   icon={'filter2'}
-                  stroke={!visibleFilter ? 'var(--default-color-accent)' : 'white'}
+                  stroke={!visibleFilters ? 'var(--default-color-accent)' : 'white'}
                 />
               </Button>
             </Tooltip>
