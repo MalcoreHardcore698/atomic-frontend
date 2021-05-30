@@ -9,6 +9,18 @@ import {
   DashboardSettingsFields
 } from '../../fragments'
 
+export const GET_STATUS_TICKET_TYPES = gql`
+  query getStatusTicketTypes {
+    getStatusTicketTypes
+  }
+`
+
+export const GET_STATUS_CHAT_TYPES = gql`
+  query getStatusChatTypes {
+    getStatusChatTypes
+  }
+`
+
 export const GET_GENDER_TYPES = gql`
   query getGenderTypes {
     getGenderTypes

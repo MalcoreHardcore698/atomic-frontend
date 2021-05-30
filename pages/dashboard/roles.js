@@ -5,6 +5,7 @@ import template from '../../atomic-ui/components/Table/templates/role'
 
 import RoleCard from '../../components/RoleCard'
 import ContentLayout from '../../layouts/dashboard/content'
+import { roles as filterConfig } from '../../components/FilterBar/config'
 import { onRoleCreate, onRoleEdit, onRoleLink } from '../../store/helpers/role'
 import { setDocuments } from '../../store/actions/documents'
 import { useHelper } from '../../hooks/useHelper'
@@ -31,6 +32,7 @@ const Roles = () => {
       template={template}
       startOffset={START_OFFSET}
       emptyMessage={'Ролей нет'}
+      filterConfig={filterConfig}
       buttonCreateText={'Создать роль'}
       entityType={'role'}
       getType={'getRoles'}

@@ -12,6 +12,7 @@ export const GET_ARTICLE = gql`
 
 export const GET_ARTICLES = gql`
   query getArticles(
+    $sort: String
     $offset: Int
     $limit: Int
     $category: ID
@@ -21,6 +22,7 @@ export const GET_ARTICLES = gql`
     $createdAt: String
   ) {
     getArticles(
+      sort: $sort
       offset: $offset
       limit: $limit
       category: $category

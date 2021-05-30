@@ -99,6 +99,7 @@ export const GET_USER = gql`
 
 export const GET_USERS = gql`
   query getUsers(
+    $sort: String
     $offset: Int
     $limit: Int
     $search: String
@@ -108,6 +109,7 @@ export const GET_USERS = gql`
     $createdAt: String
   ) {
     getUsers(
+      sort: $sort
       offset: $offset
       limit: $limit
       search: $search
@@ -141,6 +143,7 @@ export const GET_USERS = gql`
 
 export const GET_USERS_FOR_TICKET = gql`
   query getUsers(
+    $sort: String
     $offset: Int
     $limit: Int
     $search: String
@@ -149,6 +152,7 @@ export const GET_USERS_FOR_TICKET = gql`
     $company: String
   ) {
     getUsers(
+      sort: $sort
       offset: $offset
       limit: $limit
       search: $search

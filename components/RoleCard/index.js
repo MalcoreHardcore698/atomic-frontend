@@ -93,13 +93,15 @@ export const Card = ({
         <Header>
           <Meta date={role.createdAt} />
 
-          <CardActions
-            typeText={'роль'}
-            checked={checked}
-            onEdit={onEdit && handleEdit}
-            onDelete={onDelete && handleDelete}
-            onChecked={onChecked}
-          />
+          {role.name !== 'ADMIN' && (
+            <CardActions
+              typeText={'роль'}
+              checked={checked}
+              onEdit={onEdit && handleEdit}
+              onDelete={onDelete && handleDelete}
+              onChecked={onChecked}
+            />
+          )}
         </Header>
 
         <Name tag={'h4'} onClick={() => setQuery(role.id, 'role', onLink)}>

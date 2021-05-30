@@ -7,6 +7,7 @@ import ProjectSuit from '../../components/ProjectSuit'
 import ContentLayout from '../../layouts/dashboard/content'
 import { setDocuments } from '../../store/actions/documents'
 import { useProject } from '../../hooks/useProject'
+import { projects as filterConfig } from '../../components/FilterBar/config'
 import { COMMON_START_OFFSET, DASHBOARD_LOAD_LIMIT } from '../../constants'
 import queries from '../../graphql/queries'
 
@@ -27,6 +28,7 @@ const Projects = () => {
       template={template}
       entityType={'project'}
       getType={'getProjects'}
+      filterConfig={filterConfig}
       limit={DASHBOARD_LOAD_LIMIT}
       emptyMessage={'Проектов нет'}
       getQuery={queries.GET_PROJECTS}

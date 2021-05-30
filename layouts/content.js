@@ -75,16 +75,10 @@ const ContentLayout = ({
     />
   )
 
-  const onChangeFilters = (values) => console.log(values)
-
   return (
     <Layout title={title} scaffold={store?.scaffold}>
       <Wrap clear={store?.scaffold || dashboard}>
-        {!store?.scaffold && !dashboard && (
-          <SearchBar
-            onChangeFilter={() => setVisibleFilter(!visibleFilter)}
-          />
-        )}
+        {!store?.scaffold && !dashboard && <SearchBar />}
 
         {dashboard && handle && (
           <HandleBar
@@ -97,7 +91,7 @@ const ContentLayout = ({
           />
         )}
 
-        <FilterBar {...(filterConfig || {})} isOpen={visibleFilter} onChange={onChangeFilters} />
+        <FilterBar {...(filterConfig || {})} isOpen={visibleFilter} />
 
         <Container stretch={(search && !aside) || !aside}>
           <List

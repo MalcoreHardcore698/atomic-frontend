@@ -1,27 +1,22 @@
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setCurrentPage, setVisibleFilters } from '../store/actions/root'
+import { setCurrentPage } from '../store/actions/root'
 import { onArticleCreate } from '../store/helpers/article'
 import { onProjectCreate } from '../store/helpers/project'
+import { onUserClientEdit } from '../store/helpers/user'
 import { useHelper } from './useHelper'
 import { useUser } from './useUser'
 import queries from '../graphql/queries'
-import { onUserClientEdit } from '../store/helpers/user'
 
 export const useProfile = ({ isManage } = {}) => {
   const recall = useHelper()
-  const { user, visibleFilter } = useSelector((state) => ({
-    user: state.root.user,
-    visibleFilter: state.root.visibleFilter
-  }))
+  const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   const { onAboutMore, onMembers, onCompanyLink } = useUser({ isManage })
 
   const onChangePage = (item) => dispatch(setCurrentPage(item.value))
-
-  const onChangeVisibleFilters = () => dispatch(setVisibleFilters(!visibleFilter))
 
   const onAddProject = useCallback(() => {
     recall(onProjectCreate, {
@@ -55,7 +50,6 @@ export const useProfile = ({ isManage } = {}) => {
   return {
     user,
     onChangePage,
-    onChangeVisibleFilters,
     onCompanyLink,
     onAddProject,
     onAddArticle,

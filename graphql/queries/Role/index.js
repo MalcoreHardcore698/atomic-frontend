@@ -11,8 +11,22 @@ export const GET_ROLE = gql`
 `
 
 export const GET_ROLES = gql`
-  query getRoles($offset: Int, $limit: Int, $search: String, $createdAt: String) {
-    getRoles(offset: $offset, limit: $limit, search: $search, createdAt: $createdAt) {
+  query getRoles(
+    $sort: String
+    $offset: Int
+    $limit: Int
+    $search: String
+    $permissions: [Permission]
+    $createdAt: String
+  ) {
+    getRoles(
+      sort: $sort
+      offset: $offset
+      limit: $limit
+      search: $search
+      permissions: $permissions
+      createdAt: $createdAt
+    ) {
       ...RoleFields
     }
   }

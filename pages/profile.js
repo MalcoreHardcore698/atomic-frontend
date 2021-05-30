@@ -16,17 +16,18 @@ import { hasResponsibleMember } from '../components/Members'
 import { Loader } from '../components/Styled'
 import { useProfile } from '../hooks/useProfile'
 import { profilePages } from '../__mock__'
+import {
+  articles as articlesFilterConfig,
+  projects as projectsFilterConfig
+} from '../components/FilterBar/config'
 
 const TITLE = 'Профиль'
-
-const DISABLED_FILTERS = true
 
 const Profile = () => {
   const router = useRouter()
 
   const {
     onChangePage,
-    onChangeVisibleFilters,
     onAddProject,
     onAddArticle,
     onCompanyLink,
@@ -42,8 +43,9 @@ const Profile = () => {
     visibleFilters: state.root.visibleFilters
   }))
 
-  const isProjects = useMemo(() => currentPage.value === '/projects', [currentPage])
-  const isArticles = useMemo(() => currentPage.value === '/articles', [currentPage])
+  const isProjects = useMemo(() => currentPage === 'projects', [currentPage])
+  const isArticles = useMemo(() => currentPage === 'articles', [currentPage])
+  const isFeed = useMemo(() => currentPage === 'feed', [currentPage])
 
   const defaultCurrentPage = useMemo(
     () => profilePages.find((page) => page.value === currentPage),
@@ -54,6 +56,11 @@ const Profile = () => {
     () => (isProjects ? 'Предложить проект' : isArticles ? 'Предложить статью' : ''),
     [isProjects, isArticles]
   )
+
+  const filterConfig = useMemo(() => {
+    if (isArticles) return articlesFilterConfig
+    return projectsFilterConfig
+  }, [isArticles])
 
   const pages = useMemo(
     () =>
@@ -100,14 +107,17 @@ const Profile = () => {
 
         <Switch options={pages} defaultValue={defaultCurrentPage} onChange={onChangePage} stretch />
 
-        <SearchBar
-          defaultValue={search}
-          buttonCreateText={buttonCreateText}
-          onChangeFilter={!DISABLED_FILTERS && onChangeVisibleFilters}
-          onCreate={getCreateMethod()}
-        />
+        {!isFeed && (
+          <SearchBar
+            defaultValue={search}
+            buttonCreateText={buttonCreateText}
+            onCreate={getCreateMethod()}
+          />
+        )}
 
-        <FilterBar isOpen={visibleFilters} filters={[]} options={[]} />
+        {!isFeed && (
+          <FilterBar {...filterConfig} isOpen={visibleFilters} />
+        )}
 
         <PageRouter page={currentPage} />
       </Column>

@@ -12,6 +12,7 @@ export const GET_PROJECT = gql`
 
 export const GET_PROJECTS = gql`
   query getProjects(
+    $sort: String
     $offset: Int
     $limit: Int
     $category: ID
@@ -23,6 +24,7 @@ export const GET_PROJECTS = gql`
     $createdAt: String
   ) {
     getProjects(
+      sort: $sort
       offset: $offset
       limit: $limit
       category: $category

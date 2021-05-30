@@ -95,12 +95,11 @@ const ContentLayout = ({
   title,
   icon,
   field,
-  filters,
-  options,
   template,
   limit = 6,
   startOffset = 6,
   buttonCreateText,
+  filterConfig,
   getType,
   getQuery,
   entityType,
@@ -224,12 +223,10 @@ const ContentLayout = ({
           onChangeDisplayMethod={(item) => dispatch(setDisplayMethod(item.value))}
           onDeleteAll={isAccessibleForDelete && onDeleteAll}
           withoutFooter={!isAccessibleForDelete || displayMethod === 'list'}
-          withFilters={filters && options}
+          withFilters={filterConfig}
         />
 
-        {(filters || options) && (
-          <FilterBar isOpen={visibleFilters} filters={filters} options={options} />
-        )}
+        <FilterBar {...(filterConfig || {})} isOpen={visibleFilters} withoutDivider />
 
         <List
           key={updated}

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import template from '../../atomic-ui/components/Table/templates/category'
 
 import { useHelper } from '../../hooks/useHelper'
+import { categories as filterConfig } from '../../components/FilterBar/config'
 import { onCategoryCreate, onCategoryEdit, onCategoryLink } from '../../store/helpers/category'
 import CategoryCard from '../../components/CategoryCard'
 import ContentLayout from '../../layouts/dashboard/content'
@@ -30,6 +31,7 @@ const Categories = () => {
       icon={'folder'}
       template={template}
       startOffset={START_OFFSET}
+      filterConfig={filterConfig}
       emptyMessage={'Категорий нет'}
       buttonCreateText={'Создать категорию'}
       entityType={'category'}

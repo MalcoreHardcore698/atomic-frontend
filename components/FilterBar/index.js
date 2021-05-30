@@ -43,27 +43,40 @@ export const Form = styled.form`
 `
 
 export const List = styled(Row)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: var(--default-gap);
 
-  @media only screen and (max-width: 480px) {
-    grid-gap: var(--default-gap);
+  & > div {
+    min-width: 256px;
+    flex-grow: 1;
   }
 `
 
-export const parseToParams = (params) => (
- Object.entries(params)
-  .filter(([_, value]) => value)
-  .reduce(
-    (acc, [key, value]) => ({
-      ...acc,
-      [key]: value instanceof Date ? value.getTime().toString() : (value?.value || value)
-    }),
-    {}
-  )
-)
+export const parseToParams = (params) => {
+  const getValue = (value) => {
+    if (value instanceof Date) {
+      return value.getTime().toString()
+    }
+    if (Array.isArray(value)) {
+      return value.map((selectValue) => selectValue.value)
+    }
+    return value?.value || value
+  }
 
-export const Filter = ({ isOpen = true, duration, sort, filter }) => {
+  return (
+   Object.entries(params)
+    .filter(([_, value]) => value)
+    .reduce(
+     (acc, [key, value]) => ({
+       ...acc, [key]: getValue(value)
+     }),
+     {}
+    )
+  )
+}
+
+export const Filter = ({ isOpen = true, duration, sort, filter, withoutDivider }) => {
   const { search, params } = useSelector((state) => ({
     search: state.root.search,
     params: state.root.params
@@ -123,6 +136,31 @@ export const Filter = ({ isOpen = true, duration, sort, filter }) => {
             )}
           />
         )
+      case 'MULTISELECT':
+        return (
+         <Controller
+          key={item.name}
+          control={control}
+          name={item.name}
+          defaultValue={getValues(item.name) || null}
+          render={({ value, onChange }) => (
+           <AsyncSelect
+            name={item.name}
+            query={item.query}
+            defaultValue={value}
+            type={item.queryType}
+            placeholder={item.label}
+            variables={item.variables}
+            selectValueField={item.selectValueField}
+            selectLabelField={item.selectLabelField}
+            selectRestrictions={item.selectRestrictions}
+            selectLabelDecorator={item.selectLabelDecorator}
+            onChange={decorate(onChange)}
+            isMulti
+           />
+          )}
+         />
+        )
       default:
         return null
     }
@@ -134,7 +172,7 @@ export const Filter = ({ isOpen = true, duration, sort, filter }) => {
     <Transition in={isOpen} animation={'fade'} timeout={duration}>
       <Wrap>
         <Form>
-          <Divider clear />
+          {!withoutDivider && <Divider clear />}
           {filters && filters.length > 0 && <List>{filters.map((filter) => filter)}</List>}
           {options && options.length > 0 && (
             <Row>

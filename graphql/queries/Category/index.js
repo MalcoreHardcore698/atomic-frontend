@@ -11,8 +11,22 @@ export const GET_CATEGORY = gql`
 `
 
 export const GET_CATEGORIES = gql`
-  query getCategories($offset: Int, $limit: Int, $type: CategoryType, $search: String, $createdAt: String) {
-    getCategories(offset: $offset, limit: $limit, type: $type, search: $search, createdAt: $createdAt) {
+  query getCategories(
+    $sort: String
+    $offset: Int
+    $limit: Int
+    $type: CategoryType
+    $search: String
+    $createdAt: String
+  ) {
+    getCategories(
+      sort: $sort
+      offset: $offset
+      limit: $limit
+      type: $type
+      search: $search
+      createdAt: $createdAt
+    ) {
       ...CategoryFields
     }
   }

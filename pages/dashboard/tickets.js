@@ -5,6 +5,7 @@ import template from '../../atomic-ui/components/Table/templates/ticket'
 
 import TicketCard from '../../components/TicketCard'
 import ContentLayout from '../../layouts/dashboard/content'
+import { tickets as filterConfig } from '../../components/FilterBar/config'
 import { onTicketCreate, onTicketEdit, onTicketLink } from '../../store/helpers/ticket'
 import { setDocuments } from '../../store/actions/documents'
 import { onUserLink } from '../../store/helpers/user'
@@ -32,6 +33,7 @@ const Tickets = () => {
       icon={'ticket'}
       template={template}
       startOffset={START_OFFSET}
+      filterConfig={filterConfig}
       emptyMessage={'Обращений нет'}
       buttonCreateText={'Создать обращение'}
       entityType={'ticket'}

@@ -2,8 +2,8 @@ import gql from 'graphql-tag'
 import { ImageFields } from '../../fragments'
 
 export const GET_FILES = gql`
-  mutation getImages($search: String) {
-    getImages(search: $search) {
+  mutation getImages($sort: String, $search: String) {
+    getImages(sort: $sort, search: $search) {
       ...ImageFields
     }
   }

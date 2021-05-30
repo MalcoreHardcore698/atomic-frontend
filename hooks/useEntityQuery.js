@@ -14,6 +14,7 @@ import { onUserLink } from '../store/helpers/user'
 import { onTicketLink } from '../store/helpers/ticket'
 import { updateUser } from '../store/actions/user'
 import queries from '../graphql/queries'
+import {setItem} from "../store/actions/snacks";
 
 export const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall, callback) => ({
   id,
@@ -53,36 +54,57 @@ export const getUserLinkProps = (id, user, owned) => ({
 })
 
 export const invokeRecall = (recall, mutate, user, dispatch, query) => {
+  const getPerfectID = (parameter) => {
+    try {
+      if (parameter) {
+        return b64DecodeUnicode(parameter)
+      }
+    }
+    catch {
+      dispatch(
+       setItem({
+         type: 'error',
+         message: 'Неправильный URL'
+       })
+      )
+    }
+    return null
+  }
+
   if (query.article) {
-    const id = b64DecodeUnicode(query.article)
-    recall(onArticleLink, { id })()
+    const id = getPerfectID(query.article)
+    if (id) recall(onArticleLink, { id })()
   }
 
   if (query.category) {
-    const id = b64DecodeUnicode(query.category)
-    recall(onCategoryLink, { id })()
+    const id = getPerfectID(query.category)
+    if (id) recall(onCategoryLink, { id })()
   }
 
   if (query.project) {
-    const id = b64DecodeUnicode(query.project)
-    const owned = user?.projects?.find((candidate) => candidate.id === id)
-    recall(onProjectLink, getProjectLinkProps(id, user, owned, dispatch, mutate, recall))()
+    const id = getPerfectID(query.project)
+    if (id) {
+      const owned = user?.projects?.find((candidate) => candidate.id === id)
+      recall(onProjectLink, getProjectLinkProps(id, user, owned, dispatch, mutate, recall))()
+    }
   }
 
   if (query.role) {
-    const id = b64DecodeUnicode(query.role)
-    recall(onRoleLink, { id })()
+    const id = getPerfectID(query.role)
+    if (id) recall(onRoleLink, { id })()
   }
 
   if (query.user) {
-    const id = b64DecodeUnicode(query.user)
-    const owned = id === user?.name
-    recall(onUserLink, getUserLinkProps(id, user, owned))()
+    const id = getPerfectID(query.user)
+    if (id) {
+      const owned = id === user?.name
+      recall(onUserLink, getUserLinkProps(id, user, owned))()
+    }
   }
 
   if (query.ticket) {
-    const id = b64DecodeUnicode(query.ticket)
-    recall(onTicketLink, { id, auth: user?.email })()
+    const id = getPerfectID(query.ticket)
+    if (id) recall(onTicketLink, { id, auth: user?.email })()
   }
 }
 

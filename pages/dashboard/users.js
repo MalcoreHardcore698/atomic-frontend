@@ -6,6 +6,7 @@ import template from '../../atomic-ui/components/Table/templates/user'
 import UserSuit from '../../components/UserSuit'
 import ContentLayout from '../../layouts/dashboard/content'
 import { setDocuments } from '../../store/actions/documents'
+import { users as filterConfig } from '../../components/FilterBar/config'
 import { COMMON_START_OFFSET, DASHBOARD_LOAD_LIMIT } from '../../constants'
 import { useUser } from '../../hooks/useUser'
 import queries from '../../graphql/queries'
@@ -28,6 +29,7 @@ const Users = () => {
       template={template}
       entityType={'user'}
       getType={'getUsers'}
+      filterConfig={filterConfig}
       limit={DASHBOARD_LOAD_LIMIT}
       getQuery={queries.GET_USERS}
       startOffset={COMMON_START_OFFSET}

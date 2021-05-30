@@ -15,6 +15,7 @@ export const AsyncSelect = ({
   selectLabelField,
   selectRestrictions,
   selectLabelDecorator,
+  isMulti,
   onChange
 }) => {
   const params = useSelector((state) => state.root.params)
@@ -65,6 +66,7 @@ export const AsyncSelect = ({
       defaultValue={options.find((option) => option?.value === params[name]) || defaultValue}
       onChange={onChange}
       isLoading={loading}
+      isMulti={isMulti}
       isSearchable
       isClearable
     />

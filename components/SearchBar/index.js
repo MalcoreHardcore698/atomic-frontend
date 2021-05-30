@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
@@ -8,6 +8,7 @@ import Button from '../../atomic-ui/components/Button'
 import SearchField from '../../atomic-ui/components/Search'
 
 import { CreateButton } from '../HandleBar'
+import { setVisibleFilters } from '../../store/actions/root'
 import { useSearch } from '../../hooks/useSearch'
 
 export const Wrap = styled(Row)`
@@ -38,15 +39,15 @@ export const WrapButton = styled(Button)`
     `}
 `
 
-export const Search = ({ appearance, buttonCreateText, onChangeFilter, onCreate }) => {
+export const Search = ({ appearance, buttonCreateText, withoutFilters, onCreate }) => {
   const [onSubmit] = useSearch()
-  const search = useSelector((state) => state.root.search)
-  const [visibleFilter, setVisibleFilter] = useState(false)
+  const { search, visibleFilters } = useSelector((state) => ({
+    search: state.root.search,
+    visibleFilters: state.root.visibleFilters
+  }))
+  const dispatch = useDispatch()
 
-  const onClick = () => {
-    setVisibleFilter(!visibleFilter)
-    if (onChangeFilter) onChangeFilter(!visibleFilter)
-  }
+  const onClick = () => dispatch(setVisibleFilters(!visibleFilters))
 
   return (
     <Wrap>
@@ -57,9 +58,9 @@ export const Search = ({ appearance, buttonCreateText, onChangeFilter, onCreate 
         onSubmit={onSubmit}
       />
 
-      {onChangeFilter && (
-        <WrapButton type={'button'} kind={'icon'} onClick={onClick} visibleFilter={visibleFilter}>
-          <Icon icon={'filter2'} stroke={visibleFilter ? 'white' : 'var(--default-color-accent)'} />
+      {!withoutFilters && (
+        <WrapButton type={'button'} kind={'icon'} onClick={onClick} visibleFilter={visibleFilters}>
+          <Icon icon={'filter2'} stroke={visibleFilters ? 'white' : 'var(--default-color-accent)'} />
         </WrapButton>
       )}
 
