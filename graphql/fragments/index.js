@@ -33,6 +33,8 @@ export const UserFields = gql`
     register
     settings
     dateOfBirth
+    countOfNewNotifications
+    countOfNewMessages
     updatedAt
     createdAt
   }
@@ -81,6 +83,7 @@ export const NoticeFields = gql`
         path
       }
     }
+    status
     createdAt
   }
 `

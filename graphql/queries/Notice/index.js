@@ -9,3 +9,9 @@ export const GET_NOTIFICATIONS = gql`
   }
   ${NoticeFields}
 `
+
+export const READ_NOTIFICATIONS = gql`
+  mutation readNotifications($id: [ID]!) {
+    readNotifications(id: $id)
+  }
+`

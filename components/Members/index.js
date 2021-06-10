@@ -134,7 +134,7 @@ export const Members = ({ user, style, appearance, className, onMemberLink }) =>
 
   const { data, loading, error } = useQuery(queries.GET_USER_MEMBERS, {
     variables: {
-      email: user
+      email: user || authUser.email
     }
   })
 

@@ -159,6 +159,9 @@ var FormTicket = __webpack_require__("PYoj");
 // EXTERNAL MODULE: external "@apollo/react-hooks"
 var react_hooks_ = __webpack_require__("mU8t");
 
+// EXTERNAL MODULE: external "react-redux"
+var external_react_redux_ = __webpack_require__("h74D");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Alert/index.js
 var Alert = __webpack_require__("ZwIX");
 
@@ -167,6 +170,9 @@ var Notice = __webpack_require__("Yi3Q");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Spinner/index.js
 var Spinner = __webpack_require__("auMy");
+
+// EXTERNAL MODULE: ./components/Styled/index.js
+var Styled = __webpack_require__("586Q");
 
 // EXTERNAL MODULE: ./hooks/useMutationEffect.js
 var useMutationEffect = __webpack_require__("YaCN");
@@ -177,11 +183,13 @@ var useUpdateEffect = __webpack_require__("4GHj");
 // EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
 var queries = __webpack_require__("u2Cb");
 
-// EXTERNAL MODULE: ./components/Styled/index.js
-var Styled = __webpack_require__("586Q");
+// EXTERNAL MODULE: ./store/actions/user.js
+var actions_user = __webpack_require__("8ihE");
 
 // CONCATENATED MODULE: ./components/Notifications/index.js
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+
 
 
 
@@ -203,6 +211,8 @@ const Notifications = ({
   appearance
 }) => {
   const [notifications, setNotifications] = Object(external_react_["useState"])([]);
+  const dispatch = Object(external_react_redux_["useDispatch"])();
+  const unreadedNotificationIds = Object(external_react_["useMemo"])(() => notifications.filter(n => n.status === 'UNREADED').map(n => n.id), [notifications]);
   const {
     data,
     loading,
@@ -220,6 +230,9 @@ const Notifications = ({
     loading: loadingReject,
     error: errorReject
   }] = Object(useMutationEffect["a" /* useMutationEffect */])(queries["a" /* default */].REJECT_INVITE_USER_MEMBER, 'rejectInviteUserMember', setNotifications);
+  const [readNotifications, {
+    loading: loadingReadNotifications
+  }] = Object(react_hooks_["useMutation"])(queries["a" /* default */].READ_NOTIFICATIONS);
 
   const onApply = notice => {
     var _notice$company;
@@ -244,7 +257,18 @@ const Notifications = ({
   };
 
   Object(useUpdateEffect["a" /* useUpdateEffect */])(data, loading, 'getNotifications', setNotifications);
-  return /*#__PURE__*/external_react_default.a.createElement(Notifications_Wrap, null, notifications && notifications.length > 0 ? notifications.map(notice => {
+  Object(external_react_["useEffect"])(() => {
+    if ((unreadedNotificationIds === null || unreadedNotificationIds === void 0 ? void 0 : unreadedNotificationIds.length) > 0) {
+      readNotifications({
+        variables: {
+          id: unreadedNotificationIds
+        }
+      }).finally(() => dispatch(Object(actions_user["f" /* updateUser */])({
+        countOfNewNotifications: 0
+      })));
+    }
+  }, [dispatch, unreadedNotificationIds, readNotifications]);
+  return /*#__PURE__*/external_react_default.a.createElement(Notifications_Wrap, null, notifications && !loading && !loadingApply && !loadingReject && !loadingReadNotifications && notifications.length > 0 ? notifications.map(notice => {
     var _notice$author, _notice$author$avatar;
 
     return /*#__PURE__*/external_react_default.a.createElement(Notice["a" /* default */], _extends({
@@ -261,7 +285,7 @@ const Notifications = ({
       onApply: notice.type === 'INVITE' && (() => onApply(notice)),
       onReject: notice.type === 'INVITE' && (() => onReject(notice))
     }));
-  }) : loading || loadingApply || loadingReject ? /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : error || errorApply || errorReject ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }) : loading || loadingApply || loadingReject || loadingReadNotifications ? /*#__PURE__*/external_react_default.a.createElement(Styled["c" /* Loader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : error || errorApply || errorReject ? /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     appearance: 'error',
     style: {
       width: '100%',
@@ -460,6 +484,8 @@ function Messenger_extends() { Messenger_extends = Object.assign || function (ta
 
 
 
+
+
 const Messenger_Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "Messenger__Wrap",
   componentId: "sc-1hnkbvn-0"
@@ -566,6 +592,7 @@ const Messenger = ({
   const [userChats, setUserChats] = Object(external_react_["useState"])([]);
   const [loading, setLoading] = Object(external_react_["useState"])(false);
   const [search, setSearch] = Object(external_react_["useState"])('');
+  const dispatch = Object(external_react_redux_["useDispatch"])();
   const [getChat, {
     data: chat,
     loading: loadingChat,
@@ -693,6 +720,7 @@ const Messenger = ({
     var _currentChat$messages;
 
     const unreadedMessages = getUnreadedMessages((_currentChat$messages = currentChat === null || currentChat === void 0 ? void 0 : currentChat.messages) !== null && _currentChat$messages !== void 0 ? _currentChat$messages : [], sender);
+    const countOfNewMessages = sender.countOfNewMessages - unreadedMessages;
 
     if (currentChat && unreadedMessages > 0) {
       readMessages({
@@ -703,9 +731,11 @@ const Messenger = ({
             return ((_message$user2 = message.user) === null || _message$user2 === void 0 ? void 0 : _message$user2.email) !== (sender === null || sender === void 0 ? void 0 : sender.email);
           }).map(message => message.id)
         }
-      });
+      }).finally(() => dispatch(Object(actions_user["f" /* updateUser */])({
+        countOfNewMessages: countOfNewMessages > 0 || 0
+      })));
     }
-  }, [sender, currentChat, readMessages]);
+  }, [dispatch, sender, currentChat, readMessages]);
   return /*#__PURE__*/external_react_default.a.createElement(Messenger_Wrap, Messenger_extends({}, props, {
     key: loadingReadMessages,
     appearance: appearance
@@ -9581,8 +9611,6 @@ Menu.defaultProps = {
 const useUser = ({
   isManage
 } = {}) => {
-  var _user$members;
-
   const recall = Object(_useHelper__WEBPACK_IMPORTED_MODULE_4__[/* useHelper */ "b"])();
   const mutate = Object(_useMutate__WEBPACK_IMPORTED_MODULE_5__[/* useMutate */ "a"])();
   const user = Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["useSelector"])(state => state.user);
@@ -9676,7 +9704,7 @@ const useUser = ({
     onLink,
     onChat,
     onAboutMore,
-    onMembers: (user === null || user === void 0 ? void 0 : (_user$members = user.members) === null || _user$members === void 0 ? void 0 : _user$members.length) > 0 && onMembers,
+    onMembers: (user === null || user === void 0 ? void 0 : user.members) > 0 && onMembers,
     onCompanyLink: (user === null || user === void 0 ? void 0 : user.company) && onCompanyLink,
     onEdit: isManage && onEdit,
     onCreate: isManage && onCreate
@@ -10820,6 +10848,9 @@ var Tooltip = __webpack_require__("VWQm");
 // EXTERNAL MODULE: ./atomic-ui/components/Popper/index.js
 var Popper = __webpack_require__("vJvq");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Badge/index.js
+var Badge = __webpack_require__("hfch");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Menu/index.js
 var Menu = __webpack_require__("Tt38");
 
@@ -10835,29 +10866,38 @@ function AppBar_extends() { AppBar_extends = Object.assign || function (target) 
 
 
 
+
 const AppBar_Wrap = external_styled_components_default.a.div.withConfig({
   displayName: "AppBar__Wrap",
   componentId: "vyjcbk-0"
 })(["position:relative;z-index:var(--z-13);display:grid;grid-template-columns:128px 1fr 80px;grid-gap:calc(var(--default-gap) + 25px);align-content:center;margin:0;padding:0 var(--main-offset-l);width:100%;height:72px;min-height:72px;background:var(--surface-background);border:var(--surface-border);box-shadow:var(--surface-shadow);@media only screen and (max-width:996px){padding:0 var(--main-offset-m);}@media only screen and (max-width:768px){display:flex;align-items:center;grid-gap:var(--default-gap);padding:0 var(--main-offset-s);}@media only screen and (max-width:480px){padding:0 var(--main-offset-xs);}"]);
+const IconButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
+  displayName: "AppBar__IconButton",
+  componentId: "vyjcbk-1"
+})(["position:relative;"]);
 const MenuButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
   displayName: "AppBar__MenuButton",
-  componentId: "vyjcbk-1"
+  componentId: "vyjcbk-2"
 })(["display:none;@media only screen and (max-width:768px){display:flex;}"]);
 const HomeLinkContainer = external_styled_components_default.a.div.withConfig({
   displayName: "AppBar__HomeLinkContainer",
-  componentId: "vyjcbk-2"
+  componentId: "vyjcbk-3"
 })(["position:relative;top:6px;"]);
 const BrandLogo = external_styled_components_default.a.img.withConfig({
   displayName: "AppBar__BrandLogo",
-  componentId: "vyjcbk-3"
+  componentId: "vyjcbk-4"
 })(["object-fit:contain;width:100%;height:100%;transform:scale(1.25);@media only screen and (max-width:786px){display:none;}"]);
 const Navigation = external_styled_components_default.a.div.withConfig({
   displayName: "AppBar__Navigation",
-  componentId: "vyjcbk-4"
+  componentId: "vyjcbk-5"
 })(["position:relative;display:flex;grid-gap:calc(var(--default-gap) + 15px);align-items:center;@media only screen and (max-width:768px){display:none;}"]);
+const Counter = external_styled_components_default()(Badge["a" /* default */]).withConfig({
+  displayName: "AppBar__Counter",
+  componentId: "vyjcbk-6"
+})(["position:absolute;top:-5px;right:-8px;color:var(--default-color-accent);background:var(--default-color-accent-dim);border:none;&:hover{border:none;}"]);
 const Label = external_styled_components_default.a.span.withConfig({
   displayName: "AppBar__Label",
-  componentId: "vyjcbk-5"
+  componentId: "vyjcbk-7"
 })(["font-size:var(--font-size-m);font-weight:var(--font-weight-regular);", ""], ({
   link
 }) => link && Object(external_styled_components_["css"])(["display:inline-flex;border-radius:25rem;padding:5px 15px;background:transparent;color:black;cursor:pointer;transition:all 150ms ease;&:hover{opacity:0.65;}", ""], ({
@@ -10865,7 +10905,7 @@ const Label = external_styled_components_default.a.span.withConfig({
 }) => active && Object(external_styled_components_["css"])(["background:var(--default-color-accent-dim);color:var(--default-color-accent-link);&:hover{opacity:1;}"])));
 const Actions = external_styled_components_default.a.div.withConfig({
   displayName: "AppBar__Actions",
-  componentId: "vyjcbk-6"
+  componentId: "vyjcbk-8"
 })(["display:flex;grid-gap:var(--default-gap);align-items:center;justify-self:end;@media only screen and (max-width:768px){width:100%;justify-content:flex-end;", "{flex-grow:initial;}}"], Popper["a" /* Wrap */]);
 const App = ({
   user,
@@ -10932,7 +10972,7 @@ const App = ({
     link: true
   }, link.label)) : /*#__PURE__*/external_react_default.a.createElement(Link, AppBar_extends({
     key: Object(external_uuid_["v4"])()
-  }, link.props), /*#__PURE__*/external_react_default.a.createElement(Label, null, link.label)))), /*#__PURE__*/external_react_default.a.createElement(Actions, null, user ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+  }, link.props), /*#__PURE__*/external_react_default.a.createElement(Label, null, link.label)))), /*#__PURE__*/external_react_default.a.createElement(Actions, null, user ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(IconButton, {
     type: 'button',
     kind: 'icon',
     size: 'xs',
@@ -10941,7 +10981,10 @@ const App = ({
     size: 'xs',
     icon: 'notification',
     stroke: 'white'
-  })), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+  }), user.countOfNewNotifications && /*#__PURE__*/external_react_default.a.createElement(Counter, {
+    count: user.countOfNewNotifications,
+    appearance: 'outlined'
+  })), /*#__PURE__*/external_react_default.a.createElement(IconButton, {
     type: 'button',
     kind: 'icon',
     size: 'xs',
@@ -10950,6 +10993,9 @@ const App = ({
     size: 'xs',
     icon: 'chat',
     stroke: 'white'
+  }), user.countOfNewMessages && /*#__PURE__*/external_react_default.a.createElement(Counter, {
+    count: user.countOfNewMessages,
+    appearance: 'outlined'
   })), /*#__PURE__*/external_react_default.a.createElement(Popper["b" /* default */], {
     place: 'bottom',
     width: '265px',
@@ -19009,7 +19055,7 @@ const Members = ({
     error
   } = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_USER_MEMBERS, {
     variables: {
-      email: user
+      email: user || authUser.email
     }
   });
   const [exclude, {
@@ -23703,7 +23749,6 @@ __webpack_require__.d(User_namespaceObject, "ADD_USER_PROJECT", function() { ret
 __webpack_require__.d(User_namespaceObject, "REMOVE_USER_PROJECT", function() { return REMOVE_USER_PROJECT; });
 __webpack_require__.d(User_namespaceObject, "ADD_USER_FOLDER", function() { return ADD_USER_FOLDER; });
 __webpack_require__.d(User_namespaceObject, "DELETE_USER_FOLDER", function() { return DELETE_USER_FOLDER; });
-__webpack_require__.d(User_namespaceObject, "GET_USER_CHATS", function() { return GET_USER_CHATS; });
 
 // NAMESPACE OBJECT: ./graphql/queries/Meta/index.js
 var Meta_namespaceObject = {};
@@ -23779,7 +23824,7 @@ __webpack_require__.d(Ticket_namespaceObject, "CLOSE_TICKET", function() { retur
 // NAMESPACE OBJECT: ./graphql/queries/UserChat/index.js
 var UserChat_namespaceObject = {};
 __webpack_require__.r(UserChat_namespaceObject);
-__webpack_require__.d(UserChat_namespaceObject, "GET_USER_CHATS", function() { return UserChat_GET_USER_CHATS; });
+__webpack_require__.d(UserChat_namespaceObject, "GET_USER_CHATS", function() { return GET_USER_CHATS; });
 __webpack_require__.d(UserChat_namespaceObject, "ADD_USER_CHAT", function() { return ADD_USER_CHAT; });
 
 // NAMESPACE OBJECT: ./graphql/queries/Message/index.js
@@ -23836,6 +23881,7 @@ __webpack_require__.d(Comment_namespaceObject, "DELETE_COMMENT", function() { re
 var Notice_namespaceObject = {};
 __webpack_require__.r(Notice_namespaceObject);
 __webpack_require__.d(Notice_namespaceObject, "GET_NOTIFICATIONS", function() { return GET_NOTIFICATIONS; });
+__webpack_require__.d(Notice_namespaceObject, "READ_NOTIFICATIONS", function() { return READ_NOTIFICATIONS; });
 
 // EXTERNAL MODULE: external "graphql-tag"
 var external_graphql_tag_ = __webpack_require__("txk1");
@@ -23876,6 +23922,8 @@ const UserFields = external_graphql_tag_default.a`
     register
     settings
     dateOfBirth
+    countOfNewNotifications
+    countOfNewMessages
     updatedAt
     createdAt
   }
@@ -23921,6 +23969,7 @@ const NoticeFields = external_graphql_tag_default.a`
         path
       }
     }
+    status
     createdAt
   }
 `;
@@ -24462,30 +24511,6 @@ const DELETE_USER_FOLDER = external_graphql_tag_default.a`
       projects
     }
   }
-`;
-const GET_USER_CHATS = external_graphql_tag_default.a`
-  query getUserChats {
-    getUserChats {
-      chat {
-        id
-        type
-        title
-        members {
-          name
-          avatar {
-            path
-          }
-        }
-        messages {
-          ...MessageFields
-        }
-      }
-      status
-      updatedAt
-      createdAt
-    }
-  }
-  ${MessageFields}
 `;
 // CONCATENATED MODULE: ./graphql/queries/Meta/index.js
 
@@ -25049,7 +25074,7 @@ const CLOSE_TICKET = external_graphql_tag_default.a`
 // CONCATENATED MODULE: ./graphql/queries/UserChat/index.js
 
 
-const UserChat_GET_USER_CHATS = external_graphql_tag_default.a`
+const GET_USER_CHATS = external_graphql_tag_default.a`
   query getUserChats {
     getUserChats {
       chat {
@@ -25402,6 +25427,11 @@ const GET_NOTIFICATIONS = external_graphql_tag_default.a`
     }
   }
   ${NoticeFields}
+`;
+const READ_NOTIFICATIONS = external_graphql_tag_default.a`
+  mutation readNotifications($id: [ID]!) {
+    readNotifications(id: $id)
+  }
 `;
 // CONCATENATED MODULE: ./graphql/queries/index.js
 

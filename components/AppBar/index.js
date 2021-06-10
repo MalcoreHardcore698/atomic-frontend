@@ -7,6 +7,7 @@ import Icon from '../../atomic-ui/components/Icon'
 import Button from '../../atomic-ui/components/Button'
 import Tooltip from '../../atomic-ui/components/Tooltip'
 import Popper, { Wrap as WrapPopper } from '../../atomic-ui/components/Popper'
+import Badge from '../../atomic-ui/components/Badge'
 import Menu from '../../atomic-ui/components/Menu'
 
 export const Wrap = styled.div`
@@ -45,6 +46,10 @@ export const Wrap = styled.div`
   }
 `
 
+export const IconButton = styled(Button)`
+  position: relative;
+`
+
 export const MenuButton = styled(Button)`
   display: none;
 
@@ -77,6 +82,19 @@ export const Navigation = styled.div`
 
   @media only screen and (max-width: 768px) {
     display: none;
+  }
+`
+
+export const Counter = styled(Badge)`
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  color: var(--default-color-accent);
+  background: var(--default-color-accent-dim);
+  border: none;
+
+  &:hover {
+    border: none;
   }
 `
 
@@ -201,13 +219,19 @@ export const App = ({
       <Actions>
         {user ? (
           <React.Fragment>
-            <Button type={'button'} kind={'icon'} size={'xs'} onClick={onNotification}>
+            <IconButton type={'button'} kind={'icon'} size={'xs'} onClick={onNotification}>
               <Icon size={'xs'} icon={'notification'} stroke={'white'} />
-            </Button>
+              {user.countOfNewNotifications && (
+                <Counter count={user.countOfNewNotifications} appearance={'outlined'} />
+              )}
+            </IconButton>
 
-            <Button type={'button'} kind={'icon'} size={'xs'} onClick={onChat}>
+            <IconButton type={'button'} kind={'icon'} size={'xs'} onClick={onChat}>
               <Icon size={'xs'} icon={'chat'} stroke={'white'} />
-            </Button>
+              {user.countOfNewMessages && (
+                <Counter count={user.countOfNewMessages} appearance={'outlined'} />
+              )}
+            </IconButton>
 
             <Popper
               place={'bottom'}

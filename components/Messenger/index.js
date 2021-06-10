@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import styled, { css } from 'styled-components'
 import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks'
+import { useDispatch } from 'react-redux'
+import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
@@ -13,6 +14,7 @@ import Divider from '../../atomic-ui/components/Divider'
 import { Loader } from '../Styled'
 import { Wrap as WrapForm } from '../Form'
 import MessengerChat from '../MessengerChat'
+import { updateUser } from '../../store/actions/user'
 import queries from '../../graphql/queries'
 
 export const Wrap = styled(Row)`
@@ -172,6 +174,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
   const [userChats, setUserChats] = useState([])
   const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState('')
+  const dispatch = useDispatch()
 
   const [
     getChat,
@@ -209,10 +212,9 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
 
   const [readMessages, { loading: loadingReadMessages }] = useMutation(queries.READ_MESSAGES)
 
-  const [
-    addUserChat,
-    { data: dataAddUserChat, loading: loadingAddUserChat }
-  ] = useMutation(queries.ADD_USER_CHAT)
+  const [addUserChat, { data: dataAddUserChat, loading: loadingAddUserChat }] = useMutation(
+    queries.ADD_USER_CHAT
+  )
 
   const onSubmit = (value) => {
     if (value) {
@@ -310,6 +312,8 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
 
   useEffect(() => {
     const unreadedMessages = getUnreadedMessages(currentChat?.messages ?? [], sender)
+    const countOfNewMessages = sender.countOfNewMessages - unreadedMessages
+
     if (currentChat && unreadedMessages > 0) {
       readMessages({
         variables: {
@@ -317,9 +321,9 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
             .filter((message) => message.user?.email !== sender?.email)
             .map((message) => message.id)
         }
-      })
+      }).finally(() => dispatch(updateUser({ countOfNewMessages: countOfNewMessages > 0 || 0 })))
     }
-  }, [sender, currentChat, readMessages])
+  }, [dispatch, sender, currentChat, readMessages])
 
   return (
     <Wrap {...props} key={loadingReadMessages} appearance={appearance}>
@@ -358,20 +362,22 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
 
             {(filteredUserChats || (userChats.length > 0 && !filteredUserChats)) && <Divider />}
 
-            {((search && filteredTicketChats) || (!search && ticketChats) || []).map((ticketChat) => (
-              <ChatOne
-                key={ticketChat.id}
-                chat={ticketChat}
-                sender={sender}
-                currentChat={currentChat}
-                setLoading={setLoading}
-                setCurrentChat={setCurrentChat}
-                getChat={getChat}
-                getTicket={getTicket}
-                refetchChat={refetchChat}
-                refetchTicket={refetchTicket}
-              />
-            ))}
+            {((search && filteredTicketChats) || (!search && ticketChats) || []).map(
+              (ticketChat) => (
+                <ChatOne
+                  key={ticketChat.id}
+                  chat={ticketChat}
+                  sender={sender}
+                  currentChat={currentChat}
+                  setLoading={setLoading}
+                  setCurrentChat={setCurrentChat}
+                  getChat={getChat}
+                  getTicket={getTicket}
+                  refetchChat={refetchChat}
+                  refetchTicket={refetchTicket}
+                />
+              )
+            )}
           </React.Fragment>
         ) : loadingChat ||
           loadingTicket ||

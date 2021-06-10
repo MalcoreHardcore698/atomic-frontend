@@ -121,7 +121,7 @@ export const useUser = ({ isManage } = {}) => {
     onLink,
     onChat,
     onAboutMore,
-    onMembers: user?.members?.length > 0 && onMembers,
+    onMembers: user?.members > 0 && onMembers,
     onCompanyLink: user?.company && onCompanyLink,
     onEdit: isManage && onEdit,
     onCreate: isManage && onCreate

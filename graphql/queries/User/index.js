@@ -311,28 +311,3 @@ export const DELETE_USER_FOLDER = gql`
     }
   }
 `
-
-export const GET_USER_CHATS = gql`
-  query getUserChats {
-    getUserChats {
-      chat {
-        id
-        type
-        title
-        members {
-          name
-          avatar {
-            path
-          }
-        }
-        messages {
-          ...MessageFields
-        }
-      }
-      status
-      updatedAt
-      createdAt
-    }
-  }
-  ${MessageFields}
-`

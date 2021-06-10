@@ -118,7 +118,12 @@ export const User = ({ user, onEdit, onAboutMore, onCompanyLink, onMembers }) =>
 
       <Difinitions>
         {user.account === 'ENTITY' ? (
-          <Difinition icon={'user2'} label={'Участники'} text={user.members} onLink={onMembers} />
+          <Difinition
+            icon={'user2'}
+            label={'Участники'}
+            text={user.members}
+            onLink={() => onMembers(user)}
+          />
         ) : (
           <Difinition
             {...(user.company

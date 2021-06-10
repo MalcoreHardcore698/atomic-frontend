@@ -1,0 +1,1 @@
+{"ast":null,"code":"export default {\n  SET_MODAL: 'SET_MODAL'\n};","map":{"version":3,"sources":["/Users/malcore/Documents/workspace/freelance/atomic/atomic-frontend/store/types/modal.js"],"names":["SET_MODAL"],"mappings":"AAAA,eAAe;AACbA,EAAAA,SAAS,EAAE;AADE,CAAf","sourcesContent":["export default {\n  SET_MODAL: 'SET_MODAL'\n}\n"]},"metadata":{},"sourceType":"module"}

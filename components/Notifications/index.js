@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import { useQuery } from '@apollo/react-hooks'
+import React, { useState, useEffect, useMemo } from 'react'
+import { useMutation, useQuery } from '@apollo/react-hooks'
+import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import Column from '../../atomic-ui/components/Column'
@@ -7,15 +8,22 @@ import Alert from '../../atomic-ui/components/Alert'
 import Notice from '../../atomic-ui/components/Notice'
 import Spinner from '../../atomic-ui/components/Spinner'
 
+import { Loader } from '../Styled'
 import { useMutationEffect } from '../../hooks/useMutationEffect'
 import { useUpdateEffect } from '../../hooks/useUpdateEffect'
 import queries from '../../graphql/queries'
-import { Loader } from '../Styled'
+import { updateUser } from '../../store/actions/user'
 
 export const Wrap = styled(Column)``
 
 export const Notifications = ({ user, appearance }) => {
   const [notifications, setNotifications] = useState([])
+  const dispatch = useDispatch()
+
+  const unreadedNotificationIds = useMemo(
+    () => notifications.filter((n) => n.status === 'UNREADED').map((n) => n.id),
+    [notifications]
+  )
 
   const { data, loading, error } = useQuery(queries.GET_NOTIFICATIONS, {
     variables: {
@@ -35,6 +43,10 @@ export const Notifications = ({ user, appearance }) => {
     setNotifications
   )
 
+  const [readNotifications, { loading: loadingReadNotifications }] = useMutation(
+    queries.READ_NOTIFICATIONS
+  )
+
   const onApply = (notice) => apply({ variables: { id: notice.id, email: notice.company?.email } })
 
   const onReject = (notice) =>
@@ -42,9 +54,24 @@ export const Notifications = ({ user, appearance }) => {
 
   useUpdateEffect(data, loading, 'getNotifications', setNotifications)
 
+  useEffect(() => {
+    if (unreadedNotificationIds?.length > 0) {
+      readNotifications({
+        variables: {
+          id: unreadedNotificationIds
+        }
+      }).finally(() => dispatch(updateUser({ countOfNewNotifications: 0 })))
+    }
+  }, [dispatch, unreadedNotificationIds, readNotifications])
+
   return (
     <Wrap>
-      {notifications && notifications.length > 0 ? (
+      {notifications &&
+      !loading &&
+      !loadingApply &&
+      !loadingReject &&
+      !loadingReadNotifications &&
+      notifications.length > 0 ? (
         notifications.map((notice) => (
           <Notice
             key={notice.id}
@@ -63,7 +90,7 @@ export const Notifications = ({ user, appearance }) => {
             onReject={notice.type === 'INVITE' && (() => onReject(notice))}
           />
         ))
-      ) : loading || loadingApply || loadingReject ? (
+      ) : loading || loadingApply || loadingReject || loadingReadNotifications ? (
         <Loader>
           <Spinner />
         </Loader>
