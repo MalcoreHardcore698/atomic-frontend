@@ -312,7 +312,7 @@ export const Messenger = ({ appearance, recipient, sender, onAttach, onMemberLin
 
   useEffect(() => {
     const unreadedMessages = getUnreadedMessages(currentChat?.messages ?? [], sender)
-    const countOfNewMessages = sender.countOfNewMessages - unreadedMessages
+    const countOfNewMessages = (sender?.countOfNewMessages ?? unreadedMessages) - unreadedMessages
 
     if (currentChat && unreadedMessages > 0) {
       readMessages({

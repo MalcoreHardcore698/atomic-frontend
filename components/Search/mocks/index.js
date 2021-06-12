@@ -18,7 +18,7 @@ export const entities = [
     deleteQuery: queries.DELETE_USER,
     deleteEntityMultiText: 'Пользователи',
     deleteEntitySingleText: 'Пользователь',
-    render: (item) => <UserCard user={item} />
+    render: (item, props) => <UserCard {...props} user={item} />
   },
   {
     value: 'getCategories',
@@ -29,7 +29,7 @@ export const entities = [
     deleteQuery: queries.DELETE_CATEGORY,
     deleteEntityMultiText: 'Категории',
     deleteEntitySingleText: 'Категория',
-    render: (item) => <CategoryCard category={item} />
+    render: (item, props) => <CategoryCard {...props} category={item} />
   },
   {
     value: 'getArticles',
@@ -40,7 +40,7 @@ export const entities = [
     deleteQuery: queries.DELETE_ARTICLE,
     deleteEntityMultiText: 'Статьи',
     deleteEntitySingleText: 'Статья',
-    render: (item) => <ArticleCard article={item} />
+    render: (item, props) => <ArticleCard {...props} article={item} />
   },
   {
     value: 'getProjects',
@@ -51,7 +51,7 @@ export const entities = [
     deleteQuery: queries.DELETE_PROJECT,
     deleteEntityMultiText: 'Продукты',
     deleteEntitySingleText: 'Продукт',
-    render: (item) => <ProjectCard project={item} preview />
+    render: (item, props) => <ProjectCard {...props} project={item} preview />
   },
   {
     value: 'getTickets',
@@ -62,7 +62,7 @@ export const entities = [
     deleteQuery: queries.DELETE_TICKET,
     deleteEntityMultiText: 'Обращения',
     deleteEntitySingleText: 'Обращение',
-    render: (item) => <TicketCard ticket={item} />
+    render: (item, props) => <TicketCard {...props} ticket={item} />
   },
   {
     value: 'getRoles',
@@ -73,6 +73,6 @@ export const entities = [
     deleteQuery: queries.DELETE_ROLE,
     deleteEntityMultiText: 'Роли',
     deleteEntitySingleText: 'Роль',
-    render: (item) => <RoleCard role={item} />
+    render: (item, props) => <RoleCard {...props} role={item} />
   }
 ]

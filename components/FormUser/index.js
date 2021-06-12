@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Controller } from 'react-hook-form'
 import styled, { css } from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
@@ -142,6 +142,8 @@ export const User = ({
   const [account, setAccount] = useState(null)
   const [isShowPassword, setShowPassword] = useState(false)
 
+  const isEnabledSecurity = useMemo(() => !data?.getUser?.registerOfASocialNetwork, [data])
+
   const onTogglePassword = () => setShowPassword(!isShowPassword)
 
   useEffect(() => {
@@ -161,7 +163,9 @@ export const User = ({
       {({ register, control, loading, errors, setValue, getValues }) =>
         !loading && !loadingData && data && data.getUser ? (
           <React.Fragment>
-            <Switch defaultValue={tab} options={TAB_TYPES} onChange={setTab} stretch />
+            {isEnabledSecurity && (
+              <Switch defaultValue={tab} options={TAB_TYPES} onChange={setTab} stretch />
+            )}
 
             <Tab active={tab.value === 'GENERAL'}>
               <AdaptiveRow>
@@ -182,6 +186,7 @@ export const User = ({
                       tooltip={
                         'Разрешение: 675x590px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
                       }
+                      avatar
                     />
                   )}
                 />
@@ -351,100 +356,102 @@ export const User = ({
               )}
             </Tab>
 
-            <Tab active={tab.value === 'SECURITY'}>
-              {canEditRole && errors && (errors.email || errors.phone) && (
-                <Alert style={{ width: '100%' }} appearance={'error'}>
-                  {errors.email && <p>Неверно указан или не указана эл. почта</p>}
-                  {errors.phone && <p>Неверно указан или не указана телефон</p>}
-                </Alert>
-              )}
-              <AdaptiveRow>
-                <Column style={{ flexGrow: 1 }}>
-                  <Title tag={'h4'}>Эл. почта</Title>
-                  <Input
-                    type={'email'}
-                    name={'email'}
-                    ref={register({ required: !user })}
-                    defaultValue={getValues('email') || data.getUser?.email}
-                    placeholder={'Эл. почта'}
-                    appearance={'ghost'}
-                    disabled={loading}
-                  />
-                </Column>
-                <Column style={{ flexGrow: 1 }}>
-                  <Title tag={'h4'}>Телефон</Title>
-                  <Input
-                    type={'tel'}
-                    name={'phone'}
-                    ref={register({ required: !user })}
-                    defaultValue={getValues('phone') || data.getUser?.phone}
-                    placeholder={'Телефон'}
-                    appearance={'ghost'}
-                    disabled={loading}
-                  />
-                </Column>
-              </AdaptiveRow>
+            {isEnabledSecurity && (
+              <Tab active={tab.value === 'SECURITY'}>
+                {canEditRole && errors && (errors.email || errors.phone) && (
+                  <Alert style={{ width: '100%' }} appearance={'error'}>
+                    {errors.email && <p>Неверно указан или не указана эл. почта</p>}
+                    {errors.phone && <p>Неверно указан или не указана телефон</p>}
+                  </Alert>
+                )}
+                <AdaptiveRow>
+                  <Column style={{ flexGrow: 1 }}>
+                    <Title tag={'h4'}>Эл. почта</Title>
+                    <Input
+                      type={'email'}
+                      name={'email'}
+                      ref={register({ required: !user })}
+                      defaultValue={getValues('email') || data.getUser?.email}
+                      placeholder={'Эл. почта'}
+                      appearance={'ghost'}
+                      disabled={loading}
+                    />
+                  </Column>
+                  <Column style={{ flexGrow: 1 }}>
+                    <Title tag={'h4'}>Телефон</Title>
+                    <Input
+                      type={'tel'}
+                      name={'phone'}
+                      ref={register({ required: !user })}
+                      defaultValue={getValues('phone') || data.getUser?.phone}
+                      placeholder={'Телефон'}
+                      appearance={'ghost'}
+                      disabled={loading}
+                    />
+                  </Column>
+                </AdaptiveRow>
 
-              <Title tag={'h4'}>Пароль</Title>
-              {canEditRole && errors && errors.password && (
-                <Alert style={{ width: '100%' }} appearance={'error'}>
-                  Неверно указан или не указан пароль
-                </Alert>
-              )}
-              <AdaptiveRow>
-                <Input
-                  name={'password'}
-                  ref={register({ required: !user })}
-                  type={isShowPassword ? 'text' : 'password'}
-                  defaultValue={getValues('password') || data.getUser?.password}
-                  appearance={'ghost'}
-                  placeholder={'Пароль'}
-                  readOnly={!canEditRole}
-                />
-                {canEditRole && (
-                  <Tooltip text={'Генерация пароля'}>
-                    <Button
-                      type={'button'}
-                      kind={'icon'}
-                      disabled={loading}
-                      onClick={() => setValue('password', generator.generate())}>
-                      <Icon icon={'password'} stroke={'white'} />
-                    </Button>
-                  </Tooltip>
+                <Title tag={'h4'}>Пароль</Title>
+                {canEditRole && errors && errors.password && (
+                  <Alert style={{ width: '100%' }} appearance={'error'}>
+                    Неверно указан или не указан пароль
+                  </Alert>
                 )}
-                {canEditRole && (
-                  <Tooltip text={'Отображение пароля'}>
-                    <Button
-                      type={'button'}
-                      kind={'icon'}
-                      disabled={loading}
-                      onClick={onTogglePassword}
-                      revert={!isShowPassword}>
-                      <Icon
-                        icon={isShowPassword ? 'hide' : 'show'}
-                        stroke={isShowPassword ? 'white' : 'var(--default-color-accent)'}
-                      />
-                    </Button>
-                  </Tooltip>
-                )}
-                {!canEditRole && (
-                  <Tooltip text={'Смена пароля'}>
-                    <Button
-                      type={'button'}
-                      kind={'icon'}
-                      disabled={loading}
-                      onClick={onChangePassword}>
-                      <Icon icon={'edit'} stroke={'white'} />
-                    </Button>
-                  </Tooltip>
-                )}
-              </AdaptiveRow>
+                <AdaptiveRow>
+                  <Input
+                    name={'password'}
+                    ref={register({ required: !user })}
+                    type={isShowPassword ? 'text' : 'password'}
+                    defaultValue={getValues('password') || data.getUser?.password}
+                    appearance={'ghost'}
+                    placeholder={'Пароль'}
+                    readOnly={!canEditRole}
+                  />
+                  {canEditRole && (
+                    <Tooltip text={'Генерация пароля'}>
+                      <Button
+                        type={'button'}
+                        kind={'icon'}
+                        disabled={loading}
+                        onClick={() => setValue('password', generator.generate())}>
+                        <Icon icon={'password'} stroke={'white'} />
+                      </Button>
+                    </Tooltip>
+                  )}
+                  {canEditRole && (
+                    <Tooltip text={'Отображение пароля'}>
+                      <Button
+                        type={'button'}
+                        kind={'icon'}
+                        disabled={loading}
+                        onClick={onTogglePassword}
+                        revert={!isShowPassword}>
+                        <Icon
+                          icon={isShowPassword ? 'hide' : 'show'}
+                          stroke={isShowPassword ? 'white' : 'var(--default-color-accent)'}
+                        />
+                      </Button>
+                    </Tooltip>
+                  )}
+                  {!canEditRole && (
+                    <Tooltip text={'Смена пароля'}>
+                      <Button
+                        type={'button'}
+                        kind={'icon'}
+                        disabled={loading}
+                        onClick={onChangePassword}>
+                        <Icon icon={'edit'} stroke={'white'} />
+                      </Button>
+                    </Tooltip>
+                  )}
+                </AdaptiveRow>
 
-              <Text>
-                Пароль должен содержать не менее восьми знаков, включать буквы, цифры и специальные
-                символы
-              </Text>
-            </Tab>
+                <Text>
+                  Пароль должен содержать не менее восьми знаков, включать буквы, цифры и
+                  специальные символы
+                </Text>
+              </Tab>
+            )}
 
             {canEditRole && <Divider clear />}
 

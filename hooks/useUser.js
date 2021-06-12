@@ -27,10 +27,12 @@ export const useUser = ({ isManage } = {}) => {
 
   const onLink = useCallback(
     (author) => {
-      const owned = author?.name === user?.name
+      const owned = author?.name !== user?.name
       recall(onUserLink, {
         id: author?.email,
         auth: user?.email,
+        sender: user,
+        recipient: author,
         owned,
         queries: {
           userChats: queries.GET_USER_CHATS,

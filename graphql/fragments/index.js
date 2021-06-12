@@ -33,6 +33,7 @@ export const UserFields = gql`
     register
     settings
     dateOfBirth
+    registerOfASocialNetwork
     countOfNewNotifications
     countOfNewMessages
     updatedAt

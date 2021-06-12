@@ -717,10 +717,10 @@ const Messenger = ({
     }
   }, [dataTicketChats, loadingTicketChats]);
   Object(external_react_["useEffect"])(() => {
-    var _currentChat$messages;
+    var _currentChat$messages, _sender$countOfNewMes;
 
     const unreadedMessages = getUnreadedMessages((_currentChat$messages = currentChat === null || currentChat === void 0 ? void 0 : currentChat.messages) !== null && _currentChat$messages !== void 0 ? _currentChat$messages : [], sender);
-    const countOfNewMessages = sender.countOfNewMessages - unreadedMessages;
+    const countOfNewMessages = ((_sender$countOfNewMes = sender === null || sender === void 0 ? void 0 : sender.countOfNewMessages) !== null && _sender$countOfNewMes !== void 0 ? _sender$countOfNewMes : unreadedMessages) - unreadedMessages;
 
     if (currentChat && unreadedMessages > 0) {
       readMessages({
@@ -9623,10 +9623,12 @@ const useUser = ({
   }, [user]);
   const hasOwned = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(author => (author === null || author === void 0 ? void 0 : author.name) === (user === null || user === void 0 ? void 0 : user.name), [user]);
   const onLink = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(author => {
-    const owned = (author === null || author === void 0 ? void 0 : author.name) === (user === null || user === void 0 ? void 0 : user.name);
+    const owned = (author === null || author === void 0 ? void 0 : author.name) !== (user === null || user === void 0 ? void 0 : user.name);
     recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_2__[/* onUserLink */ "i"], {
       id: author === null || author === void 0 ? void 0 : author.email,
       auth: user === null || user === void 0 ? void 0 : user.email,
+      sender: user,
+      recipient: author,
       owned,
       queries: {
         userChats: _graphql_queries__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"].GET_USER_CHATS,
@@ -20406,6 +20408,9 @@ var Button = __webpack_require__("ZeZO");
 // EXTERNAL MODULE: ./atomic-ui/components/Image/index.js
 var Image = __webpack_require__("V0nP");
 
+// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
+var Text = __webpack_require__("QUga");
+
 // EXTERNAL MODULE: ./atomic-ui/components/Icon/index.js + 111 modules
 var Icon = __webpack_require__("feIE");
 
@@ -20426,9 +20431,6 @@ var Divider = __webpack_require__("RKiZ");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Title/index.js
 var Title = __webpack_require__("7sPp");
-
-// EXTERNAL MODULE: ./atomic-ui/components/Text/index.js
-var Text = __webpack_require__("QUga");
 
 // EXTERNAL MODULE: ./atomic-ui/components/Badge/index.js
 var Badge = __webpack_require__("hfch");
@@ -20646,12 +20648,57 @@ var content = __webpack_require__("OqOz");
 // EXTERNAL MODULE: ./store/actions/modal.js
 var modal = __webpack_require__("qOKH");
 
+// EXTERNAL MODULE: ./hooks/useArticle.js
+var useArticle = __webpack_require__("RkzV");
+
+// EXTERNAL MODULE: ./hooks/useProject.js
+var useProject = __webpack_require__("QfFT");
+
+// EXTERNAL MODULE: ./hooks/useUser.js
+var useUser = __webpack_require__("U1Bd");
+
 // CONCATENATED MODULE: ./components/QuerySearch/index.js
 
 
 
 
 
+
+
+
+
+const hooks = {
+  getUsers: useUser["a" /* useUser */],
+  // getCategories: useCategory
+  getArticles: useArticle["a" /* useArticle */],
+  getProjects: useProject["a" /* useProject */] // getTickets: useTicket,
+  // getRoles: useRole
+
+};
+
+const CardWrapper = ({
+  item,
+  elem,
+  onJump
+}) => {
+  const props = hooks[elem.value] ? hooks[elem.value]() : {};
+  const dispatch = Object(external_react_redux_["useDispatch"])();
+
+  const hideModal = () => dispatch(Object(modal["a" /* setModal */])(null));
+
+  return /*#__PURE__*/external_react_default.a.createElement(content["a" /* Card */], {
+    key: item.id || item.email,
+    item: item,
+    appearance: 'clear',
+    component: elem.render(item, { ...props,
+      onAboutMore: () => onJump('/detail', item)
+    }),
+    onLink: hideModal,
+    onEdit: hideModal,
+    onDelete: hideModal,
+    withoutChecked: true
+  });
+};
 
 const Query = Object(external_react_["memo"])(({
   data,
@@ -20660,40 +20707,31 @@ const Query = Object(external_react_["memo"])(({
   entity,
   entities,
   onChange,
+  onJump,
   onSubmit
-}) => {
-  const dispatch = Object(external_react_redux_["useDispatch"])();
-
-  const hideModal = () => dispatch(Object(modal["a" /* setModal */])(null));
-
-  return /*#__PURE__*/external_react_default.a.createElement(components_GlobalSearch, {
-    search: search,
-    loading: loading,
-    initialEntity: entity,
-    result: search && data && entity && data[entity === null || entity === void 0 ? void 0 : entity.value],
-    entities: (entities || []).map(elem => ({ ...elem,
-      render: item => /*#__PURE__*/external_react_default.a.createElement(content["a" /* Card */], {
-        key: item.id || item.email,
-        item: item,
-        appearance: 'clear',
-        component: elem.render(item),
-        onLink: hideModal,
-        onEdit: hideModal,
-        onDelete: hideModal,
-        withoutChecked: true
-      })
-    })),
-    onSubmit: onSubmit,
-    onChange: onChange
-  });
-});
+}) => /*#__PURE__*/external_react_default.a.createElement(components_GlobalSearch, {
+  search: search,
+  loading: loading,
+  initialEntity: entity,
+  result: search && data && entity && data[entity === null || entity === void 0 ? void 0 : entity.value],
+  entities: (entities || []).map(elem => ({ ...elem,
+    render: item => /*#__PURE__*/external_react_default.a.createElement(CardWrapper, {
+      item: item,
+      elem: elem,
+      onJump: onJump
+    })
+  })),
+  onSubmit: onSubmit,
+  onChange: onChange
+}));
 const QuerySearch = Object(external_react_["memo"])(({
   search,
   entity,
   entities,
   setSearch,
   onHide,
-  onChange
+  onChange,
+  onJump
 }) => {
   const initialResult = [null, {
     data: null,
@@ -20732,6 +20770,7 @@ const QuerySearch = Object(external_react_["memo"])(({
     loading: loading,
     entities: entities,
     onHide: onHide,
+    onJump: onJump,
     onChange: onChange,
     onSubmit: onSubmit
   });
@@ -20759,6 +20798,8 @@ var RoleCard = __webpack_require__("4NP5");
 var queries = __webpack_require__("u2Cb");
 
 // CONCATENATED MODULE: ./components/Search/mocks/index.js
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -20776,9 +20817,9 @@ const mocks_entities = [{
   deleteQuery: queries["a" /* default */].DELETE_USER,
   deleteEntityMultiText: 'Пользователи',
   deleteEntitySingleText: 'Пользователь',
-  render: item => /*#__PURE__*/external_react_default.a.createElement(UserCard["a" /* default */], {
+  render: (item, props) => /*#__PURE__*/external_react_default.a.createElement(UserCard["a" /* default */], _extends({}, props, {
     user: item
-  })
+  }))
 }, {
   value: 'getCategories',
   label: 'Категории',
@@ -20788,9 +20829,9 @@ const mocks_entities = [{
   deleteQuery: queries["a" /* default */].DELETE_CATEGORY,
   deleteEntityMultiText: 'Категории',
   deleteEntitySingleText: 'Категория',
-  render: item => /*#__PURE__*/external_react_default.a.createElement(CategoryCard["a" /* default */], {
+  render: (item, props) => /*#__PURE__*/external_react_default.a.createElement(CategoryCard["a" /* default */], _extends({}, props, {
     category: item
-  })
+  }))
 }, {
   value: 'getArticles',
   label: 'Статьи',
@@ -20800,9 +20841,9 @@ const mocks_entities = [{
   deleteQuery: queries["a" /* default */].DELETE_ARTICLE,
   deleteEntityMultiText: 'Статьи',
   deleteEntitySingleText: 'Статья',
-  render: item => /*#__PURE__*/external_react_default.a.createElement(ArticleCard["a" /* default */], {
+  render: (item, props) => /*#__PURE__*/external_react_default.a.createElement(ArticleCard["a" /* default */], _extends({}, props, {
     article: item
-  })
+  }))
 }, {
   value: 'getProjects',
   label: 'Проекты',
@@ -20812,10 +20853,10 @@ const mocks_entities = [{
   deleteQuery: queries["a" /* default */].DELETE_PROJECT,
   deleteEntityMultiText: 'Продукты',
   deleteEntitySingleText: 'Продукт',
-  render: item => /*#__PURE__*/external_react_default.a.createElement(ProjectCard["b" /* default */], {
+  render: (item, props) => /*#__PURE__*/external_react_default.a.createElement(ProjectCard["b" /* default */], _extends({}, props, {
     project: item,
     preview: true
-  })
+  }))
 }, {
   value: 'getTickets',
   label: 'Обращения',
@@ -20825,9 +20866,9 @@ const mocks_entities = [{
   deleteQuery: queries["a" /* default */].DELETE_TICKET,
   deleteEntityMultiText: 'Обращения',
   deleteEntitySingleText: 'Обращение',
-  render: item => /*#__PURE__*/external_react_default.a.createElement(TicketCard["a" /* default */], {
+  render: (item, props) => /*#__PURE__*/external_react_default.a.createElement(TicketCard["a" /* default */], _extends({}, props, {
     ticket: item
-  })
+  }))
 }, {
   value: 'getRoles',
   label: 'Роли',
@@ -20837,9 +20878,9 @@ const mocks_entities = [{
   deleteQuery: queries["a" /* default */].DELETE_ROLE,
   deleteEntityMultiText: 'Роли',
   deleteEntitySingleText: 'Роль',
-  render: item => /*#__PURE__*/external_react_default.a.createElement(RoleCard["a" /* default */], {
+  render: (item, props) => /*#__PURE__*/external_react_default.a.createElement(RoleCard["a" /* default */], _extends({}, props, {
     role: item
-  })
+  }))
 }];
 // CONCATENATED MODULE: ./components/Search/index.js
 
@@ -20994,6 +21035,7 @@ const getLinks = permissions => {
 
 
 
+
 const Main = external_styled_components_default.a.main.withConfig({
   displayName: "dashboard__Main",
   componentId: "sc-9r28sr-0"
@@ -21103,6 +21145,16 @@ const DashboardLayout = ({
         onJump: jump,
         onHide: close
       })
+    }, {
+      path: '/detail',
+      title: 'Подробная информация',
+      component: ({
+        data
+      }) => /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+        style: {
+          padding: '15px'
+        }
+      }, /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data.about || data.description))
     }], 'l')),
     disable: true
   })), /*#__PURE__*/external_react_default.a.createElement(Main, null, /*#__PURE__*/external_react_default.a.createElement(dashboard_SideBar, {
@@ -21609,6 +21661,11 @@ const User = ({
   const [roles, setRoles] = Object(external_react_["useState"])([]);
   const [account, setAccount] = Object(external_react_["useState"])(null);
   const [isShowPassword, setShowPassword] = Object(external_react_["useState"])(false);
+  const isEnabledSecurity = Object(external_react_["useMemo"])(() => {
+    var _data$getUser;
+
+    return !(data !== null && data !== void 0 && (_data$getUser = data.getUser) !== null && _data$getUser !== void 0 && _data$getUser.registerOfASocialNetwork);
+  }, [data]);
 
   const onTogglePassword = () => setShowPassword(!isShowPassword);
 
@@ -21622,10 +21679,10 @@ const User = ({
     appearance: appearance,
     mutation: mutation,
     onSubmit: (form, action) => {
-      var _data$getUser;
+      var _data$getUser2;
 
       return onSubmit({ ...form,
-        account: account || getAccountType(data === null || data === void 0 ? void 0 : (_data$getUser = data.getUser) === null || _data$getUser === void 0 ? void 0 : _data$getUser.account)
+        account: account || getAccountType(data === null || data === void 0 ? void 0 : (_data$getUser2 = data.getUser) === null || _data$getUser2 === void 0 ? void 0 : _data$getUser2.account)
       }, action);
     }
   }, ({
@@ -21636,9 +21693,9 @@ const User = ({
     setValue,
     getValues
   }) => {
-    var _data$getUser2, _data$getUser3, _data$getUser3$role, _data$getUser4, _data$getUser5, _data$getUser6, _data$getUser7, _data$getUser8, _data$getUser8$role, _data$getUser9, _data$getUser9$role, _data$getUser10, _data$getUser11, _data$getUser12, _data$getUser14, _data$getUser15, _data$getUser15$role, _data$getUser16, _data$getUser17, _data$getUser18, _data$getUser18$role, _data$getUser19, _data$getUser20, _data$getUser20$role, _data$getUser21, _data$getUser22, _data$getUser23, _data$getUser24, _data$getUser25, _data$getUser26, _data$getUser27, _data$getUser28, _data$getUser28$role;
+    var _data$getUser3, _data$getUser4, _data$getUser4$role, _data$getUser5, _data$getUser6, _data$getUser7, _data$getUser8, _data$getUser9, _data$getUser9$role, _data$getUser10, _data$getUser10$role, _data$getUser11, _data$getUser12, _data$getUser13, _data$getUser15, _data$getUser16, _data$getUser16$role, _data$getUser17, _data$getUser18, _data$getUser19, _data$getUser19$role, _data$getUser20, _data$getUser21, _data$getUser21$role, _data$getUser22, _data$getUser23, _data$getUser24, _data$getUser25, _data$getUser26, _data$getUser27, _data$getUser28, _data$getUser29, _data$getUser29$role;
 
-    return !loading && !loadingData && data && data.getUser ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
+    return !loading && !loadingData && data && data.getUser ? /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, isEnabledSecurity && /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
       defaultValue: tab,
       options: TAB_TYPES,
       onChange: setTab,
@@ -21648,7 +21705,7 @@ const User = ({
     }, /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
       name: 'avatar',
       control: control,
-      defaultValue: getValues('avatar') || user && (((_data$getUser2 = data.getUser) === null || _data$getUser2 === void 0 ? void 0 : _data$getUser2.avatar) || {
+      defaultValue: getValues('avatar') || user && (((_data$getUser3 = data.getUser) === null || _data$getUser3 === void 0 ? void 0 : _data$getUser3.avatar) || {
         path: '/images/avatar-default.png'
       }) || null,
       render: ({
@@ -21659,23 +21716,24 @@ const User = ({
         defaultValue: value,
         onChange: onChange,
         placeholder: 'Перетащите сюда изображение для превью',
-        tooltip: 'Разрешение: 675x590px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
+        tooltip: 'Разрешение: 675x590px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB',
+        avatar: true
       })
     }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
       style: {
         flexGrow: 1
       }
-    }, ((_data$getUser3 = data.getUser) === null || _data$getUser3 === void 0 ? void 0 : (_data$getUser3$role = _data$getUser3.role) === null || _data$getUser3$role === void 0 ? void 0 : _data$getUser3$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    }, ((_data$getUser4 = data.getUser) === null || _data$getUser4 === void 0 ? void 0 : (_data$getUser4$role = _data$getUser4.role) === null || _data$getUser4$role === void 0 ? void 0 : _data$getUser4$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
       tag: 'h4'
     }, "\u0410\u043A\u043A\u0430\u0443\u043D\u0442"), /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
-      defaultValue: account !== null && account !== void 0 && account.value ? account : getAccountType((_data$getUser4 = data.getUser) === null || _data$getUser4 === void 0 ? void 0 : _data$getUser4.account),
+      defaultValue: account !== null && account !== void 0 && account.value ? account : getAccountType((_data$getUser5 = data.getUser) === null || _data$getUser5 === void 0 ? void 0 : _data$getUser5.account),
       options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || ACCOUNT_TYPES,
       onChange: value => setAccount(value),
       disabled: loading,
       stretch: true
     })), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
       tag: 'h4'
-    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser5 = data.getUser) === null || _data$getUser5 === void 0 ? void 0 : _data$getUser5.account) === 'ENTITY' ? 'Название компании' : 'ФИО'), canEditRole && errors && errors.name && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser6 = data.getUser) === null || _data$getUser6 === void 0 ? void 0 : _data$getUser6.account) === 'ENTITY' ? 'Название компании' : 'ФИО'), canEditRole && errors && errors.name && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
       style: {
         width: '100%'
       },
@@ -21686,33 +21744,33 @@ const User = ({
       ref: register({
         required: !user
       }),
-      defaultValue: getValues('name') || ((_data$getUser6 = data.getUser) === null || _data$getUser6 === void 0 ? void 0 : _data$getUser6.name),
-      placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser7 = data.getUser) === null || _data$getUser7 === void 0 ? void 0 : _data$getUser7.account) === 'ENTITY' ? 'Название компании' : 'ФИО',
+      defaultValue: getValues('name') || ((_data$getUser7 = data.getUser) === null || _data$getUser7 === void 0 ? void 0 : _data$getUser7.name),
+      placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser8 = data.getUser) === null || _data$getUser8 === void 0 ? void 0 : _data$getUser8.account) === 'ENTITY' ? 'Название компании' : 'ФИО',
       appearance: 'ghost',
       disabled: loading
-    }), ((_data$getUser8 = data.getUser) === null || _data$getUser8 === void 0 ? void 0 : (_data$getUser8$role = _data$getUser8.role) === null || _data$getUser8$role === void 0 ? void 0 : _data$getUser8$role.name) === 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(CommonAlert, null, "\u0423 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440\u0430 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u043D\u044B\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0433\u043E \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430"), ((_data$getUser9 = data.getUser) === null || _data$getUser9 === void 0 ? void 0 : (_data$getUser9$role = _data$getUser9.role) === null || _data$getUser9$role === void 0 ? void 0 : _data$getUser9$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    }), ((_data$getUser9 = data.getUser) === null || _data$getUser9 === void 0 ? void 0 : (_data$getUser9$role = _data$getUser9.role) === null || _data$getUser9$role === void 0 ? void 0 : _data$getUser9$role.name) === 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(CommonAlert, null, "\u0423 \u0430\u0434\u043C\u0438\u043D\u0438\u0441\u0442\u0440\u0430\u0442\u043E\u0440\u0430 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u043D\u044B\u0435 \u0432\u043E\u0437\u043C\u043E\u0436\u043D\u043E\u0441\u0442\u0438 \u0438\u0437\u043C\u0435\u043D\u0435\u043D\u0438\u044F \u0441\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u043D\u043E\u0433\u043E \u0430\u043A\u043A\u0430\u0443\u043D\u0442\u0430"), ((_data$getUser10 = data.getUser) === null || _data$getUser10 === void 0 ? void 0 : (_data$getUser10$role = _data$getUser10.role) === null || _data$getUser10$role === void 0 ? void 0 : _data$getUser10$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
       tag: 'h4'
-    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser10 = data.getUser) === null || _data$getUser10 === void 0 ? void 0 : _data$getUser10.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения'), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser11 = data.getUser) === null || _data$getUser11 === void 0 ? void 0 : _data$getUser11.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения'), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
       name: 'dateOfBirth',
       control: control,
-      defaultValue: getValues('dateOfBirth') || ((_data$getUser11 = data.getUser) === null || _data$getUser11 === void 0 ? void 0 : _data$getUser11.dateOfBirth) && new Date((_data$getUser12 = data.getUser) === null || _data$getUser12 === void 0 ? void 0 : _data$getUser12.dateOfBirth) || null,
+      defaultValue: getValues('dateOfBirth') || ((_data$getUser12 = data.getUser) === null || _data$getUser12 === void 0 ? void 0 : _data$getUser12.dateOfBirth) && new Date((_data$getUser13 = data.getUser) === null || _data$getUser13 === void 0 ? void 0 : _data$getUser13.dateOfBirth) || null,
       render: ({
         value,
         onChange
       }) => {
-        var _data$getUser13;
+        var _data$getUser14;
 
         return /*#__PURE__*/external_react_default.a.createElement(DatePicker["a" /* default */], {
           value: value,
           onChange: onChange,
-          placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser13 = data.getUser) === null || _data$getUser13 === void 0 ? void 0 : _data$getUser13.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения',
+          placeholder: account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser14 = data.getUser) === null || _data$getUser14 === void 0 ? void 0 : _data$getUser14.account) === 'ENTITY' ? 'Дата основания' : 'Дата рождения',
           appearance: 'ghost',
           withYearDisplay: false,
           withNavigate: true,
           canEditYear: true
         });
       }
-    })))), ((account === null || account === void 0 ? void 0 : account.value) && (account === null || account === void 0 ? void 0 : account.value) !== 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser14 = data.getUser) === null || _data$getUser14 === void 0 ? void 0 : _data$getUser14.account) !== 'ENTITY') && ((_data$getUser15 = data.getUser) === null || _data$getUser15 === void 0 ? void 0 : (_data$getUser15$role = _data$getUser15.role) === null || _data$getUser15$role === void 0 ? void 0 : _data$getUser15$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
+    })))), ((account === null || account === void 0 ? void 0 : account.value) && (account === null || account === void 0 ? void 0 : account.value) !== 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser15 = data.getUser) === null || _data$getUser15 === void 0 ? void 0 : _data$getUser15.account) !== 'ENTITY') && ((_data$getUser16 = data.getUser) === null || _data$getUser16 === void 0 ? void 0 : (_data$getUser16$role = _data$getUser16.role) === null || _data$getUser16$role === void 0 ? void 0 : _data$getUser16$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
       style: {
         flexGrow: 1
       }
@@ -21721,7 +21779,7 @@ const User = ({
     }, "\u041F\u043E\u043B"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
       name: 'gender',
       control: control,
-      defaultValue: getValues('gender') || getLabelGender((_data$getUser16 = data.getUser) === null || _data$getUser16 === void 0 ? void 0 : _data$getUser16.gender),
+      defaultValue: getValues('gender') || getLabelGender((_data$getUser17 = data.getUser) === null || _data$getUser17 === void 0 ? void 0 : _data$getUser17.gender),
       render: ({
         value,
         onChange
@@ -21732,12 +21790,12 @@ const User = ({
         disabled: loading,
         stretch: true
       })
-    })), ((account === null || account === void 0 ? void 0 : account.value) && (account === null || account === void 0 ? void 0 : account.value) !== 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser17 = data.getUser) === null || _data$getUser17 === void 0 ? void 0 : _data$getUser17.account) !== 'ENTITY') && ((_data$getUser18 = data.getUser) === null || _data$getUser18 === void 0 ? void 0 : (_data$getUser18$role = _data$getUser18.role) === null || _data$getUser18$role === void 0 ? void 0 : _data$getUser18$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    })), ((account === null || account === void 0 ? void 0 : account.value) && (account === null || account === void 0 ? void 0 : account.value) !== 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser18 = data.getUser) === null || _data$getUser18 === void 0 ? void 0 : _data$getUser18.account) !== 'ENTITY') && ((_data$getUser19 = data.getUser) === null || _data$getUser19 === void 0 ? void 0 : (_data$getUser19$role = _data$getUser19.role) === null || _data$getUser19$role === void 0 ? void 0 : _data$getUser19$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
       tag: 'h4'
     }, "\u041A\u043E\u043C\u043F\u0430\u043D\u0438\u044F"), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
       name: 'company',
       control: control,
-      defaultValue: getValues('company') || ((_data$getUser19 = data.getUser) !== null && _data$getUser19 !== void 0 && _data$getUser19.company ? {
+      defaultValue: getValues('company') || ((_data$getUser20 = data.getUser) !== null && _data$getUser20 !== void 0 && _data$getUser20.company ? {
         value: data.getUser.company.id,
         label: data.getUser.company.name
       } : null),
@@ -21757,17 +21815,17 @@ const User = ({
         isSearchable: true,
         cacheOptions: true
       })
-    })), ((_data$getUser20 = data.getUser) === null || _data$getUser20 === void 0 ? void 0 : (_data$getUser20$role = _data$getUser20.role) === null || _data$getUser20$role === void 0 ? void 0 : _data$getUser20$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    })), ((_data$getUser21 = data.getUser) === null || _data$getUser21 === void 0 ? void 0 : (_data$getUser21$role = _data$getUser21.role) === null || _data$getUser21$role === void 0 ? void 0 : _data$getUser21$role.name) !== 'ADMIN' && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
       tag: 'h4'
-    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser21 = data.getUser) === null || _data$getUser21 === void 0 ? void 0 : _data$getUser21.account) === 'ENTITY' ? 'О компании' : 'О себе'), /*#__PURE__*/external_react_default.a.createElement(TextArea["a" /* default */], {
+    }, account !== null && account !== void 0 && account.value && (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' || !(account !== null && account !== void 0 && account.value) && ((_data$getUser22 = data.getUser) === null || _data$getUser22 === void 0 ? void 0 : _data$getUser22.account) === 'ENTITY' ? 'О компании' : 'О себе'), /*#__PURE__*/external_react_default.a.createElement(TextArea["a" /* default */], {
       type: 'text',
       name: 'about',
       ref: register(),
-      defaultValue: getValues('about') || ((_data$getUser22 = data.getUser) === null || _data$getUser22 === void 0 ? void 0 : _data$getUser22.about) || '',
+      defaultValue: getValues('about') || ((_data$getUser23 = data.getUser) === null || _data$getUser23 === void 0 ? void 0 : _data$getUser23.about) || '',
       placeholder: 'Расскажите о себе пару слов',
       disabled: loading,
       appearance: 'ghost'
-    }))), /*#__PURE__*/external_react_default.a.createElement(Tab, {
+    }))), isEnabledSecurity && /*#__PURE__*/external_react_default.a.createElement(Tab, {
       active: tab.value === 'SECURITY'
     }, canEditRole && errors && (errors.email || errors.phone) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
       style: {
@@ -21786,7 +21844,7 @@ const User = ({
       ref: register({
         required: !user
       }),
-      defaultValue: getValues('email') || ((_data$getUser23 = data.getUser) === null || _data$getUser23 === void 0 ? void 0 : _data$getUser23.email),
+      defaultValue: getValues('email') || ((_data$getUser24 = data.getUser) === null || _data$getUser24 === void 0 ? void 0 : _data$getUser24.email),
       placeholder: 'Эл. почта',
       appearance: 'ghost',
       disabled: loading
@@ -21802,7 +21860,7 @@ const User = ({
       ref: register({
         required: !user
       }),
-      defaultValue: getValues('phone') || ((_data$getUser24 = data.getUser) === null || _data$getUser24 === void 0 ? void 0 : _data$getUser24.phone),
+      defaultValue: getValues('phone') || ((_data$getUser25 = data.getUser) === null || _data$getUser25 === void 0 ? void 0 : _data$getUser25.phone),
       placeholder: 'Телефон',
       appearance: 'ghost',
       disabled: loading
@@ -21819,7 +21877,7 @@ const User = ({
         required: !user
       }),
       type: isShowPassword ? 'text' : 'password',
-      defaultValue: getValues('password') || ((_data$getUser25 = data.getUser) === null || _data$getUser25 === void 0 ? void 0 : _data$getUser25.password),
+      defaultValue: getValues('password') || ((_data$getUser26 = data.getUser) === null || _data$getUser26 === void 0 ? void 0 : _data$getUser26.password),
       appearance: 'ghost',
       placeholder: 'Пароль',
       readOnly: !canEditRole
@@ -21864,9 +21922,9 @@ const User = ({
     }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0440\u043E\u043B\u044C"), canEditRole && /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
       name: 'role',
       control: control,
-      defaultValue: getValues('role') || ((_data$getUser26 = data.getUser) === null || _data$getUser26 === void 0 ? void 0 : _data$getUser26.role) && {
-        value: (_data$getUser27 = data.getUser) === null || _data$getUser27 === void 0 ? void 0 : _data$getUser27.role.id,
-        label: Object(functions["g" /* getLabelRole */])((_data$getUser28 = data.getUser) === null || _data$getUser28 === void 0 ? void 0 : (_data$getUser28$role = _data$getUser28.role) === null || _data$getUser28$role === void 0 ? void 0 : _data$getUser28$role.name)
+      defaultValue: getValues('role') || ((_data$getUser27 = data.getUser) === null || _data$getUser27 === void 0 ? void 0 : _data$getUser27.role) && {
+        value: (_data$getUser28 = data.getUser) === null || _data$getUser28 === void 0 ? void 0 : _data$getUser28.role.id,
+        label: Object(functions["g" /* getLabelRole */])((_data$getUser29 = data.getUser) === null || _data$getUser29 === void 0 ? void 0 : (_data$getUser29$role = _data$getUser29.role) === null || _data$getUser29$role === void 0 ? void 0 : _data$getUser29$role.name)
       } || null,
       render: ({
         value,
@@ -23476,6 +23534,7 @@ function onUserEdit(dispatch, props) {
                 avatar: (_form$avatar5 = form.avatar) === null || _form$avatar5 === void 0 ? void 0 : _form$avatar5.file,
                 avatarSize: (_form$avatar6 = form.avatar) === null || _form$avatar6 === void 0 ? void 0 : (_form$avatar6$file = _form$avatar6.file) === null || _form$avatar6$file === void 0 ? void 0 : _form$avatar6$file.size,
                 company: (_form$company3 = form.company) === null || _form$company3 === void 0 ? void 0 : _form$company3.value,
+                password: form.password,
                 about: form.about,
                 gender: (_form$gender3 = form.gender) === null || _form$gender3 === void 0 ? void 0 : _form$gender3.value,
                 phone: form.phone,
@@ -23922,6 +23981,7 @@ const UserFields = external_graphql_tag_default.a`
     register
     settings
     dateOfBirth
+    registerOfASocialNetwork
     countOfNewNotifications
     countOfNewMessages
     updatedAt
@@ -25892,12 +25952,14 @@ const Switch = props => {
 };
 const Route = ({
   component,
+  data,
   close,
   back,
   jump
 }) => {
   const Compoent = component;
   return /*#__PURE__*/external_react_default.a.createElement(Compoent, {
+    data: data,
     close: close,
     back: back,
     jump: jump
@@ -25912,6 +25974,7 @@ const Modal = ({
   const [navigator, setNavigator] = Object(external_react_["useState"])(['/']);
   const [content, setContent] = Object(external_react_["useState"])(false);
   const [animation, setAnimation] = Object(external_react_["useState"])(null);
+  const [data, setData] = Object(external_react_["useState"])(null);
   const transitions = {
     fade: {
       in: routes ? true : false,
@@ -25962,7 +26025,8 @@ const Modal = ({
     }, DURATION);
   };
 
-  const handleJump = path => {
+  const handleJump = (path, data) => {
+    setData(data);
     setAnimation('slideOutLeft');
     setTimeout(() => {
       setNavigator([...navigator, path]);
@@ -26003,6 +26067,7 @@ const Modal = ({
   }, (routes || []).map((props, key) => /*#__PURE__*/external_react_default.a.createElement(Route, _extends({
     key: key
   }, props, {
+    data: data,
     close: handleClose,
     back: handleBack,
     jump: handleJump

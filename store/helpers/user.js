@@ -562,6 +562,7 @@ export function onUserEdit(dispatch, props) {
                     avatar: form.avatar?.file,
                     avatarSize: form.avatar?.file?.size,
                     company: form.company?.value,
+                    password: form.password,
                     about: form.about,
                     gender: form.gender?.value,
                     phone: form.phone,

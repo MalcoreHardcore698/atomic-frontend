@@ -14,6 +14,7 @@ import Spinner from '../../atomic-ui/components/Spinner'
 import Column from '../../atomic-ui/components/Column'
 import Button from '../../atomic-ui/components/Button'
 import Image from '../../atomic-ui/components/Image'
+import Text from '../../atomic-ui/components/Text'
 import Icon from '../../atomic-ui/components/Icon'
 
 import MainLayout from '../main'
@@ -197,6 +198,15 @@ export const DashboardLayout = ({ children, title = 'Панель админис
                     path: '/',
                     title: 'Поиск',
                     component: ({ jump, close }) => <Search onJump={jump} onHide={close} />
+                  },
+                  {
+                    path: '/detail',
+                    title: 'Подробная информация',
+                    component: ({ data }) => (
+                      <Column style={{ padding: '15px' }}>
+                        <Text>{data.about || data.description}</Text>
+                      </Column>
+                    )
                   }
                 ],
                 'l'
