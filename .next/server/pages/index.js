@@ -8257,13 +8257,11 @@ const Select = ({
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _store_helpers_project__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__("IxyI");
 /* harmony import */ var _store_helpers_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("rP4V");
-/* harmony import */ var _store_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("+EEm");
-/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("8ihE");
-/* harmony import */ var _useEntityQuery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("8UhZ");
-/* harmony import */ var _useHelper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("ApjV");
-/* harmony import */ var _useMutate__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("lphG");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("u2Cb");
-
+/* harmony import */ var _store_actions_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("8ihE");
+/* harmony import */ var _useEntityQuery__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("8UhZ");
+/* harmony import */ var _useHelper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("ApjV");
+/* harmony import */ var _useMutate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("lphG");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("u2Cb");
 
 
 
@@ -8276,8 +8274,8 @@ const Select = ({
 const useProject = ({
   isManage
 } = {}) => {
-  const recall = Object(_useHelper__WEBPACK_IMPORTED_MODULE_7__[/* useHelper */ "b"])();
-  const mutate = Object(_useMutate__WEBPACK_IMPORTED_MODULE_8__[/* useMutate */ "a"])();
+  const recall = Object(_useHelper__WEBPACK_IMPORTED_MODULE_6__[/* useHelper */ "b"])();
+  const mutate = Object(_useMutate__WEBPACK_IMPORTED_MODULE_7__[/* useMutate */ "a"])();
   const {
     user,
     folder
@@ -8301,38 +8299,38 @@ const useProject = ({
     id: project.id,
     folders: user === null || user === void 0 ? void 0 : user.folders,
     mutations: {
-      addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].ADD_USER_PROJECT,
-      createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].ADD_USER_FOLDER
+      addProject: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].ADD_USER_PROJECT,
+      createFolder: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].ADD_USER_FOLDER
     },
     callback: item => {
       const result = { ...item,
         projects: [...item.projects, project.id]
       };
-      dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_5__[/* setUserFolder */ "d"])(result));
+      dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_4__[/* setUserFolder */ "d"])(result));
     }
   })(), [user, recall, dispatch]);
   const onLike = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => {
     if (user !== null && user !== void 0 && user.email) {
-      mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].LIKE_PROJECT, {
+      mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].LIKE_PROJECT, {
         id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_5__[/* updateUser */ "f"])(response.data.likeProject)));
+      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_4__[/* updateUser */ "f"])(response.data.likeProject)))();
     }
   }, [user, mutate, dispatch]);
   const onLink = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => {
     var _user$projects;
 
     const owned = user === null || user === void 0 ? void 0 : (_user$projects = user.projects) === null || _user$projects === void 0 ? void 0 : _user$projects.find(candidate => candidate.id === project.id);
-    recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_2__[/* onProjectLink */ "e"], Object(_useEntityQuery__WEBPACK_IMPORTED_MODULE_6__[/* getProjectLinkProps */ "b"])(project.id, user, owned, dispatch, mutate, recall, item => {
+    recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_2__[/* onProjectLink */ "e"], Object(_useEntityQuery__WEBPACK_IMPORTED_MODULE_5__[/* getProjectLinkProps */ "b"])(project.id, user, owned, dispatch, mutate, recall, item => {
       const result = { ...item,
         projects: [...item.projects, project.id]
       };
-      dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_5__[/* setUserFolder */ "d"])(result));
+      dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_4__[/* setUserFolder */ "d"])(result));
     }))();
   }, [user, dispatch, mutate, recall]);
   const onRemove = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_2__[/* onProjectRemove */ "f"], {
     id: project.id,
     folder,
-    mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].REMOVE_USER_PROJECT
+    mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].REMOVE_USER_PROJECT
   })(), [user, recall]);
   const onAboutMore = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => {
     recall(_store_helpers_user__WEBPACK_IMPORTED_MODULE_3__[/* onUserAboutMore */ "a"], {
@@ -8346,8 +8344,8 @@ const useProject = ({
       id: (_project$company = project.company) === null || _project$company === void 0 ? void 0 : _project$company.email,
       auth: user === null || user === void 0 ? void 0 : user.email,
       recipient: project.author,
-      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].GET_USER_CHATS,
-      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].SEND_MESSAGE
+      query: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].GET_USER_CHATS,
+      mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].SEND_MESSAGE
     })();
   }, [user, recall]);
   const onScreenshotClick = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])((project, key) => {
@@ -8360,9 +8358,9 @@ const useProject = ({
   const onEdit = (project, onAfter) => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_2__[/* onProjectEdit */ "d"], {
     id: project.id,
     canEditStatus,
-    mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].UPDATE_PROJECT,
-    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].GET_USERS,
-    onCompanyInputChange: mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].GET_USERS, {
+    mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].UPDATE_PROJECT,
+    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].GET_USERS,
+    onCompanyInputChange: mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].GET_USERS, {
       account: 'ENTITY'
     }),
     onAfter
@@ -8370,8 +8368,8 @@ const useProject = ({
 
   const onCreate = onAfter => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_2__[/* onProjectCreate */ "b"], {
     canEditStatus,
-    mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].CREATE_PROJECT,
-    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"].GET_USERS,
+    mutation: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].CREATE_PROJECT,
+    query: _graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].GET_USERS,
     onAfter
   })();
 

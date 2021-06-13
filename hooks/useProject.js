@@ -10,7 +10,6 @@ import {
   onProjectScreenshot
 } from '../store/helpers/project'
 import { onUserAboutMore, onUserLink } from '../store/helpers/user'
-import { onFileLink as onProjectFileLink } from '../store/helpers'
 import { setUserFolder, updateUser } from '../store/actions/user'
 import { getProjectLinkProps } from './useEntityQuery'
 import { useHelper } from './useHelper'
@@ -61,7 +60,7 @@ export const useProject = ({ isManage } = {}) => {
       if (user?.email) {
         mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
           dispatch(updateUser(response.data.likeProject))
-        )
+        )()
       }
     },
     [user, mutate, dispatch]
