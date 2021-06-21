@@ -103,15 +103,15 @@ const Logotype = styled.div`
 `
 
 const Content = styled(Container)`
-  padding: 70px 15px 15px 255px;
+  padding: 0 15px 15px 255px;
   flex-grow: 1;
 
   @media only screen and (max-width: 996px) {
-    padding: 70px 15px 15px 80px;
+    padding: 0 15px 15px 80px;
   }
 
   @media only screen and (max-width: 480px) {
-    padding: 70px 15px 15px 15px;
+    padding: 0 15px 15px 15px;
   }
 `
 

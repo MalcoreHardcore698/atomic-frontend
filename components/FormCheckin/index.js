@@ -19,6 +19,10 @@ import Form from '../Form'
 const GOOGLE_CLIENT_ID = '1008300307671-dvv5no8uimgk2lodr76m9rnnva8g0lii.apps.googleusercontent.com'
 const FACEBOOK_APP_ID = 697333197849130
 
+export const StretchButton = styled(Button)`
+  flex-grow: 1;
+`
+
 export const SocialButtons = styled(Row)`
   justify-content: center;
 `
@@ -148,63 +152,67 @@ export const Checkin = ({
     appearance={appearance}
     mutation={mutations.checkin}
     onSubmit={onSubmit}>
-    {({ register, errors, loading }) => (
-      <React.Fragment>
-        {title && (
-          <Container>
-            <Title style={{ textAlign: 'center' }} tag={'h4'}>
-              Вход
-            </Title>
-          </Container>
-        )}
+    {({ watch, register, errors, loading }) => {
+      const login = watch('login')
 
-        <Column>
-          {errors && errors.login && (
-            <Alert style={{ width: '100%' }} appearance={'error'}>
-              Неверно указано или не указано телефон/эл. почта
-            </Alert>
+      return (
+        <React.Fragment>
+          {title && (
+            <Container>
+              <Title style={{ textAlign: 'center' }} tag={'h4'}>
+                Вход
+              </Title>
+            </Container>
           )}
-          <Input
-            type={'text'}
-            name={'login'}
-            ref={register({ required: true })}
-            placeholder={'Телефон или адрес эл. почты'}
-            appearance={'ghost'}
-            disabled={loading}
-            required
-          />
-          <Button type={'button'} appearance={'link'} onClick={onForgot}>
-            Забыли пароль ?
-          </Button>
-        </Column>
 
-        <Row>
-          <Button style={{ flexGrow: 1 }} type={'button'} disabled={loading} onClick={onCreate}>
-            Создать
-          </Button>
-          <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-            Далее
-          </Button>
-        </Row>
+          <Column>
+            {errors && errors.login && (
+              <Alert style={{ width: '100%' }} appearance={'error'}>
+                Неверно указано или не указано телефон/эл. почта
+              </Alert>
+            )}
+            <Input
+              type={'text'}
+              name={'login'}
+              ref={register({ required: true })}
+              placeholder={'Телефон или адрес эл. почты'}
+              appearance={'ghost'}
+              disabled={loading}
+              required
+            />
+            <Button type={'button'} appearance={'link'} onClick={onForgot}>
+              Забыли пароль ?
+            </Button>
+          </Column>
 
-        <Divider />
+          <Row>
+            <StretchButton type={'button'} disabled={loading} onClick={onCreate}>
+              Создать аккаунт
+            </StretchButton>
+            <StretchButton style={{ flexGrow: 1 }} type={'submit'} disabled={!login || loading}>
+              Далее
+            </StretchButton>
+          </Row>
 
-        <SocialButtons>
-          <GoogleAuthButton
-            mutation={mutations.googleAuth}
-            onError={onGoogleError}
-            onFinally={onGoogleFinally}
-            onSubmit={onGoogleSubmit}
-          />
-          <FacebookAuthButton
-            mutation={mutations.facebookAuth}
-            onError={onFacebookError}
-            onFinally={onFacebookFinally}
-            onSubmit={onFacebookSubmit}
-          />
-        </SocialButtons>
-      </React.Fragment>
-    )}
+          <Divider />
+
+          <SocialButtons>
+            <GoogleAuthButton
+              mutation={mutations.googleAuth}
+              onError={onGoogleError}
+              onFinally={onGoogleFinally}
+              onSubmit={onGoogleSubmit}
+            />
+            <FacebookAuthButton
+              mutation={mutations.facebookAuth}
+              onError={onFacebookError}
+              onFinally={onFacebookFinally}
+              onSubmit={onFacebookSubmit}
+            />
+          </SocialButtons>
+        </React.Fragment>
+      )
+    }}
   </Form>
 )
 

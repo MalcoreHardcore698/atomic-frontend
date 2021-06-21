@@ -28,7 +28,7 @@ export const UserSuit = ({
     appearance={appearance}
     owned={hasOwned && hasOwned(user)}
     onLink={() => onLink && onLink(user)}
-    onChat={hasOwned && (() => onChat(user))}
+    onChat={hasOwned && hasOwned(user) && (() => onChat(user))}
     onMembers={() => onMembers && onMembers(user)}
     onAboutMore={() => onAboutMore && onAboutMore(user)}
     onCompanyLink={() => onCompanyLink && onCompanyLink(user)}

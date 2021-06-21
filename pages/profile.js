@@ -115,9 +115,7 @@ const Profile = () => {
           />
         )}
 
-        {!isFeed && (
-          <FilterBar {...filterConfig} isOpen={visibleFilters} />
-        )}
+        {!isFeed && <FilterBar {...filterConfig} isOpen={visibleFilters} />}
 
         <PageRouter page={currentPage} />
       </Column>

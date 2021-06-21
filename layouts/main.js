@@ -25,6 +25,13 @@ import config from '../config'
 
 const LIFETIME_OF_SNACK = 3000
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 72px;
+  width: 100%;
+`
+
 const GuideButton = styled(Button)`
   display: flex;
   justify-content: center;
@@ -142,7 +149,7 @@ export const MainLayout = ({ children }) => {
           <Spinner />
         </FixedLoader>
       ) : (
-        children
+        <Wrapper>{children}</Wrapper>
       )}
 
       <Drawer />

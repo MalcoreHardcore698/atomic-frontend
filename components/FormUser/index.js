@@ -382,7 +382,7 @@ export const User = ({
                     <Input
                       type={'tel'}
                       name={'phone'}
-                      ref={register({ required: !user })}
+                      ref={register({ required: !user, maxLength: 11, minLength: 8 })}
                       defaultValue={getValues('phone') || data.getUser?.phone}
                       placeholder={'Телефон'}
                       appearance={'ghost'}
@@ -400,7 +400,10 @@ export const User = ({
                 <AdaptiveRow>
                   <Input
                     name={'password'}
-                    ref={register({ required: !user })}
+                    ref={register({
+                      required: !user,
+                      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*).{6,64}$/g
+                    })}
                     type={isShowPassword ? 'text' : 'password'}
                     defaultValue={getValues('password') || data.getUser?.password}
                     appearance={'ghost'}
@@ -413,7 +416,16 @@ export const User = ({
                         type={'button'}
                         kind={'icon'}
                         disabled={loading}
-                        onClick={() => setValue('password', generator.generate())}>
+                        onClick={() =>
+                          setValue(
+                            'password',
+                            generator.generate({
+                              numbers: true,
+                              symbols: true,
+                              strict: true
+                            })
+                          )
+                        }>
                         <Icon icon={'password'} stroke={'white'} />
                       </Button>
                     </Tooltip>
@@ -447,8 +459,8 @@ export const User = ({
                 </AdaptiveRow>
 
                 <Text>
-                  Пароль должен содержать не менее восьми знаков, включать буквы, цифры и
-                  специальные символы
+                  Пароль должен содержать не менее восьми знаков, включать как минимум одну строчную
+                  и прописную букву, цифры и специальные символы
                 </Text>
               </Tab>
             )}

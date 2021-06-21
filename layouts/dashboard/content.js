@@ -31,7 +31,11 @@ const Delete = ({ item, query, component, entityMultiText, entitySingleText, onS
         try {
           await action({
             variables: {
-              id: isArray ? item.map((doc) => doc.id) : [item.id]
+              ...((isArray && item[0]?.email) || item.email
+                ? {
+                    email: isArray ? item.map((doc) => doc.email) : [item.email]
+                  }
+                : { id: isArray ? item.map((doc) => doc.id) : [item.id] })
             }
           })
           dispatch(

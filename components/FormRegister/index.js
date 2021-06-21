@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Controller } from 'react-hook-form'
 import styled from 'styled-components'
 import generator from 'generate-password'
 
@@ -21,6 +22,14 @@ const ACCOUNT_TYPES = [
   { label: 'Оф. лицо', value: 'OFICIAL', tooltip: 'Государственный деятель' },
   { label: 'Юр. лицо', value: 'ENTITY', tooltip: 'Организация' }
 ]
+
+export const LoginButton = styled(Button)`
+  flex-grow: 1;
+  text-align: left;
+  color: var(--default-color-accent);
+  background: transparent !important;
+  border: none !important;
+`
 
 export const AdaptiveRow = styled(Row)`
   @media only screen and (max-width: 575px) {
@@ -45,26 +54,30 @@ export const Register = ({
   className,
   onLogin,
   onSubmit
-}) => {
-  const [typeAccount, setTypeAccount] = useState(ACCOUNT_TYPES[0])
-  const [isShowPassword, setShowPassword] = useState(false)
-  const [generatedPassword, setGeneratedPassword] = useState('')
-  const [disabled, setDisabled] = useState(true)
+}) => (
+  <Form
+    className={className}
+    appearance={appearance}
+    mutation={mutation}
+    onSubmit={(form, action) => onSubmit(form, action)}>
+    {({ watch, register, loading, control, errors, setValue }) => {
+      const [isShowPassword, setShowPassword] = useState(false)
 
-  const onTogglePassword = () => setShowPassword(!isShowPassword)
+      const onTogglePassword = () => setShowPassword(!isShowPassword)
 
-  const onGeneratePassword = () => {
-    const password = generator.generate()
-    setGeneratedPassword(password)
-  }
+      const onGeneratePassword = () => {
+        const password = generator.generate({
+          numbers: true,
+          symbols: true,
+          strict: true
+        })
+        setValue('password', password)
+        setValue('confirmPassword', password)
+      }
 
-  return (
-    <Form
-      className={className}
-      appearance={appearance}
-      mutation={mutation}
-      onSubmit={(form, action) => onSubmit({ ...form, account: typeAccount }, action)}>
-      {({ register, loading, errors, getValues }) => (
+      const { account, name, email, phone, password, confirmPassword } = watch()
+
+      return (
         <React.Fragment>
           {title && (
             <Container>
@@ -75,28 +88,34 @@ export const Register = ({
           )}
 
           {(errors.name ||
-            errors.tin ||
             errors.email ||
             errors.phone ||
             errors.password ||
-            errors.confirmPassword ||
             errors.confirmPassword) && (
             <Alert style={{ width: '100%' }} appearance={'error'}>
               {errors.name && <p>Неверно указано или не указано ФИО</p>}
-              {errors.tin && <p>Неверно указан или не указан ИНН</p>}
               {errors.email && <p>Неверно указан или не указана эл. почта</p>}
               {errors.phone && <p>Неверно указан или не указана телефон</p>}
               {errors.password && <p>Неверно указан или не указан пароль</p>}
-              {!errors.confirmPassword && errors.confirmPassword && <p>Пароли не совпадают</p>}
+              {!errors.password && errors.password !== errors.confirmPassword && (
+                <p>Пароли не совпадают</p>
+              )}
             </Alert>
           )}
 
-          <Switch
-            onChange={(item) => setTypeAccount(item)}
-            defaultValue={getValues('account') || typeAccount}
-            options={(accountTypes?.length > 1 && accountTypes) || ACCOUNT_TYPES}
-            disabled={loading}
-            stretch
+          <Controller
+            name={'account'}
+            control={control}
+            defaultValue={ACCOUNT_TYPES[0]}
+            render={({ value, onChange }) => (
+              <Switch
+                defaultValue={value}
+                options={(accountTypes?.length > 1 && accountTypes) || ACCOUNT_TYPES}
+                disabled={loading}
+                onChange={onChange}
+                stretch
+              />
+            )}
           />
 
           <Column>
@@ -104,24 +123,11 @@ export const Register = ({
               type={'text'}
               name={'name'}
               ref={register({ required: true })}
-              onChange={() => setDisabled(false)}
-              defaultValue={getValues('name')}
-              placeholder={typeAccount.value === 'ENTITY' ? 'Название компании' : 'ФИО'}
+              placeholder={account?.value === 'ENTITY' ? 'Название компании' : 'ФИО'}
               appearance={'ghost'}
+              defaultValue={name}
               disabled={loading}
             />
-            {typeAccount.value !== 'INDIVIDUAL' && (
-              <Input
-                type={'text'}
-                name={'tin'}
-                ref={register({ required: true })}
-                onChange={() => setDisabled(false)}
-                defaultValue={getValues('tin')}
-                appearance={'ghost'}
-                placeholder={'ИНН'}
-                disabled={loading}
-              />
-            )}
             <Input
               type={'email'}
               name={'email'}
@@ -129,9 +135,8 @@ export const Register = ({
                 required: true,
                 pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
               })}
-              onChange={() => setDisabled(false)}
-              defaultValue={getValues('email')}
               placeholder={'Эл. почта'}
+              defaultValue={email}
               appearance={'ghost'}
               disabled={loading}
             />
@@ -139,10 +144,9 @@ export const Register = ({
               type={'tel'}
               name={'phone'}
               ref={register({ required: true, maxLength: 11, minLength: 8 })}
-              onChange={() => setDisabled(false)}
-              defaultValue={getValues('phone')}
               appearance={'ghost'}
               placeholder={'Телефон'}
+              defaultValue={phone}
               disabled={loading}
             />
           </Column>
@@ -150,30 +154,28 @@ export const Register = ({
           <AdaptiveRow>
             <Column style={{ flexGrow: 1 }}>
               <Input
-                type={isShowPassword ? 'text' : 'password'}
                 name={'password'}
-                ref={register({ required: true, minLength: 8 })}
-                defaultValue={generatedPassword || getValues('password')}
+                type={isShowPassword ? 'text' : 'password'}
+                ref={register({
+                  required: true,
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@[-`{-~]).{8,64}$/
+                })}
                 appearance={'ghost'}
                 placeholder={'Пароль'}
-                onChange={() => {
-                  setGeneratedPassword('')
-                  setDisabled(false)
-                }}
                 disabled={loading}
+                defaultValue={password}
               />
               <Input
-                type={isShowPassword ? 'text' : 'password'}
                 name={'confirmPassword'}
-                ref={register({ required: true, minLength: 8 })}
-                defaultValue={generatedPassword || getValues('confirmPassword')}
+                type={isShowPassword ? 'text' : 'password'}
+                ref={register({
+                  required: true,
+                  pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@[-`{-~]).{8,64}$/
+                })}
                 appearance={'ghost'}
-                placeholder={'Подтвердить'}
-                onChange={() => {
-                  setGeneratedPassword('')
-                  setDisabled(false)
-                }}
+                placeholder={'Подтвердите пароль'}
                 disabled={loading}
+                defaultValue={confirmPassword}
               />
             </Column>
             <Column>
@@ -182,10 +184,7 @@ export const Register = ({
                   type={'button'}
                   kind={'icon'}
                   disabled={loading}
-                  onClick={() => {
-                    onGeneratePassword()
-                    setDisabled(false)
-                  }}>
+                  onClick={() => onGeneratePassword()}>
                   <Icon icon={'password'} stroke={'white'} />
                 </Button>
               </Tooltip>
@@ -206,22 +205,22 @@ export const Register = ({
           </AdaptiveRow>
 
           <Text>
-            Пароль должен содержать не менее восьми знаков, включать буквы, цифры и специальные
-            символы
+            Пароль должен содержать не менее восьми знаков, включать как минимум одну строчную и
+            прописную букву, цифры и специальные символы
           </Text>
 
           <Row>
-            <Button style={{ flexGrow: 1 }} type={'button'} disabled={loading} onClick={onLogin}>
-              Войти
-            </Button>
-            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={disabled || loading}>
+            <LoginButton appearance={'clear'} type={'button'} disabled={loading} onClick={onLogin}>
+              Уже есть аккаунт?
+            </LoginButton>
+            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
               Далее
             </Button>
           </Row>
         </React.Fragment>
-      )}
-    </Form>
-  )
-}
+      )
+    }}
+  </Form>
+)
 
 export default Register

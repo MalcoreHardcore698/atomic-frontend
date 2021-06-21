@@ -3316,7 +3316,7 @@ const UserSuit = ({
   appearance: appearance,
   owned: hasOwned && hasOwned(user),
   onLink: () => onLink && onLink(user),
-  onChat: hasOwned && (() => onChat(user)),
+  onChat: hasOwned && hasOwned(user) && (() => onChat(user)),
   onMembers: () => onMembers && onMembers(user),
   onAboutMore: () => onAboutMore && onAboutMore(user),
   onCompanyLink: () => onCompanyLink && onCompanyLink(user),
@@ -7393,9 +7393,14 @@ const Delete = ({
     onCancel: () => dispatch(Object(drawer["a" /* setDrawer */])(null)),
     onSubmit: async (_, action) => {
       try {
+        var _item$;
+
         await action({
-          variables: {
-            id: isArray ? item.map(doc => doc.id) : [item.id]
+          variables: { ...(isArray && (_item$ = item[0]) !== null && _item$ !== void 0 && _item$.email || item.email ? {
+              email: isArray ? item.map(doc => doc.email) : [item.email]
+            } : {
+              id: isArray ? item.map(doc => doc.id) : [item.id]
+            })
           }
         });
         dispatch(Object(snacks["c" /* setItem */])({
@@ -10867,10 +10872,11 @@ function AppBar_extends() { AppBar_extends = Object.assign || function (target) 
 
 
 
+
 const AppBar_Wrap = external_styled_components_default.a.div.withConfig({
   displayName: "AppBar__Wrap",
   componentId: "vyjcbk-0"
-})(["position:relative;z-index:var(--z-13);display:grid;grid-template-columns:128px 1fr 80px;grid-gap:calc(var(--default-gap) + 25px);align-content:center;margin:0;padding:0 var(--main-offset-l);width:100%;height:72px;min-height:72px;background:var(--surface-background);border:var(--surface-border);box-shadow:var(--surface-shadow);@media only screen and (max-width:996px){padding:0 var(--main-offset-m);}@media only screen and (max-width:768px){display:flex;align-items:center;grid-gap:var(--default-gap);padding:0 var(--main-offset-s);}@media only screen and (max-width:480px){padding:0 var(--main-offset-xs);}"]);
+})(["position:fixed;top:0;left:0;z-index:var(--z-13);display:grid;grid-template-columns:128px 1fr 80px;grid-gap:calc(var(--default-gap) + 25px);align-content:center;margin:0;padding:0 var(--main-offset-l);width:100%;height:72px;min-height:72px;background:var(--surface-background);border:var(--surface-border);box-shadow:var(--surface-shadow);@media only screen and (max-width:996px){padding:0 var(--main-offset-m);}@media only screen and (max-width:768px){display:flex;align-items:center;grid-gap:var(--default-gap);padding:0 var(--main-offset-s);}@media only screen and (max-width:480px){padding:0 var(--main-offset-xs);}"]);
 const IconButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
   displayName: "AppBar__IconButton",
   componentId: "vyjcbk-1"
@@ -10925,6 +10931,7 @@ const App = ({
 }) => {
   var _user$avatar;
 
+  const root = Object(external_react_redux_["useSelector"])(state => state.root);
   return /*#__PURE__*/external_react_default.a.createElement(AppBar_Wrap, {
     className: className,
     style: style
@@ -10937,7 +10944,7 @@ const App = ({
   })), logotype && /*#__PURE__*/external_react_default.a.createElement(HomeLinkContainer, null, /*#__PURE__*/external_react_default.a.createElement(Link, {
     href: '/'
   }, /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
-    text: 'Атомик – портал для формирования новой сферы образования',
+    text: root.settings.meta.description,
     offset: {
       bottom: 10
     },
@@ -11016,7 +11023,7 @@ const App = ({
         text: 'Личный кабинет',
         onClick: onProfile
       }, {
-        text: 'Пользовательские настройки',
+        text: 'Настройки профиля',
         onClick: onSettings
       }, {
         text: 'Получить помощь',
@@ -21061,7 +21068,7 @@ const Logotype = external_styled_components_default.a.div.withConfig({
 const Content = external_styled_components_default()(Container["a" /* default */]).withConfig({
   displayName: "dashboard__Content",
   componentId: "sc-9r28sr-6"
-})(["padding:70px 15px 15px 255px;flex-grow:1;@media only screen and (max-width:996px){padding:70px 15px 15px 80px;}@media only screen and (max-width:480px){padding:70px 15px 15px 15px;}"]);
+})(["padding:0 15px 15px 255px;flex-grow:1;@media only screen and (max-width:996px){padding:0 15px 15px 80px;}@media only screen and (max-width:480px){padding:0 15px 15px 15px;}"]);
 const DashboardLayout = ({
   children,
   title = 'Панель администрирования'
@@ -21856,7 +21863,9 @@ const User = ({
       type: 'tel',
       name: 'phone',
       ref: register({
-        required: !user
+        required: !user,
+        maxLength: 11,
+        minLength: 8
       }),
       defaultValue: getValues('phone') || ((_data$getUser25 = data.getUser) === null || _data$getUser25 === void 0 ? void 0 : _data$getUser25.phone),
       placeholder: 'Телефон',
@@ -21872,7 +21881,8 @@ const User = ({
     }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u043F\u0430\u0440\u043E\u043B\u044C"), /*#__PURE__*/external_react_default.a.createElement(AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
       name: 'password',
       ref: register({
-        required: !user
+        required: !user,
+        pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*).{6,64}$/g
       }),
       type: isShowPassword ? 'text' : 'password',
       defaultValue: getValues('password') || ((_data$getUser26 = data.getUser) === null || _data$getUser26 === void 0 ? void 0 : _data$getUser26.password),
@@ -21885,7 +21895,11 @@ const User = ({
       type: 'button',
       kind: 'icon',
       disabled: loading,
-      onClick: () => setValue('password', external_generate_password_default.a.generate())
+      onClick: () => setValue('password', external_generate_password_default.a.generate({
+        numbers: true,
+        symbols: true,
+        strict: true
+      }))
     }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
       icon: 'password',
       stroke: 'white'
@@ -21910,7 +21924,7 @@ const User = ({
     }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
       icon: 'edit',
       stroke: 'white'
-    })))), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 \u0432\u043E\u0441\u044C\u043C\u0438 \u0437\u043D\u0430\u043A\u043E\u0432, \u0432\u043A\u043B\u044E\u0447\u0430\u0442\u044C \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\u0444\u0440\u044B \u0438 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0435 \u0441\u0438\u043C\u0432\u043E\u043B\u044B")), canEditRole && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    })))), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 \u0432\u043E\u0441\u044C\u043C\u0438 \u0437\u043D\u0430\u043A\u043E\u0432, \u0432\u043A\u043B\u044E\u0447\u0430\u0442\u044C \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C \u043E\u0434\u043D\u0443 \u0441\u0442\u0440\u043E\u0447\u043D\u0443\u044E \u0438 \u043F\u0440\u043E\u043F\u0438\u0441\u043D\u0443\u044E \u0431\u0443\u043A\u0432\u0443, \u0446\u0438\u0444\u0440\u044B \u0438 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0435 \u0441\u0438\u043C\u0432\u043E\u043B\u044B")), canEditRole && /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
       clear: true
     }), canEditRole && errors && errors.role && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
       style: {
@@ -21989,17 +22003,21 @@ var Container = __webpack_require__("N0uN");
 
 const GOOGLE_CLIENT_ID = '1008300307671-dvv5no8uimgk2lodr76m9rnnva8g0lii.apps.googleusercontent.com';
 const FACEBOOK_APP_ID = 697333197849130;
+const StretchButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
+  displayName: "FormCheckin__StretchButton",
+  componentId: "sc-115b6b6-0"
+})(["flex-grow:1;"]);
 const SocialButtons = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "FormCheckin__SocialButtons",
-  componentId: "sc-115b6b6-0"
+  componentId: "sc-115b6b6-1"
 })(["justify-content:center;"]);
 const GoogleButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
   displayName: "FormCheckin__GoogleButton",
-  componentId: "sc-115b6b6-1"
+  componentId: "sc-115b6b6-2"
 })(["background:#c5331e;height:var(--input-height-m);min-height:var(--input-height-m);&:hover{background:#c5331e;opacity:0.65;}"]);
 const FacebookButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
   displayName: "FormCheckin__FacebookButton",
-  componentId: "sc-115b6b6-2"
+  componentId: "sc-115b6b6-3"
 })(["background:#4e6297;height:var(--input-height-m);min-height:var(--input-height-m);&:hover{background:#4e6297;opacity:0.65;}"]);
 const GoogleAuthButton = ({
   mutation,
@@ -22113,57 +22131,58 @@ const Checkin = ({
   mutation: mutations.checkin,
   onSubmit: onSubmit
 }, ({
+  watch,
   register,
   errors,
   loading
-}) => /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, title && /*#__PURE__*/external_react_default.a.createElement(Container["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
-  style: {
-    textAlign: 'center'
-  },
-  tag: 'h4'
-}, "\u0412\u0445\u043E\u0434")), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, errors && errors.login && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
-  style: {
-    width: '100%'
-  },
-  appearance: 'error'
-}, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0442\u0435\u043B\u0435\u0444\u043E\u043D/\u044D\u043B. \u043F\u043E\u0447\u0442\u0430"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
-  type: 'text',
-  name: 'login',
-  ref: register({
+}) => {
+  const login = watch('login');
+  return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, title && /*#__PURE__*/external_react_default.a.createElement(Container["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+    style: {
+      textAlign: 'center'
+    },
+    tag: 'h4'
+  }, "\u0412\u0445\u043E\u0434")), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, errors && errors.login && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+    style: {
+      width: '100%'
+    },
+    appearance: 'error'
+  }, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0442\u0435\u043B\u0435\u0444\u043E\u043D/\u044D\u043B. \u043F\u043E\u0447\u0442\u0430"), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
+    type: 'text',
+    name: 'login',
+    ref: register({
+      required: true
+    }),
+    placeholder: 'Телефон или адрес эл. почты',
+    appearance: 'ghost',
+    disabled: loading,
     required: true
-  }),
-  placeholder: 'Телефон или адрес эл. почты',
-  appearance: 'ghost',
-  disabled: loading,
-  required: true
-}), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-  type: 'button',
-  appearance: 'link',
-  onClick: onForgot
-}, "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C ?")), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-  style: {
-    flexGrow: 1
-  },
-  type: 'button',
-  disabled: loading,
-  onClick: onCreate
-}, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-  style: {
-    flexGrow: 1
-  },
-  type: 'submit',
-  disabled: loading
-}, "\u0414\u0430\u043B\u0435\u0435")), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], null), /*#__PURE__*/external_react_default.a.createElement(SocialButtons, null, /*#__PURE__*/external_react_default.a.createElement(GoogleAuthButton, {
-  mutation: mutations.googleAuth,
-  onError: onGoogleError,
-  onFinally: onGoogleFinally,
-  onSubmit: onGoogleSubmit
-}), /*#__PURE__*/external_react_default.a.createElement(FacebookAuthButton, {
-  mutation: mutations.facebookAuth,
-  onError: onFacebookError,
-  onFinally: onFacebookFinally,
-  onSubmit: onFacebookSubmit
-}))));
+  }), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    type: 'button',
+    appearance: 'link',
+    onClick: onForgot
+  }, "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C ?")), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(StretchButton, {
+    type: 'button',
+    disabled: loading,
+    onClick: onCreate
+  }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442"), /*#__PURE__*/external_react_default.a.createElement(StretchButton, {
+    style: {
+      flexGrow: 1
+    },
+    type: 'submit',
+    disabled: !login || loading
+  }, "\u0414\u0430\u043B\u0435\u0435")), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], null), /*#__PURE__*/external_react_default.a.createElement(SocialButtons, null, /*#__PURE__*/external_react_default.a.createElement(GoogleAuthButton, {
+    mutation: mutations.googleAuth,
+    onError: onGoogleError,
+    onFinally: onGoogleFinally,
+    onSubmit: onGoogleSubmit
+  }), /*#__PURE__*/external_react_default.a.createElement(FacebookAuthButton, {
+    mutation: mutations.facebookAuth,
+    onError: onFacebookError,
+    onFinally: onFacebookFinally,
+    onSubmit: onFacebookSubmit
+  })));
+});
 /* harmony default export */ var FormCheckin = (Checkin);
 // CONCATENATED MODULE: ./components/FormLogin/index.js
 
@@ -22251,6 +22270,7 @@ Login.defaultProps = {
 
 
 
+
 const FormRegister_ACCOUNT_TYPES = [{
   label: 'Физ. лицо',
   value: 'INDIVIDUAL',
@@ -22264,9 +22284,13 @@ const FormRegister_ACCOUNT_TYPES = [{
   value: 'ENTITY',
   tooltip: 'Организация'
 }];
+const LoginButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
+  displayName: "FormRegister__LoginButton",
+  componentId: "sc-56g8v2-0"
+})(["flex-grow:1;text-align:left;color:var(--default-color-accent);background:transparent !important;border:none !important;"]);
 const FormRegister_AdaptiveRow = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "FormRegister__AdaptiveRow",
-  componentId: "sc-56g8v2-0"
+  componentId: "sc-56g8v2-1"
 })(["@media only screen and (max-width:575px){flex-direction:column;grid-gap:var(--default-gap);", "{flex-grow:1;button{width:100%;}}}"], Tooltip["a" /* Wrap */]);
 const Register = ({
   title = true,
@@ -22276,68 +22300,74 @@ const Register = ({
   className,
   onLogin,
   onSubmit
+}) => /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
+  className: className,
+  appearance: appearance,
+  mutation: mutation,
+  onSubmit: (form, action) => onSubmit(form, action)
+}, ({
+  watch,
+  register,
+  loading,
+  control,
+  errors,
+  setValue
 }) => {
-  const [typeAccount, setTypeAccount] = Object(external_react_["useState"])(FormRegister_ACCOUNT_TYPES[0]);
   const [isShowPassword, setShowPassword] = Object(external_react_["useState"])(false);
-  const [generatedPassword, setGeneratedPassword] = Object(external_react_["useState"])('');
-  const [disabled, setDisabled] = Object(external_react_["useState"])(true);
 
   const onTogglePassword = () => setShowPassword(!isShowPassword);
 
   const onGeneratePassword = () => {
-    const password = external_generate_password_default.a.generate();
-    setGeneratedPassword(password);
+    const password = external_generate_password_default.a.generate({
+      numbers: true,
+      symbols: true,
+      strict: true
+    });
+    setValue('password', password);
+    setValue('confirmPassword', password);
   };
 
-  return /*#__PURE__*/external_react_default.a.createElement(Form["b" /* default */], {
-    className: className,
-    appearance: appearance,
-    mutation: mutation,
-    onSubmit: (form, action) => onSubmit({ ...form,
-      account: typeAccount
-    }, action)
-  }, ({
-    register,
-    loading,
-    errors,
-    getValues
-  }) => /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, title && /*#__PURE__*/external_react_default.a.createElement(Container["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
+  const {
+    account,
+    name,
+    email,
+    phone,
+    password,
+    confirmPassword
+  } = watch();
+  return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, title && /*#__PURE__*/external_react_default.a.createElement(Container["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     style: {
       textAlign: 'center'
     },
     tag: 'h4'
-  }, "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442")), (errors.name || errors.tin || errors.email || errors.phone || errors.password || errors.confirmPassword || errors.confirmPassword) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }, "\u0421\u043E\u0437\u0434\u0430\u0439\u0442\u0435 \u0430\u043A\u043A\u0430\u0443\u043D\u0442")), (errors.name || errors.email || errors.phone || errors.password || errors.confirmPassword) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%'
     },
     appearance: 'error'
-  }, errors.name && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0424\u0418\u041E"), errors.tin && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u0418\u041D\u041D"), errors.email && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u044D\u043B. \u043F\u043E\u0447\u0442\u0430"), errors.phone && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0442\u0435\u043B\u0435\u0444\u043E\u043D"), errors.password && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u043F\u0430\u0440\u043E\u043B\u044C"), !errors.confirmPassword && errors.confirmPassword && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442")), /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
-    onChange: item => setTypeAccount(item),
-    defaultValue: getValues('account') || typeAccount,
-    options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || FormRegister_ACCOUNT_TYPES,
-    disabled: loading,
-    stretch: true
+  }, errors.name && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E \u0424\u0418\u041E"), errors.email && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u044D\u043B. \u043F\u043E\u0447\u0442\u0430"), errors.phone && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u0430 \u0442\u0435\u043B\u0435\u0444\u043E\u043D"), errors.password && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041D\u0435\u0432\u0435\u0440\u043D\u043E \u0443\u043A\u0430\u0437\u0430\u043D \u0438\u043B\u0438 \u043D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D \u043F\u0430\u0440\u043E\u043B\u044C"), !errors.password && errors.password !== errors.confirmPassword && /*#__PURE__*/external_react_default.a.createElement("p", null, "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442")), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
+    name: 'account',
+    control: control,
+    defaultValue: FormRegister_ACCOUNT_TYPES[0],
+    render: ({
+      value,
+      onChange
+    }) => /*#__PURE__*/external_react_default.a.createElement(Switch["b" /* default */], {
+      defaultValue: value,
+      options: (accountTypes === null || accountTypes === void 0 ? void 0 : accountTypes.length) > 1 && accountTypes || FormRegister_ACCOUNT_TYPES,
+      disabled: loading,
+      onChange: onChange,
+      stretch: true
+    })
   }), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
     type: 'text',
     name: 'name',
     ref: register({
       required: true
     }),
-    onChange: () => setDisabled(false),
-    defaultValue: getValues('name'),
-    placeholder: typeAccount.value === 'ENTITY' ? 'Название компании' : 'ФИО',
+    placeholder: (account === null || account === void 0 ? void 0 : account.value) === 'ENTITY' ? 'Название компании' : 'ФИО',
     appearance: 'ghost',
-    disabled: loading
-  }), typeAccount.value !== 'INDIVIDUAL' && /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
-    type: 'text',
-    name: 'tin',
-    ref: register({
-      required: true
-    }),
-    onChange: () => setDisabled(false),
-    defaultValue: getValues('tin'),
-    appearance: 'ghost',
-    placeholder: 'ИНН',
+    defaultValue: name,
     disabled: loading
   }), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
     type: 'email',
@@ -22346,9 +22376,8 @@ const Register = ({
       required: true,
       pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     }),
-    onChange: () => setDisabled(false),
-    defaultValue: getValues('email'),
     placeholder: 'Эл. почта',
+    defaultValue: email,
     appearance: 'ghost',
     disabled: loading
   }), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
@@ -22359,55 +22388,43 @@ const Register = ({
       maxLength: 11,
       minLength: 8
     }),
-    onChange: () => setDisabled(false),
-    defaultValue: getValues('phone'),
     appearance: 'ghost',
     placeholder: 'Телефон',
+    defaultValue: phone,
     disabled: loading
   })), /*#__PURE__*/external_react_default.a.createElement(FormRegister_AdaptiveRow, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], {
     style: {
       flexGrow: 1
     }
   }, /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
-    type: isShowPassword ? 'text' : 'password',
     name: 'password',
+    type: isShowPassword ? 'text' : 'password',
     ref: register({
       required: true,
-      minLength: 8
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@[-`{-~]).{8,64}$/
     }),
-    defaultValue: generatedPassword || getValues('password'),
     appearance: 'ghost',
     placeholder: 'Пароль',
-    onChange: () => {
-      setGeneratedPassword('');
-      setDisabled(false);
-    },
-    disabled: loading
+    disabled: loading,
+    defaultValue: password
   }), /*#__PURE__*/external_react_default.a.createElement(Input["a" /* default */], {
-    type: isShowPassword ? 'text' : 'password',
     name: 'confirmPassword',
+    type: isShowPassword ? 'text' : 'password',
     ref: register({
       required: true,
-      minLength: 8
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[ -/:-@[-`{-~]).{8,64}$/
     }),
-    defaultValue: generatedPassword || getValues('confirmPassword'),
     appearance: 'ghost',
-    placeholder: 'Подтвердить',
-    onChange: () => {
-      setGeneratedPassword('');
-      setDisabled(false);
-    },
-    disabled: loading
+    placeholder: 'Подтвердите пароль',
+    disabled: loading,
+    defaultValue: confirmPassword
   })), /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
     text: 'Генерация пароля'
   }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     type: 'button',
     kind: 'icon',
     disabled: loading,
-    onClick: () => {
-      onGeneratePassword();
-      setDisabled(false);
-    }
+    onClick: () => onGeneratePassword()
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'password',
     stroke: 'white'
@@ -22422,21 +22439,19 @@ const Register = ({
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: isShowPassword ? 'hide' : 'show',
     stroke: isShowPassword ? 'white' : 'var(--default-color-accent)'
-  }))))), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 \u0432\u043E\u0441\u044C\u043C\u0438 \u0437\u043D\u0430\u043A\u043E\u0432, \u0432\u043A\u043B\u044E\u0447\u0430\u0442\u044C \u0431\u0443\u043A\u0432\u044B, \u0446\u0438\u0444\u0440\u044B \u0438 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0435 \u0441\u0438\u043C\u0432\u043E\u043B\u044B"), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
-    style: {
-      flexGrow: 1
-    },
+  }))))), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, "\u041F\u0430\u0440\u043E\u043B\u044C \u0434\u043E\u043B\u0436\u0435\u043D \u0441\u043E\u0434\u0435\u0440\u0436\u0430\u0442\u044C \u043D\u0435 \u043C\u0435\u043D\u0435\u0435 \u0432\u043E\u0441\u044C\u043C\u0438 \u0437\u043D\u0430\u043A\u043E\u0432, \u0432\u043A\u043B\u044E\u0447\u0430\u0442\u044C \u043A\u0430\u043A \u043C\u0438\u043D\u0438\u043C\u0443\u043C \u043E\u0434\u043D\u0443 \u0441\u0442\u0440\u043E\u0447\u043D\u0443\u044E \u0438 \u043F\u0440\u043E\u043F\u0438\u0441\u043D\u0443\u044E \u0431\u0443\u043A\u0432\u0443, \u0446\u0438\u0444\u0440\u044B \u0438 \u0441\u043F\u0435\u0446\u0438\u0430\u043B\u044C\u043D\u044B\u0435 \u0441\u0438\u043C\u0432\u043E\u043B\u044B"), /*#__PURE__*/external_react_default.a.createElement(Row["b" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(LoginButton, {
+    appearance: 'clear',
     type: 'button',
     disabled: loading,
     onClick: onLogin
-  }, "\u0412\u043E\u0439\u0442\u0438"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+  }, "\u0423\u0436\u0435 \u0435\u0441\u0442\u044C \u0430\u043A\u043A\u0430\u0443\u043D\u0442?"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     style: {
       flexGrow: 1
     },
     type: 'submit',
-    disabled: disabled || loading
-  }, "\u0414\u0430\u043B\u0435\u0435"))));
-};
+    disabled: loading
+  }, "\u0414\u0430\u043B\u0435\u0435")));
+});
 /* harmony default export */ var FormRegister = (Register);
 // CONCATENATED MODULE: ./components/FormForgotEmail/index.js
 
@@ -26339,9 +26354,13 @@ var config = __webpack_require__("rOcY");
 
 
 const LIFETIME_OF_SNACK = 3000;
+const main_Wrapper = external_styled_components_default.a.div.withConfig({
+  displayName: "main__Wrapper",
+  componentId: "r90a11-0"
+})(["display:flex;flex-direction:column;margin-top:72px;width:100%;"]);
 const GuideButton = external_styled_components_default()(Button["a" /* default */]).withConfig({
   displayName: "main__GuideButton",
-  componentId: "r90a11-0"
+  componentId: "r90a11-1"
 })(["display:flex;justify-content:center;align-items:center;color:var(--default-color-accent);"]);
 
 const Welcome = ({
@@ -26451,7 +26470,7 @@ const MainLayout = ({
   return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(head_default.a, null, /*#__PURE__*/external_react_default.a.createElement("title", null, root.settings.meta.title), /*#__PURE__*/external_react_default.a.createElement("meta", {
     name: 'description',
     content: root.settings.meta.description
-  })), loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["b" /* FixedLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : children, /*#__PURE__*/external_react_default.a.createElement(components_Drawer_0, null), /*#__PURE__*/external_react_default.a.createElement(components_Snacks, {
+  })), loading ? /*#__PURE__*/external_react_default.a.createElement(Styled["b" /* FixedLoader */], null, /*#__PURE__*/external_react_default.a.createElement(Spinner["a" /* default */], null)) : /*#__PURE__*/external_react_default.a.createElement(main_Wrapper, null, children), /*#__PURE__*/external_react_default.a.createElement(components_Drawer_0, null), /*#__PURE__*/external_react_default.a.createElement(components_Snacks, {
     snacks: snacks,
     onRemove: snack => dispatch(Object(actions_snacks["b" /* removeItem */])(snack.id))
   }), /*#__PURE__*/external_react_default.a.createElement(components_Modal, {

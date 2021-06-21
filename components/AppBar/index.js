@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { useSelector } from 'react-redux'
 import { v4 } from 'uuid'
 
 import Avatar from '../../atomic-ui/components/Avatar'
@@ -11,7 +12,9 @@ import Badge from '../../atomic-ui/components/Badge'
 import Menu from '../../atomic-ui/components/Menu'
 
 export const Wrap = styled.div`
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: var(--z-13);
 
   display: grid;
@@ -161,6 +164,8 @@ export const App = ({
   onLogout,
   onLogin
 }) => {
+  const root = useSelector((state) => state.root)
+
   return (
     <Wrap className={className} style={style}>
       <MenuButton appearance={'clear'} kind={'icon'} onClick={onMenu}>
@@ -171,7 +176,7 @@ export const App = ({
         <HomeLinkContainer>
           <Link href={'/'}>
             <Tooltip
-              text={'Атомик – портал для формирования новой сферы образования'}
+              text={root.settings.meta.description}
               offset={{ bottom: 10 }}
               place={'bottom'}
               maxWidth={256}
@@ -246,7 +251,7 @@ export const App = ({
                   }}
                   links={[
                     { text: 'Личный кабинет', onClick: onProfile },
-                    { text: 'Пользовательские настройки', onClick: onSettings },
+                    { text: 'Настройки профиля', onClick: onSettings },
                     { text: 'Получить помощь', onClick: onHelp },
                     { text: 'Выход', onClick: onLogout }
                   ]}
