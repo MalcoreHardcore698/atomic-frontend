@@ -178,6 +178,7 @@ export const GET_META_SETTINGS_PROJECTS = gql`
     ) {
       id
       title
+      status
     }
   }
 `
@@ -239,6 +240,7 @@ export const GET_META_DASHBOARD_PREVIEW_ARTICLES = gql`
         id
         name
       }
+      status
     }
   }
 `

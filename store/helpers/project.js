@@ -50,7 +50,7 @@ const CreateButton = styled(Button)`
 `
 
 export function onProjectLink(dispatch, props) {
-  const { id, auth, liked, onAdd, onLike, owned } = props
+  const { id, auth, liked, onAdd, onLike, owned, preview, withStatus } = props
 
   dispatch(
     setDrawer({
@@ -63,6 +63,7 @@ export function onProjectLink(dispatch, props) {
           project={id}
           owned={owned}
           liked={liked}
+          preview={preview}
           onLike={onLike}
           onAdd={onAdd}
           onAboutMore={(project) => onUserAboutMore(dispatch, { project })}
@@ -74,6 +75,7 @@ export function onProjectLink(dispatch, props) {
               key
             })
           }
+          withStatus={withStatus}
         />
       )
     })
@@ -157,7 +159,7 @@ export function onProjectCreate(dispatch, props) {
                     screenshotSizes: screenshotSizes.length > 0 ? screenshotSizes : [],
                     presentation: form.presentation,
                     category: form.category?.value,
-                    status: form.status?.value
+                    status: form.status?.value || 'MODERATION'
                   }
                 }
               })
@@ -165,7 +167,7 @@ export function onProjectCreate(dispatch, props) {
               dispatch(
                 setItem({
                   type: 'success',
-                  message: 'Проект успешно создан'
+                  message: `Проект успешно ${isPurpose ? 'предложен' : 'создан'}`
                 })
               )
               if (onAfter) onAfter()
@@ -173,7 +175,7 @@ export function onProjectCreate(dispatch, props) {
               dispatch(
                 setItem({
                   type: 'error',
-                  message: 'Не удалось создать проект'
+                  message: `Не удалось ${isPurpose ? 'предложить' : 'создать'} проект`
                 })
               )
             } finally {

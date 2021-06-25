@@ -121,11 +121,27 @@ export function onUserCheckin(dispatch, props) {
           onFacebookFinally={(user) => dispatch(setUser(user))}
           onGoogleSubmit={async (response, action) => {
             const { accessToken } = response
-            await action({ variables: { accessToken } })
+            const result = await action({ variables: { accessToken: accessToken ?? '' } })
+            if (!result.data?.googleAuth) {
+              dispatch(
+                setItem({
+                  type: 'error',
+                  message: 'Ошибка авторизации'
+                })
+              )
+            }
           }}
           onFacebookSubmit={async (response, action) => {
             const { accessToken } = response
-            await action({ variables: { accessToken } })
+            const result = await action({ variables: { accessToken: accessToken ?? '' } })
+            if (!result.data?.facebookAuth) {
+              dispatch(
+                setItem({
+                  type: 'error',
+                  message: 'Ошибка авторизации'
+                })
+              )
+            }
           }}
           onSubmit={async (form, action) => {
             try {

@@ -38,7 +38,7 @@ const Projects = () => {
       startOffset={COMMON_START_OFFSET}
       deleteQuery={queries.DELETE_PROJECT}
       render={(document) => (
-        <ProjectSuit {...methods} project={document} withSocials={false} preview />
+        <ProjectSuit {...methods} project={document} withSocials={false} preview withStatus />
       )}
       onCreate={onCreate}
       onEdit={onEdit}

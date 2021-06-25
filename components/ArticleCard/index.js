@@ -9,7 +9,7 @@ import Title from '../../atomic-ui/components/Title'
 import Meta from '../../atomic-ui/components/Meta'
 import More from '../../atomic-ui/components/More'
 import Image from '../../atomic-ui/components/Image'
-import { b64EncodeUnicode } from '../../atomic-ui/utils/functions'
+import { b64EncodeUnicode, getColorStatus, getLabelStatus } from '../../atomic-ui/utils/functions'
 
 import { Surface } from '../Styled'
 import CardActions from '../CardActions'
@@ -126,7 +126,8 @@ export const Card = ({
   onChecked,
   onEdit,
   onDelete,
-  withSocials
+  withSocials,
+  withStatus
 }) => {
   const router = useRouter()
   const recall = useHelper()
@@ -186,6 +187,8 @@ export const Card = ({
           <Meta
             shareTitle={withSocials && article?.title}
             shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
+            status={withStatus && article?.status && getLabelStatus(article.status)}
+            color={withStatus && article?.status && getColorStatus(article.status)}
             category={article?.category?.name}
             date={article?.createdAt}
             short
@@ -205,7 +208,7 @@ export const Card = ({
         </Name>
 
         {article.body && <ShortText content={article.body} />}
-        {!onChecked && !preview && <MoreButton onClick={onLink} withButton />}
+        {!onChecked && !preview && <MoreButton onClick={handleClick} withButton />}
       </Column>
     </Wrap>
   )

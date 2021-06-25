@@ -50,6 +50,7 @@ export const Content = ({
   setCheckedList,
   gridOptions,
   withoutMore,
+  itemProps,
   onChecked,
   onClick,
   onEdit,
@@ -96,7 +97,7 @@ export const Content = ({
       {(initialDisplayMethod || displayMethod) === 'grid' && (
         <Grid {...gridOptions}>
           {items.map((item) => (
-            <LazyLoad key={item.id || item.email}>{component(item)}</LazyLoad>
+            <LazyLoad key={item.id || item.email}>{component(item, itemProps)}</LazyLoad>
           ))}
         </Grid>
       )}
@@ -142,6 +143,7 @@ export const List = ({
   initialDisplayMethod,
   setCheckedList,
   withoutSearch,
+  itemProps,
   withoutMore,
   gridOptions,
   onChecked,
@@ -181,6 +183,7 @@ export const List = ({
       initialDisplayMethod={initialDisplayMethod}
       setCheckedList={setCheckedList}
       withoutMore={withoutMore}
+      itemProps={itemProps}
       gridOptions={gridOptions}
       onChecked={onChecked}
       onDelete={onDelete}

@@ -17,7 +17,12 @@ import Difinition from '../../atomic-ui/components/Difinition'
 import CharacteristicEditor from '../../atomic-ui/components/CharacteristicEditor'
 import VideoPresentation, { parseUrl } from '../../atomic-ui/components/VideoPresentation'
 import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip'
-import { getFileSize, getLabelRole } from '../../atomic-ui/utils/functions'
+import {
+  getColorStatus,
+  getFileSize,
+  getLabelRole,
+  getLabelStatus
+} from '../../atomic-ui/utils/functions'
 
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import HTMLView from '../HTMLView'
@@ -244,11 +249,13 @@ export const View = ({
   slicedFactor = 6,
   owned,
   liked,
+  preview,
   onAdd,
   onLike,
   onScreenshotClick,
   onMemberLink,
-  onCompanyLink
+  onCompanyLink,
+  withStatus
 }) => {
   const { setQuery } = useEntityQuery()
   const { data, loading, error } = useQuery(queries.GET_PROJECT, {
@@ -335,6 +342,16 @@ export const View = ({
                 <Meta
                   shareTitle={data?.getProject?.title}
                   shareUrl={typeof window !== 'undefined' ? location.href : HOST_URL}
+                  status={
+                    withStatus &&
+                    data?.getProject?.status &&
+                    getLabelStatus(data?.getProject?.status)
+                  }
+                  color={
+                    withStatus &&
+                    data?.getProject?.status &&
+                    getColorStatus(data?.getProject?.status)
+                  }
                   category={data?.getProject?.category?.name}
                 />
                 <Title tag={'h3'} style={{ marginTop: -5, marginBottom: 5 }}>
@@ -343,50 +360,54 @@ export const View = ({
                 <Text>{data?.getProject?.description}</Text>
               </Column>
 
-              <Column>
-                <Divider clear />
+              {!preview && (
+                <Column>
+                  <Divider clear />
 
-                <Difinitions>
-                  <Difinition
-                    {...(data?.getProject?.company
-                      ? {
-                          img: data?.getProject?.company?.avatar?.path
-                        }
-                      : {
-                          icon: 'work'
-                        })}
-                    label={'Компания'}
-                    text={data?.getProject?.company?.name || '-'}
-                    onLink={() => setQuery(data?.getProject?.company?.email, 'user', onCompanyLink)}
-                  />
+                  <Difinitions>
+                    <Difinition
+                      {...(data?.getProject?.company
+                        ? {
+                            img: data?.getProject?.company?.avatar?.path
+                          }
+                        : {
+                            icon: 'work'
+                          })}
+                      label={'Компания'}
+                      text={data?.getProject?.company?.name || '-'}
+                      onLink={() =>
+                        setQuery(data?.getProject?.company?.email, 'user', onCompanyLink)
+                      }
+                    />
 
-                  {!owned && (onLike || onAdd) && (
-                    <Actions>
-                      {onLike && (
-                        <Tooltip text={'Мне нравится'}>
-                          <Button
-                            type={'button'}
-                            kind={'icon'}
-                            onClick={onClickLike}
-                            revert={!isLiked}>
-                            <Icon
-                              icon={'heart'}
-                              stroke={isLiked ? 'white' : 'var(--default-color-accent)'}
-                            />
-                          </Button>
-                        </Tooltip>
-                      )}
-                      {onAdd && (
-                        <Tooltip text={'Добавить проект к себе'}>
-                          <Button type={'button'} kind={'icon'} onClick={onAdd} revert>
-                            <Icon icon={'add'} stroke={'var(--default-color-accent)'} />
-                          </Button>
-                        </Tooltip>
-                      )}
-                    </Actions>
-                  )}
-                </Difinitions>
-              </Column>
+                    {!owned && (onLike || onAdd) && (
+                      <Actions>
+                        {onLike && (
+                          <Tooltip text={'Мне нравится'}>
+                            <Button
+                              type={'button'}
+                              kind={'icon'}
+                              onClick={onClickLike}
+                              revert={!isLiked}>
+                              <Icon
+                                icon={'heart'}
+                                stroke={isLiked ? 'white' : 'var(--default-color-accent)'}
+                              />
+                            </Button>
+                          </Tooltip>
+                        )}
+                        {onAdd && (
+                          <Tooltip text={'Добавить проект к себе'}>
+                            <Button type={'button'} kind={'icon'} onClick={onAdd} revert>
+                              <Icon icon={'add'} stroke={'var(--default-color-accent)'} />
+                            </Button>
+                          </Tooltip>
+                        )}
+                      </Actions>
+                    )}
+                  </Difinitions>
+                </Column>
+              )}
             </Content>
           </Container>
 

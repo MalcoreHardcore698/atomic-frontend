@@ -18,7 +18,7 @@ export const useProfile = ({ isManage } = {}) => {
 
   const onChangePage = (item) => dispatch(setCurrentPage(item.value))
 
-  const onAddProject = useCallback(() => {
+  const onPurposeProject = useCallback(() => {
     recall(onProjectCreate, {
       mutation: queries.CREATE_PROJECT,
       query: queries.GET_USERS,
@@ -26,7 +26,7 @@ export const useProfile = ({ isManage } = {}) => {
     })()
   }, [recall])
 
-  const onAddArticle = useCallback(() => {
+  const onPurposeArticle = useCallback(() => {
     recall(onArticleCreate, {
       mutation: queries.CREATE_ARTICLE,
       isPurpose: true
@@ -51,8 +51,8 @@ export const useProfile = ({ isManage } = {}) => {
     user,
     onChangePage,
     onCompanyLink,
-    onAddProject,
-    onAddArticle,
+    onPurposeProject,
+    onPurposeArticle,
     onAboutMore,
     onMembers,
     onEdit

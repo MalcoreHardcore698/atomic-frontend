@@ -28,8 +28,8 @@ const Profile = () => {
 
   const {
     onChangePage,
-    onAddProject,
-    onAddArticle,
+    onPurposeProject,
+    onPurposeArticle,
     onCompanyLink,
     onAboutMore,
     onMembers,
@@ -70,10 +70,10 @@ const Profile = () => {
     [user, profilePages]
   )
 
-  const getCreateMethod = useCallback(() => {
-    if (isProjects && hasAccess(user, 'PURPOSE_PROJECT')) return onAddProject
-    if (isArticles && hasAccess(user, 'PURPOSE_ARTICLE')) return onAddArticle
-  }, [user, isProjects, isArticles, onAddProject, onAddArticle])
+  const getPurposeMethod = useCallback(() => {
+    if (isProjects && hasAccess(user, 'PURPOSE_PROJECT')) return onPurposeProject
+    if (isArticles && hasAccess(user, 'PURPOSE_ARTICLE')) return onPurposeArticle
+  }, [user, isProjects, isArticles, onPurposeProject, onPurposeArticle])
 
   useEffect(() => {
     if (!user.authenticated) {
@@ -111,7 +111,7 @@ const Profile = () => {
           <SearchBar
             defaultValue={search}
             buttonCreateText={buttonCreateText}
-            onCreate={getCreateMethod()}
+            onCreate={getPurposeMethod()}
           />
         )}
 

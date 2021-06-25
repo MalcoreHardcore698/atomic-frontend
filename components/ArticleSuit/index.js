@@ -11,6 +11,7 @@ export const ArticleSuit = ({
   className,
   appearance,
   withSocials,
+  withStatus,
   hasOwned,
   onLink,
   onChecked,
@@ -26,8 +27,9 @@ export const ArticleSuit = ({
     className={className}
     appearance={appearance}
     withSocials={withSocials}
+    withStatus={withStatus}
     owned={hasOwned && hasOwned(article)}
-    onLink={onLink && (() => onLink(article))}
+    onLink={onLink && (() => onLink(article, withStatus))}
     onChecked={onChecked}
     onDelete={onDelete}
     onEdit={onEdit}

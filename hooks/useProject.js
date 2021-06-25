@@ -67,15 +67,15 @@ export const useProject = ({ isManage } = {}) => {
   )
 
   const onLink = useCallback(
-    (project) => {
+    (project, props) => {
       const owned = user?.projects?.find((candidate) => candidate.id === project.id)
-      recall(
-        onProjectLink,
-        getProjectLinkProps(project.id, user, owned, dispatch, mutate, recall, (item) => {
+      recall(onProjectLink, {
+        ...getProjectLinkProps(project.id, user, owned, dispatch, mutate, recall, (item) => {
           const result = { ...item, projects: [...item.projects, project.id] }
           dispatch(setUserFolder(result))
-        })
-      )()
+        }),
+        ...props
+      })()
     },
     [user, dispatch, mutate, recall]
   )

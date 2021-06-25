@@ -10,11 +10,13 @@ import queries from '../../graphql/queries'
 export const ProjectList = ({
   limit,
   layout,
+  preview,
   variables,
   startOffset,
   emptyMessage,
   initialDisplayMethod,
-  withoutMore
+  withoutMore,
+  withStatus
 }) => {
   const methods = useProject()
 
@@ -27,7 +29,15 @@ export const ProjectList = ({
       limit={limit ?? COMMON_LOAD_LIMIT}
       startOffset={startOffset ?? COMMON_START_OFFSET}
       initialDisplayMethod={initialDisplayMethod ?? INITIAL_DISPLAY_METHOD}
-      component={(document) => <ProjectSuit {...methods} project={document} layout={layout} />}
+      component={(document) => (
+        <ProjectSuit
+          {...methods}
+          layout={layout}
+          project={document}
+          preview={preview}
+          withStatus={withStatus}
+        />
+      )}
       withoutMore={withoutMore}
     />
   )

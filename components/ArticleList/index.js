@@ -16,7 +16,8 @@ export const ArticleList = ({
   emptyMessage,
   initialDisplayMethod,
   withoutSearch,
-  withoutMore
+  withoutMore,
+  withStatus
 }) => {
   const methods = useArticle()
 
@@ -32,7 +33,9 @@ export const ArticleList = ({
       limit={limit ?? COMMON_LOAD_LIMIT}
       startOffset={startOffset ?? COMMON_START_OFFSET}
       initialDisplayMethod={initialDisplayMethod ?? INITIAL_DISPLAY_METHOD}
-      component={(document) => <ArticleSuit {...methods} article={document} layout={layout} />}
+      component={(document) => (
+        <ArticleSuit {...methods} article={document} layout={layout} withStatus={withStatus} />
+      )}
     />
   )
 }

@@ -10,7 +10,7 @@ import { setItem } from '../actions/snacks'
 import { onUserLink } from './user'
 
 export function onArticleLink(dispatch, props) {
-  const { id, auth } = props
+  const { id, auth, withStatus } = props
 
   dispatch(
     setDrawer({
@@ -21,6 +21,7 @@ export function onArticleLink(dispatch, props) {
           article={id}
           appearance={'clear'}
           onCommentLink={(user) => onUserLink(dispatch, { email: user, auth })}
+          withStatus={withStatus}
         />
       )
     })
@@ -51,7 +52,7 @@ export function onArticleCreate(dispatch, props) {
                     preview: form.preview?.file,
                     previewSize: form.preview?.file.size,
                     category: form.category?.value,
-                    status: form.status?.value
+                    status: form.status?.value || 'MODERATION'
                   }
                 }
               })
@@ -60,7 +61,7 @@ export function onArticleCreate(dispatch, props) {
               dispatch(
                 setItem({
                   type: 'success',
-                  message: 'Статья успешно создана'
+                  message: `Статья успешно ${isPurpose ? 'предложена' : 'создана'}`
                 })
               )
               if (onAfter) onAfter()
@@ -69,7 +70,7 @@ export function onArticleCreate(dispatch, props) {
               dispatch(
                 setItem({
                   type: 'error',
-                  message: 'Не удалось создать статью'
+                  message: `Не удалось ${isPurpose ? 'предложить' : 'создана'} статью`
                 })
               )
             }

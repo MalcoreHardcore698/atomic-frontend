@@ -17,8 +17,8 @@ export const useArticle = ({ isManage } = {}) => {
   )
 
   const onLink = useCallback(
-    (article) => {
-      recall(onArticleLink, { id: article.id, auth: user?.email })
+    (article, withStatus) => {
+      recall(onArticleLink, { id: article.id, auth: user?.email, withStatus })
     },
     [user, recall]
   )

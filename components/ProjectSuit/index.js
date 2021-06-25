@@ -12,6 +12,7 @@ export const ProjectSuit = ({
   canRemove,
   appearance,
   withSocials,
+  withStatus,
   className,
   hasAdded,
   hasLiked,
@@ -36,6 +37,7 @@ export const ProjectSuit = ({
     canRemove={canRemove}
     appearance={appearance}
     withSocials={withSocials}
+    withStatus={withStatus}
     added={hasAdded && hasAdded(project)}
     liked={hasLiked && hasLiked(project)}
     onLink={() => onLink && onLink(project)}

@@ -14,6 +14,7 @@ import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
 import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
+import { getLabelStatus, getColorStatus } from '../../atomic-ui/utils/functions'
 
 import { Surface, More } from '../Styled'
 import CardActions from '../CardActions'
@@ -282,7 +283,8 @@ export const Card = ({
   onChecked,
   onEdit,
   onDelete,
-  withSocials
+  withSocials,
+  withStatus
 }) => {
   const recall = useHelper()
   const router = useRouter()
@@ -375,6 +377,8 @@ export const Card = ({
             <Tooltip place={'top'} text={project.category?.name}>
               <Meta
                 category={project.category?.name}
+                status={withStatus && project.status && getLabelStatus(project.status)}
+                color={withStatus && project.status && getColorStatus(project.status)}
                 shareTitle={withSocials && project?.title}
                 shareUrl={typeof window !== 'undefined' && withSocials ? location.href : HOST_URL}
                 onClickByCategory={() => router.push(`/projects?c=${project.category?.id}`)}

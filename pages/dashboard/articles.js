@@ -37,7 +37,9 @@ const Articles = () => {
       startOffset={COMMON_START_OFFSET}
       buttonCreateText={'Создать статью'}
       deleteQuery={queries.DELETE_ARTICLE}
-      render={(document) => <ArticleSuit {...methods} article={document} withSocials={false} />}
+      render={(document) => (
+        <ArticleSuit {...methods} article={document} withSocials={false} withStatus />
+      )}
       onCreate={onCreate}
       onEdit={onEdit}
     />

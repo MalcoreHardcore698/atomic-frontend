@@ -10,11 +10,11 @@ export const PageRouter = ({ page }) => {
 
   switch (page) {
     case 'projects':
-      return <ProjectList variables={{ author: user.email }} />
+      return <ProjectList variables={{ author: user.email }} preview withStatus />
     case 'liked':
       return <ProjectList variables={{ rating: user.email }} />
     case 'articles':
-      return <ArticleList variables={{ author: user.email }} layout={'row'} />
+      return <ArticleList variables={{ author: user.email }} layout={'row'} withStatus />
     case 'feed':
       return <Feed />
     default:

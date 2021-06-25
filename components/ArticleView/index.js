@@ -7,6 +7,7 @@ import Title from '../../atomic-ui/components/Title'
 import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
 import Divider from '../../atomic-ui/components/Divider'
+import { getColorStatus, getLabelStatus } from '../../atomic-ui/utils/functions'
 
 import HTMLView from '../HTMLView'
 import Comments from '../Comments'
@@ -72,7 +73,8 @@ export const View = ({
   style,
   onLink,
   onCommentLink,
-  onCommentReply
+  onCommentReply,
+  withStatus
 }) => {
   const [comments, setComments] = useState([])
 
@@ -125,6 +127,12 @@ export const View = ({
             <Meta
               shareTitle={data?.getArticle?.title}
               shareUrl={typeof window !== 'undefined' ? location.href : HOST_URL}
+              status={
+                withStatus && data?.getArticle?.status && getLabelStatus(data?.getArticle?.status)
+              }
+              color={
+                withStatus && data?.getArticle?.status && getColorStatus(data?.getArticle?.status)
+              }
               category={data?.getArticle?.category?.name}
               date={data?.getArticle?.createdAt}
             />
@@ -135,30 +143,34 @@ export const View = ({
             {data?.getArticle?.body && <HTMLView content={data?.getArticle?.body} />}
           </Content>
 
-          <Divider clear />
+          {data?.getArticle?.status === 'PUBLISHED' && (
+            <React.Fragment>
+              <Divider clear />
 
-          <Title tag={'h4'}>Комментарии</Title>
-          <Comments
-            comments={comments}
-            appearance={'ghost'}
-            error={errorComments || errorSendComment}
-            loading={loadingComments || loadingSendComment}
-            onLink={onCommentLink}
-            onReply={onCommentReply}
-            onLike={(id, liked) =>
-              likeComment({
-                variables: { comment: id, liked }
-              })
-            }
-            onSubmit={(value) =>
-              sendComment({
-                variables: {
-                  article: data.getArticle.id,
-                  text: value
+              <Title tag={'h4'}>Комментарии</Title>
+              <Comments
+                comments={comments}
+                appearance={'ghost'}
+                error={errorComments || errorSendComment}
+                loading={loadingComments || loadingSendComment}
+                onLink={onCommentLink}
+                onReply={onCommentReply}
+                onLike={(id, liked) =>
+                  likeComment({
+                    variables: { comment: id, liked }
+                  })
                 }
-              })
-            }
-          />
+                onSubmit={(value) =>
+                  sendComment({
+                    variables: {
+                      article: data.getArticle.id,
+                      text: value
+                    }
+                  })
+                }
+              />
+            </React.Fragment>
+          )}
         </React.Fragment>
       </Processed>
     </Wrap>

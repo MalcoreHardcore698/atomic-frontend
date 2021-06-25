@@ -23,7 +23,7 @@ import { setUser } from '../store/actions/user'
 import queries from '../graphql/queries'
 import config from '../config'
 
-const LIFETIME_OF_SNACK = 3000
+const LIFETIME_OF_SNACK = 10000
 
 const Wrapper = styled.div`
   display: flex;
