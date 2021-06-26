@@ -32,6 +32,8 @@ import queries from '../../graphql/queries'
 const TITLE = 'Панель администратора'
 const GREETING_TEXT = 'Добро пожаловать!'
 
+const statuses = ['PUBLISHED', 'MODERATION']
+
 const Container = styled(Column)`
   grid-gap: 10px;
 `
@@ -106,6 +108,7 @@ const Dashboard = () => {
     queries.GET_META_DASHBOARD_PREVIEW_PROJECTS,
     {
       variables: {
+        status: statuses,
         offset: 0,
         limit: 4
       }
@@ -116,6 +119,7 @@ const Dashboard = () => {
     queries.GET_META_DASHBOARD_PREVIEW_ARTICLES,
     {
       variables: {
+        status: statuses,
         offset: 0,
         limit: 4
       }
@@ -217,6 +221,7 @@ const Dashboard = () => {
                         query: queries.GET_USER_CHATS,
                         mutation: queries.SEND_MESSAGE
                       })}
+                      withStatus
                     />
                   </LazyLoad>
                 </FadeLoad>
@@ -241,6 +246,7 @@ const Dashboard = () => {
                     <ArticleCard
                       article={article}
                       onLink={recall(onArticleLink, { id: article.id })}
+                      withStatus
                     />
                   </LazyLoad>
                 </FadeLoad>

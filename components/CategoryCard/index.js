@@ -2,14 +2,13 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
-import Column from '../../atomic-ui/components/Column'
 import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
 import Image from '../../atomic-ui/components/Image'
 import Meta from '../../atomic-ui/components/Meta'
 import { getLabelCategory } from '../../atomic-ui/utils/functions'
 
-import { Surface } from '../Styled'
+import { CardContent, Surface } from '../Styled'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { onCategoryEdit, onCategoryDelete } from '../../store/helpers/category'
 import { useHelper } from '../../hooks/useHelper'
@@ -31,10 +30,6 @@ export const Poster = styled(Image)`
 export const Header = styled(Row)`
   justify-content: space-between;
   align-items: center;
-`
-
-export const Content = styled(Column)`
-  grid-gap: 0;
 `
 
 export const Name = styled(Title)`
@@ -85,7 +80,7 @@ export const Card = ({
 
   return (
     <Wrap className={className} style={style} checked={checked} appearance={appearance}>
-      <Content>
+      <CardContent style={{ gridGap: 0 }} editable={onEdit || onDelete || onChecked}>
         <Header>
           <Meta date={category.createdAt} category={getLabelCategory(category.type)} />
 
@@ -103,7 +98,7 @@ export const Card = ({
         </Name>
 
         <Text>{category.description}</Text>
-      </Content>
+      </CardContent>
     </Wrap>
   )
 }

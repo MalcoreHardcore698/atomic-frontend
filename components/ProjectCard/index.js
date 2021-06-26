@@ -16,7 +16,7 @@ import Divider from '../../atomic-ui/components/Divider'
 import Button from '../../atomic-ui/components/Button'
 import { getLabelStatus, getColorStatus } from '../../atomic-ui/utils/functions'
 
-import { Surface, More } from '../Styled'
+import { Surface, More, CardContent } from '../Styled'
 import CardActions from '../CardActions'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { onProjectDelete, onProjectEdit } from '../../store/helpers/project'
@@ -372,7 +372,7 @@ export const Card = ({
           </Media>
         )}
 
-        <Column style={{ gridGap: 5 }}>
+        <CardContent style={{ gridGap: 5 }} editable={onEdit || onDelete || onChecked}>
           <Header>
             <Tooltip place={'top'} text={project.category?.name}>
               <Meta
@@ -409,7 +409,7 @@ export const Card = ({
               <Text>{project.description || 'Описание не заполнено'}</Text>
             )}
           </About>
-        </Column>
+        </CardContent>
       </Content>
 
       {!preview && (

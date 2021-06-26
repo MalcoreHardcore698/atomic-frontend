@@ -43,6 +43,14 @@ export const Surface = styled(Column)`
     `}
 `
 
+export const CardContent = styled(Column)`
+  ${({ editable }) =>
+    editable &&
+    css`
+      padding-right: 70px;
+    `}
+`
+
 export const CentralAlert = styled(Alert)`
   display: flex;
   justify-content: center;

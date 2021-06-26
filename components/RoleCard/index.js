@@ -2,7 +2,6 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
-import Column from '../../atomic-ui/components/Column'
 import Meta from '../../atomic-ui/components/Meta'
 import Divider from '../../atomic-ui/components/Divider'
 import Chip from '../../atomic-ui/components/Chip'
@@ -10,7 +9,7 @@ import Alert from '../../atomic-ui/components/Alert'
 import Title from '../../atomic-ui/components/Title'
 import { getLabelRole, getLabelPermission } from '../../atomic-ui/utils/functions'
 
-import { Surface } from '../Styled'
+import { CardContent, Surface } from '../Styled'
 import CardActions from '../CardActions'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { onRoleDelete, onRoleEdit } from '../../store/helpers/role'
@@ -46,7 +45,8 @@ export const Actions = styled(Row)`
   height: 100%;
 `
 
-export const Permissions = styled(Row)`
+export const Permissions = styled(CardContent)`
+  flex-direction: row;
   flex-wrap: wrap;
   grid-gap: 10px;
 `
@@ -89,7 +89,7 @@ export const Card = ({
 
   return (
     <Wrap className={className} style={style} checked={checked} appearance={appearance}>
-      <Column style={{ gridGap: 5 }}>
+      <CardContent style={{ gridGap: 5 }} editable={onEdit || onDelete || onChecked}>
         <Header>
           <Meta date={role.createdAt} />
 
@@ -107,12 +107,12 @@ export const Card = ({
         <Name tag={'h4'} onClick={() => setQuery(role.id, 'role', onLink)}>
           {getLabelRole(role.name)}
         </Name>
-      </Column>
+      </CardContent>
 
       <Divider clear />
 
       {role && role.permissions.length > 0 ? (
-        <Permissions>
+        <Permissions editable={onEdit || onDelete || onChecked}>
           {permissions.map((permission) => (
             <Chip key={permission} color={'ghost'} appearance={'outlined'}>
               {getLabelPermission(permission)}

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, memo } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
@@ -14,6 +14,7 @@ import Button from '../../atomic-ui/components/Button'
 import Icon from '../../atomic-ui/components/Icon'
 import Column from '../../atomic-ui/components/Column'
 
+import useEntityQuery from '../../hooks/useEntityQuery'
 import { setDrawer } from '../../store/actions/drawer'
 
 const Wrap = styled(DrawerBase)``
@@ -69,8 +70,9 @@ const BackButton = styled(Button)`
   }
 `
 
-export const Drawer = () => {
+export const Drawer = memo(() => {
   const router = useRouter()
+  const { useDetectQuery } = useEntityQuery()
   const { root, drawer } = useSelector((state) => state)
   const dispatch = useDispatch()
 
@@ -81,7 +83,11 @@ export const Drawer = () => {
     await router.push(
       {
         pathname: router.pathname,
-        query: {}
+        query: root.search
+          ? {
+              search: root.search
+            }
+          : {}
       },
       undefined,
       { shallow: true }
@@ -120,13 +126,10 @@ export const Drawer = () => {
     })
   }
 
+  useDetectQuery()
+
   return (
-    <Wrap
-      key={drawer.history.length}
-      side={drawer.side}
-      half={drawer.half}
-      isOpen={drawer.open}
-      onBack={onDrawerBack}>
+    <Wrap side={drawer.side} half={drawer.half} isOpen={drawer.open} onBack={onDrawerBack}>
       <Container>
         <Header>
           <Row>
@@ -166,6 +169,6 @@ export const Drawer = () => {
       </Container>
     </Wrap>
   )
-}
+})
 
 export default Drawer

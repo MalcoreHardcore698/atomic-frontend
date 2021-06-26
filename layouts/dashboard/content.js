@@ -104,6 +104,7 @@ const ContentLayout = ({
   startOffset = 6,
   buttonCreateText,
   filterConfig,
+  variables,
   getType,
   getQuery,
   entityType,
@@ -238,6 +239,7 @@ const ContentLayout = ({
           type={getType}
           query={getQuery}
           template={template}
+          variables={variables}
           startOffset={startOffset}
           emptyMessage={emptyMessage}
           setCheckedList={setCheckedList}

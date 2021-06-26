@@ -360,7 +360,7 @@ export const View = ({
                 <Text>{data?.getProject?.description}</Text>
               </Column>
 
-              {!preview && (
+              {data?.getProject?.status === 'PUBLISHED' && !preview && (
                 <Column>
                   <Divider clear />
 

@@ -13,8 +13,9 @@ import { onRoleLink } from '../store/helpers/role'
 import { onUserLink } from '../store/helpers/user'
 import { onTicketLink } from '../store/helpers/ticket'
 import { updateUser } from '../store/actions/user'
+import { setIgnoreFetch } from '../store/actions/root'
+import { setItem } from '../store/actions/snacks'
 import queries from '../graphql/queries'
-import {setItem} from "../store/actions/snacks";
 
 export const getProjectLinkProps = (id, user, owned, dispatch, mutate, recall, callback) => ({
   id,
@@ -59,17 +60,18 @@ export const invokeRecall = (recall, mutate, user, dispatch, query) => {
       if (parameter) {
         return b64DecodeUnicode(parameter)
       }
-    }
-    catch {
+    } catch {
       dispatch(
-       setItem({
-         type: 'error',
-         message: 'Неправильный URL'
-       })
+        setItem({
+          type: 'error',
+          message: 'Неправильный URL'
+        })
       )
     }
     return null
   }
+
+  dispatch(setIgnoreFetch(true))
 
   if (query.article) {
     const id = getPerfectID(query.article)
@@ -117,7 +119,9 @@ export const useEntityQuery = () => {
   const dispatch = useDispatch()
 
   const setQuery = async (str, entity, callback) => {
-    await router.push(
+    dispatch(setIgnoreFetch(true))
+
+    await router.replace(
       {
         pathname: router.pathname,
         query: {
@@ -136,6 +140,7 @@ export const useEntityQuery = () => {
       if (Object.entries(query).length === 1) {
         invokeRecall(recall, mutate, user, dispatch, query)
       }
+      // IMPORTANT: In dependencies should be only router
     }, [router])
   }
 

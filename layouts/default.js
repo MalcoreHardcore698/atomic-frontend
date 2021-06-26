@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -16,7 +16,7 @@ import { useHelper } from '../hooks/useHelper'
 import Scaffold from '../components/Scaffold'
 import AppBar from '../components/AppBar'
 import Footer from '../components/Footer'
-import { FixedLoader } from '../components/Styled'
+import { LowerLoader } from '../components/Styled'
 import { setLogout } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
 import { getSupportLinks, socials, contacts } from '../__mock__'
@@ -89,13 +89,14 @@ const Anchor = styled.a`
     `}
 `
 
-export const DefaultLayout = ({ children, title = 'Атомик', scaffold, background }) => {
+const DefaultHeader = memo(() => {
   const recall = useHelper()
   const mutate = useMutate()
   const router = useRouter()
-  const { data, loading } = useQuery(queries.GET_CATEGORIES)
   const { root, user } = useSelector((state) => state)
   const dispatch = useDispatch()
+
+  const { data, loading } = useQuery(queries.GET_CATEGORIES)
   const categories = useMemo(() => data?.getCategories || [], [data])
 
   const isProjects = router.pathname.includes('projects')
@@ -107,149 +108,175 @@ export const DefaultLayout = ({ children, title = 'Атомик', scaffold, back
 
   if (loading) {
     return (
-      <FixedLoader>
+      <LowerLoader>
         <Spinner />
-      </FixedLoader>
+      </LowerLoader>
     )
   }
 
   return (
-    <MainLayout>
-      <Head>
-        <meta name="keywords" content="next,javascript,nextjs,react" />
-        <meta name="description" content="atomic project description" />
-        <title>{title}</title>
-      </Head>
-
-      <Background src={background} alt={'Background'} />
-
-      <Wrap>
-        <AppBar
-          user={user.authenticated ? user : null}
-          logotype={root.settings.general.logotype?.path}
-          link={({ children, href, ...props }) => (
-            <Link {...props} href={href}>
-              <Anchor active={router.pathname === href} link={children.type.target === 'span'}>
-                {children}
-              </Anchor>
-            </Link>
-          )}
-          links={[
-            {
-              label: 'Проекты',
-              props: {
-                sublinks: categories
-                  .filter((category) => category.type === 'DIVISION')
-                  .map((category) => ({
-                    label: category.name,
-                    props: {
-                      active: categoryId === category.id,
-                      onClick: () => router.push(`/projects?c=${category.id}`)
-                    }
-                  }))
-              },
-              active: isProjects
-            },
-            { label: 'Авторы', props: { href: '/creators' } },
-            { label: 'Новости', props: { href: '/articles' } },
-            { label: 'О ресурсе', props: { href: '/about' } }
-          ]}
-          onMenu={recall(onMenu, {
-            links: [
-              {
-                text: 'Проекты',
-                onClick: () => {
-                  dispatch(setDrawer(null))
-                  router.push('/projects')
-                }
-              },
-              {
-                text: 'Авторы',
-                onClick: () => {
-                  dispatch(setDrawer(null))
-                  router.push('/creators')
-                }
-              },
-              {
-                text: 'Новости',
-                onClick: () => {
-                  dispatch(setDrawer(null))
-                  router.push('/articles')
-                }
-              },
-              {
-                text: 'О ресурсе',
-                onClick: () => {
-                  dispatch(setDrawer(null))
-                  router.push('/about')
-                }
-              }
-            ]
-          })}
-          onHelp={onSupport}
-          onChat={recall(onChat, {
-            sender: user,
-            queries: {
-              userChats: queries.GET_USER_CHATS,
-              chat: queries.GET_CHAT
-            },
-            mutations: {
-              addUserChat: queries.ADD_USER_CHAT,
-              sendMessage: queries.SEND_MESSAGE
-            }
-          })}
-          onSettings={recall(onUserClientEdit, {
-            user: user?.email,
-            mutations: {
-              del: queries.DELETE_USER,
-              forgotEmail: queries.LOGIN,
-              forgotPassword: queries.RESET,
-              changePassword: queries.UPDATE_CLIENT_USER,
-              checkResetToken: queries.CHECK_RESET_TOKEN,
-              update: queries.UPDATE_CLIENT_USER
-            }
-          })}
-          onNotification={recall(onNotification, { user: user.email })}
-          onProfile={() => router.push('/profile')}
-          onLogin={() => router.push('/auth')}
-          onLogout={mutate(queries.LOGOUT, {}, () => dispatch(setLogout()))}
-        />
-
-        {scaffold && <Scaffold scaffold={scaffold} />}
-
-        <Main id={'main'}>{children}</Main>
-
-        <Footer
-          contacts={contacts}
-          socials={socials}
-          catalog={{
-            title: 'Каталог',
-            links: categories
+    <AppBar
+      user={user.authenticated ? user : null}
+      logotype={root.settings.general.logotype?.path}
+      link={({ children, href, ...props }) => (
+        <Link {...props} href={href}>
+          <Anchor active={router.pathname === href} link={children.type.target === 'span'}>
+            {children}
+          </Anchor>
+        </Link>
+      )}
+      links={[
+        {
+          label: 'Проекты',
+          props: {
+            sublinks: categories
               .filter((category) => category.type === 'DIVISION')
-              .map((link) => (
-                <Link key={v4()} href={`/projects?c=${link.id}`}>
-                  <a>{link.name}</a>
-                </Link>
-              ))
-          }}
-          support={{
-            title: 'О компании',
-            links: getSupportLinks(onSupport).map((link) => ({
-              ...link,
-              render: () =>
-                link.path ? (
-                  <Link key={v4()} href={link.path}>
-                    <a>{link.label}</a>
-                  </Link>
-                ) : (
-                  link.label
-                )
-            }))
-          }}
-        />
-      </Wrap>
-    </MainLayout>
+              .map((category) => ({
+                label: category.name,
+                props: {
+                  active: categoryId === category.id,
+                  onClick: () => router.push(`/projects?c=${category.id}`)
+                }
+              }))
+          },
+          active: isProjects
+        },
+        { label: 'Авторы', props: { href: '/creators' } },
+        { label: 'Новости', props: { href: '/articles' } },
+        { label: 'О ресурсе', props: { href: '/about' } }
+      ]}
+      onMenu={recall(onMenu, {
+        links: [
+          {
+            text: 'Проекты',
+            onClick: () => {
+              dispatch(setDrawer(null))
+              router.push('/projects')
+            }
+          },
+          {
+            text: 'Авторы',
+            onClick: () => {
+              dispatch(setDrawer(null))
+              router.push('/creators')
+            }
+          },
+          {
+            text: 'Новости',
+            onClick: () => {
+              dispatch(setDrawer(null))
+              router.push('/articles')
+            }
+          },
+          {
+            text: 'О ресурсе',
+            onClick: () => {
+              dispatch(setDrawer(null))
+              router.push('/about')
+            }
+          }
+        ]
+      })}
+      onHelp={onSupport}
+      onChat={recall(onChat, {
+        sender: user,
+        queries: {
+          userChats: queries.GET_USER_CHATS,
+          chat: queries.GET_CHAT
+        },
+        mutations: {
+          addUserChat: queries.ADD_USER_CHAT,
+          sendMessage: queries.SEND_MESSAGE
+        }
+      })}
+      onSettings={recall(onUserClientEdit, {
+        user: user?.email,
+        mutations: {
+          del: queries.DELETE_USER,
+          forgotEmail: queries.LOGIN,
+          forgotPassword: queries.RESET,
+          changePassword: queries.UPDATE_CLIENT_USER,
+          checkResetToken: queries.CHECK_RESET_TOKEN,
+          update: queries.UPDATE_CLIENT_USER
+        }
+      })}
+      onNotification={recall(onNotification, { user: user.email })}
+      onProfile={() => router.push('/profile')}
+      onLogin={() => router.push('/auth')}
+      onLogout={mutate(queries.LOGOUT, {}, () => dispatch(setLogout()))}
+    />
   )
-}
+})
+
+const DefaultFooter = memo(() => {
+  const recall = useHelper()
+  const { data, loading } = useQuery(queries.GET_CATEGORIES)
+  const categories = useMemo(() => data?.getCategories || [], [data])
+
+  const onSupport = recall(onHelp, {
+    mutation: queries.CREATE_USER_TICKET
+  })
+
+  if (loading) {
+    return (
+      <LowerLoader>
+        <Spinner />
+      </LowerLoader>
+    )
+  }
+
+  return (
+    <Footer
+      contacts={contacts}
+      socials={socials}
+      catalog={{
+        title: 'Каталог',
+        links: categories
+          .filter((category) => category.type === 'DIVISION')
+          .map((link) => (
+            <Link key={v4()} href={`/projects?c=${link.id}`}>
+              <a>{link.name}</a>
+            </Link>
+          ))
+      }}
+      support={{
+        title: 'О компании',
+        links: getSupportLinks(onSupport).map((link) => ({
+          ...link,
+          render: () =>
+            link.path ? (
+              <Link key={v4()} href={link.path}>
+                <a>{link.label}</a>
+              </Link>
+            ) : (
+              link.label
+            )
+        }))
+      }}
+    />
+  )
+})
+
+export const DefaultLayout = ({ children, title = 'Атомик', scaffold, background }) => (
+  <MainLayout>
+    <Head>
+      <meta name="keywords" content="next,javascript,nextjs,react" />
+      <meta name="description" content="atomic project description" />
+      <title>{title}</title>
+    </Head>
+
+    <Background src={background} alt={'Background'} />
+
+    <Wrap>
+      <DefaultHeader />
+
+      {scaffold && <Scaffold scaffold={scaffold} />}
+
+      <Main>{children}</Main>
+
+      <DefaultFooter />
+    </Wrap>
+  </MainLayout>
+)
 
 export default DefaultLayout

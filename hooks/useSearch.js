@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 
 import { omit } from '../atomic-ui/utils/functions'
 
-import { setSearch, setParams } from '../store/actions/root'
+import { setSearch, setParams, setIgnoreFetch } from '../store/actions/root'
 
 export const parseParams = (params) => omit(params, ['search'])
 
@@ -15,23 +15,25 @@ export const useSearch = () => {
   const root = useSelector((state) => state.root)
 
   const onSearch = useCallback(
-   (search, params) => {
-     if (search) dispatch(setSearch(search))
-     if (params) dispatch(setParams(parseParams(params)))
+    (search, params) => {
+      dispatch(setIgnoreFetch(false))
 
-     router.push(
-      {
-        pathname: router.pathname,
-        query: {
-          ...(search ? { search } : {}),
-          ...(params || root.params || {})
-        }
-      },
-      undefined,
-      { shallow: true }
-     )
-   },
-   [root, router, dispatch]
+      dispatch(setSearch(search || ''))
+      dispatch(setParams(parseParams(params || '')))
+
+      return router.replace(
+        {
+          pathname: router.pathname,
+          query: {
+            ...(search ? { search } : {}),
+            ...(params || root.params || {})
+          }
+        },
+        undefined,
+        { shallow: true }
+      )
+    },
+    [root, router, dispatch]
   )
 
   useEffect(() => {

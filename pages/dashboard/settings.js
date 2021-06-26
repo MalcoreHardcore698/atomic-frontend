@@ -62,7 +62,8 @@ const Settings = () => {
                         primary: form.scaffold?.primary?.value,
                         residues: form.scaffold?.residues?.map((residue) => residue.value),
                         background: form.scaffold?.background?.file,
-                        backgroundSize: form.scaffold?.background?.size
+                        backgroundSize: form.scaffold?.background?.size,
+                        isRandom: form.scaffold?.isRandom
                       },
                       meta: {
                         title: form.meta?.title,

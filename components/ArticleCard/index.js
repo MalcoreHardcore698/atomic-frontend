@@ -4,14 +4,13 @@ import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
-import Column from '../../atomic-ui/components/Column'
 import Title from '../../atomic-ui/components/Title'
 import Meta from '../../atomic-ui/components/Meta'
 import More from '../../atomic-ui/components/More'
 import Image from '../../atomic-ui/components/Image'
 import { b64EncodeUnicode, getColorStatus, getLabelStatus } from '../../atomic-ui/utils/functions'
 
-import { Surface } from '../Styled'
+import { Surface, CardContent } from '../Styled'
 import CardActions from '../CardActions'
 import { onArticleDelete, onArticleEdit } from '../../store/helpers/article'
 import { useHelper } from '../../hooks/useHelper'
@@ -168,7 +167,7 @@ export const Card = ({
   }
 
   return (
-    <Wrap checked={checked} appearance={appearance} layout={layout}>
+    <Wrap layout={layout} checked={checked} appearance={appearance}>
       {article.preview && (
         <Poster
           src={article.preview?.path}
@@ -177,7 +176,8 @@ export const Card = ({
           layout={layout}
         />
       )}
-      <Column
+      <CardContent
+        editable={onEdit || onDelete || onChecked}
         style={{
           gridGap: 5,
           width: '100%',
@@ -209,7 +209,7 @@ export const Card = ({
 
         {article.body && <ShortText content={article.body} />}
         {!onChecked && !preview && <MoreButton onClick={handleClick} withButton />}
-      </Column>
+      </CardContent>
     </Wrap>
   )
 }

@@ -18,7 +18,7 @@ export const GET_ARTICLES = gql`
     $category: ID
     $search: String
     $author: String
-    $status: PostStatus
+    $status: [PostStatus]
     $createdAt: String
   ) {
     getArticles(

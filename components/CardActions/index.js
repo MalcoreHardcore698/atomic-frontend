@@ -26,7 +26,7 @@ export const Actions = styled(Row)`
 `
 
 export const CheckedTooltip = styled(Tooltip)`
-  z-index: var(--z-15);
+  z-index: var(--z-14);
 `
 
 export const CardActions = ({ typeText, checked, onChecked, onEdit, onDelete }) => (

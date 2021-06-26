@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
 import Row, { Wrap as WrapRow } from '../../atomic-ui/components/Row'
-import Column from '../../atomic-ui/components/Column'
 import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
 import Icon from '../../atomic-ui/components/Icon'
@@ -15,7 +14,7 @@ import Tooltip, { Wrap as WrapTooltip } from '../../atomic-ui/components/Tooltip
 import Difinition, { MarkedText } from '../../atomic-ui/components/Difinition'
 import { getLabelRole } from '../../atomic-ui/utils/functions'
 
-import { Surface, More } from '../Styled'
+import { CardContent, Surface, More } from '../Styled'
 import CardActions from '../CardActions'
 import { ResponsibleMark, hasResponsibleMember } from '../Members'
 import { onUserDelete, onUserEdit } from '../../store/helpers/user'
@@ -181,7 +180,7 @@ export const Card = ({
           effect={'opacity'}
           layout={'fill'}
         />
-        <Column style={{ gridGap: 5 }}>
+        <CardContent style={{ gridGap: 0 }} editable={onEdit || onDelete || onChecked}>
           <Header>
             <MarkedText>
               <Meta
@@ -218,7 +217,7 @@ export const Card = ({
           {user?.projects && (
             <Indicator icon={'work'} label={'Проекты'} text={user?.projects?.length} />
           )}
-        </Column>
+        </CardContent>
       </Content>
 
       {!preview && (

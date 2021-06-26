@@ -1,11 +1,9 @@
 import React from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import { Provider } from 'react-redux'
 import { ApolloProvider } from '@apollo/react-hooks'
 import NextNprogress from 'nextjs-progressbar'
-import { motion } from 'framer-motion'
 
 import 'react-lazy-load-image-component/src/effects/opacity.css'
 import '../atomic-ui/theme/default.css'
@@ -35,7 +33,6 @@ const GlobalStyle = createGlobalStyle`
 const App = ({ Component, pageProps }) => {
   const client = useApollo(pageProps.initialApolloState)
   const store = useStore(pageProps.initialReduxState)
-  const router = useRouter()
 
   return (
     <Provider store={store}>
@@ -53,20 +50,7 @@ const App = ({ Component, pageProps }) => {
         <ThemeProvider theme={theme}>
           <GlobalStyle />
 
-          <motion.div
-            key={router.route}
-            initial={'pageInitial'}
-            animate={'pageAnimate'}
-            variants={{
-              pageInitial: {
-                opacity: 0
-              },
-              pageAnimate: {
-                opacity: 1
-              }
-            }}>
-            <Component {...pageProps} />
-          </motion.div>
+          <Component {...pageProps} />
 
           <NextNprogress
             color={'var(--default-color-accent)'}

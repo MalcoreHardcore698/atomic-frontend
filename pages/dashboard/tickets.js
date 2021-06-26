@@ -34,6 +34,7 @@ const Tickets = () => {
       template={template}
       startOffset={START_OFFSET}
       filterConfig={filterConfig}
+      variables={{ status: null }}
       emptyMessage={'Обращений нет'}
       buttonCreateText={'Создать обращение'}
       entityType={'ticket'}

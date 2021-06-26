@@ -11,8 +11,8 @@ import Alert from '../../atomic-ui/components/Alert'
 import Icon from '../../atomic-ui/components/Icon'
 
 import { onUserFolderAdd, onUserFolderDelete } from '../../store/helpers/user'
+import { setFolder, setIgnoreFetch } from '../../store/actions/root'
 import { setUserFolder } from '../../store/actions/user'
-import { setFolder } from '../../store/actions/root'
 import { useHelper } from '../../hooks/useHelper'
 import queries from '../../graphql/queries'
 
@@ -114,6 +114,8 @@ export const Organizer = () => {
   const onFolderClick = (item) => {
     if (item.projects && item) {
       const result = { ...item, projects: item.projects }
+      dispatch(setIgnoreFetch(false))
+
       dispatch(setFolder(result))
       dispatch(setUserFolder(result))
     }

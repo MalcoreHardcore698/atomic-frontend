@@ -9,6 +9,7 @@ import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
 import Button from '../../atomic-ui/components/Button'
 import Dropzone from '../../atomic-ui/components/Dropzone'
+import CheckBox from '../../atomic-ui/components/Checkbox'
 import Divider from '../../atomic-ui/components/Divider'
 import Select from '../../atomic-ui/components/Select'
 import Column from '../../atomic-ui/components/Column'
@@ -103,203 +104,218 @@ export const TabContent = styled(Column)`
     `}
 `
 
-const renderProjectSelect = (
-  name,
-  placeholder,
-  defaultValue,
-  data,
-  loading,
-  control,
-  getValues
-) => (
-  <Controller
-    name={name}
-    control={control}
-    defaultValue={
-      getValues(name) ||
-      (defaultValue
-        ? {
-            value: defaultValue.id,
-            label: defaultValue.title
-          }
-        : null)
-    }
-    render={({ value, onChange }) => (
-      <Select
-        appearance={'ghost'}
-        defaultValue={value}
-        placeholder={placeholder}
-        options={(data?.getProjects || []).map((project) => ({
-          value: project.id,
-          label: project.title
-        }))}
-        onChange={onChange}
-        isLoading={loading}
-        isSearchable
-        cacheOptions
-      />
-    )}
-  />
-)
-
-const renderGeneralTab = (settings, register, control, getValues) => (
-  <React.Fragment>
-    <Title tag={'h4'}>Логотип</Title>
-    <Controller
-      name={'[general][logotype]'}
-      control={control}
-      defaultValue={getValues('[general][logotype]') || settings?.general?.logotype || null}
-      render={({ value, onChange }) => (
-        <Logotype
-          accept={'image/*'}
-          defaultValue={value}
-          onChange={onChange}
-          placeholder={`Перетащите сюда изображение размером ${logotypeSize.width}x${logotypeSize.height}px`}
-          tooltip={`Разрешение: ${logotypeSize.width}x${logotypeSize.height}px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 1 MB`}
-        />
-      )}
-    />
-  </React.Fragment>
-)
-
-const renderScaffoldTab = (settings, register, projects, loading, control, getValues) => (
-  <React.Fragment>
-    <Title tag={'h4'}>Заголовок</Title>
-    <Input
-      type={'text'}
-      name={'[scaffold][title]'}
-      ref={register()}
-      defaultValue={
-        getValues('title') || settings?.scaffold?.title || 'Создавай школу будущего с нами'
-      }
-      placeholder={'Заголовок'}
-      appearance={'ghost'}
-      disabled={loading}
-    />
-
-    <Title tag={'h4'}>Проекты</Title>
-    {renderProjectSelect(
-      '[scaffold][primary]',
-      'Выберите первый проект',
-      settings?.scaffold?.primary,
-      projects,
-      loading,
-      control,
-      getValues
-    )}
-    {renderProjectSelect(
-      '[scaffold][residues][0]',
-      'Выберите второй проект',
-      settings?.scaffold?.residues[0],
-      projects,
-      loading,
-      control,
-      getValues
-    )}
-    {renderProjectSelect(
-      '[scaffold][residues][1]',
-      'Выберите третий проект',
-      settings?.scaffold?.residues[1],
-      projects,
-      loading,
-      control,
-      getValues
-    )}
-
-    <Title tag={'h4'}>Фон</Title>
-    <Controller
-      name={'[scaffold][background]'}
-      control={control}
-      defaultValue={getValues('[scaffold][background]') || settings?.scaffold?.background || null}
-      render={({ value, onChange }) => (
-        <Background
-          accept={'image/*'}
-          defaultValue={value}
-          onChange={onChange}
-          placeholder={`Перетащите сюда изображение размером ${backgroundSize.width}x${backgroundSize.height}px`}
-          tooltip={`Разрешение: ${backgroundSize.width}x${backgroundSize.height}px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB`}
-        />
-      )}
-    />
-  </React.Fragment>
-)
-
-const renderMetaTab = (settings, register, loading, control, getValues) => (
-  <React.Fragment>
-    <Title tag={'h4'}>Мета теги</Title>
-
-    <Input
-      type={'text'}
-      name={'[meta][title]'}
-      ref={register()}
-      defaultValue={getValues('[meta][title]') || settings?.meta?.title || 'Atomic'}
-      placeholder={'Мета-название'}
-      appearance={'ghost'}
-      disabled={loading}
-    />
-
-    <Input
-      type={'text'}
-      name={'[meta][description]'}
-      ref={register()}
-      defaultValue={getValues('[meta][description]') || settings?.meta?.description}
-      placeholder={'Мета-описание'}
-      appearance={'ghost'}
-      disabled={loading}
-    />
-  </React.Fragment>
-)
-
-export const Settings = ({ settings, mutation, appearance, className, onSubmit }) => {
+const FormContent = ({ watch, register, loading, control, getValues, settings }) => {
   const [active, setActive] = useState(0)
   const tabsLabel = ['Основное', 'Scaffold', 'Мета']
 
-  const { data: dataProjects, loading: loadingProjects } = useQuery(
-    queries.GET_META_SETTINGS_PROJECTS
-  )
+  const isRandom = watch('[scaffold][isRandom]')
+
+  const {
+    data: dataProjects,
+    loading: loadingProjects
+  } = useQuery(queries.GET_META_SETTINGS_PROJECTS, { variables: { status: ['PUBLISHED'] } })
 
   return (
-    <Form className={className} appearance={appearance} mutation={mutation} onSubmit={onSubmit}>
-      {({ register, loading, control, getValues }) => (
-        <React.Fragment>
-          <TabLabelList>
-            {tabsLabel.map((tab, index) => (
-              <TabLabel key={v4()} active={active === index} onClick={() => setActive(index)}>
-                {tab}
-              </TabLabel>
-            ))}
-          </TabLabelList>
+    <React.Fragment>
+      <TabLabelList>
+        {tabsLabel.map((tab, index) => (
+          <TabLabel key={v4()} active={active === index} onClick={() => setActive(index)}>
+            {tab}
+          </TabLabel>
+        ))}
+      </TabLabelList>
 
-          <TabContentList>
-            <TabContent active={active === 0}>
-              {renderGeneralTab(settings, register, control, getValues)}
-            </TabContent>
-            <TabContent active={active === 1}>
-              {renderScaffoldTab(
-                settings,
-                register,
-                dataProjects,
-                loading || loadingProjects,
-                control,
-                getValues
-              )}
-            </TabContent>
-            <TabContent active={active === 2}>
-              {renderMetaTab(settings, register, loading, control, getValues)}
-            </TabContent>
-          </TabContentList>
+      <TabContentList>
+        <TabContent active={active === 0}>
+          <Title tag={'h4'}>Логотип</Title>
+          <Controller
+            name={'[general][logotype]'}
+            control={control}
+            defaultValue={getValues('[general][logotype]') || settings?.general?.logotype || null}
+            render={({ value, onChange }) => (
+              <Logotype
+                accept={'image/*'}
+                defaultValue={value}
+                onChange={onChange}
+                placeholder={`Перетащите сюда изображение размером ${logotypeSize.width}x${logotypeSize.height}px`}
+                tooltip={`Разрешение: ${logotypeSize.width}x${logotypeSize.height}px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 1 MB`}
+              />
+            )}
+          />
+        </TabContent>
+        <TabContent active={active === 1}>
+          <Title tag={'h4'}>Заголовок</Title>
+          <Input
+            type={'text'}
+            name={'[scaffold][title]'}
+            ref={register()}
+            defaultValue={
+              getValues('title') || settings?.scaffold?.title || 'Создавай школу будущего с нами'
+            }
+            placeholder={'Заголовок'}
+            appearance={'ghost'}
+            disabled={loading}
+          />
 
-          <Divider clear />
+          <Title tag={'h4'}>Проекты</Title>
+          <Controller
+            name={'[scaffold][isRandom]'}
+            control={control}
+            defaultValue={getValues('[scaffold][isRandom]') || settings?.scaffold?.isRandom}
+            render={({ value, onChange }) => (
+              <CheckBox
+                defaultChecked={value}
+                label={'Выводить случайные проекты'}
+                onChange={(e) => onChange(e.target.checked)}
+              />
+            )}
+          />
+          <Controller
+            name={'[scaffold][primary]'}
+            control={control}
+            defaultValue={
+              getValues('[scaffold][primary]') ||
+              (settings?.scaffold?.primary
+                ? {
+                    value: settings?.scaffold?.primary.id,
+                    label: settings?.scaffold?.primary.title
+                  }
+                : null)
+            }
+            render={({ value, onChange }) => (
+              <Select
+                appearance={'ghost'}
+                defaultValue={value}
+                placeholder={'Выберите первый проект'}
+                options={(dataProjects?.getProjects || []).map((project) => ({
+                  value: project.id,
+                  label: project.title
+                }))}
+                onChange={onChange}
+                isLoading={loadingProjects}
+                isDisabled={isRandom}
+                isSearchable
+                cacheOptions
+              />
+            )}
+          />
+          <Controller
+            name={'[scaffold][residues][0]'}
+            control={control}
+            defaultValue={
+              getValues('[scaffold][residues][0]') ||
+              (settings?.scaffold?.residues[0]
+                ? {
+                    value: settings?.scaffold?.residues[0].id,
+                    label: settings?.scaffold?.residues[0].title
+                  }
+                : null)
+            }
+            render={({ value, onChange }) => (
+              <Select
+                appearance={'ghost'}
+                defaultValue={value}
+                placeholder={'Выберите второй проект'}
+                options={(dataProjects?.getProjects || []).map((project) => ({
+                  value: project.id,
+                  label: project.title
+                }))}
+                onChange={onChange}
+                isLoading={loadingProjects}
+                isDisabled={isRandom}
+                isSearchable
+                cacheOptions
+              />
+            )}
+          />
+          <Controller
+            name={'[scaffold][residues][1]'}
+            control={control}
+            defaultValue={
+              getValues('[scaffold][residues][1]') ||
+              (settings?.scaffold?.residues[1]
+                ? {
+                    value: settings?.scaffold?.residues[1].id,
+                    label: settings?.scaffold?.residues[1].title
+                  }
+                : null)
+            }
+            render={({ value, onChange }) => (
+              <Select
+                appearance={'ghost'}
+                defaultValue={value}
+                placeholder={'Выберите третий проект'}
+                options={(dataProjects?.getProjects || []).map((project) => ({
+                  value: project.id,
+                  label: project.title
+                }))}
+                onChange={onChange}
+                isLoading={loadingProjects}
+                isDisabled={isRandom}
+                isSearchable
+                cacheOptions
+              />
+            )}
+          />
 
-          <Row>
-            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-              Сохранить
-            </Button>
-          </Row>
-        </React.Fragment>
-      )}
-    </Form>
+          <Title tag={'h4'}>Фон</Title>
+          <Controller
+            name={'[scaffold][background]'}
+            control={control}
+            defaultValue={
+              getValues('[scaffold][background]') || settings?.scaffold?.background || null
+            }
+            render={({ value, onChange }) => (
+              <Background
+                accept={'image/*'}
+                defaultValue={value}
+                onChange={onChange}
+                placeholder={`Перетащите сюда изображение размером ${backgroundSize.width}x${backgroundSize.height}px`}
+                tooltip={`Разрешение: ${backgroundSize.width}x${backgroundSize.height}px. Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB`}
+              />
+            )}
+          />
+        </TabContent>
+        <TabContent active={active === 2}>
+          <Title tag={'h4'}>Мета теги</Title>
+
+          <Input
+            type={'text'}
+            name={'[meta][title]'}
+            ref={register()}
+            defaultValue={getValues('[meta][title]') || settings?.meta?.title || 'Atomic'}
+            placeholder={'Мета-название'}
+            appearance={'ghost'}
+            disabled={loading}
+          />
+
+          <Input
+            type={'text'}
+            name={'[meta][description]'}
+            ref={register()}
+            defaultValue={getValues('[meta][description]') || settings?.meta?.description}
+            placeholder={'Мета-описание'}
+            appearance={'ghost'}
+            disabled={loading}
+          />
+        </TabContent>
+      </TabContentList>
+
+      <Divider clear />
+
+      <Row>
+        <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
+          Сохранить
+        </Button>
+      </Row>
+    </React.Fragment>
   )
 }
+
+export const Settings = ({ settings, mutation, appearance, className, onSubmit }) => (
+  <Form className={className} appearance={appearance} mutation={mutation} onSubmit={onSubmit}>
+    {(methods) => <FormContent {...methods} settings={settings} />}
+  </Form>
+)
 
 export default Settings

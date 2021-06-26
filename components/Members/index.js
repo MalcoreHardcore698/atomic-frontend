@@ -20,6 +20,7 @@ import { useUpdateEffect } from '../../hooks/useUpdateEffect'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import { setModal } from '../../store/actions/modal'
 import queries from '../../graphql/queries'
+import { CentralAlert } from '../Processed'
 import { Loader } from '../Styled'
 import Form from '../Form'
 
@@ -193,29 +194,33 @@ export const Members = ({ user, style, appearance, className, onMemberLink }) =>
     <Wrap className={className} style={style} appearance={appearance}>
       {!loading && !loadingExclude && !loadingAppoint && !loadingDismiss && data ? (
         <Column>
-          <Grid percentage={'minmax(320px, 1fr)'}>
-            {members.map((member) => (
-              <Difinition
-                key={member.email}
-                img={member.avatar?.path || '/images/avatar-default.png'}
-                label={
-                  <MarkedText>
-                    <span>{getLabelRole(member.account)}</span>
-                    {hasResponsibleMember(member) && <ResponsibleMark />}
-                  </MarkedText>
-                }
-                text={member.name}
-                actions={
-                  authUser.email === user &&
-                  (hasResponsibleMember(member)
-                    ? getResponsibleActions(member)
-                    : getDefaultActions(member))
-                }
-                onLink={() => setQuery(member.email, 'user', onMemberLink)}
-                stretch
-              />
-            ))}
-          </Grid>
+          {members.length > 0 ? (
+            <Grid percentage={'minmax(320px, 1fr)'}>
+              {members.map((member) => (
+                <Difinition
+                  key={member.email}
+                  img={member.avatar?.path || '/images/avatar-default.png'}
+                  label={
+                    <MarkedText>
+                      <span>{getLabelRole(member.account)}</span>
+                      {hasResponsibleMember(member) && <ResponsibleMark />}
+                    </MarkedText>
+                  }
+                  text={member.name}
+                  actions={
+                    authUser.email === user &&
+                    (hasResponsibleMember(member)
+                      ? getResponsibleActions(member)
+                      : getDefaultActions(member))
+                  }
+                  onLink={() => setQuery(member.email, 'user', onMemberLink)}
+                  stretch
+                />
+              ))}
+            </Grid>
+          ) : (
+            <CentralAlert>Кажется в кашей компании никого нет!</CentralAlert>
+          )}
 
           {authUser.email === user && (
             <Row>

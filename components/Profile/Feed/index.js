@@ -32,7 +32,7 @@ export const Feed = () => {
         emptyMessage={'Проектов нет'}
         query={queries.GET_PROJECTS_BY_IDS}
         initialDisplayMethod={INITIAL_DISPLAY_METHOD}
-        variables={{ projects: folder?.projects ?? [] }}
+        variables={{ projects: folder?.projects ?? [], status: ['PUBLISHED'] }}
         component={(document) => (
           <ProjectSuit {...methods} project={document} layout={'row'} canRemove />
         )}

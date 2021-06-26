@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 import styled, { css } from 'styled-components'
 
@@ -46,71 +46,101 @@ const Container = styled.div`
   }
 `
 
-const ContentLayout = ({
+const ContentFilters = memo(({ filterConfig }) => {
+  const visibleFilters = useSelector((state) => state.root.visibleFilters)
+
+  return <FilterBar {...(filterConfig || {})} isOpen={visibleFilters} />
+})
+
+const ContentContainer = ({
   limit,
-  title,
   aside,
-  store,
-  handle,
   render,
   getType,
   getQuery,
-  dashboard,
   variables,
-  filterConfig,
   emptyMessage,
   startOffset,
   onLink
 }) => {
-  const { search, visibleFilters } = useSelector((state) => ({
-    search: state.root.search,
-    visibleFilters: state.root.visibleFilters
-  }))
-  const Layout = dashboard ? DashboardLayout : DefaultLayout
-
-  const renderCard = (item) => (
-    <Card
-      item={item}
-      component={render(item)}
-      onLink={onLink && ((item) => onLink(item))}
-      withoutChecked
-    />
-  )
+  const search = useSelector((state) => state.root.search)
 
   return (
-    <Layout title={title} scaffold={store?.scaffold}>
-      <Wrap clear={store?.scaffold || dashboard}>
-        {!store?.scaffold && !dashboard && <SearchBar />}
-
-        {dashboard && handle && (
-          <HandleBar
-            title={title}
-            icon={handle.icon}
-            onCreate={handle.onCreate}
-            buttonCreateText={handle.buttonCreateText}
-            onChangeDisplayMethod={handle.onChangeDisplayMethod}
+    <Container stretch={(search && !aside) || !aside}>
+      <List
+        limit={limit}
+        type={getType}
+        query={getQuery}
+        variables={variables}
+        startOffset={startOffset}
+        emptyMessage={emptyMessage}
+        component={(item) => (
+          <Card
+            item={item}
+            component={render(item)}
+            onLink={onLink && ((item) => onLink(item))}
+            withoutChecked
           />
         )}
-
-        <FilterBar {...(filterConfig || {})} isOpen={visibleFilters} />
-
-        <Container stretch={(search && !aside) || !aside}>
-          <List
-            limit={limit}
-            type={getType}
-            query={getQuery}
-            variables={variables}
-            startOffset={startOffset}
-            emptyMessage={emptyMessage}
-            component={(item) => renderCard(item)}
-            initialDisplayMethod={INITIAL_DISPLAY_METHOD}
-            onClick={onLink && ((item) => onLink(item))}
-          />
-          {aside}
-        </Container>
-      </Wrap>
-    </Layout>
+        initialDisplayMethod={INITIAL_DISPLAY_METHOD}
+        onClick={onLink && ((item) => onLink(item))}
+      />
+      {aside}
+    </Container>
   )
 }
+
+const ContentLayout = memo(
+  ({
+    limit,
+    title,
+    aside,
+    store,
+    handle,
+    render,
+    getType,
+    getQuery,
+    dashboard,
+    variables,
+    filterConfig,
+    emptyMessage,
+    startOffset,
+    onLink
+  }) => {
+    const Layout = dashboard ? DashboardLayout : DefaultLayout
+
+    return (
+      <Layout title={title} scaffold={store?.scaffold}>
+        <Wrap clear={store?.scaffold || dashboard}>
+          {!store?.scaffold && !dashboard && <SearchBar />}
+
+          {dashboard && handle && (
+            <HandleBar
+              title={title}
+              icon={handle.icon}
+              onCreate={handle.onCreate}
+              buttonCreateText={handle.buttonCreateText}
+              onChangeDisplayMethod={handle.onChangeDisplayMethod}
+            />
+          )}
+
+          <ContentFilters filterConfig={filterConfig} />
+
+          <ContentContainer
+            limit={limit}
+            aside={aside}
+            render={render}
+            getType={getType}
+            getQuery={getQuery}
+            variables={variables}
+            emptyMessage={emptyMessage}
+            startOffset={startOffset}
+            onLink={onLink}
+          />
+        </Wrap>
+      </Layout>
+    )
+  }
+)
 
 export default ContentLayout

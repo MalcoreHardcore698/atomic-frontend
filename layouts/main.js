@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, memo } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks'
@@ -15,7 +15,6 @@ import Text from '../atomic-ui/components/Text'
 
 import Drawer from '../components/Drawer'
 import { FixedLoader } from '../components/Styled'
-import useEntityQuery from '../hooks/useEntityQuery'
 import { removeItem, clearItems } from '../store/actions/snacks'
 import { setMutate, setSearch, setSettings } from '../store/actions/root'
 import { setModal } from '../store/actions/modal'
@@ -80,29 +79,30 @@ const Mutator = ({ mutation, variables, callback }) => {
   return null
 }
 
-export const MainLayout = ({ children }) => {
+const MainHead = () => {
+  const root = useSelector((state) => state.root)
+
+  return (
+    <Head>
+      <title>{root.settings.meta.title}</title>
+      <meta name={'description'} content={root.settings.meta.description} />
+    </Head>
+  )
+}
+
+const MainContent = ({ children }) => {
   const router = useRouter()
-  const { useDetectQuery } = useEntityQuery()
+
   const [getUser, { data, loading }] = useLazyQuery(queries.GET_USER)
   const { data: dataMeta, loading: loadingMeta } = useQuery(queries.GET_META)
-  const { root, user, snacks, modal } = useSelector((state) => state)
+  const search = useSelector((state) => state.root.search)
   const dispatch = useDispatch()
-
-  const onModalHide = () => {
-    dispatch(setModal(null))
-  }
 
   useEffect(() => {
     if (!loadingMeta && dataMeta?.getDashboardSettings) {
       dispatch(setSettings(dataMeta?.getDashboardSettings))
     }
   }, [dataMeta, loadingMeta])
-
-  useEffect(() => {
-    if (snacks?.length > 0) {
-      setTimeout(() => dispatch(clearItems()), LIFETIME_OF_SNACK)
-    }
-  }, [snacks])
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -118,6 +118,29 @@ export const MainLayout = ({ children }) => {
   }, [data, dispatch])
 
   useEffect(() => {
+    dispatch(setSearch(router.query.search))
+  }, [dispatch])
+
+  if (loading) {
+    return (
+      <FixedLoader>
+        <Spinner />
+      </FixedLoader>
+    )
+  }
+
+  return <Wrapper>{children}</Wrapper>
+}
+
+const MainModal = memo(() => {
+  const { user, modal } = useSelector((state) => state)
+  const dispatch = useDispatch()
+
+  const onModalHide = () => {
+    dispatch(setModal(null))
+  }
+
+  useEffect(() => {
     if (user.authenticated && user.register) {
       dispatch(
         setModal([
@@ -131,37 +154,42 @@ export const MainLayout = ({ children }) => {
     }
   }, [user, dispatch])
 
-  useEffect(() => {
-    dispatch(setSearch(router.query.search))
-  }, [router, dispatch])
+  return <Modal size={modal?.size} routes={modal?.routes} onHide={onModalHide} />
+})
 
-  useDetectQuery()
+const MainSnacks = memo(() => {
+  const snacks = useSelector((state) => state.snacks)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (snacks?.length > 0) {
+      setTimeout(() => dispatch(clearItems()), LIFETIME_OF_SNACK)
+    }
+  }, [snacks, dispatch])
+
+  return <Snacks snacks={snacks} onRemove={(snack) => dispatch(removeItem(snack.id))} />
+})
+
+const MainMutator = () => {
+  const root = useSelector((state) => state.root)
 
   return (
-    <React.Fragment>
-      <Head>
-        <title>{root.settings.meta.title}</title>
-        <meta name={'description'} content={root.settings.meta.description} />
-      </Head>
-
-      {loading ? (
-        <FixedLoader>
-          <Spinner />
-        </FixedLoader>
-      ) : (
-        <Wrapper>{children}</Wrapper>
-      )}
-
-      <Drawer />
-
-      <Snacks snacks={snacks} onRemove={(snack) => dispatch(removeItem(snack.id))} />
-      <Modal size={modal?.size} routes={modal?.routes} onHide={onModalHide} />
-
-      {root.mutation && (
-        <Mutator mutation={root.mutation} variables={root.variables} callback={root.callback} />
-      )}
-    </React.Fragment>
+    root.mutation && (
+      <Mutator mutation={root.mutation} variables={root.variables} callback={root.callback} />
+    )
   )
 }
+
+export const MainLayout = ({ children }) => (
+  <React.Fragment>
+    <MainHead />
+    <MainContent>{children}</MainContent>
+
+    <Drawer />
+    <MainSnacks />
+    <MainModal />
+    <MainMutator />
+  </React.Fragment>
+)
 
 export default MainLayout

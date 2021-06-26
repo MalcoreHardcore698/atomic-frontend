@@ -135,7 +135,7 @@ export const User = ({ user, onEdit, onAboutMore, onCompanyLink, onMembers }) =>
                 })}
             label={'Компания'}
             text={user.company?.name || '-'}
-            onLink={onCompanyLink}
+            onLink={() => onCompanyLink(user)}
           />
         )}
         <Difinition icon={'work'} label={'Проекты'} text={user?.projects?.length || 0} />

@@ -20,7 +20,7 @@ export const GET_PROJECTS = gql`
     $author: String
     $search: String
     $company: String
-    $status: PostStatus
+    $status: [PostStatus]
     $createdAt: String
   ) {
     getProjects(
@@ -67,7 +67,7 @@ export const GET_PROJECTS = gql`
 `
 
 export const GET_PROJECTS_BY_IDS = gql`
-  query getProjectsByIds($projects: [ID]!, $status: PostStatus) {
+  query getProjectsByIds($projects: [ID]!, $status: [PostStatus]) {
     getProjectsByIds(projects: $projects, status: $status) {
       ...ProjectFields
     }

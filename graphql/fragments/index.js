@@ -353,6 +353,7 @@ export const DashboardSettingsFields = gql`
         path
         size
       }
+      isRandom
     }
     meta {
       title

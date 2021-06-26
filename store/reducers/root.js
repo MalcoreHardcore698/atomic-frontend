@@ -26,7 +26,8 @@ const initialState = {
   messages: [],
   search: '',
   params: {},
-  files: []
+  files: [],
+  isIgnoreFetch: false
 }
 
 export const rootReducer = (state = initialState, action) => {
@@ -110,6 +111,11 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         currentPage: action.payload.currentPage
+      }
+    case C.SET_IGNORE_FETCH:
+      return {
+        ...state,
+        isIgnoreFetch: action.payload.isIgnoreFetch
       }
     case C.ADD_MEMBER:
       return {

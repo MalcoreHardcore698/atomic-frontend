@@ -6,17 +6,23 @@ import { onArticleCreate } from '../store/helpers/article'
 import { onProjectCreate } from '../store/helpers/project'
 import { onUserClientEdit } from '../store/helpers/user'
 import { useHelper } from './useHelper'
+import { useSearch } from './useSearch'
 import { useUser } from './useUser'
 import queries from '../graphql/queries'
 
 export const useProfile = ({ isManage } = {}) => {
   const recall = useHelper()
+  const [onSearch] = useSearch()
+
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   const { onAboutMore, onMembers, onCompanyLink } = useUser({ isManage })
 
-  const onChangePage = (item) => dispatch(setCurrentPage(item.value))
+  const onChangePage = (item) => {
+    onSearch(null, null)
+    dispatch(setCurrentPage(item.value))
+  }
 
   const onPurposeProject = useCallback(() => {
     recall(onProjectCreate, {

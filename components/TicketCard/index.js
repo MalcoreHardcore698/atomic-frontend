@@ -2,14 +2,13 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 
 import Row from '../../atomic-ui/components/Row'
-import Column from '../../atomic-ui/components/Column'
 import Title from '../../atomic-ui/components/Title'
 import Text from '../../atomic-ui/components/Text'
 import Meta from '../../atomic-ui/components/Meta'
 import Divider from '../../atomic-ui/components/Divider'
 import Difinition from '../../atomic-ui/components/Difinition'
 
-import { Surface } from '../Styled'
+import { CardContent, Surface } from '../Styled'
 import CardActions from '../CardActions'
 import { onTicketDelete, onTicketEdit } from '../../store/helpers/ticket'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
@@ -88,7 +87,7 @@ export const Card = ({
 
   return (
     <Wrap className={className} style={style} checked={checked} appearance={appearance}>
-      <Column style={{ gridGap: 0 }}>
+      <CardContent style={{ gridGap: 0 }} editable={onEdit || onDelete || onChecked}>
         <Header>
           <Meta date={ticket.createdAt} category={ticket.category?.name} />
 
@@ -108,7 +107,7 @@ export const Card = ({
         <Row style={{ gridGap: 5 }}>
           <Status status={ticket.status}>{ticket.status}</Status>
         </Row>
-      </Column>
+      </CardContent>
 
       <Divider clear />
 

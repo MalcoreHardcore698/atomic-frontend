@@ -146,6 +146,15 @@ export function setCurrentPage(currentPage) {
   }
 }
 
+export function setIgnoreFetch(isIgnoreFetch) {
+  return {
+    type: C.SET_IGNORE_FETCH,
+    payload: {
+      isIgnoreFetch
+    }
+  }
+}
+
 export function addProjectMember(member) {
   return {
     type: C.ADD_MEMBER,

@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import Title from '../atomic-ui/components/Title'
@@ -32,33 +31,35 @@ const Aside = styled.aside`
   }
 `
 
-const Home = ({ store }) => {
+const Document = ({ document }) => {
   const methods = useProject()
-  const search = useSelector((state) => state.root.search)
-
-  return (
-    <ContentLayout
-      title={TITLE}
-      store={store}
-      getType={'getProjects'}
-      limit={INDEX_LOAD_LIMIT}
-      emptyMessage={'Проектов нет'}
-      getQuery={queries.GET_PROJECTS}
-      startOffset={COMMON_START_OFFSET}
-      variables={{ status: 'PUBLISHED' }}
-      render={(document) => <ProjectSuit {...methods} project={document} />}
-      aside={
-        <Aside>
-          <Title tag={'h4'}>Авторы</Title>
-          <UserList {...ASIDE_PROPS} withoutMore={!search} />
-
-          <Title tag={'h4'}>Новости</Title>
-          <ArticleList {...ASIDE_PROPS} withoutMore={!search} layout={'column'} />
-        </Aside>
-      }
-    />
-  )
+  return <ProjectSuit {...methods} project={document} />
 }
+
+const HomeAside = () => (
+  <Aside>
+    <Title tag={'h4'}>Авторы</Title>
+    <UserList {...ASIDE_PROPS} />
+
+    <Title tag={'h4'}>Новости</Title>
+    <ArticleList {...ASIDE_PROPS} variables={{ status: ['PUBLISHED'] }} layout={'column'} />
+  </Aside>
+)
+
+const Home = ({ store }) => (
+  <ContentLayout
+    title={TITLE}
+    store={store}
+    getType={'getProjects'}
+    limit={INDEX_LOAD_LIMIT}
+    emptyMessage={'Проектов нет'}
+    getQuery={queries.GET_PROJECTS}
+    startOffset={COMMON_START_OFFSET}
+    variables={{ status: 'PUBLISHED' }}
+    render={(document) => <Document document={document} />}
+    aside={<HomeAside />}
+  />
+)
 
 export async function getServerSideProps() {
   const client = initializeApollo()
