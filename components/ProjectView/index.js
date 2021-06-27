@@ -262,7 +262,7 @@ export const View = ({
     }
   })
 
-  const [isLiked, setLike] = useState(!!hasLiked)
+  const [isLiked, setLike] = useState()
 
   const [screenshots, setScreenshots] = useState([])
   const [residue, setResidue] = useState(0)
@@ -282,6 +282,7 @@ export const View = ({
       const videoPresentationObject = parseUrl(url)
       setResidue((images.length || slicedFactor) - slicedFactor)
       setVideoPresentationObject(videoPresentationObject)
+      setLike(hasLiked(data.getProject))
       setScreenshots(slicedImages)
     }
   }, [loading, data, slicedFactor])

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import styled from 'styled-components'
 import { Controller } from 'react-hook-form'
 import { useQuery } from '@apollo/react-hooks'
@@ -18,7 +18,6 @@ import CharacteristicEditor from '../../atomic-ui/components/CharacteristicEdito
 import Dropzone from '../../atomic-ui/components/Dropzone'
 import ActionRow from '../../atomic-ui/components/ActionRow'
 import Difinition from '../../atomic-ui/components/Difinition'
-import Checkbox from '../../atomic-ui/components/Checkbox'
 import Spinner from '../../atomic-ui/components/Spinner'
 import Divider from '../../atomic-ui/components/Divider'
 import Tooltip from '../../atomic-ui/components/Tooltip'
@@ -75,6 +74,8 @@ export const AlignmentRow = styled(Row)`
   position: relative;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
+  width: 100%;
 
   &:hover {
     ${RemoveTooltip} {
@@ -84,40 +85,52 @@ export const AlignmentRow = styled(Row)`
 `
 
 export const Characteristics = ({ project, watch, control, getValues }) => {
-  const [isPreviewCharacteristics, setIsPreviewCharacteristics] = useState(
-    getValues('characteristics')?.length > 0 || project?.characteristics?.length > 0
+  const initialValue = useMemo(
+    () => getValues('characteristics') || project?.characteristics || null,
+    [getValues, project]
   )
 
-  watch('characteristics')
+  const [characteristics, setCharacteristics] = useState(initialValue)
+  const [isPreviewCharacteristics, setIsPreviewCharacteristics] = useState(initialValue?.length > 0)
+
+  const realCharacteristics = watch('characteristics')
+
+  const onAddCharacteristic = () => {
+    const name = 'Новое учебное помещение'
+    const item = { id: v4(), name, value: null, isVisualize: null }
+    setCharacteristics([...getValues('characteristics'), item])
+  }
 
   return (
     <React.Fragment>
-      <AdaptiveRow style={{ justifyContent: 'space-between' }}>
-        <Title tag={'h4'}>Характеристики</Title>
-        <Checkbox
-          label={'Превью'}
-          disabled={
-            getValues('characteristics')?.length === 0 || project?.characteristics?.length === 0
-          }
-          defaultChecked={isPreviewCharacteristics}
-          onChange={(e) => setIsPreviewCharacteristics(e.target.checked)}
-          rtl
-        />
-      </AdaptiveRow>
+      <ActionRow
+        title={'Характеристики'}
+        labelChecked={'Превью'}
+        disabledChecked={characteristics?.length === 0}
+        defaultChecked={isPreviewCharacteristics}
+        onChecked={setIsPreviewCharacteristics}
+        onAdd={onAddCharacteristic || (() => {})}
+        rtlChecked
+        checkbox
+        action
+      />
+
       {isPreviewCharacteristics && (
-        <CharacteristicEditor
-          appearance={'ghost'}
-          defaultValue={getValues('characteristics') || project?.characteristics || null}
-          readOnly
-        />
+        <CharacteristicEditor appearance={'ghost'} defaultValue={realCharacteristics} readOnly />
       )}
       <Controller
-        name={'characteristics'}
+        key={characteristics?.length}
         control={control}
+        name={'characteristics'}
         rules={{ required: getValues('characteristics')?.length > 0 }}
-        defaultValue={getValues('characteristics') || project?.characteristics || null}
+        defaultValue={characteristics}
         render={({ value, onChange }) => (
-          <CharacteristicEditor appearance={'ghost'} defaultValue={value} onChange={onChange} />
+          <CharacteristicEditor
+            appearance={'ghost'}
+            defaultValue={value}
+            onChange={onChange}
+            withoutAddButton
+          />
         )}
       />
     </React.Fragment>
@@ -372,7 +385,7 @@ export const Project = ({
             <Divider clear />
 
             <Column style={{ flexGrow: 1 }}>
-              <ActionRow title={'Участники проeкта'} onAdd={onMemberAdd || (() => {})} action />
+              <ActionRow title={'Участники проекта'} onAdd={onMemberAdd || (() => {})} action />
 
               {members?.length > 0 ? (
                 <Grid percentage={'minmax(320px, 1fr)'}>
