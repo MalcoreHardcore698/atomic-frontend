@@ -392,6 +392,7 @@ export const Project = ({
                   {members.map((member) => (
                     <AlignmentRow key={v4()}>
                       <Difinition
+                        style={{ width: '100%' }}
                         key={member.value?.email || member?.email}
                         img={
                           member.value?.avatar?.path ||
@@ -435,6 +436,7 @@ export const Project = ({
                   <AlignmentRow key={v4()}>
                     <Difinition
                       key={screenshot.id}
+                      style={{ width: '100%' }}
                       img={screenshot.blob || screenshot.file?.path || screenshot.path}
                       label={
                         (
@@ -484,6 +486,7 @@ export const Project = ({
                     <Difinition
                       key={file.id}
                       icon={'document'}
+                      style={{ width: '100%' }}
                       label={
                         (file.file?.name || file.file?.path || file?.name || file?.path)
                           .split('/')

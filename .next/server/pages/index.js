@@ -3961,7 +3961,7 @@ const ActionTooltip = external_styled_components_default()(Tooltip["b" /* defaul
 const Difinition_Wrap = external_styled_components_default()(Row["b" /* default */]).withConfig({
   displayName: "Difinition__Wrap",
   componentId: "ldgzgs-1"
-})(["position:relative;padding-right:var(--input-height-s);transition:opacity 150ms ease;width:100%;", "{position:absolute;top:0;right:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;height:100%;}&:hover{", "{opacity:1;visibility:visible;}}"], Popper["a" /* Wrap */], ActionTooltip);
+})(["position:relative;padding-right:var(--input-height-s);transition:opacity 150ms ease;", "{position:absolute;top:0;right:0;z-index:var(--z-10);display:flex;justify-content:center;align-items:center;height:100%;}&:hover{", "{opacity:1;visibility:visible;}}"], Popper["a" /* Wrap */], ActionTooltip);
 const Content = external_styled_components_default()(Column["a" /* default */]).withConfig({
   displayName: "Difinition__Content",
   componentId: "ldgzgs-2"
@@ -5536,6 +5536,9 @@ const Project = ({
       return /*#__PURE__*/external_react_default.a.createElement(AlignmentRow, {
         key: Object(external_uuid_["v4"])()
       }, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
+        style: {
+          width: '100%'
+        },
         key: ((_member$value = member.value) === null || _member$value === void 0 ? void 0 : _member$value.email) || (member === null || member === void 0 ? void 0 : member.email),
         img: ((_member$value2 = member.value) === null || _member$value2 === void 0 ? void 0 : (_member$value2$avatar = _member$value2.avatar) === null || _member$value2$avatar === void 0 ? void 0 : _member$value2$avatar.path) || ((_member$avatar = member.avatar) === null || _member$avatar === void 0 ? void 0 : _member$avatar.path) || '/images/avatar-default.png',
         label: Object(functions["h" /* getLabelRole */])((member === null || member === void 0 ? void 0 : (_member$value3 = member.value) === null || _member$value3 === void 0 ? void 0 : _member$value3.account) || (member === null || member === void 0 ? void 0 : member.account)),
@@ -5578,6 +5581,9 @@ const Project = ({
         key: Object(external_uuid_["v4"])()
       }, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
         key: screenshot.id,
+        style: {
+          width: '100%'
+        },
         img: screenshot.blob || ((_screenshot$file = screenshot.file) === null || _screenshot$file === void 0 ? void 0 : _screenshot$file.path) || screenshot.path,
         label: (((_screenshot$file2 = screenshot.file) === null || _screenshot$file2 === void 0 ? void 0 : _screenshot$file2.name) || ((_screenshot$file3 = screenshot.file) === null || _screenshot$file3 === void 0 ? void 0 : _screenshot$file3.path) || (screenshot === null || screenshot === void 0 ? void 0 : screenshot.name) || (screenshot === null || screenshot === void 0 ? void 0 : screenshot.path)).split('/').slice(-1)[0],
         text: Object(functions["e" /* getFileSize */])(screenshot.size || ((_screenshot$file4 = screenshot.file) === null || _screenshot$file4 === void 0 ? void 0 : _screenshot$file4.size))
@@ -5616,6 +5622,9 @@ const Project = ({
       }, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
         key: file.id,
         icon: 'document',
+        style: {
+          width: '100%'
+        },
         label: (((_file$file = file.file) === null || _file$file === void 0 ? void 0 : _file$file.name) || ((_file$file2 = file.file) === null || _file$file2 === void 0 ? void 0 : _file$file2.path) || (file === null || file === void 0 ? void 0 : file.name) || (file === null || file === void 0 ? void 0 : file.path)).split('/').slice(-1)[0],
         text: Object(functions["e" /* getFileSize */])(file.size || ((_file$file3 = file.file) === null || _file$file3 === void 0 ? void 0 : _file$file3.size))
       }), !project && /*#__PURE__*/external_react_default.a.createElement(RemoveTooltip, {
