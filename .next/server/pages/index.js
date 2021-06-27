@@ -5724,6 +5724,9 @@ const VideoPresentation = ({
   }));
 };
 /* harmony default export */ var components_VideoPresentation = (VideoPresentation);
+// EXTERNAL MODULE: ./hooks/useProject.js
+var useProject = __webpack_require__("QfFT");
+
 // EXTERNAL MODULE: ./hooks/useEntityQuery.js
 var useEntityQuery = __webpack_require__("8UhZ");
 
@@ -5735,6 +5738,7 @@ var Processed = __webpack_require__("2qQv");
 
 // CONCATENATED MODULE: ./components/ProjectView/index.js
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -5832,19 +5836,21 @@ const View = ({
   appearance,
   className,
   style,
-  slicedFactor = 6,
   owned,
-  liked,
+  slicedFactor = 6,
   preview,
-  onAdd,
-  onLike,
-  onScreenshotClick,
   onMemberLink,
-  onCompanyLink,
   withStatus
 }) => {
-  var _data$getProject, _data$getProject2, _data$getProject2$pre, _data$getProject7, _data$getProject8, _data$getProject8$scr, _data$getProject11, _data$getProject12, _data$getProject13, _data$getProject14, _data$getProject15, _data$getProject16, _data$getProject16$ca, _data$getProject17, _data$getProject18, _data$getProject19, _data$getProject20, _data$getProject21, _data$getProject21$co, _data$getProject21$co2, _data$getProject22, _data$getProject22$co, _data$getProject24, _data$getProject24$ch, _data$getProject25, _data$getProject26, _data$getProject27, _data$getProject28, _data$getProject29, _data$getProject30, _data$getProject30$me, _data$getProject31, _data$getProject32, _data$getProject33, _data$getProject33$me, _data$getProject34, _data$getProject35, _data$getProject35$fi, _data$getProject36, _data$getProject37, _data$getProject38, _data$getProject38$fi;
+  var _data$getProject, _data$getProject2, _data$getProject2$pre, _data$getProject4, _data$getProject5, _data$getProject5$scr, _data$getProject6, _data$getProject7, _data$getProject8, _data$getProject9, _data$getProject10, _data$getProject11, _data$getProject11$ca, _data$getProject12, _data$getProject13, _data$getProject14, _data$getProject15, _data$getProject16, _data$getProject16$co, _data$getProject16$co2, _data$getProject17, _data$getProject17$co, _data$getProject19, _data$getProject19$ch, _data$getProject20, _data$getProject21, _data$getProject22, _data$getProject23, _data$getProject24, _data$getProject25, _data$getProject25$me, _data$getProject26, _data$getProject27, _data$getProject28, _data$getProject28$me, _data$getProject29, _data$getProject30, _data$getProject30$fi, _data$getProject31, _data$getProject32, _data$getProject33, _data$getProject33$fi;
 
+  const {
+    hasLiked,
+    onAdd,
+    onLike,
+    onCompanyLink,
+    onScreenshotClick
+  } = Object(useProject["a" /* useProject */])();
   const {
     setQuery
   } = Object(useEntityQuery["c" /* useEntityQuery */])();
@@ -5857,13 +5863,13 @@ const View = ({
       id: project
     }
   });
-  const [isLiked, setLike] = Object(external_react_["useState"])(liked);
+  const [isLiked, setLike] = Object(external_react_["useState"])(!!hasLiked);
   const [screenshots, setScreenshots] = Object(external_react_["useState"])([]);
   const [residue, setResidue] = Object(external_react_["useState"])(0);
   const [videoPresentationObject, setVideoPresentationObject] = Object(external_react_["useState"])(null);
 
   const onClickLike = () => {
-    if (onLike) onLike();
+    if (onLike) onLike(data === null || data === void 0 ? void 0 : data.getProject);
     setLike(!isLiked);
   };
 
@@ -5892,45 +5898,41 @@ const View = ({
   }, /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Container, null, /*#__PURE__*/external_react_default.a.createElement(Media, null, data !== null && data !== void 0 && (_data$getProject = data.getProject) !== null && _data$getProject !== void 0 && _data$getProject.preview ? /*#__PURE__*/external_react_default.a.createElement(Poster, {
     src: data === null || data === void 0 ? void 0 : (_data$getProject2 = data.getProject) === null || _data$getProject2 === void 0 ? void 0 : (_data$getProject2$pre = _data$getProject2.preview) === null || _data$getProject2$pre === void 0 ? void 0 : _data$getProject2$pre.path,
     onClick: () => {
-      var _data$getProject3, _data$getProject4, _data$getProject4$pre, _data$getProject5, _data$getProject6;
+      var _data$getProject3, _data$getProject3$pre;
 
-      return onScreenshotClick && onScreenshotClick(data === null || data === void 0 ? void 0 : (_data$getProject3 = data.getProject) === null || _data$getProject3 === void 0 ? void 0 : _data$getProject3.preview, data === null || data === void 0 ? void 0 : (_data$getProject4 = data.getProject) === null || _data$getProject4 === void 0 ? void 0 : (_data$getProject4$pre = _data$getProject4.preview) === null || _data$getProject4$pre === void 0 ? void 0 : _data$getProject4$pre.id, [data === null || data === void 0 ? void 0 : (_data$getProject5 = data.getProject) === null || _data$getProject5 === void 0 ? void 0 : _data$getProject5.preview, ...(data === null || data === void 0 ? void 0 : (_data$getProject6 = data.getProject) === null || _data$getProject6 === void 0 ? void 0 : _data$getProject6.screenshots)]);
+      return onScreenshotClick && onScreenshotClick(data === null || data === void 0 ? void 0 : data.getProject, data === null || data === void 0 ? void 0 : (_data$getProject3 = data.getProject) === null || _data$getProject3 === void 0 ? void 0 : (_data$getProject3$pre = _data$getProject3.preview) === null || _data$getProject3$pre === void 0 ? void 0 : _data$getProject3$pre.id);
     }
-  }) : /*#__PURE__*/external_react_default.a.createElement(CentralAlert, null, "\u041F\u0440\u0435\u0432\u044C\u044E \u043D\u0435\u0442"), (data === null || data === void 0 ? void 0 : (_data$getProject7 = data.getProject) === null || _data$getProject7 === void 0 ? void 0 : _data$getProject7.screenshots) && (data === null || data === void 0 ? void 0 : (_data$getProject8 = data.getProject) === null || _data$getProject8 === void 0 ? void 0 : (_data$getProject8$scr = _data$getProject8.screenshots) === null || _data$getProject8$scr === void 0 ? void 0 : _data$getProject8$scr.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Screenshots, null, screenshots.map((screenshot, index) => /*#__PURE__*/external_react_default.a.createElement(ProjectView_Screenshot, {
+  }) : /*#__PURE__*/external_react_default.a.createElement(CentralAlert, null, "\u041F\u0440\u0435\u0432\u044C\u044E \u043D\u0435\u0442"), (data === null || data === void 0 ? void 0 : (_data$getProject4 = data.getProject) === null || _data$getProject4 === void 0 ? void 0 : _data$getProject4.screenshots) && (data === null || data === void 0 ? void 0 : (_data$getProject5 = data.getProject) === null || _data$getProject5 === void 0 ? void 0 : (_data$getProject5$scr = _data$getProject5.screenshots) === null || _data$getProject5$scr === void 0 ? void 0 : _data$getProject5$scr.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Screenshots, null, screenshots.map((screenshot, index) => /*#__PURE__*/external_react_default.a.createElement(ProjectView_Screenshot, {
     key: screenshot.id,
-    onClick: () => {
-      var _data$getProject9, _data$getProject10;
-
-      return onScreenshotClick && onScreenshotClick(screenshot, screenshot.id, [data === null || data === void 0 ? void 0 : (_data$getProject9 = data.getProject) === null || _data$getProject9 === void 0 ? void 0 : _data$getProject9.preview, ...(data === null || data === void 0 ? void 0 : (_data$getProject10 = data.getProject) === null || _data$getProject10 === void 0 ? void 0 : _data$getProject10.screenshots)]);
-    }
+    onClick: () => onScreenshotClick && onScreenshotClick(data === null || data === void 0 ? void 0 : data.getProject, screenshot.id)
   }, /*#__PURE__*/external_react_default.a.createElement(Image["a" /* default */], {
     src: screenshot.path,
     alt: screenshot.name
   }), index === (screenshots === null || screenshots === void 0 ? void 0 : screenshots.length) - 1 && residue > 0 && /*#__PURE__*/external_react_default.a.createElement(ScreenshotsCounter, null, /*#__PURE__*/external_react_default.a.createElement("span", null, "+", residue)))))), /*#__PURE__*/external_react_default.a.createElement(ProjectView_Content, null, /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Meta["a" /* default */], {
-    shareTitle: data === null || data === void 0 ? void 0 : (_data$getProject11 = data.getProject) === null || _data$getProject11 === void 0 ? void 0 : _data$getProject11.title,
+    shareTitle: data === null || data === void 0 ? void 0 : (_data$getProject6 = data.getProject) === null || _data$getProject6 === void 0 ? void 0 : _data$getProject6.title,
     shareUrl: false ? undefined : HOST_URL,
-    status: withStatus && (data === null || data === void 0 ? void 0 : (_data$getProject12 = data.getProject) === null || _data$getProject12 === void 0 ? void 0 : _data$getProject12.status) && Object(functions["i" /* getLabelStatus */])(data === null || data === void 0 ? void 0 : (_data$getProject13 = data.getProject) === null || _data$getProject13 === void 0 ? void 0 : _data$getProject13.status),
-    color: withStatus && (data === null || data === void 0 ? void 0 : (_data$getProject14 = data.getProject) === null || _data$getProject14 === void 0 ? void 0 : _data$getProject14.status) && Object(functions["d" /* getColorStatus */])(data === null || data === void 0 ? void 0 : (_data$getProject15 = data.getProject) === null || _data$getProject15 === void 0 ? void 0 : _data$getProject15.status),
-    category: data === null || data === void 0 ? void 0 : (_data$getProject16 = data.getProject) === null || _data$getProject16 === void 0 ? void 0 : (_data$getProject16$ca = _data$getProject16.category) === null || _data$getProject16$ca === void 0 ? void 0 : _data$getProject16$ca.name
+    status: withStatus && (data === null || data === void 0 ? void 0 : (_data$getProject7 = data.getProject) === null || _data$getProject7 === void 0 ? void 0 : _data$getProject7.status) && Object(functions["i" /* getLabelStatus */])(data === null || data === void 0 ? void 0 : (_data$getProject8 = data.getProject) === null || _data$getProject8 === void 0 ? void 0 : _data$getProject8.status),
+    color: withStatus && (data === null || data === void 0 ? void 0 : (_data$getProject9 = data.getProject) === null || _data$getProject9 === void 0 ? void 0 : _data$getProject9.status) && Object(functions["d" /* getColorStatus */])(data === null || data === void 0 ? void 0 : (_data$getProject10 = data.getProject) === null || _data$getProject10 === void 0 ? void 0 : _data$getProject10.status),
+    category: data === null || data === void 0 ? void 0 : (_data$getProject11 = data.getProject) === null || _data$getProject11 === void 0 ? void 0 : (_data$getProject11$ca = _data$getProject11.category) === null || _data$getProject11$ca === void 0 ? void 0 : _data$getProject11$ca.name
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h3',
     style: {
       marginTop: -5,
       marginBottom: 5
     }
-  }, data === null || data === void 0 ? void 0 : (_data$getProject17 = data.getProject) === null || _data$getProject17 === void 0 ? void 0 : _data$getProject17.title), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data === null || data === void 0 ? void 0 : (_data$getProject18 = data.getProject) === null || _data$getProject18 === void 0 ? void 0 : _data$getProject18.description)), (data === null || data === void 0 ? void 0 : (_data$getProject19 = data.getProject) === null || _data$getProject19 === void 0 ? void 0 : _data$getProject19.status) === 'PUBLISHED' && !preview && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+  }, data === null || data === void 0 ? void 0 : (_data$getProject12 = data.getProject) === null || _data$getProject12 === void 0 ? void 0 : _data$getProject12.title), /*#__PURE__*/external_react_default.a.createElement(Text["b" /* default */], null, data === null || data === void 0 ? void 0 : (_data$getProject13 = data.getProject) === null || _data$getProject13 === void 0 ? void 0 : _data$getProject13.description)), (data === null || data === void 0 ? void 0 : (_data$getProject14 = data.getProject) === null || _data$getProject14 === void 0 ? void 0 : _data$getProject14.status) === 'PUBLISHED' && !preview && /*#__PURE__*/external_react_default.a.createElement(Column["a" /* default */], null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], _extends({}, data !== null && data !== void 0 && (_data$getProject20 = data.getProject) !== null && _data$getProject20 !== void 0 && _data$getProject20.company ? {
-    img: data === null || data === void 0 ? void 0 : (_data$getProject21 = data.getProject) === null || _data$getProject21 === void 0 ? void 0 : (_data$getProject21$co = _data$getProject21.company) === null || _data$getProject21$co === void 0 ? void 0 : (_data$getProject21$co2 = _data$getProject21$co.avatar) === null || _data$getProject21$co2 === void 0 ? void 0 : _data$getProject21$co2.path
+  }), /*#__PURE__*/external_react_default.a.createElement(Difinitions, null, /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], _extends({}, data !== null && data !== void 0 && (_data$getProject15 = data.getProject) !== null && _data$getProject15 !== void 0 && _data$getProject15.company ? {
+    img: data === null || data === void 0 ? void 0 : (_data$getProject16 = data.getProject) === null || _data$getProject16 === void 0 ? void 0 : (_data$getProject16$co = _data$getProject16.company) === null || _data$getProject16$co === void 0 ? void 0 : (_data$getProject16$co2 = _data$getProject16$co.avatar) === null || _data$getProject16$co2 === void 0 ? void 0 : _data$getProject16$co2.path
   } : {
     icon: 'work'
   }, {
     label: 'Компания',
-    text: (data === null || data === void 0 ? void 0 : (_data$getProject22 = data.getProject) === null || _data$getProject22 === void 0 ? void 0 : (_data$getProject22$co = _data$getProject22.company) === null || _data$getProject22$co === void 0 ? void 0 : _data$getProject22$co.name) || '-',
+    text: (data === null || data === void 0 ? void 0 : (_data$getProject17 = data.getProject) === null || _data$getProject17 === void 0 ? void 0 : (_data$getProject17$co = _data$getProject17.company) === null || _data$getProject17$co === void 0 ? void 0 : _data$getProject17$co.name) || '-',
     onLink: () => {
-      var _data$getProject23, _data$getProject23$co;
+      var _data$getProject18, _data$getProject18$co;
 
-      return setQuery(data === null || data === void 0 ? void 0 : (_data$getProject23 = data.getProject) === null || _data$getProject23 === void 0 ? void 0 : (_data$getProject23$co = _data$getProject23.company) === null || _data$getProject23$co === void 0 ? void 0 : _data$getProject23$co.email, 'user', onCompanyLink);
+      return setQuery(data === null || data === void 0 ? void 0 : (_data$getProject18 = data.getProject) === null || _data$getProject18 === void 0 ? void 0 : (_data$getProject18$co = _data$getProject18.company) === null || _data$getProject18$co === void 0 ? void 0 : _data$getProject18$co.email, 'user', onCompanyLink);
     }
   })), !owned && (onLike || onAdd) && /*#__PURE__*/external_react_default.a.createElement(Actions, null, onLike && /*#__PURE__*/external_react_default.a.createElement(Tooltip["b" /* default */], {
     text: 'Мне нравится'
@@ -5947,31 +5949,31 @@ const View = ({
   }, /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     type: 'button',
     kind: 'icon',
-    onClick: onAdd,
+    onClick: () => onAdd(data === null || data === void 0 ? void 0 : data.getProject),
     revert: true
   }, /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
     icon: 'add',
     stroke: 'var(--default-color-accent)'
-  })))))))), (data === null || data === void 0 ? void 0 : (_data$getProject24 = data.getProject) === null || _data$getProject24 === void 0 ? void 0 : (_data$getProject24$ch = _data$getProject24.characteristics) === null || _data$getProject24$ch === void 0 ? void 0 : _data$getProject24$ch.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+  })))))))), (data === null || data === void 0 ? void 0 : (_data$getProject19 = data.getProject) === null || _data$getProject19 === void 0 ? void 0 : (_data$getProject19$ch = _data$getProject19.characteristics) === null || _data$getProject19$ch === void 0 ? void 0 : _data$getProject19$ch.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
   }), /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["b" /* default */], {
     appearance: 'ghost',
-    defaultValue: data === null || data === void 0 ? void 0 : (_data$getProject25 = data.getProject) === null || _data$getProject25 === void 0 ? void 0 : _data$getProject25.characteristics,
+    defaultValue: data === null || data === void 0 ? void 0 : (_data$getProject20 = data.getProject) === null || _data$getProject20 === void 0 ? void 0 : _data$getProject20.characteristics,
     readOnly: true
   })), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), (data === null || data === void 0 ? void 0 : (_data$getProject26 = data.getProject) === null || _data$getProject26 === void 0 ? void 0 : _data$getProject26.body) && /*#__PURE__*/external_react_default.a.createElement(HTMLView["a" /* default */], {
-    content: data === null || data === void 0 ? void 0 : (_data$getProject27 = data.getProject) === null || _data$getProject27 === void 0 ? void 0 : _data$getProject27.body
+  }), (data === null || data === void 0 ? void 0 : (_data$getProject21 = data.getProject) === null || _data$getProject21 === void 0 ? void 0 : _data$getProject21.body) && /*#__PURE__*/external_react_default.a.createElement(HTMLView["a" /* default */], {
+    content: data === null || data === void 0 ? void 0 : (_data$getProject22 = data.getProject) === null || _data$getProject22 === void 0 ? void 0 : _data$getProject22.body
   }), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), (data === null || data === void 0 ? void 0 : (_data$getProject28 = data.getProject) === null || _data$getProject28 === void 0 ? void 0 : _data$getProject28.presentation) && videoPresentationObject && /*#__PURE__*/external_react_default.a.createElement(Presentation, {
+  }), (data === null || data === void 0 ? void 0 : (_data$getProject23 = data.getProject) === null || _data$getProject23 === void 0 ? void 0 : _data$getProject23.presentation) && videoPresentationObject && /*#__PURE__*/external_react_default.a.createElement(Presentation, {
     type: videoPresentationObject.type,
     videoId: videoPresentationObject.videoId
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
-  }, "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"), (data === null || data === void 0 ? void 0 : (_data$getProject29 = data.getProject) === null || _data$getProject29 === void 0 ? void 0 : _data$getProject29.members) && (data === null || data === void 0 ? void 0 : (_data$getProject30 = data.getProject) === null || _data$getProject30 === void 0 ? void 0 : (_data$getProject30$me = _data$getProject30.members) === null || _data$getProject30$me === void 0 ? void 0 : _data$getProject30$me.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Members, {
+  }, "\u0423\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u0438 \u043F\u0440\u043E\u0435\u043A\u0442\u0430"), (data === null || data === void 0 ? void 0 : (_data$getProject24 = data.getProject) === null || _data$getProject24 === void 0 ? void 0 : _data$getProject24.members) && (data === null || data === void 0 ? void 0 : (_data$getProject25 = data.getProject) === null || _data$getProject25 === void 0 ? void 0 : (_data$getProject25$me = _data$getProject25.members) === null || _data$getProject25$me === void 0 ? void 0 : _data$getProject25$me.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Members, {
     percentage: 'minmax(420px, 1fr)'
-  }, data === null || data === void 0 ? void 0 : (_data$getProject31 = data.getProject) === null || _data$getProject31 === void 0 ? void 0 : _data$getProject31.members.map(member => {
+  }, data === null || data === void 0 ? void 0 : (_data$getProject26 = data.getProject) === null || _data$getProject26 === void 0 ? void 0 : _data$getProject26.members.map(member => {
     var _member$avatar;
 
     return /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
@@ -5981,7 +5983,7 @@ const View = ({
       text: member === null || member === void 0 ? void 0 : member.name,
       onLink: onMemberLink && (() => setQuery(member === null || member === void 0 ? void 0 : member.email, 'user', onMemberLink))
     });
-  })), (!(data !== null && data !== void 0 && (_data$getProject32 = data.getProject) !== null && _data$getProject32 !== void 0 && _data$getProject32.members) || (data === null || data === void 0 ? void 0 : (_data$getProject33 = data.getProject) === null || _data$getProject33 === void 0 ? void 0 : (_data$getProject33$me = _data$getProject33.members) === null || _data$getProject33$me === void 0 ? void 0 : _data$getProject33$me.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  })), (!(data !== null && data !== void 0 && (_data$getProject27 = data.getProject) !== null && _data$getProject27 !== void 0 && _data$getProject27.members) || (data === null || data === void 0 ? void 0 : (_data$getProject28 = data.getProject) === null || _data$getProject28 === void 0 ? void 0 : (_data$getProject28$me = _data$getProject28.members) === null || _data$getProject28$me === void 0 ? void 0 : _data$getProject28$me.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -5990,9 +5992,9 @@ const View = ({
     clear: true
   }), /*#__PURE__*/external_react_default.a.createElement(Title["a" /* default */], {
     tag: 'h4'
-  }, "\u0424\u0430\u0439\u043B\u044B"), (data === null || data === void 0 ? void 0 : (_data$getProject34 = data.getProject) === null || _data$getProject34 === void 0 ? void 0 : _data$getProject34.files) && (data === null || data === void 0 ? void 0 : (_data$getProject35 = data.getProject) === null || _data$getProject35 === void 0 ? void 0 : (_data$getProject35$fi = _data$getProject35.files) === null || _data$getProject35$fi === void 0 ? void 0 : _data$getProject35$fi.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Files, {
+  }, "\u0424\u0430\u0439\u043B\u044B"), (data === null || data === void 0 ? void 0 : (_data$getProject29 = data.getProject) === null || _data$getProject29 === void 0 ? void 0 : _data$getProject29.files) && (data === null || data === void 0 ? void 0 : (_data$getProject30 = data.getProject) === null || _data$getProject30 === void 0 ? void 0 : (_data$getProject30$fi = _data$getProject30.files) === null || _data$getProject30$fi === void 0 ? void 0 : _data$getProject30$fi.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(Files, {
     percentage: 'minmax(420px, 1fr)'
-  }, data === null || data === void 0 ? void 0 : (_data$getProject36 = data.getProject) === null || _data$getProject36 === void 0 ? void 0 : _data$getProject36.files.map(file => /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
+  }, data === null || data === void 0 ? void 0 : (_data$getProject31 = data.getProject) === null || _data$getProject31 === void 0 ? void 0 : _data$getProject31.files.map(file => /*#__PURE__*/external_react_default.a.createElement(Difinition["d" /* default */], {
     key: file.id,
     icon: 'paper',
     label: file.filename,
@@ -6002,7 +6004,7 @@ const View = ({
         window.open(file.path, '_blank');
       }
     }
-  }))), (!(data !== null && data !== void 0 && (_data$getProject37 = data.getProject) !== null && _data$getProject37 !== void 0 && _data$getProject37.files) || (data === null || data === void 0 ? void 0 : (_data$getProject38 = data.getProject) === null || _data$getProject38 === void 0 ? void 0 : (_data$getProject38$fi = _data$getProject38.files) === null || _data$getProject38$fi === void 0 ? void 0 : _data$getProject38$fi.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
+  }))), (!(data !== null && data !== void 0 && (_data$getProject32 = data.getProject) !== null && _data$getProject32 !== void 0 && _data$getProject32.files) || (data === null || data === void 0 ? void 0 : (_data$getProject33 = data.getProject) === null || _data$getProject33 === void 0 ? void 0 : (_data$getProject33$fi = _data$getProject33.files) === null || _data$getProject33$fi === void 0 ? void 0 : _data$getProject33$fi.length) === 0) && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
     style: {
       width: '100%',
       textAlign: 'center'
@@ -8444,7 +8446,7 @@ const useProject = ({
 
     return !!(user !== null && user !== void 0 && (_user$folders = user.folders) !== null && _user$folders !== void 0 && _user$folders.find(folder => !!(folder !== null && folder !== void 0 && folder.projects.find(item => item === project.id))));
   }, [user]);
-  const hasLiked = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => !!(project.rating || []).find(item => (item === null || item === void 0 ? void 0 : item.email) === (user === null || user === void 0 ? void 0 : user.email)), [user]);
+  const hasLiked = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => !!((user.rating || []).find(item => item.id === project.id) || (project.rating || []).find(item => (item === null || item === void 0 ? void 0 : item.email) === (user === null || user === void 0 ? void 0 : user.email))), [user]);
   const onAdd = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => recall(_store_helpers_project__WEBPACK_IMPORTED_MODULE_2__[/* onProjectAdd */ "a"], {
     id: project.id,
     folders: user === null || user === void 0 ? void 0 : user.folders,
@@ -8463,7 +8465,9 @@ const useProject = ({
     if (user !== null && user !== void 0 && user.email) {
       mutate(_graphql_queries__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"].LIKE_PROJECT, {
         id: project.id
-      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_4__[/* updateUser */ "f"])(response.data.likeProject)))();
+      }, response => dispatch(Object(_store_actions_user__WEBPACK_IMPORTED_MODULE_4__[/* updateUser */ "f"])({
+        rating: response.data.likeProject
+      })))();
     }
   }, [user, mutate, dispatch]);
   const onLink = Object(react__WEBPACK_IMPORTED_MODULE_0__["useCallback"])(project => {

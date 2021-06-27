@@ -24,6 +24,7 @@ import {
   getLabelStatus
 } from '../../atomic-ui/utils/functions'
 
+import { useProject } from '../../hooks/useProject'
 import { useEntityQuery } from '../../hooks/useEntityQuery'
 import HTMLView from '../HTMLView'
 import Processed from '../Processed'
@@ -246,17 +247,14 @@ export const View = ({
   appearance,
   className,
   style,
-  slicedFactor = 6,
   owned,
-  liked,
+  slicedFactor = 6,
   preview,
-  onAdd,
-  onLike,
-  onScreenshotClick,
   onMemberLink,
-  onCompanyLink,
   withStatus
 }) => {
+  const { hasLiked, onAdd, onLike, onCompanyLink, onScreenshotClick } = useProject()
+
   const { setQuery } = useEntityQuery()
   const { data, loading, error } = useQuery(queries.GET_PROJECT, {
     variables: {
@@ -264,14 +262,14 @@ export const View = ({
     }
   })
 
-  const [isLiked, setLike] = useState(liked)
+  const [isLiked, setLike] = useState(!!hasLiked)
 
   const [screenshots, setScreenshots] = useState([])
   const [residue, setResidue] = useState(0)
   const [videoPresentationObject, setVideoPresentationObject] = useState(null)
 
   const onClickLike = () => {
-    if (onLike) onLike()
+    if (onLike) onLike(data?.getProject)
     setLike(!isLiked)
   }
 
@@ -304,10 +302,7 @@ export const View = ({
                   src={data?.getProject?.preview?.path}
                   onClick={() =>
                     onScreenshotClick &&
-                    onScreenshotClick(data?.getProject?.preview, data?.getProject?.preview?.id, [
-                      data?.getProject?.preview,
-                      ...data?.getProject?.screenshots
-                    ])
+                    onScreenshotClick(data?.getProject, data?.getProject?.preview?.id)
                   }
                 />
               ) : (
@@ -319,11 +314,7 @@ export const View = ({
                     <Screenshot
                       key={screenshot.id}
                       onClick={() =>
-                        onScreenshotClick &&
-                        onScreenshotClick(screenshot, screenshot.id, [
-                          data?.getProject?.preview,
-                          ...data?.getProject?.screenshots
-                        ])
+                        onScreenshotClick && onScreenshotClick(data?.getProject, screenshot.id)
                       }>
                       <Image src={screenshot.path} alt={screenshot.name} />
                       {index === screenshots?.length - 1 && residue > 0 && (
@@ -398,7 +389,11 @@ export const View = ({
                         )}
                         {onAdd && (
                           <Tooltip text={'Добавить проект к себе'}>
-                            <Button type={'button'} kind={'icon'} onClick={onAdd} revert>
+                            <Button
+                              type={'button'}
+                              kind={'icon'}
+                              onClick={() => onAdd(data?.getProject)}
+                              revert>
                               <Icon icon={'add'} stroke={'var(--default-color-accent)'} />
                             </Button>
                           </Tooltip>

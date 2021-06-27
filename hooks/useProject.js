@@ -34,7 +34,11 @@ export const useProject = ({ isManage } = {}) => {
   )
 
   const hasLiked = useCallback(
-    (project) => !!(project.rating || []).find((item) => item?.email === user?.email),
+    (project) =>
+      !!(
+        (user.rating || []).find((item) => item.id === project.id) ||
+        (project.rating || []).find((item) => item?.email === user?.email)
+      ),
     [user]
   )
 
@@ -59,7 +63,11 @@ export const useProject = ({ isManage } = {}) => {
     (project) => {
       if (user?.email) {
         mutate(queries.LIKE_PROJECT, { id: project.id }, (response) =>
-          dispatch(updateUser(response.data.likeProject))
+          dispatch(
+            updateUser({
+              rating: response.data.likeProject
+            })
+          )
         )()
       }
     },
