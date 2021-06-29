@@ -19,7 +19,7 @@ import Footer from '../components/Footer'
 import { LowerLoader } from '../components/Styled'
 import { setLogout } from '../store/actions/user'
 import { setDrawer } from '../store/actions/drawer'
-import { getSupportLinks, socials, contacts } from '../__mock__'
+import { getAuthSupportLinks, getSupportLinks, socials, contacts } from '../__mock__'
 import { onMenu, onHelp, onNotification, onChat } from '../store/helpers'
 import { onUserClientEdit } from '../store/helpers/user'
 import queries from '../graphql/queries'
@@ -212,6 +212,7 @@ const DefaultFooter = memo(() => {
   const recall = useHelper()
   const { data, loading } = useQuery(queries.GET_CATEGORIES)
   const categories = useMemo(() => data?.getCategories || [], [data])
+  const user = useSelector((state) => state.user)
 
   const onSupport = recall(onHelp, {
     mutation: queries.CREATE_USER_TICKET
@@ -241,17 +242,19 @@ const DefaultFooter = memo(() => {
       }}
       support={{
         title: 'О компании',
-        links: getSupportLinks(onSupport).map((link) => ({
-          ...link,
-          render: () =>
-            link.path ? (
-              <Link key={v4()} href={link.path}>
-                <a>{link.label}</a>
-              </Link>
-            ) : (
-              link.label
-            )
-        }))
+        links: (user.authenticated ? getAuthSupportLinks : getSupportLinks)(onSupport).map(
+          (link) => ({
+            ...link,
+            render: () =>
+              link.path ? (
+                <Link key={v4()} href={link.path}>
+                  <a>{link.label}</a>
+                </Link>
+              ) : (
+                link.label
+              )
+          })
+        )
       }}
     />
   )

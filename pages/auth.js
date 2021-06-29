@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Spinner from '../atomic-ui/components/Spinner'
 
-import { useHelper } from '../hooks/useHelper'
 import DefaultLayout from '../layouts/default'
+import { setStepper } from '../store/actions/stepper'
 import { onUserCheckin } from '../store/helpers/user'
+import { useHelper } from '../hooks/useHelper'
 import queries from '../graphql/queries'
 
 const TITLE = 'Авторизация'
@@ -45,6 +46,7 @@ const Auth = () => {
     user: state.user,
     stepper: state.stepper
   }))
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (!stepper?.content) {
@@ -68,6 +70,10 @@ const Auth = () => {
       router.push({ pathname: '/profile', query: router.query })
     }
   }, [user])
+
+  useEffect(() => {
+    return () => dispatch(setStepper(null))
+  }, [dispatch, setStepper])
 
   if (!stepper || user.authenticated) {
     return (

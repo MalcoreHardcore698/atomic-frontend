@@ -819,7 +819,7 @@ var modal = __webpack_require__("qOKH");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/index.js
@@ -4731,7 +4731,7 @@ const Wrap = styled_components__WEBPACK_IMPORTED_MODULE_1___default.a.input.with
 const Input = react__WEBPACK_IMPORTED_MODULE_0___default.a.forwardRef(({
   label,
   ...props
-}, ref) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InputContainer, null, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CharacteristicEditor__WEBPACK_IMPORTED_MODULE_2__[/* InputLabel */ "a"], null, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, _extends({}, props, {
+}, ref) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(InputContainer, null, label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CharacteristicEditor__WEBPACK_IMPORTED_MODULE_2__[/* InputLabel */ "b"], null, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Wrap, _extends({}, props, {
   ref: ref
 }))));
 Input.defaultProps = {
@@ -5233,34 +5233,19 @@ const Characteristics = ({
   var _getValues;
 
   const initialValue = Object(external_react_["useMemo"])(() => getValues('characteristics') || (project === null || project === void 0 ? void 0 : project.characteristics) || null, [getValues, project]);
-  const [characteristics, setCharacteristics] = Object(external_react_["useState"])(initialValue);
   const [isPreviewCharacteristics, setIsPreviewCharacteristics] = Object(external_react_["useState"])((initialValue === null || initialValue === void 0 ? void 0 : initialValue.length) > 0);
-  const realCharacteristics = watch('characteristics');
-
-  const onAddCharacteristic = () => {
-    const name = 'Новое учебное помещение';
-    const item = {
-      id: Object(external_uuid_["v4"])(),
-      name,
-      value: null,
-      isVisualize: null
-    };
-    setCharacteristics([...getValues('characteristics'), item]);
-  };
-
+  const characteristics = watch('characteristics');
   return /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
     title: 'Характеристики',
     labelChecked: 'Превью',
     disabledChecked: (characteristics === null || characteristics === void 0 ? void 0 : characteristics.length) === 0,
     defaultChecked: isPreviewCharacteristics,
     onChecked: setIsPreviewCharacteristics,
-    onAdd: onAddCharacteristic || (() => {}),
     rtlChecked: true,
-    checkbox: true,
-    action: true
-  }), isPreviewCharacteristics && /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["b" /* default */], {
+    checkbox: true
+  }), isPreviewCharacteristics && /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["c" /* default */], {
     appearance: 'ghost',
-    defaultValue: realCharacteristics,
+    defaultValue: characteristics,
     readOnly: true
   }), /*#__PURE__*/external_react_default.a.createElement(external_react_hook_form_["Controller"], {
     key: characteristics === null || characteristics === void 0 ? void 0 : characteristics.length,
@@ -5273,11 +5258,10 @@ const Characteristics = ({
     render: ({
       value,
       onChange
-    }) => /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["b" /* default */], {
+    }) => /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["c" /* default */], {
       appearance: 'ghost',
       defaultValue: value,
-      onChange: onChange,
-      withoutAddButton: true
+      onChange: onChange
     })
   }));
 };
@@ -5525,9 +5509,7 @@ const Project = ({
         flexGrow: 1
       }
     }, /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
-      title: 'Участники проекта',
-      onAdd: onMemberAdd || (() => {}),
-      action: true
+      title: 'Участники проекта'
     }), (members === null || members === void 0 ? void 0 : members.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(320px, 1fr)'
     }, members.map(member => {
@@ -5565,13 +5547,18 @@ const Project = ({
         textAlign: 'center'
       },
       width: '100%'
-    }, "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432")), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    }, "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0443\u0447\u0430\u0441\u0442\u043D\u0438\u043A\u043E\u0432"), /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["a" /* AddButton */], {
+      type: 'button',
+      onClick: onMemberAdd || (() => {})
+    }, /*#__PURE__*/external_react_default.a.createElement("span", null, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"), /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      type: 'button',
+      icon: 'add',
+      stroke: 'white'
+    }))), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
       clear: true
     }), /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
       title: 'Изображения',
-      info: 'Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB',
-      onAdd: !project && onScreenshotAdd || (() => {}),
-      action: true
+      info: 'Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'
     }), (screenshots === null || screenshots === void 0 ? void 0 : screenshots.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(196px, 1fr)'
     }, screenshots.map(screenshot => {
@@ -5605,13 +5592,18 @@ const Project = ({
         textAlign: 'center'
       },
       width: '100%'
-    }, "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F"), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    }, "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F"), /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["a" /* AddButton */], {
+      type: 'button',
+      onClick: onScreenshotAdd || (() => {})
+    }, /*#__PURE__*/external_react_default.a.createElement("span", null, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"), /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      type: 'button',
+      icon: 'add',
+      stroke: 'white'
+    })), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
       clear: true
     }), /*#__PURE__*/external_react_default.a.createElement(components_ActionRow, {
       title: 'Файлы',
-      info: 'Допустимые форматы: pdf, docx, .doc. Макс. размер: 15 MB',
-      onAdd: onFileAdd || (() => {}),
-      action: true
+      info: 'Допустимые форматы: pdf, docx, .doc. Макс. размер: 15 MB'
     }), (files === null || files === void 0 ? void 0 : files.length) > 0 ? /*#__PURE__*/external_react_default.a.createElement(Grid["a" /* default */], {
       percentage: 'minmax(196px, 1fr)'
     }, files.map(file => {
@@ -5645,7 +5637,14 @@ const Project = ({
         textAlign: 'center'
       },
       width: '100%'
-    }, "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0444\u0430\u0439\u043B\u044B"), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
+    }, "\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u0444\u0430\u0439\u043B\u044B"), /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["a" /* AddButton */], {
+      type: 'button',
+      onClick: onFileAdd || (() => {})
+    }, /*#__PURE__*/external_react_default.a.createElement("span", null, "\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C"), /*#__PURE__*/external_react_default.a.createElement(Icon["a" /* default */], {
+      type: 'button',
+      icon: 'add',
+      stroke: 'white'
+    })), /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
       clear: true
     }), errors && errors.presentation && /*#__PURE__*/external_react_default.a.createElement(Alert["a" /* default */], {
       style: {
@@ -5997,7 +5996,7 @@ const View = ({
     stroke: 'var(--default-color-accent)'
   })))))))), (data === null || data === void 0 ? void 0 : (_data$getProject19 = data.getProject) === null || _data$getProject19 === void 0 ? void 0 : (_data$getProject19$ch = _data$getProject19.characteristics) === null || _data$getProject19$ch === void 0 ? void 0 : _data$getProject19$ch.length) > 0 && /*#__PURE__*/external_react_default.a.createElement(external_react_default.a.Fragment, null, /*#__PURE__*/external_react_default.a.createElement(Divider["a" /* default */], {
     clear: true
-  }), /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["b" /* default */], {
+  }), /*#__PURE__*/external_react_default.a.createElement(CharacteristicEditor["c" /* default */], {
     appearance: 'ghost',
     defaultValue: data === null || data === void 0 ? void 0 : (_data$getProject20 = data.getProject) === null || _data$getProject20 === void 0 ? void 0 : _data$getProject20.characteristics,
     readOnly: true
@@ -6071,7 +6070,7 @@ var snacks = __webpack_require__("9Xo6");
 // EXTERNAL MODULE: ./store/actions/user.js
 var actions_user = __webpack_require__("8ihE");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/project.js
@@ -7808,20 +7807,22 @@ module.exports = require("apollo-link-error");
 /* harmony import */ var _apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("nShV");
 /* harmony import */ var _atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("8CDE");
-/* harmony import */ var _atomic_ui_components_Input__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("Gliw");
-/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("ZeZO");
-/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("7sPp");
-/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("ZwIX");
-/* harmony import */ var _atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("QclZ");
-/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("RKiZ");
-/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("auMy");
-/* harmony import */ var _atomic_ui_components_TextArea__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("3jgA");
-/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("79b8");
-/* harmony import */ var _atomic_ui_components_Message__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("7ni8");
-/* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("NWnW");
-/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("qoM+");
-/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("586Q");
-/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("u2Cb");
+/* harmony import */ var _atomic_ui_components_Container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("N0uN");
+/* harmony import */ var _atomic_ui_components_Input__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__("Gliw");
+/* harmony import */ var _atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__("ZeZO");
+/* harmony import */ var _atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__("7sPp");
+/* harmony import */ var _atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__("ZwIX");
+/* harmony import */ var _atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("QclZ");
+/* harmony import */ var _atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("RKiZ");
+/* harmony import */ var _atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__("auMy");
+/* harmony import */ var _atomic_ui_components_TextArea__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__("3jgA");
+/* harmony import */ var _atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__("79b8");
+/* harmony import */ var _atomic_ui_components_Message__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__("7ni8");
+/* harmony import */ var _atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__("NWnW");
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__("qoM+");
+/* harmony import */ var _Styled__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__("586Q");
+/* harmony import */ var _graphql_queries__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__("u2Cb");
+
 
 
 
@@ -7857,6 +7858,7 @@ const Ticket = ({
   appearance,
   mutation,
   className,
+  withContainer,
   isClient,
   onSubmit
 }) => {
@@ -7869,7 +7871,7 @@ const Ticket = ({
     data,
     loading: loadingTicket,
     error: errorTicket
-  } = ticket ? Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_TICKET, {
+  } = ticket ? Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_20__[/* default */ "a"].GET_TICKET, {
     variables: {
       id: ticket
     },
@@ -7886,7 +7888,7 @@ const Ticket = ({
     loading: loadingUsers // refetch: searchUsers,
     // fetchMore: updateUsers
 
-  } = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_USERS_FOR_TICKET, {
+  } = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_20__[/* default */ "a"].GET_USERS_FOR_TICKET, {
     variables: {
       // offset: offsetUsers,
       account: ['INDIVIDUAL', 'OFICIAL']
@@ -7895,7 +7897,7 @@ const Ticket = ({
   const {
     data: dataCounsellors,
     loading: loadingCounsellors
-  } = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_USERS_FOR_TICKET, {
+  } = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_20__[/* default */ "a"].GET_USERS_FOR_TICKET, {
     variables: {
       account: ['INDIVIDUAL', 'ADMIN']
     }
@@ -7903,7 +7905,7 @@ const Ticket = ({
   const {
     data: dataCategories,
     loading: loadingCategories
-  } = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_19__[/* default */ "a"].GET_CATEGORIES, {
+  } = Object(_apollo_react_hooks__WEBPACK_IMPORTED_MODULE_3__["useQuery"])(_graphql_queries__WEBPACK_IMPORTED_MODULE_20__[/* default */ "a"].GET_CATEGORIES, {
     variables: {
       type: 'TICKET'
     }
@@ -7946,7 +7948,7 @@ const Ticket = ({
       setUsers(prev => [...prev, ...dataUsers.getUsers]);
     }
   }, [dataUsers, loadingUsers]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Form__WEBPACK_IMPORTED_MODULE_17__[/* default */ "b"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Form__WEBPACK_IMPORTED_MODULE_18__[/* default */ "b"], {
     className: className,
     appearance: appearance,
     mutation: mutation,
@@ -7962,14 +7964,19 @@ const Ticket = ({
   }) => {
     var _data$getTicket, _data$getTicket2, _data$getTicket2$mess, _data$getTicket3, _data$getTicket4, _data$getTicket5;
 
-    return !loadingTicket && data ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null, title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+    return !loadingTicket && data ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Column__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"], null, title && !withContainer && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
       tag: 'h4'
-    }, "\u041E\u0441\u043D\u043E\u0432\u043D\u043E\u0435"), errors && errors.title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    }, title), title && withContainer && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Container__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+      style: {
+        textAlign: 'center'
+      },
+      tag: 'h4'
+    }, title)), errors && errors.title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
       style: {
         width: '100%'
       },
       appearance: 'error'
-    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Input__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
+    }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u0430\u0437\u0432\u0430\u043D\u0438\u0435 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0435"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Input__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
       type: 'text',
       name: 'title',
       ref: register({
@@ -7979,7 +7986,7 @@ const Ticket = ({
       placeholder: 'Краткое описание вашего вопроса',
       appearance: 'ghost',
       disabled: loading
-    }), (!ticket || ((_data$getTicket2 = data.getTicket) === null || _data$getTicket2 === void 0 ? void 0 : (_data$getTicket2$mess = _data$getTicket2.messages) === null || _data$getTicket2$mess === void 0 ? void 0 : _data$getTicket2$mess.length) === 0) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_TextArea__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], {
+    }), (!ticket || ((_data$getTicket2 = data.getTicket) === null || _data$getTicket2 === void 0 ? void 0 : (_data$getTicket2$mess = _data$getTicket2.messages) === null || _data$getTicket2$mess === void 0 ? void 0 : _data$getTicket2$mess.length) === 0) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_TextArea__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
       type: 'text',
       name: 'message',
       ref: register(),
@@ -7997,7 +8004,7 @@ const Ticket = ({
       render: ({
         value,
         onChange
-      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
         options: users.map(user => ({
           value: user,
           label: user.name
@@ -8039,7 +8046,7 @@ const Ticket = ({
       render: ({
         value,
         onChange
-      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
         options: !loadingCounsellors && dataCounsellors ? dataCounsellors.getUsers.map(user => ({
           value: user,
           label: user.name
@@ -8056,32 +8063,32 @@ const Ticket = ({
       control: control,
       defaultValue: (_data$getTicket5 = data.getTicket) !== null && _data$getTicket5 !== void 0 && _data$getTicket5.category ? {
         value: data.getTicket.category.id,
-        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__[/* getLabelCategory */ "f"])(data.getTicket.category.name)
+        label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_17__[/* getLabelCategory */ "f"])(data.getTicket.category.name)
       } : null,
       render: ({
         value,
         onChange
-      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
+      }) => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Select__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
         appearance: 'ghost',
         placeholder: 'Выберите раздел',
         options: !loadingCategories && dataCategories ? dataCategories.getCategories.filter(item => item.type === 'TICKET').map(item => ({
           value: item.id,
-          label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_16__[/* getLabelCategory */ "f"])(item.name)
+          label: Object(_atomic_ui_utils_functions__WEBPACK_IMPORTED_MODULE_17__[/* getLabelCategory */ "f"])(item.name)
         })) : [],
         onChange: onChange,
         defaultValue: value,
         isLoading: loadingCategories,
         isClearable: true
       })
-    })), !isClient && ticket && messages.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+    })), !isClient && ticket && messages.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
       clear: true
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Title__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
       tag: 'h4'
-    }, "\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0439"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_14__[/* default */ "a"], {
+    }, "\u0418\u0441\u0442\u043E\u0440\u0438\u044F \u0441\u043E\u043E\u0431\u0449\u0435\u043D\u0438\u0439"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Checkbox__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], {
       label: 'Выделить все',
       checked: checkedAll,
       onChange: handleCheckedMessages
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
       style: {
         color: 'var(--default-color-red)'
       },
@@ -8090,7 +8097,7 @@ const Ticket = ({
     }, "\u0423\u0434\u0430\u043B\u0438\u0442\u044C \u0432\u044B\u0434\u0435\u043B\u0435\u043D\u043D\u043E\u0435")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Messages, null, messages.map(message => {
       var _message$user, _message$user$avatar, _message$user2;
 
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Message__WEBPACK_IMPORTED_MODULE_15__[/* default */ "a"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Message__WEBPACK_IMPORTED_MODULE_16__[/* default */ "a"], {
         key: message.id,
         avatar: (_message$user = message.user) === null || _message$user === void 0 ? void 0 : (_message$user$avatar = _message$user.avatar) === null || _message$user$avatar === void 0 ? void 0 : _message$user$avatar.path,
         name: (_message$user2 = message.user) === null || _message$user2 === void 0 ? void 0 : _message$user2.name,
@@ -8103,25 +8110,25 @@ const Ticket = ({
         onDelete: () => handleMessageDelete(message),
         compact: true
       });
-    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_11__[/* default */ "a"], {
+    }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Divider__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], {
       clear: true
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_7__[/* default */ "a"], {
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Row__WEBPACK_IMPORTED_MODULE_4__[/* default */ "b"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Button__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"], {
       style: {
         flexGrow: 1
       },
       type: 'submit',
       disabled: loading
-    }, ticket ? 'Сохранить' : 'Создать'))) : errorTicket ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_9__[/* default */ "a"], {
+    }, ticket ? 'Сохранить' : 'Создать'))) : errorTicket ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Alert__WEBPACK_IMPORTED_MODULE_10__[/* default */ "a"], {
       appearance: 'error',
       style: {
         width: '100%',
         textAlign: 'center'
       }
-    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E\u0431 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0438") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_18__[/* Loader */ "d"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"], null));
+    }, "\u0423\u043F\u0441! \u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044E \u043E\u0431 \u043E\u0431\u0440\u0430\u0449\u0435\u043D\u0438\u0438") : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Styled__WEBPACK_IMPORTED_MODULE_19__[/* Loader */ "d"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_atomic_ui_components_Spinner__WEBPACK_IMPORTED_MODULE_13__[/* default */ "a"], null));
   });
 };
 Ticket.defaultProps = {
-  title: true
+  title: 'Основное'
 };
 /* harmony default export */ __webpack_exports__["a"] = (Ticket);
 
@@ -11371,7 +11378,7 @@ var _mock_ = __webpack_require__("wha1");
 // EXTERNAL MODULE: ./store/helpers/index.js + 4 modules
 var helpers = __webpack_require__("+EEm");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // EXTERNAL MODULE: ./graphql/queries/index.js + 16 modules
@@ -11556,6 +11563,7 @@ const DefaultFooter = Object(external_react_["memo"])(() => {
     loading
   } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_CATEGORIES);
   const categories = Object(external_react_["useMemo"])(() => (data === null || data === void 0 ? void 0 : data.getCategories) || [], [data]);
+  const user = Object(external_react_redux_["useSelector"])(state => state.user);
   const onSupport = recall(helpers["b" /* onHelp */], {
     mutation: queries["a" /* default */].CREATE_USER_TICKET
   });
@@ -11566,7 +11574,7 @@ const DefaultFooter = Object(external_react_["memo"])(() => {
 
   return /*#__PURE__*/external_react_default.a.createElement(components_Footer, {
     contacts: _mock_["a" /* contacts */],
-    socials: _mock_["d" /* socials */],
+    socials: _mock_["e" /* socials */],
     catalog: {
       title: 'Каталог',
       links: categories.filter(category => category.type === 'DIVISION').map(link => /*#__PURE__*/external_react_default.a.createElement(link_default.a, {
@@ -11576,7 +11584,7 @@ const DefaultFooter = Object(external_react_["memo"])(() => {
     },
     support: {
       title: 'О компании',
-      links: Object(_mock_["b" /* getSupportLinks */])(onSupport).map(link => ({ ...link,
+      links: (user.authenticated ? _mock_["b" /* getAuthSupportLinks */] : _mock_["c" /* getSupportLinks */])(onSupport).map(link => ({ ...link,
         render: () => link.path ? /*#__PURE__*/external_react_default.a.createElement(link_default.a, {
           key: Object(external_uuid_["v4"])(),
           href: link.path
@@ -12275,7 +12283,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
 var user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/ticket.js
@@ -12792,11 +12800,11 @@ const Spinner = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.
 /* unused harmony export Wrap */
 /* unused harmony export Container */
 /* unused harmony export List */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InputLabel; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return InputLabel; });
 /* unused harmony export Item */
 /* unused harmony export Header */
 /* unused harmony export Actions */
-/* unused harmony export AddButton */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddButton; });
 /* unused harmony export Trunks */
 /* unused harmony export Value */
 /* unused harmony export ListItem */
@@ -13035,7 +13043,7 @@ const CharacteristicEditor = ({
     stroke: 'white'
   }))));
 };
-/* harmony default export */ __webpack_exports__["b"] = (CharacteristicEditor);
+/* harmony default export */ __webpack_exports__["c"] = (CharacteristicEditor);
 
 /***/ }),
 
@@ -20407,7 +20415,7 @@ var drawer = __webpack_require__("Ztxg");
 // EXTERNAL MODULE: ./store/actions/snacks.js
 var snacks = __webpack_require__("9Xo6");
 
-// EXTERNAL MODULE: ./store/helpers/user.js + 11 modules
+// EXTERNAL MODULE: ./store/helpers/user.js + 10 modules
 var helpers_user = __webpack_require__("rP4V");
 
 // CONCATENATED MODULE: ./store/helpers/article.js
@@ -21657,6 +21665,22 @@ Form.defaultProps = {
 
 /***/ }),
 
+/***/ "qt3Z":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return setStepper; });
+/* harmony import */ var _types_stepper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("v8xy");
+
+function setStepper(stepper) {
+  return {
+    type: _types_stepper__WEBPACK_IMPORTED_MODULE_0__[/* default */ "a"].SET_STEPPER,
+    payload: stepper
+  };
+}
+
+/***/ }),
+
 /***/ "rCsO":
 /***/ (function(module, exports) {
 
@@ -21697,6 +21721,7 @@ const config = {
 "use strict";
 
 // EXPORTS
+__webpack_require__.d(__webpack_exports__, "k", function() { return /* binding */ onUserResetPassword; });
 __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ onUserCheckin; });
 __webpack_require__.d(__webpack_exports__, "i", function() { return /* binding */ onUserLink; });
 __webpack_require__.d(__webpack_exports__, "d", function() { return /* binding */ onUserCreate; });
@@ -21708,7 +21733,7 @@ __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding *
 __webpack_require__.d(__webpack_exports__, "g", function() { return /* binding */ onUserFolderAdd; });
 __webpack_require__.d(__webpack_exports__, "h", function() { return /* binding */ onUserFolderDelete; });
 
-// UNUSED EXPORTS: onCheckResetToken, onUserResetPassword, onUserLogin, onUserRegister, onUserForgotEmail, onUserForgotPassword, onUserChangePassword
+// UNUSED EXPORTS: onCheckResetToken, onUserLogin, onUserRegister, onUserForgotEmail, onUserForgotPassword, onUserChangePassword
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__("cDcd");
@@ -22979,15 +23004,15 @@ const ResetPassword = ({
     style: {
       flexGrow: 1
     },
-    type: 'submit',
-    disabled: loading
-  }, "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
+    type: 'button',
+    onClick: onBack
+  }, "\u041E\u0442\u043C\u0435\u043D\u0430"), /*#__PURE__*/external_react_default.a.createElement(Button["a" /* default */], {
     style: {
       flexGrow: 1
     },
-    type: 'button',
-    onClick: onBack
-  }, "\u041E\u0442\u043C\u0435\u043D\u0430"))));
+    type: 'submit',
+    disabled: loading
+  }, "\u0421\u0431\u0440\u043E\u0441\u0438\u0442\u044C"))));
 };
 /* harmony default export */ var FormResetPassword = (ResetPassword);
 // EXTERNAL MODULE: ./components/FormSureDelete/index.js
@@ -23223,17 +23248,9 @@ var actions_user = __webpack_require__("8ihE");
 // EXTERNAL MODULE: ./store/actions/documents.js
 var documents = __webpack_require__("j8/+");
 
-// EXTERNAL MODULE: ./store/types/stepper.js
-var types_stepper = __webpack_require__("v8xy");
+// EXTERNAL MODULE: ./store/actions/stepper.js
+var stepper = __webpack_require__("qt3Z");
 
-// CONCATENATED MODULE: ./store/actions/stepper.js
-
-function setStepper(stepper) {
-  return {
-    type: types_stepper["a" /* default */].SET_STEPPER,
-    payload: stepper
-  };
-}
 // EXTERNAL MODULE: ./store/actions/drawer.js
 var drawer = __webpack_require__("Ztxg");
 
@@ -23274,10 +23291,11 @@ var helpers = __webpack_require__("+EEm");
 
 function onCheckResetToken(dispatch, props) {
   const {
+    redirect,
     email,
     mutations
   } = props;
-  dispatch(setStepper({
+  dispatch(Object(stepper["a" /* setStepper */])({
     name: 'checkResetToken',
     content: /*#__PURE__*/external_react_default.a.createElement(CheckTokenAndChangePassword, {
       email: email,
@@ -23296,11 +23314,13 @@ function onCheckResetToken(dispatch, props) {
             type: 'success',
             message: 'Пароль успешно сброшен'
           }));
-          setTimeout(() => {
-            onUserCheckin(dispatch, {
-              mutations
-            });
-          }, 200);
+          if (redirect) redirect();else {
+            setTimeout(() => {
+              onUserCheckin(dispatch, {
+                mutations
+              });
+            }, 200);
+          }
         } else {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
@@ -23313,15 +23333,17 @@ function onCheckResetToken(dispatch, props) {
 }
 function onUserResetPassword(dispatch, props) {
   const {
-    mutations
+    mutations,
+    redirect,
+    withoutBack
   } = props;
-  dispatch(setStepper({
+  dispatch(Object(stepper["a" /* setStepper */])({
     name: 'resetPassword',
     content: /*#__PURE__*/external_react_default.a.createElement(FormResetPassword, {
       mutations: mutations,
-      onBack: () => onUserCheckin(dispatch, {
+      onBack: !withoutBack && (() => onUserCheckin(dispatch, {
         mutations
-      }),
+      })),
       onSubmit: async (form, action) => {
         try {
           const response = await action({
@@ -23332,6 +23354,7 @@ function onUserResetPassword(dispatch, props) {
 
           if (response) {
             onCheckResetToken(dispatch, {
+              redirect,
               email: form.email,
               mutations
             });
@@ -23350,7 +23373,7 @@ function onUserCheckin(dispatch, props) {
   const {
     mutations
   } = props;
-  dispatch(setStepper({
+  dispatch(Object(stepper["a" /* setStepper */])({
     name: 'checkin',
     content: /*#__PURE__*/external_react_default.a.createElement(FormCheckin, {
       mutations: mutations,
@@ -23432,7 +23455,7 @@ function onUserLogin(dispatch, props) {
     login,
     mutations
   } = props;
-  dispatch(setStepper({
+  dispatch(Object(stepper["a" /* setStepper */])({
     name: 'login',
     content: /*#__PURE__*/external_react_default.a.createElement(FormLogin, {
       email: login,
@@ -23459,7 +23482,7 @@ function onUserLogin(dispatch, props) {
             message: 'Не удалось авторизоваться'
           }));
         } finally {
-          dispatch(setStepper(null));
+          dispatch(Object(stepper["a" /* setStepper */])(null));
         }
       }
     })
@@ -23469,7 +23492,7 @@ function onUserRegister(dispatch, props) {
   const {
     mutations
   } = props;
-  dispatch(setStepper({
+  dispatch(Object(stepper["a" /* setStepper */])({
     name: 'register',
     content: /*#__PURE__*/external_react_default.a.createElement(FormRegister, {
       mutation: mutations.register,
@@ -23497,7 +23520,7 @@ function onUserRegister(dispatch, props) {
         } catch (err) {
           dispatch(Object(snacks["c" /* setItem */])({
             type: 'error',
-            message: 'Не удалось зарегистрировать пользователя'
+            message: err.message.replace('GraphQL error: ', '') || 'Не удалось зарегистрировать пользователя'
           }));
         }
       }
@@ -23508,7 +23531,7 @@ function onUserForgotEmail(dispatch, props) {
   const {
     mutations
   } = props;
-  dispatch(setStepper({
+  dispatch(Object(stepper["a" /* setStepper */])({
     name: 'forgotEmail',
     content: /*#__PURE__*/external_react_default.a.createElement(FormForgotEmail, {
       mutation: mutations.forgotEmail,
@@ -23532,7 +23555,7 @@ function onUserForgotPassword(dispatch, props) {
   const {
     mutations
   } = props;
-  dispatch(setStepper({
+  dispatch(Object(stepper["a" /* setStepper */])({
     name: 'forgotPassword',
     content: /*#__PURE__*/external_react_default.a.createElement(FormForgotPassword, {
       mutation: mutations.forgotPassword,
@@ -26542,7 +26565,6 @@ const MainContent = ({
     data: dataMeta,
     loading: loadingMeta
   } = Object(react_hooks_["useQuery"])(queries["a" /* default */].GET_META);
-  const search = Object(external_react_redux_["useSelector"])(state => state.root.search);
   const dispatch = Object(external_react_redux_["useDispatch"])();
   Object(external_react_["useEffect"])(() => {
     if (!loadingMeta && dataMeta !== null && dataMeta !== void 0 && dataMeta.getDashboardSettings) {
@@ -27042,14 +27064,25 @@ const DatePicker = ({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getSupportLinks; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return socials; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getSupportLinks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getAuthSupportLinks; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return socials; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return contacts; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return profilePages; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return profilePages; });
 /* unused harmony export notifications */
 /* unused harmony export categories */
 /* unused harmony export filters */
-const getSupportLinks = onSupport => [{
+const getSupportLinks = () => [{
+  label: 'О ресурсе',
+  path: '/about'
+}, {
+  label: 'Люди ресурса',
+  path: '/creators'
+}, {
+  label: 'Справочник',
+  path: '/guide'
+}];
+const getAuthSupportLinks = onSupport => [{
   label: 'О ресурсе',
   path: '/about'
 }, {

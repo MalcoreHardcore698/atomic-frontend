@@ -14,7 +14,7 @@ import Button from '../../atomic-ui/components/Button'
 import Select from '../../atomic-ui/components/Select'
 import TextArea from '../../atomic-ui/components/TextArea'
 import TextEditor from '../../atomic-ui/components/TextEditor'
-import CharacteristicEditor from '../../atomic-ui/components/CharacteristicEditor'
+import CharacteristicEditor, { AddButton } from '../../atomic-ui/components/CharacteristicEditor'
 import Dropzone from '../../atomic-ui/components/Dropzone'
 import ActionRow from '../../atomic-ui/components/ActionRow'
 import Difinition from '../../atomic-ui/components/Difinition'
@@ -90,16 +90,9 @@ export const Characteristics = ({ project, watch, control, getValues }) => {
     [getValues, project]
   )
 
-  const [characteristics, setCharacteristics] = useState(initialValue)
   const [isPreviewCharacteristics, setIsPreviewCharacteristics] = useState(initialValue?.length > 0)
 
-  const realCharacteristics = watch('characteristics')
-
-  const onAddCharacteristic = () => {
-    const name = 'Новое учебное помещение'
-    const item = { id: v4(), name, value: null, isVisualize: null }
-    setCharacteristics([...getValues('characteristics'), item])
-  }
+  const characteristics = watch('characteristics')
 
   return (
     <React.Fragment>
@@ -109,14 +102,12 @@ export const Characteristics = ({ project, watch, control, getValues }) => {
         disabledChecked={characteristics?.length === 0}
         defaultChecked={isPreviewCharacteristics}
         onChecked={setIsPreviewCharacteristics}
-        onAdd={onAddCharacteristic || (() => {})}
         rtlChecked
         checkbox
-        action
       />
 
       {isPreviewCharacteristics && (
-        <CharacteristicEditor appearance={'ghost'} defaultValue={realCharacteristics} readOnly />
+        <CharacteristicEditor appearance={'ghost'} defaultValue={characteristics} readOnly />
       )}
       <Controller
         key={characteristics?.length}
@@ -125,12 +116,7 @@ export const Characteristics = ({ project, watch, control, getValues }) => {
         rules={{ required: getValues('characteristics')?.length > 0 }}
         defaultValue={characteristics}
         render={({ value, onChange }) => (
-          <CharacteristicEditor
-            appearance={'ghost'}
-            defaultValue={value}
-            onChange={onChange}
-            withoutAddButton
-          />
+          <CharacteristicEditor appearance={'ghost'} defaultValue={value} onChange={onChange} />
         )}
       />
     </React.Fragment>
@@ -385,7 +371,7 @@ export const Project = ({
             <Divider clear />
 
             <Column style={{ flexGrow: 1 }}>
-              <ActionRow title={'Участники проекта'} onAdd={onMemberAdd || (() => {})} action />
+              <ActionRow title={'Участники проекта'} />
 
               {members?.length > 0 ? (
                 <Grid percentage={'minmax(320px, 1fr)'}>
@@ -419,6 +405,11 @@ export const Project = ({
                   Добавьте участников
                 </Alert>
               )}
+
+              <AddButton type={'button'} onClick={onMemberAdd || (() => {})}>
+                <span>Добавить</span>
+                <Icon type={'button'} icon={'add'} stroke={'white'} />
+              </AddButton>
             </Column>
 
             <Divider clear />
@@ -426,8 +417,6 @@ export const Project = ({
             <ActionRow
               title={'Изображения'}
               info={'Допустимые форматы: jpeg, jpg, png. Макс. размер: 15 MB'}
-              onAdd={(!project && onScreenshotAdd) || (() => {})}
-              action
             />
 
             {screenshots?.length > 0 ? (
@@ -470,13 +459,16 @@ export const Project = ({
               </Alert>
             )}
 
+            <AddButton type={'button'} onClick={onScreenshotAdd || (() => {})}>
+              <span>Добавить</span>
+              <Icon type={'button'} icon={'add'} stroke={'white'} />
+            </AddButton>
+
             <Divider clear />
 
             <ActionRow
               title={'Файлы'}
               info={'Допустимые форматы: pdf, docx, .doc. Макс. размер: 15 MB'}
-              onAdd={onFileAdd || (() => {})}
-              action
             />
 
             {files?.length > 0 ? (
@@ -513,6 +505,11 @@ export const Project = ({
                 Добавьте файлы
               </Alert>
             )}
+
+            <AddButton type={'button'} onClick={onFileAdd || (() => {})}>
+              <span>Добавить</span>
+              <Icon type={'button'} icon={'add'} stroke={'white'} />
+            </AddButton>
 
             <Divider clear />
 

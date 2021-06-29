@@ -95,7 +95,6 @@ const MainContent = ({ children }) => {
 
   const [getUser, { data, loading }] = useLazyQuery(queries.GET_USER)
   const { data: dataMeta, loading: loadingMeta } = useQuery(queries.GET_META)
-  const search = useSelector((state) => state.root.search)
   const dispatch = useDispatch()
 
   useEffect(() => {

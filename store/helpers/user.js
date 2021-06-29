@@ -27,7 +27,7 @@ import { setItem } from '../actions/snacks'
 import { onChat } from '.'
 
 export function onCheckResetToken(dispatch, props) {
-  const { email, mutations } = props
+  const { redirect, email, mutations } = props
 
   dispatch(
     setStepper({
@@ -51,9 +51,13 @@ export function onCheckResetToken(dispatch, props) {
                   message: 'Пароль успешно сброшен'
                 })
               )
-              setTimeout(() => {
-                onUserCheckin(dispatch, { mutations })
-              }, 200)
+
+              if (redirect) redirect()
+              else {
+                setTimeout(() => {
+                  onUserCheckin(dispatch, { mutations })
+                }, 200)
+              }
             } else {
               dispatch(
                 setItem({
@@ -70,14 +74,14 @@ export function onCheckResetToken(dispatch, props) {
 }
 
 export function onUserResetPassword(dispatch, props) {
-  const { mutations } = props
+  const { mutations, redirect, withoutBack } = props
   dispatch(
     setStepper({
       name: 'resetPassword',
       content: (
         <ResetPassword
           mutations={mutations}
-          onBack={() => onUserCheckin(dispatch, { mutations })}
+          onBack={!withoutBack && (() => onUserCheckin(dispatch, { mutations }))}
           onSubmit={async (form, action) => {
             try {
               const response = await action({
@@ -87,7 +91,7 @@ export function onUserResetPassword(dispatch, props) {
               })
 
               if (response) {
-                onCheckResetToken(dispatch, { email: form.email, mutations })
+                onCheckResetToken(dispatch, { redirect, email: form.email, mutations })
               }
             } catch (err) {
               dispatch(
@@ -244,7 +248,9 @@ export function onUserRegister(dispatch, props) {
               dispatch(
                 setItem({
                   type: 'error',
-                  message: 'Не удалось зарегистрировать пользователя'
+                  message:
+                    err.message.replace('GraphQL error: ', '') ||
+                    'Не удалось зарегистрировать пользователя'
                 })
               )
             }

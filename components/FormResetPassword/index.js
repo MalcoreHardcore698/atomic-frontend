@@ -49,12 +49,12 @@ export const ResetPassword = ({
           )}
 
           <Row>
-            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
-              Сбросить
-            </Button>
-
             <Button style={{ flexGrow: 1 }} type={'button'} onClick={onBack}>
               Отмена
+            </Button>
+
+            <Button style={{ flexGrow: 1 }} type={'submit'} disabled={loading}>
+              Сбросить
             </Button>
           </Row>
         </React.Fragment>

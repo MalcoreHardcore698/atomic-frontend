@@ -2,14 +2,14 @@
   "../node_modules/jspdf/dist/jspdf.es.min.js -> canvg": {
     "id": "DXPr",
     "files": [
-      "static/chunks/72a30a16.758be84604f10524bfb2.js",
-      "static/chunks/34.d2d387240327e4c0eb11.js"
+      "static/chunks/72a30a16.95b0dc54efc8b4a10321.js",
+      "static/chunks/35.3077a305f4ab8aed5094.js"
     ]
   },
   "../node_modules/jspdf/dist/jspdf.es.min.js -> dompurify": {
     "id": "wMS7",
     "files": [
-      "static/chunks/35.897beef3942143f64b88.js"
+      "static/chunks/36.6b70d785c0cfe8f3e010.js"
     ]
   },
   "../node_modules/jspdf/dist/jspdf.es.min.js -> html2canvas": {

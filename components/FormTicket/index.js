@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 
 import Row from '../../atomic-ui/components/Row'
 import Column from '../../atomic-ui/components/Column'
+import Container from '../../atomic-ui/components/Container'
 import Input from '../../atomic-ui/components/Input'
 import Button from '../../atomic-ui/components/Button'
 import Title from '../../atomic-ui/components/Title'
@@ -37,7 +38,16 @@ export const Header = styled(Row)`
   }
 `
 
-export const Ticket = ({ title, ticket, appearance, mutation, className, isClient, onSubmit }) => {
+export const Ticket = ({
+  title,
+  ticket,
+  appearance,
+  mutation,
+  className,
+  withContainer,
+  isClient,
+  onSubmit
+}) => {
   const [checkedAll, setCheckedAll] = useState(false)
   // const [offsetUsers, setOffsetUsers] = useState(0)
   // const [usersSelectInput, setUsersSelectInput] = useState('')
@@ -146,7 +156,14 @@ export const Ticket = ({ title, ticket, appearance, mutation, className, isClien
         !loadingTicket && data ? (
           <React.Fragment>
             <Column>
-              {title && <Title tag={'h4'}>Основное</Title>}
+              {title && !withContainer && <Title tag={'h4'}>{title}</Title>}
+              {title && withContainer && (
+                <Container>
+                  <Title style={{ textAlign: 'center' }} tag={'h4'}>
+                    {title}
+                  </Title>
+                </Container>
+              )}
 
               {errors && errors.title && (
                 <Alert style={{ width: '100%' }} appearance={'error'}>
@@ -357,7 +374,7 @@ export const Ticket = ({ title, ticket, appearance, mutation, className, isClien
 }
 
 Ticket.defaultProps = {
-  title: true
+  title: 'Основное'
 }
 
 export default Ticket

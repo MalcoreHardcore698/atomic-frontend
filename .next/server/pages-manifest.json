@@ -20,5 +20,7 @@
   "/": "pages/index.js",
   "/profile": "pages/profile.html",
   "/projects": "pages/projects.html",
+  "/reset-password": "pages/reset-password.html",
+  "/support": "pages/support.html",
   "/_error": "pages/_error.js"
 }
